@@ -14,8 +14,8 @@ import { deliveryRegions, calculatePrice, getDisplayDeliveryPrice } from '@/lib/
 import { Badge } from '@/components/ui/badge'
 import { Truck } from 'lucide-react'
 
-export function Calculator() {
-  const [selectedProduct, setSelectedProduct] = useState<string>('')
+export function Calculator({ initialProductId }: { initialProductId?: string }) {
+  const [selectedProduct, setSelectedProduct] = useState<string>(initialProductId || '')
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [volume, setVolume] = useState<string>('')
   const [showDetails, setShowDetails] = useState(false)
@@ -41,10 +41,11 @@ export function Calculator() {
       if (apiDeliveryPrice) {
         deliveryPrice = apiDeliveryPrice
       } else {
-        deliveryPrice = calculatePrice(selectedRegion, volumeNum)
+        const result = calculatePrice(product.pricePerTon, volumeNum, selectedRegion)
+        deliveryPrice = result ? result.deliveryCost : 0
       }
-      const region = deliveryRegions.find(r => r.value === selectedRegion)
-      deliveryInfo = region?.label || ''
+      const region = deliveryRegions.find(r => r.id === selectedRegion)
+      deliveryInfo = region?.name || ''
     }
 
     const total = productPrice + deliveryPrice
@@ -136,8 +137,8 @@ export function Calculator() {
             </SelectTrigger>
             <SelectContent>
               {deliveryRegions.map((region) => (
-                <SelectItem key={region.value} value={region.value}>
-                  {region.label} {region.value !== 'pickup' && `(от ${getDisplayDeliveryPrice(region.value).toLocaleString('ru-RU')} ₽/т)`}
+                <SelectItem key={region.id} value={region.id}>
+                  {region.name} {region.id !== 'pickup' && `(от ${getDisplayDeliveryPrice(region.id).toLocaleString('ru-RU')} ₽/т)`}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -208,7 +209,7 @@ export function Calculator() {
 
             {showDetails && (
               <div className="space-y-1 text-sm text-muted-foreground bg-muted/50 p-3 rounded-md">
-                <p>• Цена продукта: {products.find(p => p.slug === selectedProduct)?.price.toLocaleString('ru-RU')} ₽/т × {calculation.volumeNum} т</p>
+                <p>• Цена продукта: {products.find(p => p.slug === selectedProduct)?.pricePerTon.toLocaleString('ru-RU')} ₽/т × {calculation.volumeNum} т</p>
                 {calculation.deliveryInfo && (
                   <>
                     <p>• Регион: {calculation.deliveryInfo}</p>

@@ -2,7 +2,7 @@
 
 import { Product } from '@/types'
 import { SectionHeader } from '@/components/section-header'
-import { CalculatorComponent } from '@/components/calculator'
+import { Calculator } from '@/components/calculator'
 
 interface ProductCalculatorProps {
   product: Product
@@ -18,7 +18,7 @@ export function ProductCalculator({ product }: ProductCalculatorProps) {
           centered
         />
         <div className="mt-8">
-          <CalculatorComponent initialProductId={product.id} />
+          <Calculator initialProductId={product.id} />
         </div>
       </div>
     </section>
