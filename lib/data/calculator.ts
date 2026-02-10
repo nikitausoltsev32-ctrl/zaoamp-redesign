@@ -19,28 +19,60 @@ export const deliveryRegions: DeliveryRegion[] = [
     description: 'Доставка по городу и ближайшие районы'
   },
   {
+    id: 'sverdlovsk',
+    name: 'Свердловская область',
+    basePrice: 2200, // 2000 * 1.1
+    minCost: 4400,   // 4000 * 1.1
+    minVolume: 20,
+    description: 'Нижний Тагил, Первоуральск, Серов и др.'
+  },
+  {
     id: 'ural',
     name: 'Уральский регион',
     basePrice: 2750, // 2500 * 1.1
     minCost: 5500,   // 5000 * 1.1
     minVolume: 20,
-    description: 'Челябинск, Тюмень, Пермь, Курган и др.'
+    description: 'Челябинск, Тюмень, Пермь, Курган, Уфа'
+  },
+  {
+    id: 'volga',
+    name: 'Поволжье',
+    basePrice: 4950, // 4500 * 1.1
+    minCost: 9900,   // 9000 * 1.1
+    minVolume: 20,
+    description: 'Казань, Самара, Нижний Новгород, Саратов, Волгоград'
   },
   {
     id: 'moscow',
-    name: 'Москва и Центр',
+    name: 'Москва и Московская область',
     basePrice: 6600, // 6000 * 1.1
     minCost: 13200,  // 12000 * 1.1
     minVolume: 20,
-    description: 'Москва, Санкт-Петербург, Центральный ФО'
+    description: 'Москва, Подмосковье'
   },
   {
-    id: 'siberia',
-    name: 'Сибирь и Дальний Восток',
-    basePrice: 8800, // 8000 * 1.1
-    minCost: 17600,  // 16000 * 1.1
+    id: 'center',
+    name: 'Центральный регион',
+    basePrice: 5500, // 5000 * 1.1
+    minCost: 11000,  // 10000 * 1.1
     minVolume: 20,
-    description: 'Новосибирск, Красноярск, Владивосток и др.'
+    description: 'Тула, Калуга, Рязань, Владимир, Ярославль, Иваново'
+  },
+  {
+    id: 'northwest',
+    name: 'Санкт-Петербург и Северо-Запад',
+    basePrice: 7150, // 6500 * 1.1
+    minCost: 14300,  // 13000 * 1.1
+    minVolume: 20,
+    description: 'Санкт-Петербург, Ленинградская обл., Новгород, Псков, Вологда'
+  },
+  {
+    id: 'kaliningrad',
+    name: 'Калининград и область',
+    basePrice: 9350, // 8500 * 1.1
+    minCost: 18700,  // 17000 * 1.1
+    minVolume: 20,
+    description: 'Калининград (особый регион, требуется транзит)'
   },
   {
     id: 'south',
@@ -48,7 +80,31 @@ export const deliveryRegions: DeliveryRegion[] = [
     basePrice: 7150, // 6500 * 1.1
     minCost: 14300,  // 13000 * 1.1
     minVolume: 20,
-    description: 'Ростов, Краснодар, Волгоград и др.'
+    description: 'Ростов-на-Дону, Краснодар, Ставрополь, Волгоград, Астрахань'
+  },
+  {
+    id: 'siberia-west',
+    name: 'Западная Сибирь',
+    basePrice: 8800, // 8000 * 1.1
+    minCost: 17600,  // 16000 * 1.1
+    minVolume: 20,
+    description: 'Новосибирск, Омск, Томск, Барнаул, Кемерово'
+  },
+  {
+    id: 'siberia-east',
+    name: 'Восточная Сибирь',
+    basePrice: 11000, // 10000 * 1.1
+    minCost: 22000,   // 20000 * 1.1
+    minVolume: 20,
+    description: 'Красноярск, Иркутск, Улан-Удэ, Чита'
+  },
+  {
+    id: 'far-east',
+    name: 'Дальний Восток',
+    basePrice: 14300, // 13000 * 1.1
+    minCost: 28600,   // 26000 * 1.1
+    minVolume: 20,
+    description: 'Владивосток, Хабаровск, Благовещенск, Якутск'
   },
   {
     id: 'pickup',
