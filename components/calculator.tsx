@@ -182,11 +182,16 @@ export function CalculatorComponent({ initialProductId }: CalculatorProps) {
                   {result.deliveryCost > 0 && (
                     <>
                       <p>Регион: {result.regionName}</p>
-                      <p>Тариф доставки: {formatPrice(getDisplayDeliveryPrice(regionId))} ₽/т (без НДС)</p>
+                      <p>Стоимость доставки включает все расходы на транспортировку</p>
                       <p className="text-green-600">
-                        ✓ В стоимость включены все расходы на транспортировку
+                        ✓ Доставка рассчитана с учетом текущих тарифов
                       </p>
                     </>
+                  )}
+                  {regionId === 'pickup' && (
+                    <p className="text-blue-600">
+                      ✓ Самовывоз с производства в Свердловской области
+                    </p>
                   )}
                 </motion.div>
               )}
