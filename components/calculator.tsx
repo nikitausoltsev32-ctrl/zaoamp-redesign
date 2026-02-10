@@ -1,3 +1,6 @@
+// ОБНОВЛЁННЫЙ КАЛЬКУЛЯТОР С ИНТЕГРАЦИЕЙ API ДЕЛОВЫХ ЛИНИЙ
+// Заменит components/calculator.tsx
+
 'use client'
 
 import { useState, useMemo } from 'react'
@@ -7,203 +10,221 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { products } from '@/lib/data/products'
-import { deliveryRegions, calculatePrice, getDisplayDeliveryPrice, CalculatorResult } from '@/lib/data/calculator'
-import { formatPrice } from '@/lib/utils/products'
-import { Calculator, Truck, AlertCircle } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { deliveryRegions, calculatePrice, getDisplayDeliveryPrice } from '@/lib/data/calculator'
+import { Badge } from '@/components/ui/badge'
+import { Truck } from 'lucide-react'
 
-interface CalculatorProps {
-  initialProductId?: string
-}
-
-export function CalculatorComponent({ initialProductId }: CalculatorProps) {
-  const [productId, setProductId] = useState(initialProductId || products[0].id)
-  const [volume, setVolume] = useState('20')
-  const [regionId, setRegionId] = useState('ekaterinburg')
+export function Calculator() {
+  const [selectedProduct, setSelectedProduct] = useState<string>('')
+  const [selectedRegion, setSelectedRegion] = useState<string>('')
+  const [volume, setVolume] = useState<string>('')
   const [showDetails, setShowDetails] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [apiDeliveryPrice, setApiDeliveryPrice] = useState<number | null>(null)
 
-  const selectedProduct = useMemo(() => 
-    products.find(p => p.id === productId) || products[0],
-    [productId]
-  )
-
-  const selectedRegion = useMemo(() => 
-    deliveryRegions.find(r => r.id === regionId) || deliveryRegions[0],
-    [regionId]
-  )
-
-  const result: CalculatorResult | null = useMemo(() => {
-    const vol = parseFloat(volume) || 0
-    if (vol <= 0) return null
-    return calculatePrice(selectedProduct.pricePerTon, vol, regionId)
-  }, [selectedProduct, volume, regionId])
-
-  const volumeError = useMemo(() => {
-    const vol = parseFloat(volume) || 0
-    if (vol > 0 && vol < selectedRegion.minVolume && regionId !== 'pickup') {
-      return `Минимальный заказ для доставки: ${selectedRegion.minVolume} тонн`
+  const calculation = useMemo(() => {
+    if (!selectedProduct || !volume || parseFloat(volume) <= 0) {
+      return null
     }
-    return null
-  }, [volume, selectedRegion, regionId])
+
+    const product = products.find(p => p.slug === selectedProduct)
+    if (!product) return null
+
+    const volumeNum = parseFloat(volume)
+    const productPrice = product.price * volumeNum
+
+    let deliveryPrice = 0
+    let deliveryInfo = ''
+
+    if (selectedRegion && selectedRegion !== 'pickup') {
+      // Используем API цену если доступна
+      if (apiDeliveryPrice) {
+        deliveryPrice = apiDeliveryPrice
+      } else {
+        deliveryPrice = calculatePrice(selectedRegion, volumeNum)
+      }
+      const region = deliveryRegions.find(r => r.value === selectedRegion)
+      deliveryInfo = region?.label || ''
+    }
+
+    const total = productPrice + deliveryPrice
+    const pricePerTon = volumeNum > 0 ? total / volumeNum : 0
+
+    return {
+      productPrice,
+      deliveryPrice,
+      total,
+      pricePerTon,
+      volumeNum,
+      productName: product.name,
+      deliveryInfo,
+    }
+  }, [selectedProduct, selectedRegion, volume, apiDeliveryPrice])
+
+  // Запрос к API Деловых Линий
+  const handleCalculateWithAPI = async () => {
+    if (!selectedRegion || selectedRegion === 'pickup' || !volume) {
+      return
+    }
+
+    setLoading(true)
+    try {
+      const response = await fetch('/api/delivery/calculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          derivalCity: 'ekaterinburg',
+          arrivalCity: selectedRegion,
+          weight: parseFloat(volume)
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setApiDeliveryPrice(data.price)
+      }
+    } catch (error) {
+      console.error('API error:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-brand-orange/10 to-brand-gold/10">
-        <CardTitle className="flex items-center gap-2 text-xl">
-          <Calculator className="h-5 w-5 text-brand-orange" />
-          Рассчитать стоимость
-        </CardTitle>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle>Калькулятор стоимости</CardTitle>
       </CardHeader>
-      <CardContent className="p-6 space-y-6">
-        {/* Product Selection */}
+      <CardContent className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="product">Фракция</Label>
-          <Select value={productId} onValueChange={setProductId}>
-            <SelectTrigger id="product">
-              <SelectValue />
+          <Label htmlFor="product">Продукт</Label>
+          <Select value={selectedProduct} onValueChange={setSelectedProduct}>
+            <SelectTrigger>
+              <SelectValue placeholder="Выберите продукт" />
             </SelectTrigger>
             <SelectContent>
-              {products.map(product => (
-                <SelectItem key={product.id} value={product.id}>
-                  {product.name} — {formatPrice(product.pricePerTon)} ₽/т
+              {products.map((product) => (
+                <SelectItem key={product.slug} value={product.slug}>
+                  {product.name} — {product.price.toLocaleString('ru-RU')} ₽/т
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
 
-        {/* Volume Input */}
         <div className="space-y-2">
-          <Label htmlFor="volume">Объем (тонн)</Label>
-          <div className="relative">
-            <Input
-              id="volume"
-              type="number"
-              min="1"
-              value={volume}
-              onChange={(e) => setVolume(e.target.value)}
-              className={volumeError ? 'border-red-500' : ''}
-            />
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-              тонн
-            </span>
-          </div>
-          {volumeError && (
-            <div className="flex items-center gap-2 text-sm text-red-500">
-              <AlertCircle className="h-4 w-4" />
-              {volumeError}
-            </div>
-          )}
-          {regionId !== 'pickup' && (
-            <p className="text-xs text-muted-foreground">
-              Минимальный заказ для доставки: {selectedRegion.minVolume} тонн
-            </p>
-          )}
+          <Label htmlFor="volume">Объём (тонны)</Label>
+          <Input
+            id="volume"
+            type="number"
+            min="1"
+            step="0.1"
+            placeholder="Введите количество тонн"
+            value={volume}
+            onChange={(e) => setVolume(e.target.value)}
+          />
         </div>
 
-        {/* Region Selection */}
         <div className="space-y-2">
-          <Label htmlFor="region" className="flex items-center gap-2">
-            <Truck className="h-4 w-4" />
-            Регион доставки
-          </Label>
-          <Select value={regionId} onValueChange={setRegionId}>
-            <SelectTrigger id="region">
-              <SelectValue />
+          <Label htmlFor="region">Регион доставки</Label>
+          <Select value={selectedRegion} onValueChange={(val) => {
+            setSelectedRegion(val)
+            setApiDeliveryPrice(null) // Сброс API цены
+          }}>
+            <SelectTrigger>
+              <SelectValue placeholder="Выберите регион" />
             </SelectTrigger>
             <SelectContent>
-              {deliveryRegions.map(region => (
-                <SelectItem key={region.id} value={region.id}>
-                  {region.name}
-                  {region.id !== 'pickup' && (
-                    <span className="ml-2 text-muted-foreground">
-                      (от {formatPrice(getDisplayDeliveryPrice(region.id))} ₽/т)
-                    </span>
-                  )}
+              {deliveryRegions.map((region) => (
+                <SelectItem key={region.value} value={region.value}>
+                  {region.label} {region.value !== 'pickup' && `(от ${getDisplayDeliveryPrice(region.value).toLocaleString('ru-RU')} ₽/т)`}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          <p className="text-sm text-muted-foreground">
-            {selectedRegion.description}
-          </p>
         </div>
 
-        {/* Result */}
-        <AnimatePresence mode="wait">
-          {result && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              className="bg-stone-50 rounded-xl p-6 space-y-4"
-            >
-              <div className="flex justify-between items-center">
+        {/* НОВЫЙ БЛОК: Кнопка для расчета через API */}
+        {selectedRegion && selectedRegion !== 'pickup' && (
+          <Button 
+            onClick={handleCalculateWithAPI} 
+            disabled={loading || !volume}
+            className="w-full"
+            variant="outline"
+          >
+            {loading ? 'Расчёт...' : 'Рассчитать точную стоимость доставки'}
+          </Button>
+        )}
+
+        {calculation && (
+          <div className="space-y-4 pt-4 border-t">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Стоимость продукта:</span>
-                <span className="font-medium">{formatPrice(result.productCost)} ₽</span>
+                <span className="font-medium">
+                  {calculation.productPrice.toLocaleString('ru-RU')} ₽
+                </span>
               </div>
-              
-              {result.deliveryCost > 0 && (
-                <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Доставка ({result.regionName}):</span>
-                  <span className="font-medium">{formatPrice(result.deliveryCost)} ₽</span>
-                </div>
-              )}
 
-              <div className="border-t pt-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-lg font-semibold">Итого:</span>
-                  <span className="text-2xl font-bold text-brand-orange">
-                    {formatPrice(result.total)} ₽
+              {calculation.deliveryPrice > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    Доставка ({calculation.deliveryInfo}):
+                  </span>
+                  <span className="font-medium">
+                    {calculation.deliveryPrice.toLocaleString('ru-RU')} ₽
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground text-right mt-1">
-                  ~{formatPrice(Math.round(result.total / result.volume))} ₽/тонна с доставкой
-                </p>
+              )}
+
+              <div className="flex justify-between text-lg font-bold pt-2 border-t">
+                <span>Итого:</span>
+                <span>{calculation.total.toLocaleString('ru-RU')} ₽</span>
               </div>
 
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={() => setShowDetails(!showDetails)}
-                className="w-full"
-              >
-                {showDetails ? 'Скрыть детали' : 'Показать детали расчета'}
-              </Button>
+              <p className="text-sm text-muted-foreground text-center">
+                ~{Math.round(calculation.pricePerTon).toLocaleString('ru-RU')} ₽/тонна с доставкой
+              </p>
+            </div>
 
-              {showDetails && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="text-xs text-muted-foreground space-y-1 pt-2 border-t"
-                >
-                  <p>Цена продукта: {formatPrice(result.pricePerTon)} ₽/т × {result.volume} т</p>
-                  {result.deliveryCost > 0 && (
-                    <>
-                      <p>Регион: {result.regionName}</p>
-                      <p>Стоимость доставки включает все расходы на транспортировку</p>
-                      <p className="text-green-600">
-                        ✓ Доставка рассчитана с учетом текущих тарифов
-                      </p>
-                    </>
-                  )}
-                  {regionId === 'pickup' && (
-                    <p className="text-blue-600">
-                      ✓ Самовывоз с производства в Свердловской области
-                    </p>
-                  )}
-                </motion.div>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {/* НОВЫЙ БЛОК: Бейдж "Доставка рассчитана через Деловые Линии" */}
+            {selectedRegion && selectedRegion !== 'pickup' && (
+              <div className="flex items-center justify-center gap-2 pt-2">
+                <Badge variant="outline" className="gap-1.5">
+                  <Truck className="h-3 w-3" />
+                  Доставка рассчитана через Деловые Линии
+                </Badge>
+              </div>
+            )}
 
-        {/* CTA */}
-        {result && (
-          <Button className="w-full bg-brand-orange hover:bg-brand-gold" size="lg">
-            Оставить заявку на {result.volume} тонн
-          </Button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setShowDetails(!showDetails)}
+              className="w-full"
+            >
+              {showDetails ? 'Скрыть детали' : 'Показать детали расчёта'}
+            </Button>
+
+            {showDetails && (
+              <div className="space-y-1 text-sm text-muted-foreground bg-muted/50 p-3 rounded-md">
+                <p>• Цена продукта: {products.find(p => p.slug === selectedProduct)?.price.toLocaleString('ru-RU')} ₽/т × {calculation.volumeNum} т</p>
+                {calculation.deliveryInfo && (
+                  <>
+                    <p>• Регион: {calculation.deliveryInfo}</p>
+                    <p>• Стоимость доставки включает все расходы на транспортировку</p>
+                    <p>• ✓ Доставка рассчитана с учетом текущих тарифов</p>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {!calculation && volume && parseFloat(volume) > 0 && !selectedProduct && (
+          <p className="text-sm text-muted-foreground text-center">
+            Выберите продукт для расчёта стоимости
+          </p>
         )}
       </CardContent>
     </Card>
