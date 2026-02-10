@@ -1,7 +1,7 @@
 'use client'
 
 import { SectionHeader } from '@/components/section-header'
-import { CalculatorComponent } from '@/components/calculator'
+import { Calculator } from '@/components/calculator'
 
 export function CalculatorSection() {
   return (
@@ -13,7 +13,7 @@ export function CalculatorSection() {
           centered
         />
         <div className="mt-8">
-          <CalculatorComponent />
+          <Calculator />
         </div>
       </div>
     </section>
