@@ -12,6 +12,7 @@
 6. [Данные и контент](#данные-и-контент)
 7. [Дизайн-система](#дизайн-система)
 8. [Инструкции для AI](#инструкции-для-ai)
+9. [Интеграция Dellin API](#интеграция-dellin-api)
 
 ---
 
@@ -602,5 +603,371 @@ git push origin main     # Отправить изменения
 ---
 
 **Последнее обновление**: 10 февраля 2026  
+
+---
+
+## Интеграция Dellin API
+
+### Обзор
+
+Проект использует API «Деловых Линий» (Dellin) для расчёта стоимости и сроков доставки мраморной крошки клиентам.
+
+**Базовый URL**: `https://api.dellin.ru`
+**Формат**: REST API, JSON
+**Кодировка**: UTF-8
+
+### Endpoints
+
+#### 1. Авторизация
+
+```http
+POST /v1/customers/login
+```
+
+**Назначение**: Получение `sessionID` для доступа к персональным условиям (скидки, история заказов).
+
+**Параметры запроса**:
+
+```typescript
+interface LoginRequest {
+  appkey: string;        // Ключ приложения (required)
+  login: string;         // Телефон в формате +7XXXXXXXXXX (required)
+  password: string;      // Пароль от ЛК (required)
+}
+```
+
+**Пример запроса**:
+
+```json
+{
+  "appkey": "YOUR_APP_KEY",
+  "login": "+79991234567",
+  "password": "yourPassword"
+}
+```
+
+**Успешный ответ**:
+
+```typescript
+interface LoginResponse {
+  success: true;
+  sessionID: string;     // Токен сессии
+  metadata: object;
+}
+```
+
+**Ошибки**:
+- `400` - Неверный формат логина/пароля, отсутствуют поля
+- `401`/`403` - Неверные учетные данные
+
+---
+
+#### 2. Калькулятор стоимости и сроков
+
+```http
+POST /v2/calculator
+```
+
+**Назначение**: Расчёт стоимости доставки и минимальных сроков.
+
+**Основные параметры**:
+
+```typescript
+interface CalculatorRequest {
+  appkey: string;                    // Ключ приложения (required)
+  sessionID?: string;                // Токен сессии (optional)
+  delivery: DeliveryParams;          // Параметры доставки (required)
+  cargo: CargoParams;                // Параметры груза (required)
+  members?: MembersParams;           // Стороны перевозки (optional)
+  payment?: PaymentParams;           // Параметры оплаты (optional)
+}
+
+interface DeliveryParams {
+  deliveryType: {
+    type: string;                    // Тип перевозки (автоперевозка и др.)
+  };
+  derival: DerivalArrival;           // Параметры отправления
+  arrival: DerivalArrival;           // Параметры прибытия
+}
+
+interface DerivalArrival {
+  produceDate?: string;              // Дата сдачи груза (YYYY-MM-DD)
+  variant: string;                   // "terminal" | "address"
+  terminalID?: string;               // ID терминала
+  addressID?: number;                // ID адреса из адресной книги
+  address?: {
+    search?: string;                 // Текстовый адрес или "lat,lon"
+    street?: string;
+    house?: string;
+  };
+  city?: string;                     // Код города (КЛАДР)
+}
+
+interface CargoParams {
+  totalVolume?: number;              // Общий объем (м³)
+  totalWeight: number;               // Общий вес (кг)
+  // Дополнительные параметры габаритов при необходимости
+}
+```
+
+**Пример минимального запроса**:
+
+```json
+{
+  "appkey": "YOUR_APP_KEY",
+  "delivery": {
+    "deliveryType": {
+      "type": "auto"
+    },
+    "derival": {
+      "produceDate": "2026-02-15",
+      "variant": "terminal",
+      "terminalID": "ekb-terminal-1"
+    },
+    "arrival": {
+      "variant": "address",
+      "address": {
+        "search": "Москва, ул. Ленина, 10"
+      }
+    }
+  },
+  "cargo": {
+    "totalVolume": 0.5,
+    "totalWeight": 500
+  }
+}
+```
+
+**Ответ**:
+
+Возвращает стоимость, НДС, минимальные/максимальные сроки доставки.
+
+---
+
+#### 3. Доступные даты доставки
+
+```http
+POST /v1/public/delivery_dates
+```
+
+**Назначение**: Получить список доступных дат и временных интервалов для забора/доставки груза.
+
+**Параметры**: Аналогичны параметрам адреса из `DerivalArrival`.
+
+---
+
+### Обработка ошибок
+
+**Формат ошибки**:
+
+```typescript
+interface ErrorResponse {
+  errors: Array<{
+    code: string;                    // Код ошибки
+    field?: string;                  // Поле с ошибкой
+    message: string;                 // Описание ошибки
+  }>;
+}
+```
+
+**HTTP коды**:
+- `400` - Ошибка валидации: неверный формат данных, отсутствуют обязательные поля, некорректный тип
+- `401`/`403` - Проблемы с авторизацией
+- `500+` - Внутренние ошибки сервера Dellin
+
+**Типичные причины 400**:
+1. Неверный тип данных параметра (число вместо строки)
+2. Отсутствует обязательный параметр
+3. Некорректный формат поля (телефон, дата, адрес)
+4. Неверный формат логина (должен быть `+7XXXXXXXXXX`)
+
+**Что делать при ошибке**:
+1. Логировать **полное тело запроса** и **полное тело ответа**
+2. Проверить типы данных всех параметров
+3. Сверить с документацией формат обязательных полей
+4. Убедиться, что отправляется валидный JSON с правильным `Content-Type: application/json`
+
+---
+
+### Реализация в проекте
+
+#### Структура файлов
+
+```
+lib/
+├── api/
+│   ├── dellin.ts              # Клиент Dellin API
+│   └── dellin-types.ts        # TypeScript типы для API
+├── data/
+│   └── delivery.ts            # Данные о терминалах и регионах
+components/
+└── calculator.tsx             # Компонент калькулятора доставки
+```
+
+#### Пример клиента API
+
+```typescript
+// lib/api/dellin.ts
+import type { CalculatorRequest, CalculatorResponse } from './dellin-types';
+
+const DELLIN_API_BASE = 'https://api.dellin.ru';
+const DELLIN_APP_KEY = process.env.NEXT_PUBLIC_DELLIN_APP_KEY;
+
+export class DellinAPI {
+  private sessionID?: string;
+
+  async login(login: string, password: string) {
+    const response = await fetch(`${DELLIN_API_BASE}/v1/customers/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        appkey: DELLIN_APP_KEY,
+        login,
+        password,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(`Dellin login failed: ${JSON.stringify(error)}`);
+    }
+
+    const data = await response.json();
+    this.sessionID = data.sessionID;
+    return data;
+  }
+
+  async calculateDelivery(params: Omit<CalculatorRequest, 'appkey'>) {
+    const response = await fetch(`${DELLIN_API_BASE}/v2/calculator`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        appkey: DELLIN_APP_KEY,
+        sessionID: this.sessionID,
+        ...params,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Dellin API error:', error);
+      throw new Error(`Dellin calculation failed: ${JSON.stringify(error)}`);
+    }
+
+    return await response.json() as CalculatorResponse;
+  }
+}
+
+// Singleton instance
+export const dellinAPI = new DellinAPI();
+```
+
+#### Пример использования в компоненте
+
+```typescript
+// components/calculator.tsx
+'use client';
+
+import { useState } from 'react';
+import { dellinAPI } from '@/lib/api/dellin';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+export function DeliveryCalculator() {
+  const [weight, setWeight] = useState(500);
+  const [address, setAddress] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleCalculate = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await dellinAPI.calculateDelivery({
+        delivery: {
+          deliveryType: { type: 'auto' },
+          derival: {
+            produceDate: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+            variant: 'terminal',
+            terminalID: 'ekb-terminal-1',
+          },
+          arrival: {
+            variant: 'address',
+            address: { search: address },
+          },
+        },
+        cargo: {
+          totalWeight: weight,
+          totalVolume: weight / 1000, // Примерный расчет объема
+        },
+      });
+
+      setResult(response);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка расчёта');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <Input
+        type="number"
+        placeholder="Вес груза (кг)"
+        value={weight}
+        onChange={(e) => setWeight(Number(e.target.value))}
+      />
+      <Input
+        type="text"
+        placeholder="Адрес доставки"
+        value={address}
+        onChange={(e) => setAddress(e.target.value)}
+      />
+      <Button onClick={handleCalculate} disabled={loading}>
+        {loading ? 'Расчёт...' : 'Рассчитать стоимость'}
+      </Button>
+
+      {error && (
+        <div className="text-red-600">{error}</div>
+      )}
+
+      {result && (
+        <div className="space-y-2">
+          <p>Стоимость: {result.price} ₽</p>
+          <p>Срок доставки: {result.deliveryTime} дней</p>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+### Environment Variables
+
+Добавь в `.env.local`:
+
+```bash
+NEXT_PUBLIC_DELLIN_APP_KEY=your_app_key_here
+DELLIN_LOGIN=+79991234567  # Опционально для server-side
+DELLIN_PASSWORD=password    # Опционально для server-side
+```
+
+⚠️ **Важно**: Не коммить `.env.local` в Git!
+
+---
+
+### Полезные ссылки
+
+- [Официальная документация Dellin API](https://dev.dellin.ru/)
+- [Калькулятор стоимости](https://dev.dellin.ru/api/calculation/)
+- [Авторизация](https://dev.dellin.ru/api/auth/login/)
+- [Справочники](https://dev.dellin.ru/api/catalogs/)
+
+---
 **Версия**: 1.0.0  
 **Автор**: nikitausoltsev32-ctrl
