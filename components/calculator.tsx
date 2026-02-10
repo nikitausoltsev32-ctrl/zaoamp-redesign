@@ -31,7 +31,7 @@ export function Calculator() {
     if (!product) return null
 
     const volumeNum = parseFloat(volume)
-    const productPrice = product.price * volumeNum
+    const productPrice = product.pricePerTon * volumeNum
 
     let deliveryPrice = 0
     let deliveryInfo = ''
@@ -105,7 +105,7 @@ export function Calculator() {
             <SelectContent>
               {products.map((product) => (
                 <SelectItem key={product.slug} value={product.slug}>
-                  {product.name} — {product.price.toLocaleString('ru-RU')} ₽/т
+                  {product.name} — {product.pricePerTon.toLocaleString('ru-RU')} ₽/т
                 </SelectItem>
               ))}
             </SelectContent>
