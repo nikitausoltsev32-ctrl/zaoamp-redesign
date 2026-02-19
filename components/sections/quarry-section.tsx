@@ -40,7 +40,7 @@ export function QuarrySection() {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Badge className="mb-4 bg-brand-orange/10 text-brand-orange hover:bg-brand-orange/20">
+            <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
               Производство
             </Badge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -121,7 +121,7 @@ export function QuarrySection() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-orange/10 text-brand-orange mb-4">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-sapphire/10 text-brand-sapphire mb-4">
                 <feature.icon className="h-6 w-6" />
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">{feature.title}</h3>
@@ -130,28 +130,7 @@ export function QuarrySection() {
           ))}
         </div>
 
-        {/* Trust Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 text-center"
-        >
-          <div className="inline-flex items-center gap-2 bg-white rounded-full px-6 py-3 shadow-sm">
-            <div className="flex -space-x-2">
-              <div className="w-8 h-8 rounded-full bg-brand-orange/20 flex items-center justify-center">
-                <Mountain className="h-4 w-4 text-brand-orange" />
-              </div>
-              <div className="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center">
-                <Factory className="h-4 w-4 text-brand-gold" />
-              </div>
-            </div>
-            <span className="text-sm font-medium text-gray-700">
-              Реальное производство • Проверьте сами
-            </span>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   )

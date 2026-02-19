@@ -169,36 +169,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Trust Badge */}
-      <section className="py-8 bg-stone-50 border-y border-stone-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <div className="flex items-center gap-3 bg-white rounded-full px-6 py-3 shadow-sm">
-              <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full bg-brand-orange/20 flex items-center justify-center border-2 border-white">
-                  <Mountain className="h-4 w-4 text-brand-orange" />
-                </div>
-                <div className="w-8 h-8 rounded-full bg-brand-gold/20 flex items-center justify-center border-2 border-white">
-                  <Factory className="h-4 w-4 text-brand-gold" />
-                </div>
-              </div>
-              <span className="text-sm font-medium text-gray-700">
-                Реальное производство
-              </span>
-            </div>
-            <span className="text-muted-foreground text-sm">
-              Вы видите настоящие фото нашего карьера, а не стоковые изображения
-            </span>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Values */}
       <section className="py-16 bg-brand-ice-blue">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -316,7 +286,7 @@ export default function AboutPage() {
           
           <div className="mt-8 text-center">
             <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
-              <Award className="h-4 w-4 text-brand-orange" />
+              <Award className="h-4 w-4 text-brand-sapphire" />
               <span>Белизна мрамора до 98% — уникальное качество для России</span>
             </div>
           </div>
