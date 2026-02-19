@@ -53,6 +53,12 @@ const config: Config = {
           orange: '#F97316',
           gold: '#D97706',
           amber: '#F59E0B',
+          // Синяя палитра
+          'ice-blue': '#D6E6F3',
+          'powder-blue': '#A6C5D7',
+          sapphire: '#0F52BA',
+          'sapphire-dark': '#0B3D8A',
+          'deep-navy': '#000926',
         },
         industrial: {
           slate: '#64748B',

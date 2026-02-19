@@ -2,12 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
+import { Menu } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
 import { navItems } from '@/lib/data/navigation'
+
+import logoAmp from '@/logos/AMP-логотип/амп-1 (2).jpg'
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)
@@ -20,10 +22,16 @@ export function MobileNav() {
           <span className="sr-only">Открыть меню</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+      <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-brand-ice-blue">
         <SheetHeader>
           <SheetTitle className="text-left">
-            <Logo size="sm" />
+            <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+              <Image
+                src={logoAmp}
+                alt="АМП ИМПОРТ-ЭКСПОРТ"
+                className="w-auto object-contain h-14 mix-blend-multiply"
+              />
+            </Link>
           </SheetTitle>
         </SheetHeader>
         <nav className="flex flex-col gap-4 mt-8">
@@ -32,7 +40,7 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="text-lg font-medium text-stone-900 hover:text-brand-orange transition-colors py-2 border-b border-stone-100"
+              className="text-lg font-medium text-stone-900 hover:text-brand-sapphire transition-colors py-2 border-b border-stone-100"
             >
               {item.label}
             </Link>

@@ -3,6 +3,8 @@ import { Inter, Merriweather } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
+import { defaultMetadata } from '@/lib/seo/metadata'
+import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema'
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -17,25 +19,35 @@ const merriweather = Merriweather({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Мраморная крошка и щебень | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    template: '%s | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-  },
-  description: 'Производитель белой мраморной крошки и щебня премиум-качества. Доставка по всей России. Цены от 2 900 ₽/тонна.',
-  keywords: ['мраморная крошка', 'мраморный щебень', 'белый щебень', 'купить щебень', 'Екатеринбург'],
-}
+export const metadata: Metadata = defaultMetadata
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const organizationSchema = generateOrganizationSchema()
+  const websiteSchema = generateWebSiteSchema()
+
   return (
     <html lang="ru" className={`${inter.variable} ${merriweather.variable}`}>
-      <body className="font-sans antialiased">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
+      </head>
+      <body className="font-sans antialiased bg-brand-ice-blue">
         <Header />
-        <main className="pt-20 md:pt-28">
+        <main className="pt-20 md:pt-28 bg-brand-ice-blue">
           {children}
         </main>
         <Footer />

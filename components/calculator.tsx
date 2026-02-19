@@ -21,6 +21,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
   const [showDetails, setShowDetails] = useState(false)
   const [loading, setLoading] = useState(false)
   const [apiDeliveryPrice, setApiDeliveryPrice] = useState<number | null>(null)
+  const [apiWarning, setApiWarning] = useState<string | null>(null)
 
   const calculation = useMemo(() => {
     if (!selectedProduct || !volume || parseFloat(volume) <= 0) {
@@ -82,7 +83,8 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
 
       if (response.ok) {
         const data = await response.json()
-        setApiDeliveryPrice(data.price)
+        setApiDeliveryPrice(data.price ?? data.totalPrice)
+        setApiWarning(data.warning ?? null)
       }
     } catch (error) {
       console.error('API error:', error)
@@ -130,7 +132,8 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
           <Label htmlFor="region">Регион доставки</Label>
           <Select value={selectedRegion} onValueChange={(val) => {
             setSelectedRegion(val)
-            setApiDeliveryPrice(null) // Сброс API цены
+            setApiDeliveryPrice(null)
+            setApiWarning(null)
           }}>
             <SelectTrigger>
               <SelectValue placeholder="Выберите регион" />
@@ -145,12 +148,10 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
           </Select>
         </div>
 
-        {/* НОВЫЙ БЛОК: Кнопка для расчета через API */}
         {selectedRegion && selectedRegion !== 'pickup' && (
-          <Button 
-            onClick={handleCalculateWithAPI} 
+          <Button
+            onClick={handleCalculateWithAPI}
             disabled={loading || !volume}
-            className="w-full"
             variant="outline"
           >
             {loading ? 'Расчёт...' : 'Рассчитать точную стоимость доставки'}
@@ -186,9 +187,12 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
               <p className="text-sm text-muted-foreground text-center">
                 ~{Math.round(calculation.pricePerTon).toLocaleString('ru-RU')} ₽/тонна с доставкой
               </p>
+              {apiWarning && (
+                <p className="text-sm text-amber-600 text-center">{apiWarning}</p>
+              )}
             </div>
 
-            {/* НОВЫЙ БЛОК: Бейдж "Доставка рассчитана через Деловые Линии" */}
+            {/* Бейдж "Доставка рассчитана через Деловые Линии" */}
             {selectedRegion && selectedRegion !== 'pickup' && (
               <div className="flex items-center justify-center gap-2 pt-2">
                 <Badge variant="outline" className="gap-1.5">

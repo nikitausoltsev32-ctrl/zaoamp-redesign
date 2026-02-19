@@ -72,7 +72,7 @@ export function HeroImageSlider() {
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all ${
               index === currentIndex 
-                ? 'bg-brand-orange w-6' 
+                ? 'bg-brand-sapphire w-6' 
                 : 'bg-white/50 hover:bg-white/80'
             }`}
           />
@@ -80,11 +80,11 @@ export function HeroImageSlider() {
       </div>
 
       {/* Бейджи поверх фото */}
-      <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-4 z-10">
-        <p className="text-2xl font-bold text-brand-orange">98%</p>
+      <div className="absolute -bottom-6 -left-6 bg-brand-ice-blue rounded-xl shadow-xl p-4 z-10">
+        <p className="text-2xl font-bold text-brand-sapphire">98%</p>
         <p className="text-xs text-muted-foreground">Белизна</p>
       </div>
-      <div className="absolute -top-6 -right-6 bg-white rounded-xl shadow-xl p-4 z-10">
+      <div className="absolute -top-6 -right-6 bg-brand-ice-blue rounded-xl shadow-xl p-4 z-10">
         <p className="text-2xl font-bold text-gray-900">50 000+</p>
         <p className="text-xs text-muted-foreground">Тонн отгружено</p>
       </div>

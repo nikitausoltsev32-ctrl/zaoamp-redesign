@@ -44,7 +44,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-brand-ice-blue">
       <ProductHero product={product} />
       <ProductSpecs product={product} />
       <ProductApplications product={product} />

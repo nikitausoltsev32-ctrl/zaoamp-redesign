@@ -18,7 +18,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
           href={phoneLink}
           className="flex items-center gap-3 text-lg font-medium"
         >
-          <Phone className="w-5 h-5 text-brand-orange" />
+          <Phone className="w-5 h-5 text-brand-sapphire" />
           {contactInfo.phone}
         </a>
         <a
@@ -27,8 +27,8 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
           rel="noopener noreferrer"
           className="flex items-center gap-3 text-lg"
         >
-          <MessageCircle className="w-5 h-5 text-green-500" />
-          WhatsApp
+          <MessageCircle className="w-5 h-5 text-purple-500" />
+          MAX
         </a>
         <div className="flex items-center gap-3 text-sm text-muted-foreground">
           <Clock className="w-4 h-4" />
@@ -43,7 +43,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
       <div className={cn('space-y-3', className)}>
         <a
           href={phoneLink}
-          className="flex items-center gap-2 text-stone-100 hover:text-brand-orange transition-colors"
+          className="flex items-center gap-2 text-stone-100 hover:text-brand-powder-blue transition-colors"
         >
           <Phone className="w-4 h-4" />
           {contactInfo.phone}
@@ -71,7 +71,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
       <div className="text-right">
         <a
           href={phoneLink}
-          className="block text-lg font-bold text-stone-900 hover:text-brand-orange transition-colors"
+          className="block text-lg font-bold text-stone-900 hover:text-brand-sapphire transition-colors"
         >
           {contactInfo.phone}
         </a>
@@ -82,7 +82,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors"
-        aria-label="Написать в WhatsApp"
+        aria-label="Написать в MAX"
       >
         <MessageCircle className="w-5 h-5" />
       </a>

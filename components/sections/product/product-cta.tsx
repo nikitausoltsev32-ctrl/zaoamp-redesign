@@ -7,7 +7,7 @@ import { SectionHeader } from '@/components/section-header'
 
 export function ProductCTA() {
   return (
-    <section className="py-16 bg-gradient-to-br from-gray-900 to-gray-800">
+    <section className="py-16 bg-gradient-to-br from-brand-deep-navy to-brand-sapphire">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

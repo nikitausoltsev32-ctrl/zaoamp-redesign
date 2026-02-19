@@ -54,7 +54,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
             className="object-cover grayscale-[30%] sepia-[20%] group-hover:grayscale-0 group-hover:sepia-0 transition-all duration-500"
           />
           <div className="absolute top-3 left-3">
-            <Badge variant="secondary" className="bg-white/90">{product.fraction}</Badge>
+            <Badge variant="secondary" className="bg-brand-ice-blue/90">{product.fraction}</Badge>
           </div>
         </div>
       )}

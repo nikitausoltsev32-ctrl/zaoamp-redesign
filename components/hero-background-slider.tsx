@@ -73,7 +73,7 @@ export function HeroBackgroundSlider() {
             onClick={() => setCurrentIndex(index)}
             className={`h-1 rounded-full transition-all duration-500 ${
               index === currentIndex 
-                ? 'w-16 bg-brand-orange' 
+                ? 'w-16 bg-brand-sapphire' 
                 : 'w-12 bg-white/30 hover:bg-white/50'
             }`}
             aria-label={`Перейти к слайду ${index + 1}`}

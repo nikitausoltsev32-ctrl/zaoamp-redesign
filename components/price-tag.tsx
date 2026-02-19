@@ -32,7 +32,7 @@ export function PriceTag({
           {formatPrice(oldPrice)} ₽
         </span>
       )}
-      <div className={cn('flex items-baseline gap-1 text-brand-orange', sizeClasses[size])}>
+      <div className={cn('flex items-baseline gap-1 text-brand-sapphire', sizeClasses[size])}>
         <span>{formatPrice(price)} ₽</span>
         <span className="text-sm text-muted-foreground font-normal">{unit}</span>
       </div>

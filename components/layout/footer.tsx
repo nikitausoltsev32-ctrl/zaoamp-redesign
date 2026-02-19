@@ -8,12 +8,12 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-stone-900 text-stone-100">
+    <footer className="bg-brand-deep-navy text-stone-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <Logo size="lg" className="mb-4" />
+            <Logo size="xxl" variant="dark" className="mb-4" />
             <p className="text-stone-400 text-sm mb-4">
               Производитель белой мраморной крошки и щебня премиум-качества. 
               Собственное месторождение на Урале. Доставка по всей России.
@@ -23,7 +23,7 @@ export function Footer() {
                 href={`https://t.me/${contactInfo.telegram.replace('@', '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:bg-brand-orange hover:text-white transition-colors"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-stone-400 hover:bg-brand-sapphire hover:text-white transition-colors"
                 aria-label="Telegram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -34,7 +34,7 @@ export function Footer() {
                 href={`https://wa.me/${contactInfo.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:bg-green-500 hover:text-white transition-colors"
+                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-stone-400 hover:bg-green-500 hover:text-white transition-colors"
                 aria-label="WhatsApp"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -78,7 +78,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/catalog"
-                  className="text-brand-orange hover:text-brand-amber transition-colors text-sm"
+                  className="text-brand-powder-blue hover:text-brand-ice-blue transition-colors text-sm"
                 >
                   Все продукты →
                 </Link>

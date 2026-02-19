@@ -76,7 +76,7 @@ export function ContactForm() {
 
       <Button 
         type="submit" 
-        className="w-full bg-brand-orange hover:bg-brand-gold"
+        className="w-full bg-brand-sapphire hover:bg-brand-sapphire-dark"
         size="lg"
         disabled={isLoading}
       >
@@ -140,15 +140,15 @@ export function ContactInfo() {
         >
           <Card>
             <CardContent className="p-4 flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center flex-shrink-0">
-                <contact.icon className="h-5 w-5 text-brand-orange" />
+              <div className="w-10 h-10 rounded-lg bg-brand-sapphire/10 flex items-center justify-center flex-shrink-0">
+                <contact.icon className="h-5 w-5 text-brand-sapphire" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900">{contact.title}</h3>
                 {contact.href ? (
                   <a 
                     href={contact.href} 
-                    className="text-brand-orange hover:underline font-medium"
+                    className="text-brand-sapphire hover:underline font-medium"
                   >
                     {contact.value}
                   </a>

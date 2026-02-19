@@ -26,7 +26,7 @@ const filters: FilterOption[] = [
 
 export function CatalogFilters({ activeFilter, onFilterChange, productCounts }: CatalogFiltersProps) {
   return (
-    <div className="py-6 border-b bg-white">
+    <div className="py-6 border-b bg-brand-ice-blue">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap gap-2">
           {filters.map((filter) => (
@@ -37,7 +37,7 @@ export function CatalogFilters({ activeFilter, onFilterChange, productCounts }: 
               onClick={() => onFilterChange(filter.value)}
               className={cn(
                 'gap-2',
-                activeFilter === filter.value && 'bg-brand-orange hover:bg-brand-gold'
+                activeFilter === filter.value && 'bg-brand-sapphire hover:bg-brand-sapphire-dark'
               )}
             >
               {filter.label}

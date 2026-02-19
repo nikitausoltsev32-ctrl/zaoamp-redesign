@@ -1,0 +1,217 @@
+# План оптимизации SEO — zaoamp-redesign
+
+**Дата:** 10 февраля 2026  
+**Цель:** повысить видимость сайта в поисковых системах и улучшить конверсию.
+
+---
+
+## Оглавление
+
+1. [Текущее состояние](#текущее-состояние)
+2. [План по этапам](#план-по-этапам)
+3. [Детальные задачи](#детальные-задачи)
+
+---
+
+## Текущее состояние
+
+### ✅ Что уже реализовано
+
+- `lang="ru"` в корневом HTML
+- Базовые metadata (title, description, keywords) в layout и на страницах
+- Динамический metadata для страниц продуктов (`generateMetadata`)
+- Alt-тексты у изображений (ProductCard, ProductHero, Logo)
+- Семантическая разметка (header, main, footer, nav, section)
+- ЧПУ для продуктов (`/product/mramornyj-shheben-10-20`)
+
+### ❌ Что отсутствует
+
+- Sitemap и robots.txt
+- Структурированные данные (JSON-LD)
+- Open Graph и Twitter Card
+- Canonical URL
+- Metadata для главной и delivery
+- Оптимизация изображений (unoptimized: true)
+
+---
+
+## План по этапам
+
+### Этап 1 — Технические основы (приоритет: высокий)
+
+| № | Задача | Файл/место | Сложность |
+|---|--------|------------|-----------|
+| 1.1 | Добавить sitemap.xml | `app/sitemap.ts` | Низкая |
+| 1.2 | Добавить robots.txt | `app/robots.ts` | Низкая |
+| 1.3 | Metadata для главной страницы | `app/page.tsx` | Низкая |
+| 1.4 | Metadata для delivery | `app/delivery/layout.tsx` | Низкая |
+
+### Этап 2 — Социальные сети и превью (приоритет: высокий)
+
+| № | Задача | Файл/место | Сложность |
+|---|--------|------------|-----------|
+| 2.1 | Open Graph meta (og:title, og:description, og:image) | `app/layout.tsx` | Низкая |
+| 2.2 | Twitter Card meta | `app/layout.tsx` | Низкая |
+| 2.3 | Создать og-image (1200×630) | `public/images/og-image.jpg` | Средняя |
+
+### Этап 3 — Структурированные данные JSON-LD (приоритет: высокий)
+
+| № | Задача | Файл/место | Сложность |
+|---|--------|------------|-----------|
+| 3.1 | Schema Organization | `app/layout.tsx` | Средняя |
+| 3.2 | Schema Product на страницах продуктов | `app/product/[slug]/page.tsx` | Средняя |
+| 3.3 | Schema BreadcrumbList | `app/product/[slug]/page.tsx` | Низкая |
+| 3.4 | Schema LocalBusiness на /contacts | `app/contacts/page.tsx` | Средняя |
+
+### Этап 4 — Canonical и контент (приоритет: средний)
+
+| № | Задача | Файл/место | Сложность |
+|---|--------|------------|-----------|
+| 4.1 | Canonical URL для всех страниц | metadata.canonical | Низкая |
+| 4.2 | Проверка иерархии H1–H6 | Все страницы | Низкая |
+| 4.3 | Расширить keywords под поисковые запросы | products, layout | Низкая |
+
+### Этап 5 — Производительность (приоритет: средний)
+
+| № | Задача | Файл/место | Сложность |
+|---|--------|------------|-----------|
+| 5.1 | Убрать `images.unoptimized: true` в продакшене | `next.config.js` | Низкая |
+| 5.2 | Установить sharp для оптимизации изображений | `npm install sharp` | Низкая |
+| 5.3 | Проверить priority у above-the-fold изображений | Hero, ProductHero | Низкая |
+
+---
+
+## Детальные задачи
+
+### 1.1 Sitemap
+
+Создать `app/sitemap.ts`:
+
+```typescript
+import { MetadataRoute } from 'next'
+import { getAllProductSlugs } from '@/lib/utils/products'
+
+const BASE_URL = 'https://zaoamp.ru' // заменить на реальный домен
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const slugs = getAllProductSlugs()
+  const productUrls = slugs.map((slug) => ({
+    url: `${BASE_URL}/product/${slug}/`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
+  return [
+    { url: `${BASE_URL}/`, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    { url: `${BASE_URL}/catalog/`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/delivery/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/contacts/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE_URL}/documents/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    ...productUrls,
+  ]
+}
+```
+
+### 1.2 Robots.txt
+
+Создать `app/robots.ts`:
+
+```typescript
+import { MetadataRoute } from 'next'
+
+const BASE_URL = 'https://zaoamp.ru'
+
+export default function robots(): MetadataRoute.Robots {
+  return {
+    rules: { userAgent: '*', allow: '/', disallow: ['/api/'] },
+    sitemap: `${BASE_URL}/sitemap.xml`,
+  }
+}
+```
+
+### 2.1–2.2 Open Graph и Twitter
+
+В `app/layout.tsx` добавить в metadata:
+
+```typescript
+openGraph: {
+  type: 'website',
+  locale: 'ru_RU',
+  url: 'https://zaoamp.ru',
+  siteName: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+  images: [{ url: '/images/og-image.jpg', width: 1200, height: 630 }],
+},
+twitter: {
+  card: 'summary_large_image',
+  title: 'Мраморная крошка и щебень | ЗАО АМП',
+},
+```
+
+### 3.1 Schema Organization
+
+Добавить в `app/layout.tsx` (в body):
+
+```typescript
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+  url: 'https://zaoamp.ru',
+  logo: 'https://zaoamp.ru/logo.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+7-919-393-19-92',
+    contactType: 'sales',
+    areaServed: 'RU',
+  },
+}
+// <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+```
+
+### 3.2 Schema Product
+
+На странице продукта добавить JSON-LD с полями: name, description, image, offers (price, priceCurrency).
+
+### 4.1 Canonical
+
+В metadata каждой страницы добавить:
+
+```typescript
+metadataBase: new URL('https://zaoamp.ru'),
+alternates: { canonical: '/catalog/' },
+```
+
+### 5.1–5.2 Оптимизация изображений
+
+1. `npm install sharp`
+2. В `next.config.js` убрать или закомментировать `unoptimized: true`
+
+---
+
+## Целевые ключевые запросы
+
+| Запрос | Страница | Приоритет |
+|--------|----------|-----------|
+| мраморная крошка купить | /catalog, главная | Высокий |
+| мраморный щебень екатеринбург | /catalog, продукты | Высокий |
+| белый щебень цена | /catalog, продукты | Высокий |
+| мраморная мука купить | /product/mramornaya-muka-0-0-2 | Средний |
+| щебень 20-50 купить | /product/mramornyj-shheben-20-50 | Средний |
+| доставка щебня по россии | /delivery | Средний |
+
+---
+
+## Чек-лист перед запуском
+
+- [ ] Указать реальный BASE_URL / metadataBase
+- [ ] Создать og-image 1200×630
+- [ ] Добавить домен в Google Search Console
+- [ ] Добавить домен в Yandex Webmaster
+- [ ] Проверить sitemap в валидаторе
+- [ ] Проверить JSON-LD в [Google Rich Results Test](https://search.google.com/test/rich-results)
+
+---
+
+**Версия:** 1.0

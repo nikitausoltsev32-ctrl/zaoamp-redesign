@@ -31,7 +31,7 @@ export function SectionHeader({
       
       {withLine && (
         <div className={cn(
-          'w-16 h-1 bg-brand-orange rounded-full mb-4',
+          'w-16 h-1 bg-brand-sapphire rounded-full mb-4',
           centered && 'mx-auto'
         )} />
       )}

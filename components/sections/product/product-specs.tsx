@@ -1,6 +1,8 @@
+import Link from 'next/link'
 import { Product } from '@/types'
 import { SectionHeader } from '@/components/section-header'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { FileText } from 'lucide-react'
 
 interface ProductSpecsProps {
@@ -30,7 +32,7 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
         />
 
         <div className="mt-8 max-w-3xl mx-auto">
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+          <div className="bg-brand-ice-blue rounded-xl shadow-sm overflow-hidden">
             <div className="divide-y">
               {specs.map((spec, index) => (
                 <div 
@@ -42,7 +44,7 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
                   </span>
                   <span className="text-right">
                     {spec.label === 'Белизна' || spec.label === 'Содержание CaCO₃' ? (
-                      <Badge variant="secondary" className="bg-brand-orange/10 text-brand-orange">
+                      <Badge variant="secondary" className="bg-brand-sapphire/10 text-brand-sapphire">
                         {spec.value}
                       </Badge>
                     ) : (
@@ -54,10 +56,17 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
             </div>
           </div>
 
-          {/* Certificate link */}
-          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <FileText className="h-4 w-4" />
-            <span>Сертификат соответствия и паспорт качества предоставляются при отгрузке</span>
+          {/* Паспорт качества */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button asChild variant="outline" size="sm">
+              <Link href="/documents" className="gap-2">
+                <FileText className="h-4 w-4" />
+                Паспорта качества
+              </Link>
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              Сертификат и паспорт предоставляются при отгрузке
+            </span>
           </div>
         </div>
       </div>

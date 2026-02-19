@@ -17,7 +17,7 @@ export function ProductHero({ product }: ProductHeroProps) {
   const categoryLabel = getCategoryLabel(product.category)
 
   return (
-    <section className="py-8 bg-white border-b">
+    <section className="py-8 bg-brand-ice-blue border-b">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
@@ -46,7 +46,7 @@ export function ProductHero({ product }: ProductHeroProps) {
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-white shadow-lg flex items-center justify-center">
+                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-brand-ice-blue shadow-lg flex items-center justify-center">
                     <span className="text-5xl font-serif text-stone-400">М</span>
                   </div>
                   <p className="text-muted-foreground">{product.name}</p>
@@ -90,7 +90,7 @@ export function ProductHero({ product }: ProductHeroProps) {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-gold">
+              <Button asChild size="lg" className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
                 <Link href="#calculator">
                   Рассчитать стоимость
                 </Link>

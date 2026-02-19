@@ -22,7 +22,7 @@ export default function CatalogPage() {
   }), [])
 
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-brand-ice-blue">
       <CatalogHeader />
       <CatalogFilters 
         activeFilter={activeFilter} 

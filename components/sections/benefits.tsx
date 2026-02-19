@@ -6,7 +6,7 @@ import { SectionHeader } from '@/components/section-header'
 
 export function BenefitsSection() {
   return (
-    <section id="benefits" className="py-20 bg-white">
+    <section id="benefits" className="py-20 bg-brand-ice-blue/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Почему выбирают нас"

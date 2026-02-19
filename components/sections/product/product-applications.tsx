@@ -40,7 +40,7 @@ function getIconForApplication(application: string) {
 
 export function ProductApplications({ product }: ProductApplicationsProps) {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-brand-ice-blue">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Применение"
@@ -62,7 +62,7 @@ export function ProductApplications({ product }: ProductApplicationsProps) {
               >
                 <Card className="h-full transition-shadow hover:shadow-lg group">
                   <CardContent className="p-6 text-center">
-                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-orange/10 text-brand-orange transition-colors group-hover:bg-brand-orange group-hover:text-white">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-sapphire/10 text-brand-sapphire transition-colors group-hover:bg-brand-sapphire group-hover:text-white">
                       <Icon className="h-7 w-7" />
                     </div>
                     <h3 className="font-semibold text-gray-900">

@@ -19,7 +19,7 @@ export function BenefitCard({ benefit, index }: BenefitCardProps) {
     >
       <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group">
         <CardContent className="p-6">
-          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-orange/10 text-brand-orange transition-colors group-hover:bg-brand-orange group-hover:text-white">
+          <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-brand-sapphire/10 text-brand-sapphire transition-colors group-hover:bg-brand-sapphire group-hover:text-white">
             <Icon className="h-6 w-6" />
           </div>
           <h3 className="mb-2 font-semibold text-gray-900">

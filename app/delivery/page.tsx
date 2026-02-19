@@ -72,7 +72,7 @@ const packagingOptions = [
 
 export default function DeliveryPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-brand-ice-blue">
       {/* Hero */}
       <div className="bg-gradient-to-br from-stone-50 to-stone-100 py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -114,15 +114,15 @@ export default function DeliveryPage() {
                 <Card className="h-full">
                   <CardHeader>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-brand-orange/10 flex items-center justify-center">
-                        <region.icon className="h-5 w-5 text-brand-orange" />
+                      <div className="w-10 h-10 rounded-lg bg-brand-sapphire/10 flex items-center justify-center">
+                        <region.icon className="h-5 w-5 text-brand-sapphire" />
                       </div>
                       <CardTitle className="text-lg">{region.region}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div>
-                      <p className="text-3xl font-bold text-brand-orange">
+                      <p className="text-3xl font-bold text-brand-sapphire">
                         {region.price === 0 ? 'Бесплатно' : `от ${formatPrice(region.price)} ₽`}
                       </p>
                       <p className="text-sm text-muted-foreground">
@@ -169,9 +169,9 @@ export default function DeliveryPage() {
               >
                 <Card className="h-full text-center">
                   <CardContent className="p-6">
-                    <Package className="h-8 w-8 mx-auto mb-3 text-brand-orange" />
+                    <Package className="h-8 w-8 mx-auto mb-3 text-brand-sapphire" />
                     <h3 className="font-semibold mb-1">{option.type}</h3>
-                    <p className="text-2xl font-bold text-brand-orange mb-2">
+                    <p className="text-2xl font-bold text-brand-sapphire mb-2">
                       {option.price === 0 ? 'Бесплатно' : `+${formatPrice(option.price)} ₽`}
                     </p>
                     <p className="text-xs text-muted-foreground">{option.description}</p>
@@ -233,7 +233,7 @@ export default function DeliveryPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-to-br from-brand-orange to-brand-gold">
+      <section className="py-16 bg-gradient-to-br from-brand-sapphire to-brand-deep-navy">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Рассчитайте точную стоимость
@@ -241,7 +241,7 @@ export default function DeliveryPage() {
           <p className="text-white/90 mb-8 max-w-xl mx-auto">
             Используйте наш калькулятор для расчета стоимости с учетом доставки в ваш регион
           </p>
-          <Button asChild size="lg" className="bg-white text-brand-orange hover:bg-white/90">
+          <Button asChild size="lg" className="bg-brand-ice-blue text-brand-sapphire hover:bg-brand-ice-blue/90">
             <Link href="/#calculator">
               Открыть калькулятор
               <ArrowRight className="ml-2 h-4 w-4" />

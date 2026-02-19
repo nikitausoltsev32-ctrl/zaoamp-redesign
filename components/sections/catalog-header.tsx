@@ -3,7 +3,7 @@ import { ChevronRight, Package } from 'lucide-react'
 
 export function CatalogHeader() {
   return (
-    <div className="border-b bg-white">
+    <div className="border-b bg-brand-ice-blue">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
@@ -29,14 +29,14 @@ export function CatalogHeader() {
           {/* Stats */}
           <div className="flex gap-8">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-2 text-brand-orange">
+              <div className="flex items-center justify-center gap-2 text-brand-sapphire">
                 <Package className="h-5 w-5" />
                 <span className="text-2xl font-bold">6</span>
               </div>
               <p className="text-sm text-muted-foreground">видов продукции</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-brand-orange">2 900 ₽</div>
+              <div className="text-2xl font-bold text-brand-sapphire">2 900 ₽</div>
               <p className="text-sm text-muted-foreground">от за тонну</p>
             </div>
           </div>

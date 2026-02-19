@@ -16,6 +16,17 @@ autonomous: true
 ## Objective
 Настроить SEO: мета-теги, Open Graph, Schema.org разметку, robots.txt, sitemap.xml для всех страниц.
 
+## Target Keywords
+
+| Запрос | Страница | Приоритет |
+|--------|----------|-----------|
+| мраморная крошка купить | /catalog, главная | Высокий |
+| мраморный щебень екатеринбург | /catalog, продукты | Высокий |
+| белый щебень цена | /catalog, продукты | Высокий |
+| мраморная мука купить | /product/mramornaya-muka-0-0-2 | Средний |
+| щебень 20-50 купить | /product/mramornyj-shheben-20-50 | Средний |
+| доставка щебня по россии | /delivery | Средний |
+
 ## must_haves
 ```yaml
 truths:
@@ -24,6 +35,7 @@ truths:
   - "Schema.org разметка присутствует"
   - "Robots.txt и sitemap.xml созданы"
   - "Canonical URLs установлены"
+  - "Все целевые ключевые запросы учтены в metadata"
 
 artifacts:
   - path: "app/layout.tsx"
@@ -122,16 +134,17 @@ key_links:
     - app/delivery/page.tsx
   </files>
   <action>
-    1. Update each page with metadata:
-       - Home: focused on main keywords
-       - Catalog: product catalog keywords
-       - Product: dynamic from product.seo
-       - About: company keywords
-       - Contacts: local business keywords
-       - Delivery: delivery keywords
-    2. Generate metadata function where needed
-    3. Add JSON-LD schema to each page
-  </action>
+    1. Update each page with metadata using target keywords:
+       - Home: "Мраморная крошка и щебень | АМП ИМПОРТ-ЭКСПОРТ" — keywords: мраморная крошка купить, белый щебень
+       - Catalog: "Каталог мраморной крошки и щебня | АМП" — keywords: мраморный щебень екатеринбург, белый щебень цена
+       - Product: dynamic from product data with fraction-specific keywords (e.g., "щебень 20-50 купить")
+       - About: company keywords — "Производитель мраморной крошки | ЗАО АМП"
+       - Contacts: local business keywords — "Контакты | Мраморная крошка Екатеринбург"
+       - Delivery: delivery keywords — "Доставка щебня по России | АМП"
+     2. Generate metadata function where needed
+     3. Add JSON-LD schema to each page
+     4. Ensure all target keywords from table above are incorporated
+   </action>
   <verify>
     - Each page has unique title
     - Product pages dynamic metadata
@@ -237,3 +250,129 @@ key_links:
 - [ ] Robots.txt
 - [ ] Sitemap.xml
 - [ ] Schema.org разметка
+
+---
+
+## Code Examples & References
+
+### Sitemap Example (app/sitemap.ts)
+```typescript
+import { MetadataRoute } from 'next'
+import { getAllProductSlugs } from '@/lib/utils/products'
+
+const BASE_URL = 'https://zaoamp.ru'
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const slugs = getAllProductSlugs()
+  const productUrls = slugs.map((slug) => ({
+    url: `${BASE_URL}/product/${slug}/`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }))
+
+  return [
+    { url: `${BASE_URL}/`, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
+    { url: `${BASE_URL}/catalog/`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${BASE_URL}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/delivery/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE_URL}/contacts/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    ...productUrls,
+  ]
+}
+```
+
+### Schema.org Examples
+
+#### Organization (app/layout.tsx)
+```typescript
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+  url: 'https://zaoamp.ru',
+  logo: 'https://zaoamp.ru/logo.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+7-919-393-19-92',
+    contactType: 'sales',
+    areaServed: 'RU',
+  },
+}
+```
+
+#### Product Schema
+```typescript
+const productSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: product.description,
+  image: product.image,
+  offers: {
+    '@type': 'Offer',
+    price: product.price,
+    priceCurrency: 'RUB',
+    availability: 'https://schema.org/InStock',
+  },
+}
+```
+
+#### LocalBusiness (app/contacts/page.tsx)
+```typescript
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'ул. Евгения Савкова 29, офис 262',
+    addressLocality: 'Екатеринбург',
+    addressCountry: 'RU',
+  },
+  telephone: '+7-919-393-19-92',
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 56.8389,
+    longitude: 60.6057,
+  },
+}
+```
+
+### Metadata Template
+```typescript
+export const metadata = {
+  title: 'Мраморная крошка и щебень | АМП ИМПОРТ-ЭКСПОРТ',
+  description: 'Производитель белой мраморной крошки и щебня. Доставка по России. Белизна 98%. От 2900 ₽/тонна.',
+  keywords: ['мраморная крошка', 'мраморный щебень', 'белый щебень', 'Екатеринбург'],
+  metadataBase: new URL('https://zaoamp.ru'),
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    url: 'https://zaoamp.ru',
+    siteName: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+    images: [{ url: '/images/og-image.jpg', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Мраморная крошка и щебень | ЗАО АМП',
+  },
+  robots: { index: true, follow: true },
+}
+```
+
+---
+
+## Pre-Launch Checklist
+
+- [ ] Указать реальный BASE_URL / metadataBase (https://zaoamp.ru)
+- [ ] Создать og-image 1200×630 (public/images/og-image.jpg)
+- [ ] Добавить домен в Google Search Console
+- [ ] Добавить домен в Yandex Webmaster
+- [ ] Проверить sitemap в валидаторе (https://www.xml-sitemaps.com/validate-xml-sitemap.html)
+- [ ] Проверить JSON-LD в Google Rich Results Test (https://search.google.com/test/rich-results)
+- [ ] Проверить все canonical URLs
+- [ ] Проверить meta tags на всех страницах
+- [ ] Проверить Open Graph через Facebook Debugger
+- [ ] Проверить скорость загрузки (PageSpeed Insights)
