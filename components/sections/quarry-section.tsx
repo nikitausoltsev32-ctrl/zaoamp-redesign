@@ -129,10 +129,10 @@ export function QuarrySection() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <p className="text-white font-semibold text-lg">
-                Огромные блоки белого мрамора
+                Белый мрамор высшего качества
               </p>
               <p className="text-white/80 text-sm">
-                Природное сырье высшего качества для производства крошки
+                Природное сырье с месторождения
               </p>
             </div>
           </div>
