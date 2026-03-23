@@ -72,7 +72,7 @@ export function HeroSection() {
             
             <p className="text-xl text-white/90 max-w-2xl drop-shadow-md">
               Белизна 98%. Доставка по всей России.{' '}
-              <span className="font-bold text-white">От 2 900 ₽/тонна</span>.
+              <span className="font-bold text-white">От 2 000 ₽/тонна</span>.
               Собственное месторождение белого мрамора.
             </p>
 
@@ -129,14 +129,14 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* Кнопки — на всю ширину */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+        {/* Кнопки */}
+        <div className="flex flex-wrap gap-3">
           <Button
             asChild
             size="lg"
-            className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 w-full"
+            className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 px-8"
           >
-            <Link href="/catalog" className="w-full flex justify-center">
+            <Link href="/catalog">
               Каталог продукции
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -145,9 +145,9 @@ export function HeroSection() {
             asChild
             size="lg"
             variant="outline"
-            className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white w-full"
+            className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white"
           >
-            <Link href="/#calculator" className="w-full flex justify-center">
+            <Link href="/#calculator">
               <Calculator className="mr-2 h-4 w-4" />
               Рассчитать стоимость
             </Link>
@@ -155,11 +155,11 @@ export function HeroSection() {
           <Button
             size="lg"
             variant="outline"
-            className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white w-full"
+            className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white"
             onClick={() => setKpOpen(true)}
           >
             <FileText className="mr-2 h-4 w-4" />
-            Получить КП за 3 минуты
+            Получить КП
           </Button>
         </div>
 
@@ -186,7 +186,7 @@ export function HeroSection() {
             transition={{ delay: 0.4 }}
             className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
           >
-            <div className="h-12 w-12 shrink-0 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-lg">
+            <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
               45к
             </div>
             <div className="text-white min-w-0">
@@ -201,7 +201,7 @@ export function HeroSection() {
             transition={{ delay: 0.5 }}
             className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
           >
-            <div className="h-12 w-12 shrink-0 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg">
+            <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
               300+
             </div>
             <div className="text-white min-w-0">

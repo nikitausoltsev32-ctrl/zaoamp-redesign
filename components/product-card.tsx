@@ -16,12 +16,12 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
     return (
       <Card className="h-full transition-shadow hover:shadow-lg overflow-hidden group">
         {product.image && (
-          <div className="relative h-32 overflow-hidden">
+          <div className="relative h-44 overflow-hidden">
             <Image
               src={product.image}
               alt={product.name}
               fill
-              className="object-cover grayscale-[30%] sepia-[20%] group-hover:grayscale-0 group-hover:sepia-0 transition-all duration-500"
+              className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
             />
           </div>
         )}
@@ -46,12 +46,12 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
   return (
     <Card className="h-full transition-shadow hover:shadow-lg overflow-hidden group">
       {product.image && (
-        <div className="relative h-40 overflow-hidden">
+        <div className="relative h-52 overflow-hidden">
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover grayscale-[30%] sepia-[20%] group-hover:grayscale-0 group-hover:sepia-0 transition-all duration-500"
+            className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
           />
           <div className="absolute top-3 left-3">
             <Badge variant="secondary" className="bg-brand-ice-blue/90">{product.fraction}</Badge>
@@ -72,11 +72,15 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         <div className="space-y-2">
           <p className="text-xs font-medium text-muted-foreground">Применение:</p>
           <div className="flex flex-wrap gap-1">
-            {product.applications.slice(0, 3).map((app, idx) => (
-              <Badge key={idx} variant="outline" className="text-xs">
-                {app.split(' ').slice(0, 2).join(' ')}...
-              </Badge>
-            ))}
+            {product.applications.slice(0, 3).map((app, idx) => {
+              const words = app.split(' ')
+              const label = words.length > 2 ? words.slice(0, 2).join(' ') + '…' : app
+              return (
+                <Badge key={idx} variant="outline" className="text-xs">
+                  {label}
+                </Badge>
+              )
+            })}
           </div>
         </div>
         <div className="text-xs text-muted-foreground">

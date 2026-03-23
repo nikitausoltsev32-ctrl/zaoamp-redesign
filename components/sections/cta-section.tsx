@@ -16,7 +16,7 @@ export function CTASection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-3xl font-bold text-white mb-4 sm:text-4xl">
+          <h2 className="font-serif text-3xl font-bold text-white mb-4 sm:text-4xl">
             Нужна консультация?
           </h2>
           <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
@@ -39,7 +39,7 @@ export function CTASection() {
             <Button 
               asChild 
               size="lg"
-              className="bg-purple-500 text-white hover:bg-purple-600 border-0"
+              className="bg-brand-sapphire-dark text-white hover:bg-brand-deep-navy border-0"
             >
               <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-4 w-4" />

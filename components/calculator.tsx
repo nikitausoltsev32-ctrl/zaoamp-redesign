@@ -180,12 +180,12 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
               )}
 
               <div className="flex justify-between text-lg font-bold pt-2 border-t">
-                <span>Итого:</span>
-                <span>{calculation.total.toLocaleString('ru-RU')} ₽</span>
+                <span>Итого (приблизительно):</span>
+                <span>~{calculation.total.toLocaleString('ru-RU')} ₽</span>
               </div>
 
-              <p className="text-sm text-muted-foreground text-center">
-                ~{Math.round(calculation.pricePerTon).toLocaleString('ru-RU')} ₽/тонна с доставкой
+              <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded-md px-3 py-2 text-center">
+                Приблизительная цена. Точная стоимость рассчитывается при оформлении заявки.
               </p>
               {apiWarning && (
                 <p className="text-sm text-amber-600 text-center">{apiWarning}</p>
@@ -195,9 +195,9 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
             {/* Бейдж "Доставка рассчитана через Деловые Линии" */}
             {selectedRegion && selectedRegion !== 'pickup' && (
               <div className="flex items-center justify-center gap-2 pt-2">
-                <Badge variant="outline" className="gap-1.5">
+                <Badge variant="outline" className="gap-1.5 text-muted-foreground">
                   <Truck className="h-3 w-3" />
-                  Доставка рассчитана через Деловые Линии
+                  Тариф Деловых Линий (приблизительно)
                 </Badge>
               </div>
             )}

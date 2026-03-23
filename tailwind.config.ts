@@ -54,7 +54,7 @@ const config: Config = {
           gold: '#D97706',
           amber: '#F59E0B',
           // Синяя палитра
-          'ice-blue': '#D6E6F3',
+          'ice-blue': '#F7F4F0',
           'powder-blue': '#A6C5D7',
           sapphire: '#0F52BA',
           'sapphire-dark': '#0B3D8A',

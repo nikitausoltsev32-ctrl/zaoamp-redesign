@@ -3,13 +3,15 @@ import { Product } from '@/types'
 import { SectionHeader } from '@/components/section-header'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { FileText } from 'lucide-react'
+import { FileText, Download } from 'lucide-react'
+import { getDocumentByProductSlug } from '@/lib/data/documents'
 
 interface ProductSpecsProps {
   product: Product
 }
 
 export function ProductSpecs({ product }: ProductSpecsProps) {
+  const passport = getDocumentByProductSlug(product.slug)
   const specs = [
     { label: 'Фракция', value: product.fraction },
     { label: 'Белизна', value: product.specifications.whiteness },
@@ -58,12 +60,21 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
 
           {/* Паспорт качества */}
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button asChild variant="outline" size="sm">
-              <Link href="/documents" className="gap-2">
-                <FileText className="h-4 w-4" />
-                Паспорта качества
-              </Link>
-            </Button>
+            {passport ? (
+              <Button asChild variant="outline" size="sm">
+                <a href={passport.href} target="_blank" rel="noopener noreferrer" className="gap-2">
+                  <Download className="h-4 w-4" />
+                  Скачать паспорт качества
+                </a>
+              </Button>
+            ) : (
+              <Button asChild variant="outline" size="sm">
+                <Link href="/documents" className="gap-2">
+                  <FileText className="h-4 w-4" />
+                  Паспорта качества
+                </Link>
+              </Button>
+            )}
             <span className="text-sm text-muted-foreground">
               Сертификат и паспорт предоставляются при отгрузке
             </span>

@@ -25,28 +25,13 @@ export function HeroBackgroundSlider() {
 
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="sync">
         <motion.div
           key={currentIndex}
-          initial={{ 
-            opacity: 0,
-            x: 100, // Въезжает справа
-            scale: 1.1
-          }}
-          animate={{ 
-            opacity: 1,
-            x: 0,
-            scale: 1
-          }}
-          exit={{ 
-            opacity: 0,
-            x: -100, // Уезжает влево
-            scale: 0.95
-          }}
-          transition={{
-            duration: 1.8,
-            ease: [0.43, 0.13, 0.23, 0.96] // Кастомная кривая Безье для плавности
-          }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.4, ease: 'easeInOut' }}
           className="absolute inset-0"
         >
           <Image
