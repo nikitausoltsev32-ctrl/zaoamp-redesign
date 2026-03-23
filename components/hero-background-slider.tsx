@@ -40,7 +40,7 @@ export function HeroBackgroundSlider() {
             fill
             className="object-cover"
             priority={currentIndex === 0}
-            quality={90}
+            quality={70}
             sizes="100vw"
           />
         </motion.div>

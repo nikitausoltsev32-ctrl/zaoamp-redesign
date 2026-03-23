@@ -21,6 +21,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               src={product.image}
               alt={product.name}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
             />
           </div>
@@ -51,6 +52,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
             src={product.image}
             alt={product.name}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
           />
           <div className="absolute top-3 left-3">

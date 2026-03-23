@@ -7,14 +7,14 @@ import { defaultMetadata } from '@/lib/seo/metadata'
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema'
 
 const inter = Inter({
-  subsets: ['latin', 'cyrillic'],
+  subsets: ['cyrillic'],
   variable: '--font-inter',
   display: 'swap',
 })
 
 const merriweather = Merriweather({
   weight: ['400', '700'],
-  subsets: ['latin', 'cyrillic'],
+  subsets: ['cyrillic'],
   variable: '--font-merriweather',
   display: 'swap',
 })
