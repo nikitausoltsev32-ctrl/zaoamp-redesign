@@ -18,7 +18,7 @@ export function HeroBackgroundSlider() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % backgroundImages.length)
-    }, 6500)
+    }, 3500)
 
     return () => clearInterval(timer)
   }, [])

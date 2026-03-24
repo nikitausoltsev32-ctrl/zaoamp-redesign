@@ -4,7 +4,7 @@ export interface Product {
   name: string
   category: 'scherb' | 'kroshka' | 'muika' | 'otsev'
   fraction: string
-  pricePerTon: number
+  pricePerTon?: number
   priceRetail?: number
   description: string
   applications: string[]

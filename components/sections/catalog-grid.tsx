@@ -16,7 +16,7 @@ export function CatalogGrid({ products }: CatalogGridProps) {
         <AnimatePresence mode="popLayout">
           {products.length > 0 ? (
             <motion.div 
-              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
               layout
             >
               {products.map((product, index) => (

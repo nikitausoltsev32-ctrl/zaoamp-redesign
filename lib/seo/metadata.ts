@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Product } from '@/types'
 
-const BASE_URL = 'https://zaoamp.ru'
+const BASE_URL = 'https://amp-minerals.ru'
 
 // Default metadata для всего сайта
 export const defaultMetadata: Metadata = {

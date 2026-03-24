@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 
 interface PriceTagProps {
-  price: number
+  price?: number
   unit?: string
   size?: 'sm' | 'md' | 'lg'
   oldPrice?: number
@@ -23,6 +23,17 @@ export function PriceTag({
     sm: 'text-sm',
     md: 'text-xl',
     lg: 'text-3xl font-bold'
+  }
+
+  // If no price, show "Price on request"
+  if (price === undefined || price === null) {
+    return (
+      <div className={cn('flex flex-col items-end', className)}>
+        <div className={cn('text-brand-sapphire font-medium', sizeClasses[size])}>
+          Цена по запросу
+        </div>
+      </div>
+    )
   }
 
   return (

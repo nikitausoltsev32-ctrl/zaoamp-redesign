@@ -29,7 +29,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
     }
 
     const product = products.find(p => p.slug === selectedProduct)
-    if (!product) return null
+    if (!product || !product.pricePerTon) return null
 
     const volumeNum = parseFloat(volume)
     const productPrice = product.pricePerTon * volumeNum
@@ -106,9 +106,9 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
               <SelectValue placeholder="Выберите продукт" />
             </SelectTrigger>
             <SelectContent>
-              {products.map((product) => (
+              {products.filter(p => p.pricePerTon).map((product) => (
                 <SelectItem key={product.slug} value={product.slug}>
-                  {product.name} — {product.pricePerTon.toLocaleString('ru-RU')} ₽/т
+                  {product.name} — {product.pricePerTon!.toLocaleString('ru-RU')} ₽/т
                 </SelectItem>
               ))}
             </SelectContent>
@@ -213,7 +213,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
 
             {showDetails && (
               <div className="space-y-1 text-sm text-muted-foreground bg-muted/50 p-3 rounded-md">
-                <p>• Цена продукта: {products.find(p => p.slug === selectedProduct)?.pricePerTon.toLocaleString('ru-RU')} ₽/т × {calculation.volumeNum} т</p>
+                <p>• Цена продукта: {products.find(p => p.slug === selectedProduct)?.pricePerTon?.toLocaleString('ru-RU')} ₽/т × {calculation.volumeNum} т</p>
                 {calculation.deliveryInfo && (
                   <>
                     <p>• Регион: {calculation.deliveryInfo}</p>

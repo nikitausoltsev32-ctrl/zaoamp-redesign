@@ -31,7 +31,7 @@ export function CatalogHeader() {
             <div className="text-center">
               <div className="flex items-center justify-center gap-2 text-brand-sapphire">
                 <Package className="h-5 w-5" />
-                <span className="text-2xl font-bold">6</span>
+                <span className="text-2xl font-bold">12</span>
               </div>
               <p className="text-sm text-muted-foreground">видов продукции</p>
             </div>
