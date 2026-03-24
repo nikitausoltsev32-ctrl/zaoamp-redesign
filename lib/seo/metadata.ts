@@ -51,7 +51,7 @@ export const defaultMetadata: Metadata = {
   },
   verification: {
     google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
+    yandex: '46fb36f564b2461f',
   },
   alternates: {
     canonical: '/',
