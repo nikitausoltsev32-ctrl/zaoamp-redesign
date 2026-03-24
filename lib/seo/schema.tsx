@@ -7,10 +7,10 @@ export function generateOrganizationSchema() {
     '@type': 'Organization',
     name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
     alternateName: 'АМП',
-    url: 'https://zaoamp.ru',
+    url: 'https://amp-minerals.ru',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://zaoamp.ru/logo.png',
+      url: 'https://amp-minerals.ru/logo.png',
       width: 512,
       height: 512,
     },
@@ -44,7 +44,7 @@ export function generateLocalBusinessSchema() {
     name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
     alternateName: 'АМП',
     description: 'Производитель белой мраморной крошки и щебня премиум-качества',
-    url: 'https://zaoamp.ru',
+    url: 'https://amp-minerals.ru',
     telephone: '+7-919-393-19-92',
     email: 'evoprod@mail.ru',
     address: {
@@ -70,7 +70,7 @@ export function generateLocalBusinessSchema() {
     ],
     image: {
       '@type': 'ImageObject',
-      url: 'https://zaoamp.ru/logo.png',
+      url: 'https://amp-minerals.ru/logo.png',
     },
     priceRange: '$$',
     areaServed: 'RU',
@@ -84,7 +84,7 @@ export function generateProductSchema(product: Product) {
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: `https://zaoamp.ru${product.image}`,
+    image: product.image ? `https://amp-minerals.ru${product.image}` : undefined,
     brand: {
       '@type': 'Brand',
       name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
@@ -95,8 +95,8 @@ export function generateProductSchema(product: Product) {
     },
     offers: {
       '@type': 'Offer',
-      url: `https://zaoamp.ru/product/${product.slug}`,
-      price: product.pricePerTon,
+      url: `https://amp-minerals.ru/product/${product.slug}`,
+      price: product.pricePerTon ?? undefined,
       priceCurrency: 'RUB',
       priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       availability: 'https://schema.org/InStock',
@@ -143,7 +143,7 @@ export function generateBreadcrumbSchema(
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `https://zaoamp.ru${item.item}`,
+      item: `https://amp-minerals.ru${item.item}`,
     })),
   }
 }
@@ -154,12 +154,12 @@ export function generateWebSiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    url: 'https://zaoamp.ru',
+    url: 'https://amp-minerals.ru',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://zaoamp.ru/catalog?q={search_term_string}',
+        urlTemplate: 'https://amp-minerals.ru/catalog?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },

@@ -6,6 +6,7 @@ import { ProductApplications } from '@/components/sections/product/product-appli
 import { ProductCalculator } from '@/components/sections/product/product-calculator'
 import { ProductCTA } from '@/components/sections/product/product-cta'
 import { getProductBySlug, getAllProductSlugs } from '@/lib/utils/products'
+import { generateProductSchema, generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
 
 interface ProductPageProps {
   params: {
@@ -43,8 +44,16 @@ export default function ProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Главная', item: '/' },
+    { name: 'Каталог', item: '/catalog' },
+    { name: product.name, item: `/product/${product.slug}` },
+  ])
+
   return (
     <div className="min-h-screen bg-brand-ice-blue">
+      <JsonLd data={generateProductSchema(product)} />
+      <JsonLd data={breadcrumb} />
       <ProductHero product={product} />
       <ProductSpecs product={product} />
       <ProductApplications product={product} />
