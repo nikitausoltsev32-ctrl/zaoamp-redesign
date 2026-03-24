@@ -114,7 +114,7 @@ export function generateCatalogMetadata(): Metadata {
 // Metadata для страницы продукта (динамическая)
 export function generateProductMetadata(product: Product): Metadata {
   return {
-    title: product.seo?.title || `${product.name} купить | Цена ${product.pricePerTon.toLocaleString('ru-RU')} ₽/т`,
+    title: product.seo?.title || `${product.name} купить | Цена ${product.pricePerTon?.toLocaleString('ru-RU') ?? 'по запросу'} ₽/т`,
     description: product.seo?.description || `${product.description} Доставка по России. Звоните +7 (919) 393-19-92`,
     keywords: product.seo?.keywords || [
       product.name.toLowerCase(),
