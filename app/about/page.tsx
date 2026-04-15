@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -26,7 +26,7 @@ const values = [
   {
     icon: Mountain,
     title: 'Собственное месторождение',
-    description: 'Добыча ведется на месторождении в Свердловской области с запасами белого мрамора высшего качества'
+    description: 'Добыча ведется на месторождении в Челябинской области с запасами белого мрамора высшего качества'
   },
   {
     icon: Shield,
@@ -111,7 +111,7 @@ export default function AboutPage() {
                   специализирующаяся на добыче и переработке белого мрамора.
                 </p>
                 <p>
-                  Мы владеем собственным месторождением в Свердловской области, 
+                  Мы владеем собственным месторождением в Челябинской области, 
                   где добываем уникальный по своим характеристикам белый мрамор 
                   с белизной до 98%.
                 </p>
@@ -142,7 +142,7 @@ export default function AboutPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="text-white font-medium">Месторождение в Свердловской области</p>
+                  <p className="text-white font-medium">Месторождение в Челябинской области</p>
                 </div>
               </motion.div>
               <motion.div
@@ -231,7 +231,7 @@ export default function AboutPage() {
               Месторождение
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Уникальное месторождение белого мрамора в Свердловской области. 
+              Уникальное месторождение белого мрамора в Челябинской области. 
               Запасы высококачественного сырья на десятилетия вперед.
             </p>
           </div>

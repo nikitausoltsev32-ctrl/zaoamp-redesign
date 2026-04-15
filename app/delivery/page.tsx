@@ -1,11 +1,13 @@
-'use client'
-
+﻿
+import type { Metadata } from 'next'
 import { SectionHeader } from '@/components/section-header'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Truck, ArrowRight, Check } from 'lucide-react'
+import { generateDeliveryMetadata } from '@/lib/seo/metadata'
 
+export const metadata: Metadata = generateDeliveryMetadata()
 
 export default function DeliveryPage() {
   return (
@@ -102,3 +104,4 @@ export default function DeliveryPage() {
     </div>
   )
 }
+

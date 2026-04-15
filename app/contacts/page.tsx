@@ -1,9 +1,9 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import { ContactForm, ContactInfo } from '@/components/sections/contacts/contact-form'
 import { SectionHeader } from '@/components/section-header'
 
 export const metadata: Metadata = {
-  title: 'Контакты | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+  title: 'Контакты — ЗАО АМП ИМПОРТ-ЭКСПОРТ, Екатеринбург',
   description: 'Контакты компании ЗАО АМП ИМПОРТ-ЭКСПОРТ. Телефон: +7 (919) 393-19-92. Адрес: г. Екатеринбург, ул. Евгения Савкова 29, офис 262.',
   keywords: ['контакты', 'телефон', 'адрес', 'Екатеринбург', 'мраморная крошка'],
 }
@@ -59,3 +59,4 @@ export default function ContactsPage() {
     </div>
   )
 }
+

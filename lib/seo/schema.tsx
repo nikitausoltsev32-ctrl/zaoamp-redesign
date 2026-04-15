@@ -1,4 +1,4 @@
-import { Product } from '@/types'
+﻿import { Product } from '@/types'
 
 // Organization Schema (для layout.tsx)
 export function generateOrganizationSchema() {
@@ -29,7 +29,7 @@ export function generateOrganizationSchema() {
       '@type': 'PostalAddress',
       streetAddress: 'ул. Евгения Савкова 29, офис 262',
       addressLocality: 'Екатеринбург',
-      addressRegion: 'Свердловская область',
+      addressRegion: 'Челябинская область',
       postalCode: '620144',
       addressCountry: 'RU',
     },
@@ -51,7 +51,7 @@ export function generateLocalBusinessSchema() {
       '@type': 'PostalAddress',
       streetAddress: 'ул. Евгения Савкова 29, офис 262',
       addressLocality: 'Екатеринбург',
-      addressRegion: 'Свердловская область',
+      addressRegion: 'Челябинская область',
       postalCode: '620144',
       addressCountry: 'RU',
     },

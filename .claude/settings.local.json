@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/HomePc/claude-seo/install.ps1\" 2>&1)",
+      "Bash(powershell -ExecutionPolicy Bypass -Command \"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & 'C:/Users/HomePc/claude-seo/install.ps1'\" 2>&1)",
+      "Bash(bash \"C:/Users/HomePc/claude-seo/install.sh\" 2>&1)",
+      "Bash(python:*)",
+      "Bash(PYTHONIOENCODING=utf-8 python \"C:/Users/HomePc/.claude/skills/skill-creator/scripts/init_skill.py\" zaoamp-seo --path \"C:/Users/HomePc/.claude/skills/\" 2>&1)",
+      "Bash(find C:/Users/HomePc/.zaoamprepo/zaoamp-redesign/lib -name *.ts)",
+      "mcp__claude_ai_Vercel__list_teams",
+      "mcp__claude_ai_Vercel__list_projects",
+      "mcp__claude_ai_Vercel__list_deployments",
+      "mcp__claude_ai_Vercel__get_deployment_build_logs",
+      "WebFetch(domain:amp-minerals.ru)",
+      "mcp__claude_ai_Vercel__get_project",
+      "Bash(nslookup amp-minerals.ru)",
+      "Bash(find C:UsersHomePc.zaoamprepozaoamp-redesign/public -type f \\\\\\(-name *.jpg -o -name *.jpeg -o -name *.png -o -name *.webp -o -name *.gif \\\\\\))",
+      "Bash(grep -r src=/images C:UsersHomePc.zaoamprepozaoamp-redesign/app --include=*.tsx)",
+      "Bash(grep -r \"dynamic\\\\|React.lazy\\\\|Suspense\" C:UsersHomePc.zaoamprepozaoamp-redesign/app --include=*.tsx --include=*.ts)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm i:*)",
+      "Skill(seo-audit)",
+      "mcp__claude_ai_Vercel__web_fetch_vercel_url",
+      "Bash(python3:*)",
+      "Bash(git commit:*)",
+      "mcp__claude_ai_Vercel__get_deployment",
+      "Bash(git add:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}

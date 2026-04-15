@@ -9,7 +9,7 @@ const features = [
   {
     icon: Mountain,
     title: 'Собственное месторождение',
-    description: 'Добыча ведется на уникальном месторождении в Свердловской области'
+    description: 'Добыча ведется на уникальном месторождении в Челябинской области'
   },
   {
     icon: Factory,
@@ -73,7 +73,7 @@ export function QuarrySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <p className="text-white font-semibold text-lg">
-                  Месторождение в Свердловской области
+                  Месторождение в Челябинской области
                 </p>
                 <p className="text-white/80 text-sm">
                   Добыча белого мрамора высшего качества

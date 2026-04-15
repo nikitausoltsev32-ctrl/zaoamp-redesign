@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+﻿import { NextResponse } from 'next/server'
 
 interface City {
   code: string
@@ -32,8 +32,8 @@ export async function GET() {
 
 function getFallbackCities(): City[] {
   return [
-    { code: 'ekaterinburg', name: 'Екатеринбург', region: 'Свердловская область', hasTerminal: true },
-    { code: 'sverdlovsk', name: 'Свердловская область', region: 'Урал', hasTerminal: true },
+    { code: 'ekaterinburg', name: 'Екатеринбург', region: 'Челябинская область', hasTerminal: true },
+    { code: 'sverdlovsk', name: 'Челябинская область', region: 'Урал', hasTerminal: true },
     { code: 'moscow', name: 'Москва', region: 'Центральный ФО', hasTerminal: true },
     { code: 'spb', name: 'Санкт-Петербург', region: 'Северо-Западный ФО', hasTerminal: true },
     { code: 'kaliningrad', name: 'Калининград', region: 'Северо-Западный ФО', hasTerminal: true },

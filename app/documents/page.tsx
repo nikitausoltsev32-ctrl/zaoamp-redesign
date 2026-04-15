@@ -1,11 +1,11 @@
-import { Metadata } from 'next'
+﻿import { Metadata } from 'next'
 import Link from 'next/link'
 import { FileText, Download } from 'lucide-react'
 import { qualityDocuments } from '@/lib/data/documents'
 import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
-  title: 'Паспорта качества | ЗАО АМП',
+  title: 'Сертификаты и паспорта качества — ЗАО АМП',
   description: 'Паспорта качества и сертификаты соответствия на мраморную крошку и щебень.',
 }
 
@@ -57,3 +57,4 @@ export default function DocumentsPage() {
     </div>
   )
 }
+

@@ -1,6 +1,7 @@
-'use client'
+﻿'use client'
 
 import { useState, useMemo } from 'react'
+import { JsonLd } from '@/lib/seo/schema'
 import { CatalogHeader } from '@/components/sections/catalog-header'
 import { CatalogFilters, CategoryFilter } from '@/components/sections/catalog-filters'
 import { CatalogGrid } from '@/components/sections/catalog-grid'
@@ -22,14 +23,17 @@ export default function CatalogPage() {
   }), [])
 
   return (
-    <div className="min-h-screen bg-brand-ice-blue">
-      <CatalogHeader />
-      <CatalogFilters 
-        activeFilter={activeFilter} 
-        onFilterChange={setActiveFilter}
-        productCounts={productCounts}
-      />
-      <CatalogGrid products={filteredProducts} />
-    </div>
+    <>
+      <JsonLd data={{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://amp-minerals.ru"},{"@type":"ListItem","position":2,"name":"Каталог","item":"https://amp-minerals.ru/catalog"}]}} />
+      <div className="min-h-screen bg-brand-ice-blue">
+        <CatalogHeader />
+        <CatalogFilters 
+          activeFilter={activeFilter} 
+          onFilterChange={setActiveFilter}
+          productCounts={productCounts}
+        />
+        <CatalogGrid products={filteredProducts} />
+      </div>
+    </>
   )
 }

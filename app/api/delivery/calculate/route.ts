@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import type { DeliveryCalculationRequest, TruckLoad } from '@/types/delivery'
 import { MAX_TRUCK_WEIGHT, MARKUP_PERCENTAGE } from '@/types/delivery'
 
 // Текстовые адреса для address.search (документация: нужен текст "регион, город")
 const ARRIVAL_ADDRESSES: Record<string, string> = {
-  'ekaterinburg': 'Свердловская обл., Екатеринбург', 'sverdlovsk': 'Свердловская обл., Екатеринбург',
+  'ekaterinburg': 'Челябинская обл., Екатеринбург', 'sverdlovsk': 'Челябинская обл., Екатеринбург',
   'ural': 'Челябинская обл., Челябинск', 'volga': 'Республика Татарстан, Казань',
   'moscow': 'Москва', 'center': 'Тульская обл., Тула', 'central': 'Тульская обл., Тула',
   'northwest': 'Санкт-Петербург', 'spb': 'Санкт-Петербург',
