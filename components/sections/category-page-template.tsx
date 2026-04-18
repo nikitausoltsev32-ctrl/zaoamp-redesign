@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, Check, CheckCircle2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
@@ -41,32 +42,49 @@ export function CategoryPageTemplate({ data }: Props) {
               <span>/</span>
               <span className="text-gray-900">{data.breadcrumbLabel}</span>
             </nav>
-            <div className="max-w-3xl">
-              <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
-                Каталог · {data.breadcrumbLabel}
-              </Badge>
-              <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">
-                {data.h1}
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8">
-                {data.intro}
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
-                  <Link href="/contacts">
-                    Запросить цену
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                {typeof minPrice === 'number' && (
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white border text-sm">
-                    <span className="text-muted-foreground">от</span>
-                    <span className="font-semibold text-gray-900">
-                      {minPrice.toLocaleString('ru-RU')} ₽/т
-                    </span>
-                  </div>
-                )}
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div className="max-w-3xl">
+                <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
+                  Каталог · {data.breadcrumbLabel}
+                </Badge>
+                <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">
+                  {data.h1}
+                </h1>
+                <p className="text-xl text-muted-foreground mb-8">
+                  {data.intro}
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Button asChild className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
+                    <Link href="/contacts">
+                      Запросить цену
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  {typeof minPrice === 'number' && (
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white border text-sm">
+                      <span className="text-muted-foreground">от</span>
+                      <span className="font-semibold text-gray-900">
+                        {minPrice.toLocaleString('ru-RU')} ₽/т
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6 }}
+                className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl hidden lg:block"
+              >
+                <Image
+                  src={data.heroImage}
+                  alt={data.heroImageAlt}
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 0px, 50vw"
+                />
+              </motion.div>
             </div>
           </div>
         </section>

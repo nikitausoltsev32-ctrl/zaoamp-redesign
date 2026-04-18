@@ -8,6 +8,8 @@ export interface CategoryData {
   productCategories: Product['category'][]
   h1: string
   breadcrumbLabel: string
+  heroImage: string
+  heroImageAlt: string
   intro: string
   leadText: string
   keyPoints: { title: string; description: string }[]
@@ -26,6 +28,8 @@ export const categories: Record<CategorySlug, CategoryData> = {
     productCategories: ['scherb'],
     h1: 'Мраморный щебень от производителя',
     breadcrumbLabel: 'Мраморный щебень',
+    heroImage: '/images/products/shheben-20-50.jpg',
+    heroImageAlt: 'Белый мраморный щебень фракции 20-50 мм',
     intro:
       'Крупные фракции белого мраморного щебня от 10 до 200 мм. Добыча на собственном карьере в Челябинской области, белизна до 98%, кубовидная форма зерна, радиационный класс 1.',
     leadText:
@@ -117,6 +121,8 @@ export const categories: Record<CategorySlug, CategoryData> = {
     productCategories: ['kroshka'],
     h1: 'Мраморная крошка — 8 фракций от производителя',
     breadcrumbLabel: 'Мраморная крошка',
+    heroImage: '/images/products/kroshka-5-10.jpg',
+    heroImageAlt: 'Белая мраморная крошка фракции 5-10 мм',
     intro:
       'Мраморная крошка 8 фракций от 0-1 до 5-10 мм. Белый цвет, кубовидная форма зерна, высокая химическая чистота. Применяется в ландшафтном дизайне, декоративной штукатурке, наливных полах и мраморных смесях.',
     leadText:
@@ -207,6 +213,8 @@ export const categories: Record<CategorySlug, CategoryData> = {
     productCategories: ['muika'],
     h1: 'Мраморная мука и микрокальцит',
     breadcrumbLabel: 'Мука и микрокальцит',
+    heroImage: '/images/products/muka-0-0-2.jpg',
+    heroImageAlt: 'Мраморная мука 0-0.2 мм, тонкий помол',
     intro:
       'Мраморная мука 0-0.2 мм и микрокальцит 5-200 мкм — сверхтонкий помол натурального карбоната кальция. CaCO₃ ≥ 99%, белизна 98%. Применяется в сельском хозяйстве, лакокрасочной, пищевой и химической промышленности.',
     leadText:
