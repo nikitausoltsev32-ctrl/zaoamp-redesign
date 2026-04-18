@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
-import { navItems, productLinks } from '@/lib/data/navigation'
+import { navItems, productLinks, categoryLinks } from '@/lib/data/navigation'
 import { contactInfo } from '@/lib/data/contacts'
 
 export function Footer() {
@@ -10,7 +10,7 @@ export function Footer() {
   return (
     <footer className="bg-brand-deep-navy text-stone-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Logo size="xxl" variant="dark" className="mb-4" />
@@ -61,11 +61,11 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Products */}
+          {/* Categories */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Продукция</h3>
+            <h3 className="font-semibold text-white mb-4">Каталог</h3>
             <ul className="space-y-2">
-              {productLinks.slice(0, 4).map((item) => (
+              {categoryLinks.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -80,9 +80,26 @@ export function Footer() {
                   href="/catalog"
                   className="text-brand-powder-blue hover:text-brand-ice-blue transition-colors text-sm"
                 >
-                  Все продукты →
+                  Все фракции →
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* All Products */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Продукция</h3>
+            <ul className="space-y-2">
+              {productLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-stone-400 hover:text-white transition-colors text-sm"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

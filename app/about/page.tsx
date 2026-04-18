@@ -14,6 +14,30 @@ import {
   ArrowRight
 } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { generateFAQSchema, JsonLd } from '@/lib/seo/schema'
+
+const faqs = [
+  {
+    question: 'Откуда поставляется сырьё?',
+    answer: 'Мы разрабатываем собственное месторождение белого мрамора в Челябинской области. Добыча ведётся буровзрывным методом, а переработка — на нашем дробильно-сортировочном комплексе. Вся цепочка под контролем одной компании.',
+  },
+  {
+    question: 'Что значит «белизна 98%»?',
+    answer: 'Это показатель отражающей способности материала по шкале Rd. Высокая белизна нашего мрамора обусловлена природной химической чистотой породы и низким содержанием примесей — это не результат отбеливания, а свойство сырья.',
+  },
+  {
+    question: 'Какую форму имеет зерно?',
+    answer: 'Кубовидную. Применяемая технология дробления обеспечивает получение фракционированного мраморного песка кубической формы. Такая форма даёт максимальную плотность укладки и лучший декоративный эффект по сравнению с лещадными зёрнами.',
+  },
+  {
+    question: 'Какие документы вы предоставляете?',
+    answer: 'На каждую партию — паспорт качества с указанием фракции, белизны, содержания CaCO₃ и класса радиационной безопасности. Продукция сертифицирована и соответствует ГОСТ. Образцы документов доступны в разделе «Паспорта качества».',
+  },
+  {
+    question: 'Как осуществляется отгрузка?',
+    answer: 'Навалом, в биг-бэгах 500 кг или 1 т. Доступна автомобильная и железнодорожная отгрузка по всей России с карьера и склада в Екатеринбурге.',
+  },
+]
 
 const stats = [
   { number: '300+', label: 'Клиентов', icon: Users },
@@ -49,6 +73,7 @@ const values = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-brand-ice-blue">
+      <JsonLd data={generateFAQSchema(faqs)} />
       {/* Hero */}
       <section className="py-20 bg-gradient-to-br from-stone-50 to-stone-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -386,6 +411,45 @@ export default function AboutPage() {
                 <div className="text-2xl font-bold text-brand-sapphire mb-2">24/7</div>
                 <div className="text-sm text-muted-foreground">Работаем без выходных</div>
               </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-10">
+              <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
+                FAQ
+              </Badge>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Частые вопросы о производстве
+              </h2>
+              <p className="text-muted-foreground">
+                Коротко — о сырье, качестве и отгрузке
+              </p>
+            </div>
+            <div className="space-y-4">
+              {faqs.map((faq, i) => (
+                <motion.details
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                  className="group bg-stone-50 rounded-xl p-5 cursor-pointer open:bg-brand-ice-blue/60"
+                >
+                  <summary className="font-semibold text-gray-900 list-none flex justify-between items-center gap-4">
+                    <span>{faq.question}</span>
+                    <ArrowRight className="h-4 w-4 text-brand-sapphire transition-transform group-open:rotate-90 shrink-0" />
+                  </summary>
+                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </motion.details>
+              ))}
             </div>
           </div>
         </div>

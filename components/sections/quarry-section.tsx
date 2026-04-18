@@ -3,28 +3,28 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
-import { Mountain, Factory, Award, TrendingUp } from 'lucide-react'
+import { Drill, Truck, Layers, Boxes } from 'lucide-react'
 
 const features = [
   {
-    icon: Mountain,
-    title: 'Собственное месторождение',
-    description: 'Добыча ведется на уникальном месторождении в Челябинской области'
+    icon: Drill,
+    title: 'Буровзрывная добыча',
+    description: 'Порода добывается буровзрывным методом на открытом карьере'
   },
   {
-    icon: Factory,
-    title: 'Современная техника',
-    description: 'Используем профессиональное оборудование для добычи мрамора'
+    icon: Truck,
+    title: 'Hitachi и Hyundai',
+    description: 'Погрузка экскаваторами Hitachi и Hyundai на самосвалы КАМАЗ 25 т'
   },
   {
-    icon: Award,
-    title: 'Белизна 98%',
-    description: 'Уникальный белый мрамор высшего качества с запасами на десятилетия'
+    icon: Layers,
+    title: 'Дробление и грохочение',
+    description: 'Многоступенчатое дробление и разделение на фракции через грохоты'
   },
   {
-    icon: TrendingUp,
-    title: '45 000 тонн/мес',
-    description: 'Производственная мощность для любых объемов заказов'
+    icon: Boxes,
+    title: 'Упаковка и отгрузка',
+    description: 'Биг-бэги 500 кг / 1 т или навал — готово к автоперевозке и ж/д'
   }
 ]
 
