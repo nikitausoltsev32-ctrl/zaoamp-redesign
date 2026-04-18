@@ -25,7 +25,7 @@ export const productLinks: NavItem[] = [
 ]
 
 export const categoryLinks: NavItem[] = [
-  { label: 'Мраморный щебень', href: '/catalog?category=scherb' },
-  { label: 'Мраморная крошка', href: '/catalog?category=kroshka' },
-  { label: 'Мука и микрокальцит', href: '/catalog?category=muika' },
+  { label: 'Мраморный щебень', href: '/catalog/shcheben' },
+  { label: 'Мраморная крошка', href: '/catalog/kroshka' },
+  { label: 'Мука и микрокальцит', href: '/catalog/muka' },
 ]

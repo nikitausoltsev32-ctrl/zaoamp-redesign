@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { products } from '@/lib/data/products'
+import { categories } from '@/lib/data/categories'
 
 const BASE_URL = 'https://amp-minerals.ru'
 
@@ -43,6 +44,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
+  const categoryPages: MetadataRoute.Sitemap = Object.values(categories).map((c) => ({
+    url: `${BASE_URL}/catalog/${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }))
+
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${BASE_URL}/product/${product.slug}`,
     lastModified: new Date(),
@@ -50,5 +58,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...productPages]
+  return [...staticPages, ...categoryPages, ...productPages]
 }
