@@ -57,11 +57,11 @@ export default function AboutPage() {
               О компании
             </Badge>
             <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">
-              ЗАО «АМП ИМПОРТ-ЭКСПОРТ»
+              ЗАО «АМП ИМПОРТ-ЭКСПОРТ» — производитель мраморной крошки, щебня и микрокальцита
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Производитель белой мраморной крошки и щебня премиум-качества. 
-              Собственное месторождение, доставка по всей России.
+              Собственное месторождение белого мрамора в Челябинской области, офис и склад в Екатеринбурге.
+              Импортное оборудование, кубовидная форма зерна, доставка по всей России.
             </p>
             <Button asChild className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
               <Link href="/catalog">
@@ -107,21 +107,25 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  ЗАО «АМП ИМПОРТ-ЭКСПОРТ» — динамично развивающаяся компания, 
-                  специализирующаяся на добыче и переработке белого мрамора.
+                  ЗАО «АМП ИМПОРТ-ЭКСПОРТ» занимается производством мраморных наполнителей различных
+                  фракций. Применяемая нами технология обеспечивает получение фракционированного
+                  мраморного песка кубовидной формы — именно такая форма зерна даёт максимальную
+                  укладываемость и декоративный эффект.
                 </p>
                 <p>
-                  Мы владеем собственным месторождением в Челябинской области, 
-                  где добываем уникальный по своим характеристикам белый мрамор 
-                  с белизной до 98%.
+                  Главный приоритет для нас — качество: химическая чистота продукта без примесей
+                  и глинистых частиц, точность фракционирования и стабильность фракционного состава
+                  от партии к партии.
                 </p>
                 <p>
-                  Современное производство позволяет выпускать до 45 000 тонн 
-                  продукции в месяц, обеспечивая потребности клиентов по всей России.
+                  Мы владеем собственной сырьевой базой — месторождением белого мрамора в
+                  Челябинской области. Высокая белизна (до 98%) обусловлена химической чистотой
+                  породы и низким содержанием примесей — это природное свойство нашего сырья.
                 </p>
                 <p>
-                  За годы работы мы заслужили доверие более 300 клиентов и 
-                  отгрузили более 50 000 тонн продукции.
+                  Современное производство выпускает до 45 000 тонн продукции в месяц. За годы
+                  работы мы заслужили доверие более 300 клиентов и отгрузили свыше 50 000 тонн
+                  мраморной крошки, щебня и микрокальцита по всей России.
                 </p>
               </div>
             </div>
@@ -319,42 +323,65 @@ export default function AboutPage() {
       {/* Production */}
       <section className="py-16 bg-stone-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Производство
-            </h2>
-            <p className="text-muted-foreground mb-8">
-              Наше производство оснащено современным оборудованием для дробления, 
-              фракционирования и упаковки мраморной крошки. Автоматизированная 
-              линия обеспечивает точное соответствие фракциям и стабильное качество.
-            </p>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Производство
+              </h2>
+              <p className="text-muted-foreground">
+                Полный цикл: от добычи на собственном карьере до готовой фракции,
+                упакованной в биг-бэги или отгруженной навалом.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-10 text-left">
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="text-sm font-semibold text-brand-sapphire mb-2">Этап 1 — Добыча</div>
+                <h3 className="font-semibold text-gray-900 mb-2">Карьер в Челябинской области</h3>
+                <p className="text-sm text-muted-foreground">
+                  Добыча ведётся буровзрывным методом. Мраморная порода грузится экскаваторами
+                  Hitachi и Hyundai на самосвалы КАМАЗ грузоподъёмностью 25 тонн. Карьер обеспечивает
+                  бесперебойное снабжение сырьём дробильно-сортировочного комплекса.
+                </p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow-sm">
+                <div className="text-sm font-semibold text-brand-sapphire mb-2">Этап 2 — Переработка</div>
+                <h3 className="font-semibold text-gray-900 mb-2">Дробление и фракционирование</h3>
+                <p className="text-sm text-muted-foreground">
+                  Исходная порода проходит дробление и последующее разделение на фракции с помощью
+                  грохотов. Готовый щебень транспортируется конвейерами и складируется. В цикле
+                  используется импортное оборудование и современные технологии.
+                </p>
+              </div>
+            </div>
+
             <div className="grid sm:grid-cols-3 gap-6">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0 }}
-                className="bg-brand-ice-blue p-6 rounded-xl shadow-sm"
+                className="bg-brand-ice-blue p-6 rounded-xl shadow-sm text-center"
               >
-                <div className="text-2xl font-bold text-brand-sapphire mb-2">6</div>
+                <div className="text-2xl font-bold text-brand-sapphire mb-2">12</div>
                 <div className="text-sm text-muted-foreground">Фракций продукции</div>
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="bg-brand-ice-blue p-6 rounded-xl shadow-sm"
+                className="bg-brand-ice-blue p-6 rounded-xl shadow-sm text-center"
               >
                 <div className="text-2xl font-bold text-brand-sapphire mb-2">45 000</div>
                 <div className="text-sm text-muted-foreground">Тонн/мес мощность</div>
               </motion.div>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="bg-brand-ice-blue p-6 rounded-xl shadow-sm"
+                className="bg-brand-ice-blue p-6 rounded-xl shadow-sm text-center"
               >
                 <div className="text-2xl font-bold text-brand-sapphire mb-2">24/7</div>
                 <div className="text-sm text-muted-foreground">Работаем без выходных</div>

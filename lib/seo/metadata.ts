@@ -33,24 +33,15 @@ export const defaultMetadata: Metadata = {
     siteName: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
     title: 'Мраморная крошка и щебень | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
     description: 'Производитель белой мраморной крошки и щебня премиум-качества. Доставка по всей России.',
-    images: [
-      {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Мраморная крошка и щебень от ЗАО АМП',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Мраморная крошка и щебень | ЗАО АМП',
     description: 'Производитель белой мраморной крошки и щебня. Доставка по России.',
-    images: ['/images/og-image.jpg'],
     creator: '@zaoamp',
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'K3sSDP3dYdah1XesYF2441-Z2mhQF1U1oDXY0YjNR9M',
     yandex: '322f44e09d1f4187',
   },
   alternates: {
