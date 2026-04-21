@@ -26,37 +26,45 @@ async function sendTelegram(text: string) {
   })
 }
 
-/** POST /api/leads — сохранить заявку на КП (телефон) в Supabase + уведомление на почту/Telegram */
+/** POST /api/contact — обращение через форму контактов */
 export async function POST(request: Request) {
   try {
     const body = await request.json()
+    const name = typeof body?.name === 'string' ? body.name.trim() : ''
     const phone = typeof body?.phone === 'string' ? body.phone.trim() : ''
-    const source = body?.source ?? 'hero'
+    const email = typeof body?.email === 'string' ? body.email.trim() : ''
+    const message = typeof body?.message === 'string' ? body.message.trim() : ''
 
-    if (!phone) {
+    if (!name || !phone || !message) {
       return NextResponse.json(
-        { error: 'Телефон обязателен' },
+        { error: 'Имя, телефон и сообщение обязательны' },
         { status: 400 }
       )
     }
 
-    // Сохранение в Supabase (опционально — не блокирует отправку уведомлений)
+    const time = new Date().toLocaleString('ru-RU')
+    const safeName = escapeHtml(name)
+    const safePhone = escapeHtml(phone)
+    const safeEmail = escapeHtml(email)
+    const safeMessage = escapeHtml(message)
+
+    // Сохранение в Supabase (опционально)
     if (supabaseAdmin) {
-      const { error } = await supabaseAdmin.from('kp_leads').insert({ phone, source })
+      const { error } = await supabaseAdmin.from('contact_messages').insert({
+        name,
+        phone,
+        email: email || null,
+        message,
+      })
       if (error) {
-        console.error('[leads] Supabase error:', error)
+        console.error('[contact] Supabase error:', error)
       }
-    } else {
-      console.warn('[leads] Supabase не настроен, заявка не сохранена в БД')
     }
 
-    const time = new Date().toLocaleString('ru-RU')
-    const safePhone = escapeHtml(phone)
-    const safeSource = escapeHtml(String(source))
-
     // Уведомление в Telegram
+    const emailLine = safeEmail ? `\nEmail: ${safeEmail}` : ''
     await sendTelegram(
-      `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>\nИсточник: ${safeSource}\nВремя: ${time}`
+      `<b>Новое обращение с сайта</b>\nИмя: <b>${safeName}</b>\nТелефон: <b>${safePhone}</b>${emailLine}\nСообщение: ${safeMessage}\nВремя: ${time}`
     )
 
     // Уведомление на почту
@@ -67,22 +75,24 @@ export async function POST(request: Request) {
       const { error: emailError } = await resend.emails.send({
         from: fromEmail,
         to: notificationEmail,
-        subject: `Новая заявка на КП — ${phone}`,
+        subject: `Новое обращение с сайта — ${name}`,
         html: `
-          <h2>Новая заявка на коммерческое предложение</h2>
+          <h2>Новое обращение через форму контактов</h2>
+          <p><strong>Имя:</strong> ${safeName}</p>
           <p><strong>Телефон:</strong> ${safePhone}</p>
-          <p><strong>Источник:</strong> ${safeSource}</p>
+          ${safeEmail ? `<p><strong>Email:</strong> ${safeEmail}</p>` : ''}
+          <p><strong>Сообщение:</strong> ${safeMessage}</p>
           <p><strong>Время:</strong> ${time}</p>
         `,
       })
       if (emailError) {
-        console.error('[leads] Resend error:', emailError)
+        console.error('[contact] Resend error:', emailError)
       }
     }
 
     return NextResponse.json({ success: true })
   } catch (e) {
-    console.error('[leads] Unexpected error:', e)
+    console.error('[contact] Unexpected error:', e)
     return NextResponse.json(
       { error: 'Внутренняя ошибка сервера' },
       { status: 500 }
