@@ -13,16 +13,33 @@ import { motion } from 'framer-motion'
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
-    
-    // Заглушка для отправки
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    setIsLoading(false)
-    setIsSubmitted(true)
+    setError(null)
+    const form = e.currentTarget
+    const data = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value.trim(),
+      phone: (form.elements.namedItem('phone') as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem('email') as HTMLInputElement).value.trim(),
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim(),
+    }
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json()
+      if (!res.ok) throw new Error(json.error ?? 'Ошибка отправки')
+      setIsSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка отправки')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (isSubmitted) {
@@ -74,8 +91,12 @@ export function ContactForm() {
         />
       </div>
 
-      <Button 
-        type="submit" 
+      {error && (
+        <p className="text-sm text-destructive text-center">{error}</p>
+      )}
+
+      <Button
+        type="submit"
         className="w-full bg-brand-sapphire hover:bg-brand-sapphire-dark"
         size="lg"
         disabled={isLoading}
