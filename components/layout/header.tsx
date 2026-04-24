@@ -44,6 +44,7 @@ export function Header() {
                   <Link
                     href={item.href}
                     className="flex items-center gap-1 text-sm font-medium text-stone-700 hover:text-brand-sapphire transition-colors"
+                    onClick={() => item.href === '/catalog' && ymGoal('catalog_click')}
                   >
                     {item.label}
                     <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
@@ -55,6 +56,7 @@ export function Header() {
                           key={child.href}
                           href={child.href}
                           className="block px-4 py-2.5 text-sm text-stone-700 hover:text-brand-sapphire hover:bg-stone-50 transition-colors"
+                          onClick={() => ymGoal('catalog_category_click')}
                         >
                           {child.label}
                         </Link>

@@ -19,6 +19,7 @@ import { Product } from '@/types'
 import { PriceTag } from './price-tag'
 import Link from 'next/link'
 import { FileText } from 'lucide-react'
+import { ymGoal } from '@/lib/analytics'
 
 interface ProductCardProps {
   product: Product
@@ -46,6 +47,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'Ошибка отправки')
+      ymGoal('kp_submit')
       setKpSubmitted(true)
     } catch (err) {
       setKpError(err instanceof Error ? err.message : 'Ошибка отправки')
@@ -80,7 +82,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         </CardHeader>
         <CardFooter className="pt-0">
           <Button asChild size="sm" className="w-full">
-            <Link href={`/product/${product.slug}`}>Подробнее</Link>
+            <Link href={`/product/${product.slug}`} onClick={() => ymGoal('product_view')}>Подробнее</Link>
           </Button>
         </CardFooter>
       </Card>
@@ -134,14 +136,14 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
       </CardContent>
       <CardFooter className="flex gap-2">
         <Button asChild variant="default" className="flex-1">
-          <Link href={`/product/${product.slug}`}>Подробнее</Link>
+          <Link href={`/product/${product.slug}`} onClick={() => ymGoal('product_view')}>Подробнее</Link>
         </Button>
         {hasPrice ? (
           <Button asChild variant="outline" className="flex-1">
-            <Link href={`/product/${product.slug}#calculator`}>Рассчитать</Link>
+            <Link href={`/product/${product.slug}#calculator`} onClick={() => ymGoal('calculator_open')}>Рассчитать</Link>
           </Button>
         ) : (
-          <Button variant="outline" className="flex-1" onClick={() => setKpOpen(true)}>
+          <Button variant="outline" className="flex-1" onClick={() => { ymGoal('kp_open'); setKpOpen(true) }}>
             <FileText className="mr-2 h-4 w-4" />
             Получить КП
           </Button>
