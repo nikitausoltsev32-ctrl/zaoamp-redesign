@@ -29,7 +29,7 @@ export function generateOrganizationSchema() {
       '@type': 'PostalAddress',
       streetAddress: 'ул. Евгения Савкова 29, офис 262',
       addressLocality: 'Екатеринбург',
-      addressRegion: 'Челябинская область',
+      addressRegion: 'Свердловская область',
       postalCode: '620144',
       addressCountry: 'RU',
     },
@@ -51,7 +51,7 @@ export function generateLocalBusinessSchema() {
       '@type': 'PostalAddress',
       streetAddress: 'ул. Евгения Савкова 29, офис 262',
       addressLocality: 'Екатеринбург',
-      addressRegion: 'Челябинская область',
+      addressRegion: 'Свердловская область',
       postalCode: '620144',
       addressCountry: 'RU',
     },
@@ -122,13 +122,6 @@ export function generateProductSchema(product: Product) {
         returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
       },
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5',
-      worstRating: '1',
-    },
   }
 }
 
@@ -143,7 +136,7 @@ export function generateBreadcrumbSchema(
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `https://amp-minerals.ru${item.item}`,
+      item: item.item.startsWith('http') ? item.item : `https://amp-minerals.ru${item.item}`,
     })),
   }
 }

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Phone, MessageCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { contactInfo } from '@/lib/data/contacts'
+import { ymGoal } from '@/lib/analytics'
 
 export function CTASection() {
   return (
@@ -31,7 +32,7 @@ export function CTASection() {
               variant="secondary"
               className="bg-brand-ice-blue text-brand-sapphire hover:bg-brand-ice-blue/90"
             >
-              <a href="tel:+79193931992">
+              <a href="tel:+79193931992" onClick={() => ymGoal('phone_click')}>
                 <Phone className="mr-2 h-4 w-4" />
                 Позвонить
               </a>
@@ -41,7 +42,7 @@ export function CTASection() {
               size="lg"
               className="bg-brand-sapphire-dark text-white hover:bg-brand-deep-navy border-0"
             >
-              <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer" onClick={() => ymGoal('whatsapp_click')}>
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Написать в MAX
               </a>
@@ -61,7 +62,7 @@ export function CTASection() {
           </div>
           
           <p className="mt-6 text-sm text-white/80">
-            Или звоните: <a href="tel:+79193931992" className="font-semibold underline">+7 (919) 393-19-92</a>
+            Или звоните: <a href="tel:+79193931992" className="font-semibold underline" onClick={() => ymGoal('phone_click')}>+7 (919) 393-19-92</a>
           </p>
         </motion.div>
       </div>

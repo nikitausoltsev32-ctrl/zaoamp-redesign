@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { products } from '@/lib/data/products'
 import { categories } from '@/lib/data/categories'
+import { blogPosts } from '@/lib/data/blog'
 
 const BASE_URL = 'https://amp-minerals.ru'
 
@@ -42,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.5,
     },
+    {
+      url: `${BASE_URL}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
   ]
 
   const categoryPages: MetadataRoute.Sitemap = Object.values(categories).map((c) => ({
@@ -58,5 +65,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...categoryPages, ...productPages]
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${BASE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.publishDate),
+    changeFrequency: 'monthly',
+    priority: 0.65,
+  }))
+
+  return [...staticPages, ...categoryPages, ...productPages, ...blogPages]
 }

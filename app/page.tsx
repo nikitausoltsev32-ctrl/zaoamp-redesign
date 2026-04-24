@@ -3,6 +3,7 @@ import { BenefitsSection } from '@/components/sections/benefits'
 import { QuarrySection } from '@/components/sections/quarry-section'
 import { FeaturedProductsSection } from '@/components/sections/featured-products'
 import { CalculatorSection } from '@/components/sections/calculator-section'
+import { TestimonialsSection } from '@/components/sections/testimonials'
 import { CTASection } from '@/components/sections/cta-section'
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
       <QuarrySection />
       <FeaturedProductsSection />
       <CalculatorSection />
+      <TestimonialsSection />
       <CTASection />
     </>
   )

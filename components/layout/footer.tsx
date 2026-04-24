@@ -10,7 +10,7 @@ export function Footer() {
   return (
     <footer className="bg-brand-deep-navy text-stone-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-8">
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Logo size="xxl" variant="dark" className="mb-4" />
@@ -58,6 +58,38 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Blog */}
+          <div>
+            <h3 className="font-semibold text-white mb-4">Блог</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/blog" className="text-stone-400 hover:text-white transition-colors text-sm">
+                  Все статьи
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/kak-vybrat-frakciyu-mramornoj-kroshki" className="text-stone-400 hover:text-white transition-colors text-sm">
+                  Выбор фракции крошки
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/mramornyj-shcheben-vs-granitnyj" className="text-stone-400 hover:text-white transition-colors text-sm">
+                  Мрамор vs гранит
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/radiacionnaya-bezopasnost-shchebnya-klass-1" className="text-stone-400 hover:text-white transition-colors text-sm">
+                  Радиационная безопасность
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/belizna-mikrokalsita-98-procentov" className="text-stone-400 hover:text-white transition-colors text-sm">
+                  Белизна микрокальцита 98%
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { CatalogGrid } from '@/components/sections/catalog-grid'
 import { CategoryData, getCategoryProducts } from '@/lib/data/categories'
+import { blogPosts } from '@/lib/data/blog'
 import { JsonLd, generateFAQSchema, generateBreadcrumbSchema } from '@/lib/seo/schema'
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 
 export function CategoryPageTemplate({ data }: Props) {
   const products = getCategoryProducts(data.slug)
+  const relatedPosts = blogPosts.filter((p) => data.relatedBlogSlugs.includes(p.slug))
   const minPrice = products
     .map((p) => p.pricePerTon)
     .filter((v): v is number => typeof v === 'number')
@@ -210,6 +212,32 @@ export function CategoryPageTemplate({ data }: Props) {
             </div>
           </div>
         </section>
+
+        {/* Related blog posts */}
+        {relatedPosts.length > 0 && (
+          <section className="py-14 bg-stone-50">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Полезные статьи</h2>
+              <div className="grid md:grid-cols-2 gap-5 max-w-3xl">
+                {relatedPosts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group flex flex-col bg-white rounded-xl border border-stone-200 p-5 hover:border-brand-sapphire/40 hover:shadow-sm transition-all"
+                  >
+                    <span className="text-xs text-brand-sapphire font-medium mb-2">
+                      {post.readTime} мин чтения
+                    </span>
+                    <span className="font-semibold text-stone-900 group-hover:text-brand-sapphire transition-colors text-sm leading-snug">
+                      {post.title}
+                    </span>
+                    <span className="mt-2 text-xs text-stone-500 line-clamp-2">{post.excerpt}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="py-16 bg-brand-deep-navy text-white">

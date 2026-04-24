@@ -34,6 +34,12 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     title: product.seo.title,
     description: product.seo.description,
     keywords: product.seo.keywords,
+    alternates: { canonical: `/product/${product.slug}` },
+    openGraph: {
+      title: product.seo.title,
+      description: product.seo.description,
+      url: `/product/${product.slug}`,
+    },
   }
 }
 
@@ -44,9 +50,18 @@ export default function ProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
+  const categoryMap: Record<string, { slug: string; label: string }> = {
+    scherb: { slug: 'shcheben', label: 'Мраморный щебень' },
+    kroshka: { slug: 'kroshka', label: 'Мраморная крошка' },
+    muika: { slug: 'muka', label: 'Мука и микрокальцит' },
+    otsev: { slug: 'muka', label: 'Мука и микрокальцит' },
+  }
+  const cat = categoryMap[product.category]
+
   const breadcrumb = generateBreadcrumbSchema([
     { name: 'Главная', item: '/' },
     { name: 'Каталог', item: '/catalog' },
+    ...(cat ? [{ name: cat.label, item: `/catalog/${cat.slug}` }] : []),
     { name: product.name, item: `/product/${product.slug}` },
   ])
 

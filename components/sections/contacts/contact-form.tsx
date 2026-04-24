@@ -9,6 +9,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { SectionHeader } from '@/components/section-header'
 import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { ymGoal } from '@/lib/analytics'
 
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -20,7 +21,8 @@ export function ContactForm() {
     
     // Заглушка для отправки
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
+    ymGoal('form_submit')
     setIsLoading(false)
     setIsSubmitted(true)
   }
@@ -146,9 +148,10 @@ export function ContactInfo() {
               <div>
                 <h3 className="font-medium text-gray-900">{contact.title}</h3>
                 {contact.href ? (
-                  <a 
-                    href={contact.href} 
+                  <a
+                    href={contact.href}
                     className="text-brand-sapphire hover:underline font-medium"
+                    onClick={() => contact.href?.startsWith('tel:') && ymGoal('phone_click')}
                   >
                     {contact.value}
                   </a>
@@ -167,7 +170,7 @@ export function ContactInfo() {
         <h3 className="font-medium text-gray-900 mb-3">Быстрые контакты</h3>
         <div className="flex gap-3">
           <Button asChild variant="outline" className="flex-1">
-            <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer" onClick={() => ymGoal('whatsapp_click')}>
               <MessageCircle className="mr-2 h-4 w-4" />
               WhatsApp
             </a>

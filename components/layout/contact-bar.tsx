@@ -1,6 +1,9 @@
+'use client'
+
 import { Phone, MessageCircle, Clock } from 'lucide-react'
 import { contactInfo } from '@/lib/data/contacts'
 import { cn } from '@/lib/utils'
+import { ymGoal } from '@/lib/analytics'
 
 interface ContactBarProps {
   variant?: 'header' | 'footer' | 'mobile'
@@ -17,6 +20,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
         <a
           href={phoneLink}
           className="flex items-center gap-3 text-lg font-medium"
+          onClick={() => ymGoal('phone_click')}
         >
           <Phone className="w-5 h-5 text-brand-sapphire" />
           {contactInfo.phone}
@@ -26,6 +30,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-3 text-lg"
+          onClick={() => ymGoal('whatsapp_click')}
         >
           <MessageCircle className="w-5 h-5 text-purple-500" />
           MAX
@@ -44,6 +49,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
         <a
           href={phoneLink}
           className="flex items-center gap-2 text-stone-100 hover:text-brand-powder-blue transition-colors"
+          onClick={() => ymGoal('phone_click')}
         >
           <Phone className="w-4 h-4" />
           {contactInfo.phone}
@@ -72,6 +78,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
         <a
           href={phoneLink}
           className="block text-lg font-bold text-stone-900 hover:text-brand-sapphire transition-colors"
+          onClick={() => ymGoal('phone_click')}
         >
           {contactInfo.phone}
         </a>
@@ -83,6 +90,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
         rel="noopener noreferrer"
         className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors"
         aria-label="Написать в MAX"
+        onClick={() => ymGoal('whatsapp_click')}
       >
         <MessageCircle className="w-5 h-5" />
       </a>

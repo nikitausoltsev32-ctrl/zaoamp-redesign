@@ -1,13 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
 import { MobileNav } from './mobile-nav'
 import { navItems } from '@/lib/data/navigation'
 import { contactInfo } from '@/lib/data/contacts'
+import { ymGoal } from '@/lib/analytics'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -36,15 +38,40 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-stone-700 hover:text-brand-sapphire transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.children ? (
+                <div key={item.href} className="relative group">
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-1 text-sm font-medium text-stone-700 hover:text-brand-sapphire transition-colors"
+                  >
+                    {item.label}
+                    <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
+                  </Link>
+                  <div className="absolute top-full left-0 pt-2 hidden group-hover:block">
+                    <div className="bg-white rounded-xl shadow-lg border border-stone-100 py-2 min-w-[220px]">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block px-4 py-2.5 text-sm text-stone-700 hover:text-brand-sapphire hover:bg-stone-50 transition-colors"
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-stone-700 hover:text-brand-sapphire transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Phone (mobile) + ContactBar (desktop) + Mobile Menu */}
@@ -52,6 +79,7 @@ export function Header() {
             <a
               href={`tel:${contactInfo.whatsapp}`}
               className="lg:hidden text-sm font-semibold text-stone-700 hover:text-brand-sapphire transition-colors whitespace-nowrap"
+              onClick={() => ymGoal('phone_click')}
             >
               {contactInfo.phone}
             </a>

@@ -13,6 +13,7 @@ import { products } from '@/lib/data/products'
 import { deliveryRegions, calculatePrice, getDisplayDeliveryPrice } from '@/lib/data/calculator'
 import { Badge } from '@/components/ui/badge'
 import { Truck } from 'lucide-react'
+import { ymGoal } from '@/lib/analytics'
 
 export function Calculator({ initialProductId }: { initialProductId?: string }) {
   const [selectedProduct, setSelectedProduct] = useState<string>(initialProductId || '')
@@ -69,6 +70,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
       return
     }
 
+    ymGoal('calculator_use')
     setLoading(true)
     try {
       const response = await fetch('/api/delivery/calculate', {

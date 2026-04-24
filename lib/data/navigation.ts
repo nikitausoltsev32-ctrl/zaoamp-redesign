@@ -2,7 +2,16 @@ import { NavItem, ContactInfo } from '@/types'
 
 export const navItems: NavItem[] = [
   { label: 'Главная', href: '/' },
-  { label: 'Каталог', href: '/catalog' },
+  {
+    label: 'Каталог',
+    href: '/catalog',
+    children: [
+      { label: 'Мраморный щебень', href: '/catalog/shcheben' },
+      { label: 'Мраморная крошка', href: '/catalog/kroshka' },
+      { label: 'Мука и микрокальцит', href: '/catalog/muka' },
+    ],
+  },
+  { label: 'Блог', href: '/blog' },
   { label: 'Паспорта качества', href: '/documents' },
   { label: 'О компании', href: '/about' },
   { label: 'Доставка', href: '/delivery' },

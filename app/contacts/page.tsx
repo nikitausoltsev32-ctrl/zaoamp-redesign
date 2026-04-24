@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from 'next'
 import { ContactForm, ContactInfo } from '@/components/sections/contacts/contact-form'
 import { SectionHeader } from '@/components/section-header'
+import { generateLocalBusinessSchema, JsonLd } from '@/lib/seo/schema'
 
 export const metadata: Metadata = {
   title: 'Контакты — ЗАО АМП ИМПОРТ-ЭКСПОРТ, Екатеринбург',
@@ -10,6 +11,8 @@ export const metadata: Metadata = {
 
 export default function ContactsPage() {
   return (
+    <>
+      <JsonLd data={generateLocalBusinessSchema()} />
     <div className="min-h-screen bg-brand-ice-blue">
       {/* Header */}
       <div className="bg-gradient-to-br from-stone-50 to-stone-100 py-16">
@@ -57,6 +60,7 @@ export default function ContactsPage() {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

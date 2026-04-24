@@ -36,7 +36,7 @@ export function CatalogHeader() {
               <p className="text-sm text-muted-foreground">видов продукции</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-brand-sapphire">2 900 ₽</div>
+              <div className="text-2xl font-bold text-brand-sapphire">2 000 ₽</div>
               <p className="text-sm text-muted-foreground">от за тонну</p>
             </div>
           </div>
