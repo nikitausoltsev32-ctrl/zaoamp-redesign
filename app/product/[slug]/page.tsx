@@ -7,6 +7,7 @@ import { ProductCalculator } from '@/components/sections/product/product-calcula
 import { ProductCTA } from '@/components/sections/product/product-cta'
 import { getProductBySlug, getAllProductSlugs } from '@/lib/utils/products'
 import { generateProductSchema, generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
+import { generateProductMetadata } from '@/lib/seo/metadata'
 
 interface ProductPageProps {
   params: {
@@ -23,24 +24,14 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const product = getProductBySlug(params.slug)
-  
+
   if (!product) {
     return {
       title: 'Продукт не найден',
     }
   }
 
-  return {
-    title: product.seo.title,
-    description: product.seo.description,
-    keywords: product.seo.keywords,
-    alternates: { canonical: `/product/${product.slug}` },
-    openGraph: {
-      title: product.seo.title,
-      description: product.seo.description,
-      url: `/product/${product.slug}`,
-    },
-  }
+  return generateProductMetadata(product)
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
@@ -69,7 +60,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     <div className="min-h-screen bg-brand-ice-blue">
       <JsonLd data={generateProductSchema(product)} />
       <JsonLd data={breadcrumb} />
-      <ProductHero product={product} />
+      <ProductHero product={product} categoryBreadcrumb={cat} />
       <ProductSpecs product={product} />
       <ProductApplications product={product} />
       <ProductCalculator product={product} />

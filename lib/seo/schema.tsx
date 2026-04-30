@@ -1,52 +1,93 @@
-﻿import { Product } from '@/types'
+import type { Product } from '@/types'
+import { COMPANY_NAME, SITE_NAME, SITE_URL } from '@/lib/seo/metadata'
 
-// Organization Schema (для layout.tsx)
+function absoluteUrl(path = '/') {
+  return new URL(path, SITE_URL).toString()
+}
+
+function normalizeValue(value?: string) {
+  if (!value) return undefined
+  const trimmed = value.trim()
+  if (!trimmed || trimmed.toLowerCase() === 'по запросу') {
+    return undefined
+  }
+  return trimmed
+}
+
+function getCategoryName(category: Product['category']) {
+  const labels: Record<Product['category'], string> = {
+    scherb: 'Мраморный щебень',
+    kroshka: 'Мраморная крошка',
+    muika: 'Мраморная мука и микрокальцит',
+    otsev: 'Мраморная мука и микрокальцит',
+  }
+
+  return labels[category]
+}
+
+function getProductAdditionalProperties(product: Product) {
+  const properties = [
+    { name: 'Фракция', value: product.fraction },
+    { name: 'Белизна', value: normalizeValue(product.specifications.whiteness) },
+    { name: 'CaCO3', value: normalizeValue(product.specifications.caco3) },
+    {
+      name: 'Упаковка',
+      value: product.specifications.packaging.length
+        ? product.specifications.packaging.join(', ')
+        : undefined,
+    },
+    { name: 'Плотность', value: normalizeValue(product.specifications.density) },
+    { name: 'Морозостойкость', value: normalizeValue(product.specifications.frostResistance) },
+  ]
+    .filter((property) => property.value)
+    .map((property) => ({
+      '@type': 'PropertyValue',
+      name: property.name,
+      value: property.value,
+    }))
+
+  return properties.length > 0 ? properties : undefined
+}
+
 export function generateOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    alternateName: 'АМП',
-    url: 'https://amp-minerals.ru',
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://amp-minerals.ru/logo.png',
-      width: 512,
-      height: 512,
+    name: COMPANY_NAME,
+    alternateName: SITE_NAME,
+    brand: SITE_NAME,
+    url: SITE_URL,
+    logo: absoluteUrl('/logo.png'),
+    email: 'evoprod@mail.ru',
+    telephone: '+7-919-393-19-92',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'ул. Евгения Савкова 29, офис 262',
+      addressLocality: 'Екатеринбург',
+      addressRegion: 'Свердловская область',
+      postalCode: '620144',
+      addressCountry: 'RU',
     },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+7-919-393-19-92',
       contactType: 'sales',
       areaServed: 'RU',
-      availableLanguage: ['Russian'],
+      availableLanguage: 'ru',
     },
-    sameAs: [
-      'https://t.me/usolst',
-      // Добавить социальные сети при наличии
-    ],
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'ул. Евгения Савкова 29, офис 262',
-      addressLocality: 'Екатеринбург',
-      addressRegion: 'Свердловская область',
-      postalCode: '620144',
-      addressCountry: 'RU',
-    },
+    sameAs: ['https://t.me/usolst'],
   }
 }
 
-// LocalBusiness Schema (для страницы контактов)
 export function generateLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    alternateName: 'АМП',
-    description: 'Производитель белой мраморной крошки и щебня премиум-качества',
-    url: 'https://amp-minerals.ru',
-    telephone: '+7-919-393-19-92',
+    name: COMPANY_NAME,
+    url: SITE_URL,
     email: 'evoprod@mail.ru',
+    telephone: '+7-919-393-19-92',
+    image: absoluteUrl('/logo.png'),
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'ул. Евгения Савкова 29, офис 262',
@@ -54,11 +95,6 @@ export function generateLocalBusinessSchema() {
       addressRegion: 'Свердловская область',
       postalCode: '620144',
       addressCountry: 'RU',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 56.8389,
-      longitude: 60.6057,
     },
     openingHoursSpecification: [
       {
@@ -68,67 +104,51 @@ export function generateLocalBusinessSchema() {
         closes: '18:00',
       },
     ],
-    image: {
-      '@type': 'ImageObject',
-      url: 'https://amp-minerals.ru/logo.png',
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 56.8389,
+      longitude: 60.6057,
     },
-    priceRange: '$$',
-    areaServed: 'RU',
   }
 }
 
-// Product Schema (для страницы продукта)
 export function generateProductSchema(product: Product) {
-  return {
+  const offer: Record<string, unknown> = {
+    '@type': 'Offer',
+    url: absoluteUrl(`/product/${product.slug}`),
+    priceCurrency: 'RUB',
+    seller: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
+    },
+  }
+
+  if (typeof product.pricePerTon === 'number') {
+    offer.price = product.pricePerTon
+  }
+
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: product.image ? `https://amp-minerals.ru${product.image}` : undefined,
     brand: {
       '@type': 'Brand',
-      name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+      name: SITE_NAME,
     },
-    manufacturer: {
-      '@type': 'Organization',
-      name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    },
-    offers: {
-      '@type': 'Offer',
-      url: `https://amp-minerals.ru/product/${product.slug}`,
-      price: product.pricePerTon ?? undefined,
-      priceCurrency: 'RUB',
-      priceValidUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      seller: {
-        '@type': 'Organization',
-        name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-      },
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingRate: {
-          '@type': 'MonetaryAmount',
-          value: '0',
-          currency: 'RUB',
-        },
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'RU',
-        },
-      },
-      hasMerchantReturnPolicy: {
-        '@type': 'MerchantReturnPolicy',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-      },
-    },
+    category: getCategoryName(product.category),
+    offers: offer,
+    additionalProperty: getProductAdditionalProperties(product),
   }
+
+  if (product.image) {
+    schema.image = absoluteUrl(product.image)
+  }
+
+  return schema
 }
 
-// BreadcrumbList Schema (для навигации)
-export function generateBreadcrumbSchema(
-  items: Array<{ name: string; item: string }>
-) {
+export function generateBreadcrumbSchema(items: Array<{ name: string; item: string }>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -136,33 +156,21 @@ export function generateBreadcrumbSchema(
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.item.startsWith('http') ? item.item : `https://amp-minerals.ru${item.item}`,
+      item: item.item.startsWith('http') ? item.item : absoluteUrl(item.item),
     })),
   }
 }
 
-// WebSite Schema (для поисковой строки)
 export function generateWebSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    url: 'https://amp-minerals.ru',
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: 'https://amp-minerals.ru/catalog?q={search_term_string}',
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    name: SITE_NAME,
+    url: SITE_URL,
   }
 }
 
-// FAQPage Schema
-export function generateFAQSchema(
-  faqs: Array<{ question: string; answer: string }>
-) {
+export function generateFAQSchema(faqs: Array<{ question: string; answer: string }>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -177,8 +185,11 @@ export function generateFAQSchema(
   }
 }
 
-// Helper function для вставки JSON-LD в страницу
-export function JsonLd({ data }: { data: Record<string, unknown> }) {
+export function JsonLd({
+  data,
+}: {
+  data: Record<string, unknown> | Array<Record<string, unknown>>
+}) {
   return (
     <script
       type="application/ld+json"

@@ -14,7 +14,7 @@ import {
   ArrowRight
 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { generateFAQSchema, JsonLd } from '@/lib/seo/schema'
+import { generateBreadcrumbSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
 
 const faqs = [
   {
@@ -31,7 +31,7 @@ const faqs = [
   },
   {
     question: 'Какие документы вы предоставляете?',
-    answer: 'На каждую партию — паспорт качества с указанием фракции, белизны, содержания CaCO₃ и класса радиационной безопасности. Продукция сертифицирована и соответствует ГОСТ. Образцы документов доступны в разделе «Паспорта качества».',
+    answer: 'Для доступных на сайте позиций опубликованы паспорта качества. Если нужен документ на конкретную номенклатуру или партию, уточните это при запросе.',
   },
   {
     question: 'Как осуществляется отгрузка?',
@@ -40,9 +40,9 @@ const faqs = [
 ]
 
 const stats = [
-  { number: '300+', label: 'Клиентов', icon: Users },
-  { number: '50 000+', label: 'Тонн отгружено', icon: TrendingUp },
-  { number: '45 000', label: 'Тонн/мес производство', icon: Factory },
+  { number: '12', label: 'SKU в каталоге', icon: Users },
+  { number: '3', label: 'Товарные группы', icon: TrendingUp },
+  { number: 'Авто / ж/д', label: 'Форматы отгрузки', icon: Factory },
   { number: '98%', label: 'Белизна мрамора', icon: Award },
 ]
 
@@ -54,8 +54,8 @@ const values = [
   },
   {
     icon: Shield,
-    title: 'Гарантия качества',
-    description: 'Вся продукция сертифицирована, соответствует ГОСТ и имеет паспорта качества',
+    title: 'Документы на продукцию',
+    description: 'Паспорта качества на доступные позиции размещены на сайте, остальные документы уточняйте при запросе',
     href: '/documents'
   },
   {
@@ -71,8 +71,14 @@ const values = [
 ]
 
 export default function AboutPage() {
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Главная', item: '/' },
+    { name: 'О компании', item: '/about' },
+  ])
+
   return (
     <div className="min-h-screen bg-brand-ice-blue">
+      <JsonLd data={breadcrumb} />
       <JsonLd data={generateFAQSchema(faqs)} />
       {/* Hero */}
       <section className="py-20 bg-gradient-to-br from-stone-50 to-stone-100">
@@ -148,9 +154,9 @@ export default function AboutPage() {
                   породы и низким содержанием примесей — это природное свойство нашего сырья.
                 </p>
                 <p>
-                  Современное производство выпускает до 45 000 тонн продукции в месяц. За годы
-                  работы мы заслужили доверие более 300 клиентов и отгрузили свыше 50 000 тонн
-                  мраморной крошки, щебня и микрокальцита по всей России.
+                  В каталоге представлены крошка, щебень, мраморная мука и микрокальцит с
+                  характеристиками по фракции, упаковке и применению. Поставки сопровождаем
+                  от предварительного расчёта до отгрузки под ваш объект и регион.
                 </p>
               </div>
             </div>
@@ -398,8 +404,8 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="bg-brand-ice-blue p-6 rounded-xl shadow-sm text-center"
               >
-                <div className="text-2xl font-bold text-brand-sapphire mb-2">45 000</div>
-                <div className="text-sm text-muted-foreground">Тонн/мес мощность</div>
+                <div className="text-2xl font-bold text-brand-sapphire mb-2">3</div>
+                <div className="text-sm text-muted-foreground">Основные товарные группы</div>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -408,8 +414,8 @@ export default function AboutPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="bg-brand-ice-blue p-6 rounded-xl shadow-sm text-center"
               >
-                <div className="text-2xl font-bold text-brand-sapphire mb-2">24/7</div>
-                <div className="text-sm text-muted-foreground">Работаем без выходных</div>
+                <div className="text-2xl font-bold text-brand-sapphire mb-2">Авто / ж/д</div>
+                <div className="text-sm text-muted-foreground">Форматы отгрузки по России</div>
               </motion.div>
             </div>
           </div>

@@ -1,44 +1,184 @@
-import { Metadata } from 'next'
-import { Product } from '@/types'
+import type { Metadata } from 'next'
+import type { Product } from '@/types'
+import type { BlogPost } from '@/lib/data/blog'
+import type { CategoryData } from '@/lib/data/categories'
 
-const BASE_URL = 'https://amp-minerals.ru'
+export const SITE_URL = 'https://amp-minerals.ru'
+export const SITE_NAME = 'АМП'
+export const COMPANY_NAME = 'ЗАО «АМП ИМПОРТ-ЭКСПОРТ»'
+export const DEFAULT_REGION = 'Россия'
 
-// Default metadata для всего сайта
+const DEFAULT_TITLE = 'Белая мраморная крошка и щебень от производителя'
+const DEFAULT_DESCRIPTION =
+  'Белая мраморная крошка, щебень, мраморная мука и микрокальцит от производителя. Подберём фракцию, упаковку и доставку по России под ваш объект и регион.'
+
+function absoluteUrl(path = '/') {
+  return new URL(path, SITE_URL).toString()
+}
+
+function formatPrice(price: number) {
+  return new Intl.NumberFormat('ru-RU').format(price)
+}
+
+function normalizeValue(value?: string) {
+  if (!value) return undefined
+  const trimmed = value.trim()
+  if (!trimmed || trimmed.toLowerCase() === 'по запросу') {
+    return undefined
+  }
+  return trimmed
+}
+
+function joinPackagings(packaging: string[]) {
+  return packaging
+    .filter(Boolean)
+    .slice(0, 3)
+    .join(', ')
+}
+
+function createMetadata({
+  title,
+  description,
+  path,
+  keywords,
+  type = 'website',
+}: {
+  title: string
+  description: string
+  path: string
+  keywords?: string[]
+  type?: 'website' | 'article'
+}): Metadata {
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: path,
+    },
+    openGraph: {
+      type,
+      url: path,
+      title,
+      description,
+      siteName: SITE_NAME,
+      locale: 'ru_RU',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  }
+}
+
+export function getProductImageAlt(product: Product) {
+  const overrides: Record<string, string> = {
+    'mramornaya-kroshka-5-10': 'Белая мраморная крошка 5-10 мм в биг-бэге',
+    'mramornyj-shheben-10-20': 'Мраморный щебень 10-20 мм',
+    'mikrokaltsit-5-200-mkm': 'Микрокальцит белый порошок',
+  }
+
+  if (overrides[product.slug]) {
+    return overrides[product.slug]
+  }
+
+  const primaryPackaging = product.specifications.packaging[0]?.toLowerCase()
+
+  if (product.name.toLowerCase().includes('микрокальцит')) {
+    return `${product.name} белый порошок`
+  }
+
+  if (primaryPackaging?.includes('биг-бэг')) {
+    return `Белая ${product.name.toLowerCase()} в биг-бэге`
+  }
+
+  return product.name
+}
+
+function buildProductTitle(product: Product) {
+  if (typeof product.pricePerTon === 'number') {
+    return `${product.name} купить - цена ${formatPrice(product.pricePerTon)} ₽/т`
+  }
+
+  return `${product.name} купить - характеристики и доставка`
+}
+
+function buildProductDescription(product: Product) {
+  const segments = [
+    `${product.name} от производителя.`,
+    `Фракция ${product.fraction}.`,
+  ]
+
+  const whiteness = normalizeValue(product.specifications.whiteness)
+  if (whiteness) {
+    segments.push(`Белизна ${whiteness}.`)
+  }
+
+  const packagings = joinPackagings(product.specifications.packaging)
+  if (packagings) {
+    segments.push(`Упаковка: ${packagings}.`)
+  }
+
+  if (typeof product.pricePerTon === 'number') {
+    segments.push(`Цена от ${formatPrice(product.pricePerTon)} ₽/т.`)
+  }
+
+  segments.push('Доставка по России.')
+  segments.push('Точная цена зависит от объёма, упаковки и способа доставки.')
+
+  return segments.join(' ')
+}
+
+function buildCategoryDescription(category: CategoryData, productCount: number, minPrice?: number) {
+  const parts = [
+    `${category.breadcrumbLabel} от производителя.`,
+    `${productCount} ${productCount === 1 ? 'позиция' : productCount < 5 ? 'позиции' : 'позиций'} в каталоге.`,
+  ]
+
+  if (typeof minPrice === 'number') {
+    parts.push(`Цена от ${formatPrice(minPrice)} ₽/т.`)
+  }
+
+  parts.push('Подберём фракцию, упаковку и доставку по России под объект, объём и регион.')
+
+  return parts.join(' ')
+}
+
 export const defaultMetadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Мраморная крошка и щебень | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    template: '%s | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+    default: `${DEFAULT_TITLE} | ${COMPANY_NAME}`,
+    template: `%s | ${COMPANY_NAME}`,
   },
-  description: 'Производитель белой мраморной крошки и щебня премиум-качества. Доставка по всей России. Белизна до 98%. Цены от 2 000 ₽/тонна.',
-  keywords: ['мраморная крошка', 'мраморный щебень', 'белый щебень', 'купить щебень', 'Екатеринбург', 'доставка щебня'],
-  authors: [{ name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ' }],
-  creator: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-  publisher: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: COMPANY_NAME }],
+  creator: COMPANY_NAME,
+  publisher: COMPANY_NAME,
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
+      'max-video-preview': -1,
     },
   },
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
-    url: BASE_URL,
-    siteName: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    title: 'Мраморная крошка и щебень | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-    description: 'Производитель белой мраморной крошки и щебня премиум-качества. Доставка по всей России.',
+    siteName: SITE_NAME,
+    url: SITE_URL,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Мраморная крошка и щебень | ЗАО АМП',
-    description: 'Производитель белой мраморной крошки и щебня. Доставка по России.',
-    creator: '@zaoamp',
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
   },
   verification: {
     google: 'K3sSDP3dYdah1XesYF2441-Z2mhQF1U1oDXY0YjNR9M',
@@ -54,170 +194,181 @@ export const defaultMetadata: Metadata = {
   },
 }
 
-// Metadata для главной страницы
 export function generateHomeMetadata(): Metadata {
-  return {
-    title: 'Мраморная крошка и щебень купить | Производитель | Доставка по России',
-    description: 'Купить мраморную крошку и щебень от производителя ЗАО АМП. Белизна 98%, доставка по всей России. Фракции 0-200 мм. Цены от 2 000 ₽/тонна.',
+  return createMetadata({
+    title: 'Мраморная крошка и щебень купить в Екатеринбурге',
+    description:
+      'Белая мраморная крошка, щебень и микрокальцит от производителя. Белизна 98%, фракции 0–200 мм, доставка по России. Расчёт стоимости в день обращения.',
+    path: '/',
     keywords: [
-      'мраморная крошка купить',
-      'мраморный щебень',
-      'белый щебень',
-      'купить щебень екатеринбург',
-      'мраморная крошка цена',
-      'доставка щебня',
-      'производитель мраморной крошки',
+      'мраморная крошка купить екатеринбург',
+      'белая мраморная крошка 98% белизна',
+      'мраморный щебень от производителя',
+      'микрокальцит купить',
+      'мраморная мука цена',
     ],
-    alternates: {
-      canonical: '/',
-    },
-    openGraph: {
-      title: 'Мраморная крошка и щебень | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-      description: 'Производитель белой мраморной крошки и щебня. Доставка по России.',
-      url: '/',
-    },
-  }
+  })
 }
 
-// Metadata для страницы каталога
-export function generateCatalogMetadata(): Metadata {
-  return {
-    title: 'Каталог мраморной крошки и щебня | Цены от производителя',
-    description: 'Каталог мраморной крошки и щебня от ЗАО АМП. Все фракции: 0-0.2, 0-5, 5-10, 10-20, 20-50, 50-200 мм. Цены от 2 900 ₽/тонна. Доставка по России.',
+export function generateCatalogMetadata(productCount: number, minPrice?: number): Metadata {
+  const priceText = typeof minPrice === 'number' ? `Цена от ${formatPrice(minPrice)} ₽/т.` : ''
+
+  return createMetadata({
+    title: 'Каталог мраморной крошки и щебня — купить в Екатеринбурге',
+    description: `Каталог белой мраморной продукции: ${productCount} позиций с характеристиками, упаковкой и доставкой по России. ${priceText} Подберём решение под объект и регион.`,
+    path: '/catalog',
     keywords: [
-      'мраморный щебень екатеринбург',
-      'белый щебень цена',
       'каталог мраморной крошки',
-      'купить щебень фракции',
-      'мраморная крошка оптом',
+      'мраморный щебень купить',
+      'микрокальцит от производителя',
+      'мраморная мука цена',
+      'доставка мраморной продукции',
     ],
-    alternates: {
-      canonical: '/catalog',
-    },
-    openGraph: {
-      title: 'Каталог мраморной крошки и щебня | ЗАО АМП',
-      description: 'Все фракции мраморной крошки и щебня. Цены от производителя.',
-      url: '/catalog',
-    },
-  }
+  })
 }
 
-// Metadata для страницы продукта (динамическая)
+export function generateCategoryMetadata(category: CategoryData, products: Product[]): Metadata {
+  const minPrice = products
+    .map((product) => product.pricePerTon)
+    .filter((price): price is number => typeof price === 'number')
+    .sort((a, b) => a - b)[0]
+
+  const titleMap: Record<CategoryData['slug'], string> = {
+    shcheben: 'Мраморный щебень купить в Екатеринбурге — фракции 10–200 мм, цена от производителя',
+    kroshka: 'Мраморная крошка купить в Екатеринбурге — фракции, белизна 98%, цена от производителя',
+    muka: 'Мраморная мука и микрокальцит купить от производителя',
+  }
+
+  return createMetadata({
+    title: titleMap[category.slug],
+    description: buildCategoryDescription(category, products.length, minPrice),
+    path: `/catalog/${category.slug}`,
+    keywords: category.seo.keywords,
+  })
+}
+
 export function generateProductMetadata(product: Product): Metadata {
   return {
-    title: product.seo?.title || `${product.name} купить | Цена ${product.pricePerTon?.toLocaleString('ru-RU') ?? 'по запросу'} ₽/т`,
-    description: product.seo?.description || `${product.description} Доставка по России. Звоните +7 (919) 393-19-92`,
-    keywords: product.seo?.keywords || [
-      product.name.toLowerCase(),
-      'мраморная крошка',
-      'мраморный щебень',
-      'купить щебень',
-      'екатеринбург',
-    ],
-    alternates: {
-      canonical: `/product/${product.slug}`,
-    },
+    ...createMetadata({
+      title: buildProductTitle(product),
+      description: buildProductDescription(product),
+      path: `/product/${product.slug}`,
+      keywords: [
+        product.name.toLowerCase(),
+        `${product.fraction} купить`,
+        'доставка по россии',
+        'цена за тонну',
+      ],
+    }),
     openGraph: {
-      title: product.seo?.title || `${product.name} | ЗАО АМП`,
-      description: product.seo?.description || product.description,
+      type: 'website',
       url: `/product/${product.slug}`,
-      images: product.image ? [
-        {
-          url: product.image,
-          width: 800,
-          height: 600,
-          alt: product.name,
-        },
-      ] : undefined,
+      title: buildProductTitle(product),
+      description: buildProductDescription(product),
+      siteName: SITE_NAME,
+      locale: 'ru_RU',
+      images: product.image
+        ? [
+            {
+              url: absoluteUrl(product.image),
+              alt: getProductImageAlt(product),
+            },
+          ]
+        : undefined,
     },
   }
 }
 
-// Metadata для страницы "О компании"
 export function generateAboutMetadata(): Metadata {
-  return {
-    title: 'О компании | Производитель мраморной крошки | ЗАО АМП',
-    description: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ — производитель белой мраморной крошки и щебня премиум-качества. Собственное месторождение, белизна до 98%, доставка по России.',
+  return createMetadata({
+    title: 'О производстве белой мраморной крошки и щебня',
+    description:
+      'Производство белой мраморной крошки, щебня, мраморной муки и микрокальцита. Собственное сырьё, упаковка, отгрузка и поставки по России.',
+    path: '/about',
     keywords: [
-      'производитель мраморной крошки',
-      'завод мраморного щебня',
-      'месторождение мрамора',
-      'зao амп',
-      'производство щебня екатеринбург',
+      'о производстве мраморной крошки',
+      'производитель мраморного щебня',
+      'карьер белого мрамора',
+      'амп екатеринбург',
     ],
-    alternates: {
-      canonical: '/about',
-    },
-    openGraph: {
-      title: 'О компании | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-      description: 'Производитель белой мраморной крошки и щебня. Собственное месторождение.',
-      url: '/about',
-    },
-  }
+  })
 }
 
-// Metadata для страницы контактов
 export function generateContactsMetadata(): Metadata {
-  return {
-    title: 'Контакты | Мраморная крошка Екатеринбург | ЗАО АМП',
-    description: 'Контакты ЗАО АМП ИМПОРТ-ЭКСПОРТ. Телефон: +7 (919) 393-19-92. Адрес: Екатеринбург, ул. Евгения Савкова 29. WhatsApp, Telegram.',
+  return createMetadata({
+    title: 'Контакты АМП - отдел продаж и отгрузка',
+    description:
+      'Контакты АМП: телефон, email, Telegram, WhatsApp и адрес офиса в Екатеринбурге. Рассчитаем стоимость под ваш объём, упаковку и регион поставки.',
+    path: '/contacts',
     keywords: [
-      'мраморная крошка екатеринбург',
-      'контакты производителя щебня',
-      'купить щебень телефон',
-      'завод мраморной крошки адрес',
+      'контакты амп',
+      'купить мраморную крошку екатеринбург',
+      'отдел продаж щебень',
+      'контакты микрокальцит',
     ],
-    alternates: {
-      canonical: '/contacts',
-    },
-    openGraph: {
-      title: 'Контакты | ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-      description: 'Телефон: +7 (919) 393-19-92. Екатеринбург, ул. Евгения Савкова 29.',
-      url: '/contacts',
-    },
-  }
+  })
 }
 
-// Metadata для страницы доставки
 export function generateDeliveryMetadata(): Metadata {
-  return {
-    title: 'Доставка щебня по России | Условия и цены | ЗАО АМП',
-    description: 'Доставка мраморной крошки и щебня по всей России. Автотранспорт и ж/д перевозки. Расчет стоимости доставки онлайн.',
+  return createMetadata({
+    title: 'Доставка мраморной крошки и щебня по России',
+    description:
+      'Авто- и ж/д доставка мраморной крошки, щебня, муки и микрокальцита по России. Точная стоимость зависит от объёма, упаковки и способа отгрузки.',
+    path: '/delivery',
     keywords: [
-      'доставка щебня по россии',
       'доставка мраморной крошки',
-      'перевозка щебня',
-      'доставка щебня екатеринбург',
-      'жд перевозки щебня',
+      'доставка мраморного щебня',
+      'жд отгрузка',
+      'автодоставка по россии',
     ],
-    alternates: {
-      canonical: '/delivery',
-    },
-    openGraph: {
-      title: 'Доставка щебня по России | ЗАО АМП',
-      description: 'Доставка мраморной крошки и щебня по всей России. Авто и ж/д.',
-      url: '/delivery',
-    },
-  }
+  })
 }
 
-// Metadata для страницы документов
-export function generateDocumentsMetadata(): Metadata {
-  return {
-    title: 'Документы и сертификаты | ЗАО АМП',
-    description: 'Сертификаты качества, паспорта безопасности и другие документы на мраморную крошку и щебень от ЗАО АМП.',
+export function generateDocumentsMetadata(documentCount: number): Metadata {
+  return createMetadata({
+    title: 'Паспорта качества на мраморную продукцию',
+    description: `Раздел с доступными паспортами качества на мраморную продукцию АМП. Сейчас на сайте опубликовано ${documentCount} подтверждённых документов для отдельных позиций.`,
+    path: '/documents',
     keywords: [
-      'сертификат мраморной крошки',
-      'паспорт безопасности щебень',
-      'документы производителя',
+      'паспорта качества мраморная крошка',
+      'документы на щебень',
+      'паспорт качества микрокальцит',
     ],
-    alternates: {
-      canonical: '/documents',
-    },
+  })
+}
+
+export function generateBlogMetadata(): Metadata {
+  return createMetadata({
+    title: 'Блог о мраморной крошке, щебне и микрокальците',
+    description:
+      'Статьи о выборе фракции, применении мраморной крошки, щебня, муки и микрокальцита. Практика для строительных, производственных и ландшафтных задач.',
+    path: '/blog',
+    keywords: [
+      'блог о мраморной крошке',
+      'применение мраморного щебня',
+      'статьи о микрокальците',
+      'как выбрать фракцию',
+    ],
+  })
+}
+
+export function generateBlogPostMetadata(post: BlogPost): Metadata {
+  return {
+    ...createMetadata({
+      title: post.seo.title,
+      description: post.seo.description,
+      path: `/blog/${post.slug}`,
+      keywords: post.seo.keywords,
+      type: 'article',
+    }),
     openGraph: {
-      title: 'Документы и сертификаты | ЗАО АМП',
-      description: 'Сертификаты качества и паспорта безопасности.',
-      url: '/documents',
+      type: 'article',
+      url: `/blog/${post.slug}`,
+      title: post.seo.title,
+      description: post.seo.description,
+      siteName: SITE_NAME,
+      locale: 'ru_RU',
+      publishedTime: post.publishDate,
     },
   }
 }

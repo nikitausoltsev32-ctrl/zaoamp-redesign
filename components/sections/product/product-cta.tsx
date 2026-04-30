@@ -69,7 +69,7 @@ export function ProductCTA() {
           </div>
 
           <p className="mt-8 text-center text-sm text-gray-400">
-            Работаем ежедневно с 9:00 до 18:00 (мск)
+            Отдел продаж: пн-пт с 9:00 до 18:00
           </p>
         </motion.div>
       </div>

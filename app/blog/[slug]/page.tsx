@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { blogPosts } from '@/lib/data/blog'
 import { products } from '@/lib/data/products'
+import { generateBlogPostMetadata } from '@/lib/seo/metadata'
 import { generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
 
 interface Props {
@@ -17,19 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = blogPosts.find((p) => p.slug === slug)
   if (!post) return {}
-  return {
-    title: post.seo.title,
-    description: post.seo.description,
-    keywords: post.seo.keywords,
-    alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: {
-      title: post.seo.title,
-      description: post.seo.description,
-      url: `/blog/${post.slug}`,
-      type: 'article',
-      publishedTime: post.publishDate,
-    },
-  }
+  return generateBlogPostMetadata(post)
 }
 
 export default async function BlogPostPage({ params }: Props) {

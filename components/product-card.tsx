@@ -20,6 +20,7 @@ import { PriceTag } from './price-tag'
 import Link from 'next/link'
 import { FileText } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
+import { getProductImageAlt } from '@/lib/seo/metadata'
 
 interface ProductCardProps {
   product: Product
@@ -64,7 +65,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           <Link href={`/product/${product.slug}`} className="block relative h-44 overflow-hidden">
             <Image
               src={product.image}
-              alt={product.name}
+              alt={getProductImageAlt(product)}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
@@ -95,7 +96,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           <Link href={`/product/${product.slug}`} className="block relative h-52 overflow-hidden">
             <Image
               src={product.image}
-              alt={product.name}
+              alt={getProductImageAlt(product)}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"

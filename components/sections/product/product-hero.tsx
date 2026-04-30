@@ -8,12 +8,17 @@ import { Badge } from '@/components/ui/badge'
 import { Product } from '@/types'
 import { PriceTag } from '@/components/price-tag'
 import { getCategoryLabel } from '@/lib/utils/products'
+import { getProductImageAlt } from '@/lib/seo/metadata'
 
 interface ProductHeroProps {
   product: Product
+  categoryBreadcrumb?: {
+    slug: string
+    label: string
+  }
 }
 
-export function ProductHero({ product }: ProductHeroProps) {
+export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
   const categoryLabel = getCategoryLabel(product.category)
 
   return (
@@ -29,6 +34,17 @@ export function ProductHero({ product }: ProductHeroProps) {
             Каталог
           </Link>
           <ChevronRight className="h-4 w-4" />
+          {categoryBreadcrumb ? (
+            <>
+              <Link
+                href={`/catalog/${categoryBreadcrumb.slug}`}
+                className="hover:text-foreground transition-colors"
+              >
+                {categoryBreadcrumb.label}
+              </Link>
+              <ChevronRight className="h-4 w-4" />
+            </>
+          ) : null}
           <span className="text-foreground">{product.name}</span>
         </nav>
 
@@ -38,7 +54,7 @@ export function ProductHero({ product }: ProductHeroProps) {
             {product.image ? (
               <Image
                 src={product.image}
-                alt={product.name}
+                alt={getProductImageAlt(product)}
                 fill
                 className="object-cover grayscale-[20%] sepia-[15%]"
                 priority
@@ -68,7 +84,7 @@ export function ProductHero({ product }: ProductHeroProps) {
             <div className="mb-6">
               <PriceTag price={product.pricePerTon} size="lg" />
               <p className="text-sm text-muted-foreground mt-1">
-                Цена за тонну при заказе от 20 тонн
+                Точная цена зависит от объёма, упаковки и способа доставки
               </p>
             </div>
 
@@ -106,15 +122,15 @@ export function ProductHero({ product }: ProductHeroProps) {
             <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>В наличии</span>
+                <span>Наличие уточняйте при заказе</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Доставка от 1 дня</span>
+                <span>Авто и ж/д отгрузка</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Сертификаты</span>
+                <span>Паспорта качества по запросу</span>
               </div>
             </div>
           </div>

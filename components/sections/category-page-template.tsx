@@ -58,7 +58,7 @@ export function CategoryPageTemplate({ data }: Props) {
                 <div className="flex flex-wrap gap-3">
                   <Button asChild className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
                     <Link href="/contacts">
-                      Запросить цену
+                      Получить расчёт
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
@@ -173,6 +173,50 @@ export function CategoryPageTemplate({ data }: Props) {
                   </p>
                 </motion.div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16 bg-stone-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
+                Коммерческие условия
+              </Badge>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Что важно при заказе
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+              <div className="rounded-xl border border-stone-200 bg-white p-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Как считается стоимость</h3>
+                <p className="text-sm text-muted-foreground">
+                  Предварительный расчёт делаем в день обращения. Итоговая цена зависит от фракции,
+                  объёма, упаковки и региона доставки.
+                </p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-white p-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Упаковка</h3>
+                <p className="text-sm text-muted-foreground">
+                  В зависимости от позиции доступна отгрузка навалом, в биг-бэгах 500 кг и 1 т,
+                  а также в мешках.
+                </p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-white p-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Как проходит отгрузка</h3>
+                <p className="text-sm text-muted-foreground">
+                  Поставляем авто и ж/д, самовывоз согласовываем отдельно. Формат отгрузки подбираем
+                  под объект и способ выгрузки.
+                </p>
+              </div>
+              <div className="rounded-xl border border-stone-200 bg-white p-6">
+                <h3 className="font-semibold text-gray-900 mb-2">Документы</h3>
+                {/* TODO: добавить на сайт документы по всем SKU, когда будут подтверждённые файлы. */}
+                <p className="text-sm text-muted-foreground">
+                  Паспорта качества доступны для части позиций в разделе документов. По остальной
+                  номенклатуре наличие документов уточняйте при запросе.
+                </p>
+              </div>
             </div>
           </div>
         </section>

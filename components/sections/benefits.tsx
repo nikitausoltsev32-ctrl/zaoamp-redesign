@@ -10,7 +10,7 @@ export function BenefitsSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Почему выбирают нас"
-          subtitle="8 ключевых преимуществ работы с производителем №1 на Урале"
+          subtitle="8 причин работать напрямую с производителем"
           centered
         />
         

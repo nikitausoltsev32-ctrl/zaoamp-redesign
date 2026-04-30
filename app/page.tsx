@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { HeroSection } from '@/components/sections/hero'
 import { BenefitsSection } from '@/components/sections/benefits'
 import { QuarrySection } from '@/components/sections/quarry-section'
@@ -5,6 +6,9 @@ import { FeaturedProductsSection } from '@/components/sections/featured-products
 import { CalculatorSection } from '@/components/sections/calculator-section'
 import { TestimonialsSection } from '@/components/sections/testimonials'
 import { CTASection } from '@/components/sections/cta-section'
+import { generateHomeMetadata } from '@/lib/seo/metadata'
+
+export const metadata: Metadata = generateHomeMetadata()
 
 export default function Home() {
   return (

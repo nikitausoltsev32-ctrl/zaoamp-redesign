@@ -50,7 +50,7 @@ export function HeroSection() {
             className="flex flex-col gap-6"
           >
             <Badge className="w-fit bg-brand-sapphire text-white hover:bg-brand-sapphire-dark border-0 text-sm px-4 py-1">
-              Производитель №1 на Урале
+              Собственное производство на Урале
             </Badge>
 
             <h1 className="font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-lg">
@@ -98,7 +98,7 @@ export function HeroSection() {
                     <p className="text-red-300 text-sm mt-2">{error}</p>
                   )}
                   <p className="text-white/50 text-xs mt-2">
-                    КП за 3 минуты — цена, фракции, условия доставки
+                    Предварительный расчёт в день обращения. Точная цена зависит от объёма, упаковки и доставки.
                   </p>
                 </>
               )}
@@ -155,11 +155,11 @@ export function HeroSection() {
             className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
           >
             <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
-              45к
+              12
             </div>
             <div className="text-white min-w-0">
-              <p className="font-semibold">тонн/мес</p>
-              <p className="text-sm text-white/70">Производство</p>
+              <p className="font-semibold">SKU</p>
+              <p className="text-sm text-white/70">В каталоге</p>
             </div>
           </motion.div>
 
@@ -170,11 +170,11 @@ export function HeroSection() {
             className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
           >
             <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
-              300+
+              РФ
             </div>
             <div className="text-white min-w-0">
-              <p className="font-semibold">Клиентов</p>
-              <p className="text-sm text-white/70">По всей России</p>
+              <p className="font-semibold">Авто / ж/д</p>
+              <p className="text-sm text-white/70">Отгрузка по России</p>
             </div>
           </motion.div>
         </div>

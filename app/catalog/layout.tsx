@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { products } from '@/lib/data/products'
+import { generateCatalogMetadata } from '@/lib/seo/metadata'
 
-export const metadata: Metadata = {
-  title: 'Каталог мраморной крошки и щебня | Цены от 2 900 ₽/т',
-  description: 'Все фракции мраморной крошки и щебня от производителя ЗАО АМП. Щебень 10-200 мм, крошка 0-10 мм, мука 0-0.2 мм. Доставка по России.',
-  keywords: ['каталог мраморной крошки', 'мраморный щебень цена', 'купить щебень', 'фракции щебня'],
-}
+const minCatalogPrice = products
+  .map((product) => product.pricePerTon)
+  .filter((price): price is number => typeof price === 'number')
+  .sort((a, b) => a - b)[0]
+
+export const metadata: Metadata = generateCatalogMetadata(products.length, minCatalogPrice)
 
 export default function CatalogLayout({
   children,
