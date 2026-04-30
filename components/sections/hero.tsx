@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowRight, Calculator, Phone } from 'lucide-react'
 import { HeroBackgroundSlider } from '@/components/hero-background-slider'
 
@@ -43,7 +43,7 @@ export function HeroSection() {
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col gap-8">
         <div className="max-w-3xl">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -103,7 +103,7 @@ export function HeroSection() {
                 </>
               )}
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Вторичные кнопки */}
@@ -133,7 +133,7 @@ export function HeroSection() {
 
         {/* Метрики */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -146,9 +146,9 @@ export function HeroSection() {
               <p className="font-semibold">Белизна</p>
               <p className="text-sm text-white/70">Высший класс</p>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
@@ -161,9 +161,9 @@ export function HeroSection() {
               <p className="font-semibold">SKU</p>
               <p className="text-sm text-white/70">В каталоге</p>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -176,7 +176,7 @@ export function HeroSection() {
               <p className="font-semibold">Авто / ж/д</p>
               <p className="text-sm text-white/70">Отгрузка по России</p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>

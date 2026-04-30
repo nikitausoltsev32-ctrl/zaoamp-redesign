@@ -13,7 +13,7 @@ import {
   Factory,
   Paintbrush
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface ProductApplicationsProps {
   product: Product
@@ -53,7 +53,7 @@ export function ProductApplications({ product }: ProductApplicationsProps) {
             const Icon = getIconForApplication(application)
             
             return (
-              <motion.div
+              <m.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export function ProductApplications({ product }: ProductApplicationsProps) {
                     </h3>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </m.div>
             )
           })}
         </div>

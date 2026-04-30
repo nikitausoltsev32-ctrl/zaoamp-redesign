@@ -2,7 +2,7 @@
 
 import { Phone, MessageCircle, Send, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { SectionHeader } from '@/components/section-header'
 import { ymGoal } from '@/lib/analytics'
 
@@ -10,7 +10,7 @@ export function ProductCTA() {
   return (
     <section className="py-16 bg-gradient-to-br from-brand-deep-navy to-brand-sapphire">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -71,7 +71,7 @@ export function ProductCTA() {
           <p className="mt-8 text-center text-sm text-gray-400">
             Отдел продаж: пн-пт с 9:00 до 18:00
           </p>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Benefit } from '@/lib/data/benefits'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -11,7 +11,7 @@ export function BenefitCard({ benefit, index }: BenefitCardProps) {
   const Icon = benefit.icon
   
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -30,6 +30,6 @@ export function BenefitCard({ benefit, index }: BenefitCardProps) {
           </p>
         </CardContent>
       </Card>
-    </motion.div>
+    </m.div>
   )
 }

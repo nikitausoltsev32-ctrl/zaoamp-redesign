@@ -2,7 +2,7 @@
 
 import { ProductCard } from '@/components/product-card'
 import { Product } from '@/types'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { PackageX } from 'lucide-react'
 
 interface CatalogGridProps {
@@ -15,12 +15,12 @@ export function CatalogGrid({ products }: CatalogGridProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatePresence mode="popLayout">
           {products.length > 0 ? (
-            <motion.div 
+            <m.div 
               className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
               layout
             >
               {products.map((product, index) => (
-                <motion.div
+                <m.div
                   key={product.id}
                   layout
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -33,11 +33,11 @@ export function CatalogGrid({ products }: CatalogGridProps) {
                   }}
                 >
                   <ProductCard product={product} />
-                </motion.div>
+                </m.div>
               ))}
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -52,19 +52,19 @@ export function CatalogGrid({ products }: CatalogGridProps) {
               <p className="text-muted-foreground max-w-sm">
                 Попробуйте изменить фильтры или посмотрите все продукты
               </p>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
         {/* Results count */}
-        <motion.p 
+        <m.p 
           key={products.length}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="mt-8 text-center text-sm text-muted-foreground"
         >
           Показано {products.length} {products.length === 1 ? 'продукт' : products.length < 5 ? 'продукта' : 'продуктов'}
-        </motion.p>
+        </m.p>
       </div>
     </div>
   )

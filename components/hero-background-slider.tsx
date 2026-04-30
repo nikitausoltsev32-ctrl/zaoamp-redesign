@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 
 const backgroundImages = [
   { src: '/images/products/muka-0-0-2.jpg', alt: 'Мраморная мука' },
@@ -26,7 +26,7 @@ export function HeroBackgroundSlider() {
   return (
     <div className="absolute inset-0 overflow-hidden">
       <AnimatePresence mode="sync">
-        <motion.div
+        <m.div
           key={currentIndex}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -43,7 +43,7 @@ export function HeroBackgroundSlider() {
             quality={70}
             sizes="100vw"
           />
-        </motion.div>
+        </m.div>
       </AnimatePresence>
       
       {/* Градиентные затемнения для читаемости текста */}

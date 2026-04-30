@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
 import { SectionHeader } from '@/components/section-header'
 import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ymGoal } from '@/lib/analytics'
 
 export function ContactForm() {
@@ -29,7 +29,7 @@ export function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-green-50 border border-green-200 rounded-xl p-8 text-center"
@@ -43,7 +43,7 @@ export function ContactForm() {
         <p className="text-green-700">
           Мы получили ваше сообщение и свяжемся с вами в ближайшее время.
         </p>
-      </motion.div>
+      </m.div>
     )
   }
 
@@ -133,7 +133,7 @@ export function ContactInfo() {
   return (
     <div className="space-y-4">
       {contacts.map((contact, index) => (
-        <motion.div
+        <m.div
           key={index}
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -162,7 +162,7 @@ export function ContactInfo() {
               </div>
             </CardContent>
           </Card>
-        </motion.div>
+        </m.div>
       ))}
 
       {/* Quick links */}

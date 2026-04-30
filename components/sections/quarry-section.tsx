@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Drill, Truck, Layers, Boxes } from 'lucide-react'
 
@@ -34,7 +34,7 @@ export function QuarrySection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -50,12 +50,12 @@ export function QuarrySection() {
               Загляните на наше месторождение, где добывается уникальный белый мрамор 
               премиум-качества.
             </p>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Images Grid */}
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -80,9 +80,9 @@ export function QuarrySection() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -107,11 +107,11 @@ export function QuarrySection() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Third Image - Full Width */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -136,12 +136,12 @@ export function QuarrySection() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Features */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <motion.div
+            <m.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -154,7 +154,7 @@ export function QuarrySection() {
               </div>
               <h3 className="font-semibold text-gray-900 mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground">{feature.description}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 

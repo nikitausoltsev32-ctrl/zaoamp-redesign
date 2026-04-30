@@ -13,7 +13,7 @@ import {
   Shield,
   ArrowRight
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { generateBreadcrumbSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
 
 const faqs = [
@@ -109,7 +109,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <motion.div
+              <m.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -122,7 +122,7 @@ export default function AboutPage() {
                 </div>
                 <div className="text-3xl font-bold text-gray-900">{stat.number}</div>
                 <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
         </div>
@@ -161,7 +161,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="space-y-4">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -179,8 +179,8 @@ export default function AboutPage() {
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p className="text-white font-medium">Месторождение в Челябинской области</p>
                 </div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -198,7 +198,7 @@ export default function AboutPage() {
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <p className="text-white font-medium">Современная техника для добычи</p>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -227,7 +227,7 @@ export default function AboutPage() {
                 </>
               )
               return (
-                <motion.div
+                <m.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -248,7 +248,7 @@ export default function AboutPage() {
                   ) : (
                     content
                   )}
-                </motion.div>
+                </m.div>
               )
             })}
           </div>
@@ -272,7 +272,7 @@ export default function AboutPage() {
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -293,9 +293,9 @@ export default function AboutPage() {
                   <p className="text-white/80 text-sm">Профессиональная техника и огромные блоки мрамора</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
             
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -316,9 +316,9 @@ export default function AboutPage() {
                   <p className="text-white/80 text-sm">Современное оборудование для эффективной работы</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -339,7 +339,7 @@ export default function AboutPage() {
                   <p className="text-white/80 text-sm">Белый мрамор с месторождения</p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           </div>
           
           <div className="mt-8 text-center">
@@ -387,7 +387,7 @@ export default function AboutPage() {
             </div>
 
             <div className="grid sm:grid-cols-3 gap-6">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -396,8 +396,8 @@ export default function AboutPage() {
               >
                 <div className="text-2xl font-bold text-brand-sapphire mb-2">12</div>
                 <div className="text-sm text-muted-foreground">Фракций продукции</div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -406,8 +406,8 @@ export default function AboutPage() {
               >
                 <div className="text-2xl font-bold text-brand-sapphire mb-2">3</div>
                 <div className="text-sm text-muted-foreground">Основные товарные группы</div>
-              </motion.div>
-              <motion.div
+              </m.div>
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -416,7 +416,7 @@ export default function AboutPage() {
               >
                 <div className="text-2xl font-bold text-brand-sapphire mb-2">Авто / ж/д</div>
                 <div className="text-sm text-muted-foreground">Форматы отгрузки по России</div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </div>
@@ -439,7 +439,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-4">
               {faqs.map((faq, i) => (
-                <motion.details
+                <m.details
                   key={i}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -454,7 +454,7 @@ export default function AboutPage() {
                   <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                     {faq.answer}
                   </p>
-                </motion.details>
+                </m.details>
               ))}
             </div>
           </div>

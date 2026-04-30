@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { ArrowRight, Check, CheckCircle2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -72,7 +72,7 @@ export function CategoryPageTemplate({ data }: Props) {
                   )}
                 </div>
               </div>
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
@@ -86,7 +86,7 @@ export function CategoryPageTemplate({ data }: Props) {
                   className="object-cover"
                   sizes="(max-width: 1024px) 0px, 50vw"
                 />
-              </motion.div>
+              </m.div>
             </div>
           </div>
         </section>
@@ -105,7 +105,7 @@ export function CategoryPageTemplate({ data }: Props) {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 {data.keyPoints.map((point, i) => (
-                  <motion.div
+                  <m.div
                     key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -118,7 +118,7 @@ export function CategoryPageTemplate({ data }: Props) {
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {point.description}
                     </p>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
@@ -156,7 +156,7 @@ export function CategoryPageTemplate({ data }: Props) {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {data.applications.map((app, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +171,7 @@ export function CategoryPageTemplate({ data }: Props) {
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {app.description}
                   </p>
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -235,7 +235,7 @@ export function CategoryPageTemplate({ data }: Props) {
               </div>
               <div className="space-y-4">
                 {data.faqs.map((faq, i) => (
-                  <motion.details
+                  <m.details
                     key={i}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -250,7 +250,7 @@ export function CategoryPageTemplate({ data }: Props) {
                     <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                       {faq.answer}
                     </p>
-                  </motion.details>
+                  </m.details>
                 ))}
               </div>
             </div>

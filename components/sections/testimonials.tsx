@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { BadgeCheck, FileText, MapPinned, MessageSquareQuote, Truck } from 'lucide-react'
 
 const BUSINESS_BLOCKS = [
@@ -65,7 +65,7 @@ export function TestimonialsSection() {
 
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
           {BUSINESS_BLOCKS.map((block, i) => (
-            <motion.div
+            <m.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export function TestimonialsSection() {
               <block.icon className="h-5 w-5 text-brand-sapphire/60 shrink-0" />
               <p className="text-sm font-semibold text-gray-900">{block.title}</p>
               <p className="text-sm text-gray-700 leading-relaxed flex-1">{block.text}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

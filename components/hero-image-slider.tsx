@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { products } from '@/lib/data/products'
 
 const heroImages = products
@@ -27,7 +27,7 @@ export function HeroImageSlider() {
   return (
     <div className="relative w-full h-full rounded-2xl overflow-hidden bg-stone-100">
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={currentIndex}
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -44,24 +44,24 @@ export function HeroImageSlider() {
           />
           {/* Overlay с информацией о фракции */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6">
-            <motion.p
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
               className="text-white text-lg font-medium"
             >
               {heroImages[currentIndex].alt}
-            </motion.p>
-            <motion.p
+            </m.p>
+            <m.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               className="text-white/80 text-sm"
             >
               Фракция: {heroImages[currentIndex].fraction}
-            </motion.p>
+            </m.p>
           </div>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Индикаторы */}
@@ -70,9 +70,10 @@ export function HeroImageSlider() {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
+            aria-label={`Перейти к фото ${index + 1}`}
             className={`w-2 h-2 rounded-full transition-all ${
-              index === currentIndex 
-                ? 'bg-brand-sapphire w-6' 
+              index === currentIndex
+                ? 'bg-brand-sapphire w-6'
                 : 'bg-white/50 hover:bg-white/80'
             }`}
           />
