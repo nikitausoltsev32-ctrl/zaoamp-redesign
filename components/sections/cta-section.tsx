@@ -44,7 +44,7 @@ export function CTASection() {
             >
               <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer" onClick={() => ymGoal('whatsapp_click')}>
                 <MessageCircle className="mr-2 h-4 w-4" />
-                Написать в MAX
+                Написать в WhatsApp
               </a>
             </Button>
             <Button 

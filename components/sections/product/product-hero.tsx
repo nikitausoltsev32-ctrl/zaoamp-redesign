@@ -2,13 +2,15 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronRight, Check } from 'lucide-react'
+import { ChevronRight, Check, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Product } from '@/types'
 import { PriceTag } from '@/components/price-tag'
 import { getCategoryLabel } from '@/lib/utils/products'
 import { getProductImageAlt } from '@/lib/seo/metadata'
+import { contactInfo } from '@/lib/data/contacts'
+import { ymGoal } from '@/lib/analytics'
 
 interface ProductHeroProps {
   product: Product
@@ -107,30 +109,48 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
-                <Link href="#calculator">
-                  Рассчитать стоимость
-                </Link>
+                <a
+                  href={`tel:${contactInfo.whatsapp}`}
+                  onClick={() => ymGoal('phone_click')}
+                >
+                  <Phone className="mr-2 h-4 w-4" />
+                  Позвонить {contactInfo.phone}
+                </a>
               </Button>
-              <Button asChild size="lg" variant="outline">
-                <a href="tel:+79193931992">
-                  Позвонить
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+              >
+                <a
+                  href={`https://wa.me/${contactInfo.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => ymGoal('whatsapp_click')}
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  Написать в WhatsApp
                 </a>
               </Button>
             </div>
+            <p className="text-sm text-muted-foreground mt-3">
+              Ответим за 5 минут в рабочее время · WhatsApp 24/7
+            </p>
 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Наличие уточняйте при заказе</span>
+                <span>Опт от 1 тонны</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Авто и ж/д отгрузка</span>
+                <span>Авто и ж/д отгрузка по СНГ</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Паспорта качества по запросу</span>
+                <span>Паспорта качества</span>
               </div>
             </div>
           </div>

@@ -139,11 +139,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         <Button asChild variant="default" className="flex-1">
           <Link href={`/product/${product.slug}`} onClick={() => ymGoal('product_view')}>Подробнее</Link>
         </Button>
-        {hasPrice ? (
-          <Button asChild variant="outline" className="flex-1">
-            <Link href={`/product/${product.slug}#calculator`} onClick={() => ymGoal('calculator_open')}>Рассчитать</Link>
-          </Button>
-        ) : (
+        {!hasPrice && (
           <Button variant="outline" className="flex-1" onClick={() => { ymGoal('kp_open'); setKpOpen(true) }}>
             <FileText className="mr-2 h-4 w-4" />
             Получить КП

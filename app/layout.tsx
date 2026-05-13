@@ -6,6 +6,7 @@ import Script from 'next/script'
 import './globals.css'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
+import { FloatingActions } from '@/components/layout/floating-actions'
 import { MotionProvider } from '@/components/motion-provider'
 import { defaultMetadata } from '@/lib/seo/metadata'
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema'
@@ -56,6 +57,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <FloatingActions />
         </MotionProvider>
         <Analytics />
         <SpeedInsights />

@@ -37,35 +37,43 @@ export function HeroSection() {
     }
   }
 
+  const stats = [
+    { value: '20+', label: 'лет на рынке', sub: 'с 2004 года' },
+    { value: '98%', label: 'белизна', sub: 'высший класс' },
+    { value: 'СНГ', label: 'РФ · Беларусь · Казахстан', sub: 'авто и ж/д отгрузка' },
+  ]
+
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-[80vh] flex items-center overflow-hidden">
       <HeroBackgroundSlider />
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col gap-8">
-        <div className="max-w-3xl">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+          {/* Левая колонка — текст + форма */}
           <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-5"
           >
             <Badge className="w-fit bg-brand-sapphire text-white hover:bg-brand-sapphire-dark border-0 text-sm px-4 py-1">
               Собственное производство на Урале
             </Badge>
 
-            <h1 className="font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-lg">
+            <h1 className="font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl drop-shadow-lg">
               Мраморная крошка и щебень{' '}
               <span className="text-brand-powder-blue">премиум-качества</span>
             </h1>
 
-            <p className="text-xl text-white/90 max-w-2xl drop-shadow-md">
+            <p className="text-lg text-white/90 drop-shadow-md">
               Белизна 98%. Доставка по всей России.{' '}
               <span className="font-bold text-white">От 2 000 ₽/тонна</span>.
               Собственное месторождение белого мрамора.
             </p>
 
-            {/* Inline КП форма */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 max-w-md border border-white/20">
+            {/* КП форма */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20">
               {submitted ? (
                 <p className="text-white font-medium py-2">
                   Спасибо! Перезвоним в ближайшее время.
@@ -103,80 +111,74 @@ export function HeroSection() {
                 </>
               )}
             </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Button
+                asChild
+                size="lg"
+                className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 px-8"
+              >
+                <Link href="/catalog">
+                  Каталог продукции
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white"
+              >
+                <Link href="/#calculator">
+                  <Calculator className="mr-2 h-4 w-4" />
+                  Рассчитать стоимость
+                </Link>
+              </Button>
+            </div>
           </m.div>
-        </div>
 
-        {/* Вторичные кнопки */}
-        <div className="flex flex-wrap gap-3">
-          <Button
-            asChild
-            size="lg"
-            className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 px-8"
-          >
-            <Link href="/catalog">
-              Каталог продукции
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 hover:text-white"
-          >
-            <Link href="/#calculator">
-              <Calculator className="mr-2 h-4 w-4" />
-              Рассчитать стоимость
-            </Link>
-          </Button>
-        </div>
-
-        {/* Метрики */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+          {/* Правая колонка — трастовые метрики */}
           <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col gap-4"
           >
-            <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
-              98%
-            </div>
-            <div className="text-white min-w-0">
-              <p className="font-semibold">Белизна</p>
-              <p className="text-sm text-white/70">Высший класс</p>
-            </div>
+            {stats.map((stat, i) => (
+              <m.div
+                key={stat.value}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex items-center gap-5 bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-5 border border-white/10"
+              >
+                <div className="h-16 w-16 shrink-0 rounded-2xl bg-brand-sapphire flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                  {stat.value}
+                </div>
+                <div className="text-white">
+                  <p className="font-bold text-lg leading-tight">{stat.label}</p>
+                  <p className="text-sm text-white/70 mt-0.5">{stat.sub}</p>
+                </div>
+              </m.div>
+            ))}
+
+            {/* Дополнительная плашка */}
+            <m.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.6 }}
+              className="flex items-center gap-5 bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-5 border border-white/10"
+            >
+              <div className="h-16 w-16 shrink-0 rounded-2xl bg-brand-sapphire flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                1000+
+              </div>
+              <div className="text-white">
+                <p className="font-bold text-lg leading-tight">отгрузок выполнено</p>
+                <p className="text-sm text-white/70 mt-0.5">за 20 лет работы</p>
+              </div>
+            </m.div>
           </m.div>
 
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
-          >
-            <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
-              12
-            </div>
-            <div className="text-white min-w-0">
-              <p className="font-semibold">SKU</p>
-              <p className="text-sm text-white/70">В каталоге</p>
-            </div>
-          </m.div>
-
-          <m.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl px-5 py-4"
-          >
-            <div className="h-12 w-12 shrink-0 rounded-full bg-brand-sapphire flex items-center justify-center text-white font-bold text-lg">
-              РФ
-            </div>
-            <div className="text-white min-w-0">
-              <p className="font-semibold">Авто / ж/д</p>
-              <p className="text-sm text-white/70">Отгрузка по России</p>
-            </div>
-          </m.div>
         </div>
       </div>
     </section>

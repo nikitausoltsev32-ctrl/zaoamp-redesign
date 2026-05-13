@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, MessageCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
@@ -84,6 +84,16 @@ export function Header() {
               onClick={() => ymGoal('phone_click')}
             >
               {contactInfo.phone}
+            </a>
+            <a
+              href={`https://wa.me/${contactInfo.whatsapp}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors"
+              aria-label="Написать в WhatsApp"
+              onClick={() => ymGoal('whatsapp_click')}
+            >
+              <MessageCircle className="w-4 h-4" />
             </a>
             <ContactBar variant="header" />
             <MobileNav />

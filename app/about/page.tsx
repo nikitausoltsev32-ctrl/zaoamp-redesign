@@ -40,9 +40,9 @@ const faqs = [
 ]
 
 const stats = [
-  { number: '12', label: 'SKU в каталоге', icon: Users },
-  { number: '3', label: 'Товарные группы', icon: TrendingUp },
-  { number: 'Авто / ж/д', label: 'Форматы отгрузки', icon: Factory },
+  { number: '20+', label: 'Лет на рынке (с 2004)', icon: TrendingUp },
+  { number: '12', label: 'Позиций в каталоге', icon: Users },
+  { number: 'СНГ', label: 'РФ · Беларусь · Казахстан', icon: Factory },
   { number: '98%', label: 'Белизна мрамора', icon: Award },
 ]
 

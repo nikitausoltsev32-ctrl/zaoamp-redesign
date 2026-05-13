@@ -188,8 +188,11 @@ export const defaultMetadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: '/favicon.png',
-    shortcut: '/favicon-16x16.png',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
 }
