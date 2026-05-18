@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { m } from 'framer-motion'
 import { ArrowRight, Calculator, Phone } from 'lucide-react'
 import { HeroBackgroundSlider } from '@/components/hero-background-slider'
+import { ymGoal } from '@/lib/analytics'
 
 export function HeroSection() {
   const [phone, setPhone] = useState('')
@@ -29,6 +30,7 @@ export function HeroSection() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error ?? 'Ошибка отправки')
+      ymGoal('hero_lead_submit')
       setSubmitted(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка отправки')
@@ -41,6 +43,7 @@ export function HeroSection() {
     { value: '20+', label: 'лет на рынке', sub: 'с 2004 года' },
     { value: '98%', label: 'белизна', sub: 'высший класс' },
     { value: 'СНГ', label: 'РФ · Беларусь · Казахстан', sub: 'авто и ж/д отгрузка' },
+    { value: '1000+', label: 'отгрузок выполнено', sub: 'за 20 лет работы' },
   ]
 
   return (
@@ -152,7 +155,7 @@ export function HeroSection() {
                 transition={{ delay: 0.3 + i * 0.1 }}
                 className="flex items-center gap-5 bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-5 border border-white/10"
               >
-                <div className="h-16 w-16 shrink-0 rounded-2xl bg-brand-sapphire flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                <div className={`h-16 w-16 shrink-0 rounded-2xl bg-brand-sapphire flex items-center justify-center text-center text-white font-bold leading-none whitespace-nowrap shadow-lg ${stat.value.length > 4 ? 'text-[17px]' : 'text-xl'}`}>
                   {stat.value}
                 </div>
                 <div className="text-white">
@@ -161,22 +164,6 @@ export function HeroSection() {
                 </div>
               </m.div>
             ))}
-
-            {/* Дополнительная плашка */}
-            <m.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex items-center gap-5 bg-white/10 backdrop-blur-sm rounded-2xl px-6 py-5 border border-white/10"
-            >
-              <div className="h-16 w-16 shrink-0 rounded-2xl bg-brand-sapphire flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                1000+
-              </div>
-              <div className="text-white">
-                <p className="font-bold text-lg leading-tight">отгрузок выполнено</p>
-                <p className="text-sm text-white/70 mt-0.5">за 20 лет работы</p>
-              </div>
-            </m.div>
           </m.div>
 
         </div>

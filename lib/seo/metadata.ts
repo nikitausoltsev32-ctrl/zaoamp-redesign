@@ -16,6 +16,23 @@ function absoluteUrl(path = '/') {
   return new URL(path, SITE_URL).toString()
 }
 
+export function absoluteSiteUrl(path = '/') {
+  return absoluteUrl(path)
+}
+
+function withTrailingSlash(path: string) {
+  if (path === '/' || path.endsWith('/')) return path
+  if (path.startsWith('http')) {
+    const url = new URL(path)
+    if (!url.pathname.endsWith('/')) {
+      url.pathname = `${url.pathname}/`
+    }
+    return url.toString()
+  }
+
+  return `${path}/`
+}
+
 function formatPrice(price: number) {
   return new Intl.NumberFormat('ru-RU').format(price)
 }
@@ -49,16 +66,18 @@ function createMetadata({
   keywords?: string[]
   type?: 'website' | 'article'
 }): Metadata {
+  const normalizedPath = withTrailingSlash(path)
+
   return {
     title,
     description,
     keywords,
     alternates: {
-      canonical: path,
+      canonical: normalizedPath,
     },
     openGraph: {
       type,
-      url: path,
+      url: normalizedPath,
       title,
       description,
       siteName: SITE_NAME,
@@ -251,11 +270,13 @@ export function generateCategoryMetadata(category: CategoryData, products: Produ
 }
 
 export function generateProductMetadata(product: Product): Metadata {
+  const path = `/product/${product.slug}/`
+
   return {
     ...createMetadata({
       title: buildProductTitle(product),
       description: buildProductDescription(product),
-      path: `/product/${product.slug}`,
+      path,
       keywords: [
         product.name.toLowerCase(),
         `${product.fraction} купить`,
@@ -265,7 +286,7 @@ export function generateProductMetadata(product: Product): Metadata {
     }),
     openGraph: {
       type: 'website',
-      url: `/product/${product.slug}`,
+      url: path,
       title: buildProductTitle(product),
       description: buildProductDescription(product),
       siteName: SITE_NAME,

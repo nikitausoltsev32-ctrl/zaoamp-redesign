@@ -5,6 +5,32 @@ function absoluteUrl(path = '/') {
   return new URL(path, SITE_URL).toString()
 }
 
+function withTrailingSlash(path: string) {
+  if (path === '/' || path.endsWith('/')) return path
+  return `${path}/`
+}
+
+function productUrl(product: Product) {
+  return absoluteUrl(`/product/${product.slug}/`)
+}
+
+function getSchemaAvailability(product: Product) {
+  const availability = product.availability ?? 'in_stock'
+  const values: Record<NonNullable<Product['availability']>, string> = {
+    in_stock: 'https://schema.org/InStock',
+    preorder: 'https://schema.org/PreOrder',
+    out_of_stock: 'https://schema.org/OutOfStock',
+  }
+
+  return values[availability]
+}
+
+function getPriceValidUntil() {
+  const date = new Date()
+  date.setMonth(date.getMonth() + 6)
+  return date.toISOString().slice(0, 10)
+}
+
 function normalizeValue(value?: string) {
   if (!value) return undefined
   const trimmed = value.trim()
@@ -115,8 +141,9 @@ export function generateLocalBusinessSchema() {
 export function generateProductSchema(product: Product) {
   const offer: Record<string, unknown> = {
     '@type': 'Offer',
-    url: absoluteUrl(`/product/${product.slug}`),
+    url: productUrl(product),
     priceCurrency: 'RUB',
+    availability: getSchemaAvailability(product),
     seller: {
       '@type': 'Organization',
       name: COMPANY_NAME,
@@ -125,6 +152,7 @@ export function generateProductSchema(product: Product) {
 
   if (typeof product.pricePerTon === 'number') {
     offer.price = product.pricePerTon
+    offer.priceValidUntil = getPriceValidUntil()
   }
 
   const schema: Record<string, unknown> = {
@@ -132,9 +160,15 @@ export function generateProductSchema(product: Product) {
     '@type': 'Product',
     name: product.name,
     description: product.description,
+    sku: product.slug,
+    mpn: product.slug,
     brand: {
       '@type': 'Brand',
       name: SITE_NAME,
+    },
+    manufacturer: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
     },
     category: getCategoryName(product.category),
     offers: offer,
@@ -156,7 +190,7 @@ export function generateBreadcrumbSchema(items: Array<{ name: string; item: stri
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.item.startsWith('http') ? item.item : absoluteUrl(item.item),
+      item: item.item.startsWith('http') ? item.item : absoluteUrl(withTrailingSlash(item.item)),
     })),
   }
 }

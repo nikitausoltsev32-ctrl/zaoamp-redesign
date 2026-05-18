@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronRight, Check, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import { Product } from '@/types'
 import { PriceTag } from '@/components/price-tag'
 import { getCategoryLabel } from '@/lib/utils/products'
@@ -22,6 +24,44 @@ interface ProductHeroProps {
 
 export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
   const categoryLabel = getCategoryLabel(product.category)
+  const [quantity, setQuantity] = useState(1)
+  const [packaging, setPackaging] = useState(product.specifications.packaging[0] ?? 'Навалом')
+  const [phone, setPhone] = useState('')
+  const [orderStatus, setOrderStatus] = useState<'idle' | 'loading' | 'sent'>('idle')
+  const [orderError, setOrderError] = useState<string | null>(null)
+  const subtotal = typeof product.pricePerTon === 'number'
+    ? Math.max(1, quantity) * product.pricePerTon
+    : undefined
+
+  const submitOrder = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (!phone.trim() || !subtotal) return
+    setOrderStatus('loading')
+    setOrderError(null)
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone.trim(),
+          source: 'product_order',
+          productName: product.name,
+          productSlug: product.slug,
+          quantityTons: Math.max(1, quantity),
+          packaging,
+          subtotal,
+        }),
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error ?? 'Ошибка отправки')
+      ymGoal('product_order_submit')
+      setOrderStatus('sent')
+    } catch (error) {
+      setOrderError(error instanceof Error ? error.message : 'Ошибка отправки')
+      setOrderStatus('idle')
+    }
+  }
 
   return (
     <section className="py-8 bg-brand-ice-blue border-b">
@@ -93,6 +133,79 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             <p className="text-muted-foreground mb-6">
               {product.description}
             </p>
+
+            {typeof product.pricePerTon === 'number' && (
+              <form
+                onSubmit={submitOrder}
+                className="mb-8 rounded-xl border bg-white p-4 shadow-sm"
+              >
+                <p className="font-semibold text-gray-900">Оформить заказ на товар</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Цена указана за товар без доставки. Логистику подтвердит менеджер.
+                </p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-[120px_1fr]">
+                  <label className="space-y-1 text-sm">
+                    <span className="text-muted-foreground">Тонн</span>
+                    <Input
+                      type="number"
+                      min={1}
+                      step={1}
+                      value={quantity}
+                      onChange={(event) => setQuantity(Number(event.target.value) || 1)}
+                      disabled={orderStatus === 'loading' || orderStatus === 'sent'}
+                    />
+                  </label>
+                  <label className="space-y-1 text-sm">
+                    <span className="text-muted-foreground">Упаковка</span>
+                    <select
+                      value={packaging}
+                      onChange={(event) => setPackaging(event.target.value)}
+                      disabled={orderStatus === 'loading' || orderStatus === 'sent'}
+                      className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm ring-offset-background"
+                    >
+                      {product.specifications.packaging.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                <label className="mt-3 block space-y-1 text-sm">
+                  <span className="text-muted-foreground">Телефон для подтверждения</span>
+                  <Input
+                    type="tel"
+                    placeholder="+7 (999) 123-45-67"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                    required
+                    disabled={orderStatus === 'loading' || orderStatus === 'sent'}
+                  />
+                </label>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-sm">
+                    <span className="text-muted-foreground">Товар без доставки: </span>
+                    <span className="font-semibold text-brand-sapphire">
+                      {subtotal?.toLocaleString('ru-RU')} ₽
+                    </span>
+                  </p>
+                  <Button
+                    type="submit"
+                    disabled={orderStatus === 'loading' || orderStatus === 'sent'}
+                    className="bg-brand-sapphire hover:bg-brand-sapphire-dark"
+                  >
+                    {orderStatus === 'sent'
+                      ? 'Заявка отправлена'
+                      : orderStatus === 'loading'
+                        ? 'Отправка...'
+                        : 'Заказать'}
+                  </Button>
+                </div>
+                {orderError && (
+                  <p className="mt-3 text-sm text-red-600">{orderError}</p>
+                )}
+              </form>
+            )}
 
             {/* Quick specs */}
             <div className="grid grid-cols-2 gap-4 mb-8">

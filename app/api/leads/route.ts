@@ -32,6 +32,11 @@ export async function POST(request: Request) {
     const body = await request.json()
     const phone = typeof body?.phone === 'string' ? body.phone.trim() : ''
     const source = body?.source ?? 'hero'
+    const productName = typeof body?.productName === 'string' ? body.productName.trim() : ''
+    const productSlug = typeof body?.productSlug === 'string' ? body.productSlug.trim() : ''
+    const quantityTons = typeof body?.quantityTons === 'number' ? body.quantityTons : undefined
+    const packaging = typeof body?.packaging === 'string' ? body.packaging.trim() : ''
+    const subtotal = typeof body?.subtotal === 'number' ? body.subtotal : undefined
 
     if (!phone) {
       return NextResponse.json(
@@ -53,10 +58,21 @@ export async function POST(request: Request) {
     const time = new Date().toLocaleString('ru-RU')
     const safePhone = escapeHtml(phone)
     const safeSource = escapeHtml(String(source))
+    const orderLines = [
+      productName ? `Товар: ${escapeHtml(productName)}` : '',
+      productSlug ? `URL: /product/${escapeHtml(productSlug)}/` : '',
+      quantityTons ? `Объём: ${quantityTons} т` : '',
+      packaging ? `Упаковка: ${escapeHtml(packaging)}` : '',
+      subtotal ? `Товар без доставки: ${new Intl.NumberFormat('ru-RU').format(subtotal)} ₽` : '',
+    ].filter(Boolean)
+    const orderText = orderLines.length ? `\n${orderLines.join('\n')}` : ''
+    const orderHtml = orderLines.length
+      ? orderLines.map((line) => `<p>${line}</p>`).join('')
+      : ''
 
     // Уведомление в Telegram
     await sendTelegram(
-      `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>\nИсточник: ${safeSource}\nВремя: ${time}`
+      `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>\nИсточник: ${safeSource}${orderText}\nВремя: ${time}`
     )
 
     // Уведомление на почту
@@ -72,6 +88,7 @@ export async function POST(request: Request) {
           <h2>Новая заявка на коммерческое предложение</h2>
           <p><strong>Телефон:</strong> ${safePhone}</p>
           <p><strong>Источник:</strong> ${safeSource}</p>
+          ${orderHtml}
           <p><strong>Время:</strong> ${time}</p>
         `,
       })

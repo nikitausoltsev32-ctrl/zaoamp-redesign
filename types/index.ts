@@ -6,6 +6,7 @@ export interface Product {
   fraction: string
   pricePerTon?: number
   priceRetail?: number
+  availability?: 'in_stock' | 'preorder' | 'out_of_stock'
   description: string
   applications: string[]
   specifications: {
