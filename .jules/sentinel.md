@@ -1,0 +1,4 @@
+## 2024-05-19 - Unbounded Input in Delivery Calculator DoS Vulnerability
+**Vulnerability:** The delivery calculator endpoint `/api/delivery/calculate` accepted a `weight` parameter that was not strictly validated. It checked for truthiness (`!weight`) but allowed exceptionally large numbers (e.g., `1e18` or `Infinity`). This was passed into `splitWeightIntoTrunks` which used a `while` loop that incremented an array by max 20 tons at a time.
+**Learning:** For extremely large inputs, this loop iterates millions of times, potentially exhausting memory (leading to `RangeError: Invalid array length` or OOM crashes) and causing an application-level Denial of Service.
+**Prevention:** Always validate and bound user input on the server side, especially numeric input that determines iteration counts or array sizes. Implemented a strict check to ensure `weight` is a positive, finite number capped at a reasonable limit (e.g., 100,000 tons).

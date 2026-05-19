@@ -63,17 +63,18 @@ export async function POST(request: NextRequest) {
     const { derivalCity, arrivalCity, weight, volume } = body as DeliveryCalculationRequest
 
     // Валидация
-    if (!arrivalCity || !weight) {
+    const numWeight = Number(weight);
+    if (!arrivalCity || weight === undefined || weight === null || isNaN(numWeight) || numWeight <= 0 || numWeight > 100000) {
       // #region agent log
       log('Validation failed', { arrivalCity, weight });
       // #endregion
       return NextResponse.json(
-        { error: 'Не указаны обязательные параметры' },
+        { error: 'Не указаны или неверны обязательные параметры (вес должен быть больше 0 и не превышать 100000)' },
         { status: 400 }
       )
     }
 
-    const loads = splitWeightIntoTrunks(Number(weight))
+    const loads = splitWeightIntoTrunks(numWeight)
     const splitByTrucks = loads.length > 1
     const arrivalAddress = ARRIVAL_ADDRESSES[arrivalCity]
     const derivalLabel = 'Екатеринбург (терминал 14)'
