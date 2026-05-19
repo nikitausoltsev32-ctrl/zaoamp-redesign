@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
 import { SectionHeader } from '@/components/section-header'
-import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check, Loader2 } from 'lucide-react'
 import { m } from 'framer-motion'
 import { ymGoal } from '@/lib/analytics'
 
@@ -102,9 +102,14 @@ export function ContactForm() {
         className="w-full bg-brand-sapphire hover:bg-brand-sapphire-dark"
         size="lg"
         disabled={isLoading}
+        aria-disabled={isLoading}
+        aria-busy={isLoading}
       >
         {isLoading ? (
-          'Отправка...'
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Отправка...
+          </>
         ) : (
           <>
             <Send className="mr-2 h-4 w-4" />
