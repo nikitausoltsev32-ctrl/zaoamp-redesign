@@ -1,0 +1,3 @@
+## 2026-05-19 - Scroll Event Performance Optimization
+**Learning:** Directly attaching state updates to scroll event listeners can cause significant main-thread blocking and layout thrashing in React due to the high frequency of scroll events.
+**Action:** Always throttle scroll events. Using `requestAnimationFrame` with a boolean lock, combined with `{ passive: true }`, is a highly effective, low-overhead way to throttle scroll events and ensure state updates align with the browser's render cycle without adding external dependencies. Remember to clean up the `requestAnimationFrame` using `cancelAnimationFrame` when the component unmounts.

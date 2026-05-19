@@ -15,11 +15,29 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
+    let ticking = false
+    let frameId: number | null = null
+
+    // Performance Optimization: Throttle scroll event using requestAnimationFrame
+    // Reduces re-renders and main thread blocking during scroll events
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      if (!ticking) {
+        frameId = window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20)
+          ticking = false
+        })
+        ticking = true
+      }
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    // Adding { passive: true } improves scrolling performance
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId)
+      }
+    }
   }, [])
 
   return (
