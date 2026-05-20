@@ -1,4 +1,10 @@
 import { products } from '@/lib/data/products'
+import {
+  enrichAssistantLead,
+  shouldPersistAssistantLead,
+  withManagerHandoffConfirmation,
+  type AssistantLeadDraft,
+} from './lead'
 
 export type AssistantRole = 'user' | 'assistant'
 
@@ -7,17 +13,7 @@ export interface AssistantMessage {
   content: string
 }
 
-export interface AssistantLead {
-  name?: string
-  phone?: string
-  city?: string
-  need?: string
-  productInterest?: string
-  quantityTons?: number
-  packaging?: string
-  budget?: string
-  summary?: string
-}
+export type AssistantLead = AssistantLeadDraft
 
 export interface AssistantResult {
   reply: string
@@ -50,6 +46,7 @@ function productCatalogForPrompt() {
     category: product.category,
     fraction: product.fraction,
     pricePerTon: product.pricePerTon ?? null,
+    description: product.description,
     applications: product.applications,
     packaging: product.specifications.packaging,
     whiteness: product.specifications.whiteness,
@@ -63,13 +60,15 @@ function systemPrompt() {
 Цель: помочь посетителю подобрать фракцию, понять примерный продукт, собрать заявку и передать менеджеру.
 
 Правила:
-- Пиши по-русски, кратко, как менеджер B2B-продаж.
-- Не обещай точный остаток, точную доставку и финальную цену. Пиши, что менеджер подтвердит условия.
+- Пиши по-русски, живо и по делу, как внимательный B2B-менеджер. Не будь сухим ботом, но не раздувай ответ.
+- Не обещай точный остаток, точную доставку, дату отгрузки и финальную цену. Пиши, что менеджер подтвердит наличие, логистику и итоговые условия.
 - Используй только каталог ниже. Если информации нет, честно попроси уточнение.
-- Сначала выясняй задачу, город доставки, объем в тоннах, упаковку и телефон.
-- Если телефон уже есть, предложи передать заявку менеджеру.
-- Не выдумывай скидки, сертификаты, сроки отгрузки и города доставки.
-- Для калькуляций называй только примерный товар без доставки.
+- Подробно, но без выдумок объясняй продукцию: мраморная крошка для декора/ландшафта/штукатурок/смесей, щебень для строительства/дренажа/бетона, мраморная мука и микрокальцит для тонких промышленных задач.
+- Активно собирай поля заявки: имя, телефон, город доставки, продукт или фракция, объем в тоннах, упаковка, задача применения, сроки или бюджет.
+- Если телефон уже есть, прямо скажи в reply: "Передал информацию менеджеру, с вами свяжутся". Не спрашивай разрешение еще раз.
+- Не выдумывай скидки, сертификаты, паспорта качества, сроки отгрузки и города доставки. По документам говори, что менеджер подтвердит доступные паспорта/сертификаты под конкретную партию.
+- Для калькуляций называй только ориентир по товару без доставки и отмечай, что доставка и финальная цена подтверждаются отдельно.
+- Если клиент спрашивает "что выбрать", дай 2-3 подходящих варианта из каталога и сразу попроси недостающие lead-поля.
 
 Каталог:
 ${JSON.stringify(productCatalogForPrompt())}
@@ -91,7 +90,10 @@ function normalizeMessages(messages: AssistantMessage[]) {
     }))
 }
 
-function parseAssistantJson(text: string): Omit<AssistantResult, 'provider'> {
+function parseAssistantJson(
+  text: string,
+  messages: AssistantMessage[]
+): Omit<AssistantResult, 'provider'> {
   const trimmed = text.trim()
   const jsonText = trimmed.startsWith('{')
     ? trimmed
@@ -103,32 +105,73 @@ function parseAssistantJson(text: string): Omit<AssistantResult, 'provider'> {
     shouldSave?: unknown
   }
 
-  const lead = parsed.lead && typeof parsed.lead === 'object'
+  const parsedLead = parsed.lead && typeof parsed.lead === 'object'
     ? parsed.lead
     : {}
 
-  const quantityTons = typeof lead.quantityTons === 'number'
-    ? lead.quantityTons
-    : typeof lead.quantityTons === 'string'
-      ? Number(lead.quantityTons.replace(',', '.'))
+  const quantityTons = typeof parsedLead.quantityTons === 'number'
+    ? parsedLead.quantityTons
+    : typeof parsedLead.quantityTons === 'string'
+      ? Number(parsedLead.quantityTons.replace(',', '.'))
       : undefined
 
+  const lead = enrichAssistantLead({
+    name: typeof parsedLead.name === 'string' ? parsedLead.name.trim() : undefined,
+    phone: typeof parsedLead.phone === 'string' ? parsedLead.phone.trim() : undefined,
+    city: typeof parsedLead.city === 'string' ? parsedLead.city.trim() : undefined,
+    need: typeof parsedLead.need === 'string' ? parsedLead.need.trim() : undefined,
+    productInterest: typeof parsedLead.productInterest === 'string' ? parsedLead.productInterest.trim() : undefined,
+    quantityTons: Number.isFinite(quantityTons) ? quantityTons : undefined,
+    packaging: typeof parsedLead.packaging === 'string' ? parsedLead.packaging.trim() : undefined,
+    budget: typeof parsedLead.budget === 'string' ? parsedLead.budget.trim() : undefined,
+    summary: typeof parsedLead.summary === 'string' ? parsedLead.summary.trim() : undefined,
+  }, messages)
+  const baseReply = typeof parsed.reply === 'string' && parsed.reply.trim()
+    ? parsed.reply.trim()
+    : 'Уточните, пожалуйста, город доставки, объем в тоннах и задачу. Я подберу подходящую фракцию.'
+
   return {
-    reply: typeof parsed.reply === 'string' && parsed.reply.trim()
-      ? parsed.reply.trim()
-      : 'Уточните, пожалуйста, город доставки, объем в тоннах и задачу. Я подберу подходящую фракцию.',
-    lead: {
-      name: typeof lead.name === 'string' ? lead.name.trim() : undefined,
-      phone: typeof lead.phone === 'string' ? lead.phone.trim() : undefined,
-      city: typeof lead.city === 'string' ? lead.city.trim() : undefined,
-      need: typeof lead.need === 'string' ? lead.need.trim() : undefined,
-      productInterest: typeof lead.productInterest === 'string' ? lead.productInterest.trim() : undefined,
-      quantityTons: Number.isFinite(quantityTons) ? quantityTons : undefined,
-      packaging: typeof lead.packaging === 'string' ? lead.packaging.trim() : undefined,
-      budget: typeof lead.budget === 'string' ? lead.budget.trim() : undefined,
-      summary: typeof lead.summary === 'string' ? lead.summary.trim() : undefined,
-    },
-    shouldSave: parsed.shouldSave !== false,
+    reply: withManagerHandoffConfirmation(baseReply, lead),
+    lead,
+    shouldSave: shouldPersistAssistantLead(lead, parsed.shouldSave === true, messages),
+  }
+}
+
+function buildFallbackReply(lead: AssistantLead) {
+  if (lead.phone) {
+    return withManagerHandoffConfirmation(
+      'Заявку зафиксировал. Менеджер уточнит детали по материалу, документам, доставке и финальной цене.',
+      lead
+    )
+  }
+
+  return [
+    'Сейчас AI-подборщик не получил ответ от модели, но я могу собрать заявку для менеджера.',
+    'Напишите имя, телефон, город доставки, продукт или фракцию, объем в тоннах, упаковку, задачу и желаемые сроки или бюджет.',
+    'По наличию, доставке, документам и финальной цене условия подтвердит менеджер.',
+  ].join(' ')
+}
+
+function emptyFallbackResult(): AssistantResult {
+  return {
+    provider: 'fallback',
+    reply: 'Напишите, для какой задачи нужен материал: производство, бетон, ландшафт, штукатурка или другое. Я подберу фракцию и соберу заявку. Для расчета также нужны город, объем, упаковка и телефон.',
+    lead: {},
+    shouldSave: false,
+  }
+}
+
+function finalizeFallbackLead(messages: AssistantMessage[]) {
+  const lastUserMessage = [...messages].reverse().find((message) => message.role === 'user')?.content ?? ''
+  const lead = enrichAssistantLead({
+    need: lastUserMessage.slice(0, 500) || undefined,
+    summary: lastUserMessage ? `Запрос из AI-чата: ${lastUserMessage.slice(0, 500)}` : 'Запрос из AI-чата',
+  }, messages)
+
+  return {
+    lead,
+    reply: buildFallbackReply(lead),
+    shouldSave: shouldPersistAssistantLead(lead, false, messages),
   }
 }
 
@@ -168,7 +211,7 @@ async function callGroq(messages: AssistantMessage[]): Promise<AssistantResult> 
     throw new Error('Groq returned empty content')
   }
 
-  return { ...parseAssistantJson(text), provider: 'groq' }
+  return { ...parseAssistantJson(text, messages), provider: 'groq' }
 }
 
 async function callGemini(messages: AssistantMessage[]): Promise<AssistantResult> {
@@ -217,32 +260,22 @@ async function callGemini(messages: AssistantMessage[]): Promise<AssistantResult
     throw new Error('Gemini returned empty content')
   }
 
-  return { ...parseAssistantJson(text), provider: 'gemini' }
+  return { ...parseAssistantJson(text, messages), provider: 'gemini' }
 }
 
 function fallbackResult(messages: AssistantMessage[]): AssistantResult {
-  const lastUserMessage = [...messages].reverse().find((message) => message.role === 'user')?.content ?? ''
+  const fallback = finalizeFallbackLead(messages)
 
   return {
     provider: 'fallback',
-    reply: 'Сейчас AI-подборщик не получил ответ от модели. Напишите город доставки, объем в тоннах, задачу и телефон - менеджер подготовит подбор и КП.',
-    lead: {
-      need: lastUserMessage.slice(0, 500),
-      summary: lastUserMessage ? `Запрос из AI-чата: ${lastUserMessage.slice(0, 500)}` : 'Запрос из AI-чата',
-    },
-    shouldSave: true,
+    ...fallback,
   }
 }
 
 export async function generateAssistantReply(rawMessages: AssistantMessage[]): Promise<AssistantResult> {
   const messages = normalizeMessages(rawMessages)
   if (messages.length === 0) {
-    return {
-      provider: 'fallback',
-      reply: 'Напишите, для какой задачи нужен материал: производство, бетон, ландшафт, штукатурка или другое. Я подберу фракцию и соберу заявку.',
-      lead: {},
-      shouldSave: false,
-    }
+    return emptyFallbackResult()
   }
 
   try {

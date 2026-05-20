@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { generateAssistantReply, type AssistantMessage } from '@/lib/ai/assistant'
+import { shouldPersistAssistantLead } from '@/lib/ai/lead'
 import { supabaseAdmin } from '@/lib/supabase/server'
 
 function getString(value: unknown) {
@@ -43,8 +44,9 @@ export async function POST(request: Request) {
 
     const result = await generateAssistantReply(messages)
     let saved = false
+    const shouldSave = shouldPersistAssistantLead(result.lead, result.shouldSave, messages)
 
-    if (supabaseAdmin && result.shouldSave) {
+    if (supabaseAdmin && shouldSave) {
       const { error } = await supabaseAdmin
         .from('ai_assistant_leads')
         .upsert(
@@ -62,8 +64,15 @@ export async function POST(request: Request) {
             summary: result.lead.summary ?? null,
             messages,
             source_path: pagePath || null,
+            source_label: 'ai_chat',
             provider: result.provider,
             status: 'new',
+            raw_payload: {
+              lead: result.lead,
+              modelRequestedSave: result.shouldSave,
+              persistedByRule: shouldSave,
+              pagePath,
+            },
             updated_at: new Date().toISOString(),
           },
           { onConflict: 'session_id' }
