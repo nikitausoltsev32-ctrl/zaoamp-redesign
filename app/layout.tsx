@@ -8,6 +8,7 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { FloatingActions } from '@/components/layout/floating-actions'
 import { MotionProvider } from '@/components/motion-provider'
+import { AiAssistantWidget } from '@/components/ai/ai-assistant-widget'
 import { defaultMetadata } from '@/lib/seo/metadata'
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema'
 
@@ -58,6 +59,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <FloatingActions />
+          <AiAssistantWidget />
         </MotionProvider>
         <Analytics />
         <SpeedInsights />
