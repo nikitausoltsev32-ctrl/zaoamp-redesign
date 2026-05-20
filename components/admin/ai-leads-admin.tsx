@@ -1,27 +1,45 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
-import { RefreshCw, Search } from 'lucide-react'
+import { FormEvent, useEffect, useState } from 'react'
+import { LogOut, RefreshCw, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
 interface AiLeadRow {
   id: string
   session_id: string
+  lead_type: string
   name: string | null
   phone: string | null
+  email: string | null
   city: string | null
   need: string | null
   product_interest: string | null
+  product_slug: string | null
   quantity_tons: number | null
   packaging: string | null
   budget: string | null
+  order_subtotal: number | null
   summary: string | null
   source_path: string | null
+  source_label: string | null
   provider: string | null
   status: string
   updated_at: string
   created_at: string
+}
+
+const ADMIN_PASSWORD_STORAGE_KEY = 'zaoamp-admin-password'
+
+const leadTypeLabels: Record<string, string> = {
+  ai_assistant: 'AI-менеджер',
+  kp_request: 'Заявка на КП',
+  contact_form: 'Контактная форма',
+}
+
+function formatMoney(value: number | null) {
+  if (!value) return null
+  return `${new Intl.NumberFormat('ru-RU').format(value)} ₽`
 }
 
 export function AiLeadsAdmin() {
@@ -29,11 +47,19 @@ export function AiLeadsAdmin() {
   const [leads, setLeads] = useState<AiLeadRow[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [authorized, setAuthorized] = useState(false)
+
+  useEffect(() => {
+    const savedToken = window.sessionStorage.getItem(ADMIN_PASSWORD_STORAGE_KEY)
+    if (savedToken) {
+      setToken(savedToken)
+    }
+  }, [])
 
   const loadLeads = async (event?: FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
     if (!token.trim()) {
-      setError('Введите ADMIN_TOKEN')
+      setError('Введите пароль админа')
       return
     }
 
@@ -51,11 +77,22 @@ export function AiLeadsAdmin() {
       }
 
       setLeads(data.leads ?? [])
+      setAuthorized(true)
+      window.sessionStorage.setItem(ADMIN_PASSWORD_STORAGE_KEY, token.trim())
     } catch (loadError) {
+      setAuthorized(false)
       setError(loadError instanceof Error ? loadError.message : 'Не удалось загрузить заявки')
     } finally {
       setLoading(false)
     }
+  }
+
+  const logout = () => {
+    window.sessionStorage.removeItem(ADMIN_PASSWORD_STORAGE_KEY)
+    setToken('')
+    setLeads([])
+    setError('')
+    setAuthorized(false)
   }
 
   return (
@@ -76,13 +113,21 @@ export function AiLeadsAdmin() {
             type="password"
             value={token}
             onChange={(event) => setToken(event.target.value)}
-            placeholder="ADMIN_TOKEN"
+            placeholder="Пароль админа"
+            aria-label="Пароль админа"
             className="md:w-64"
+            autoComplete="current-password"
           />
           <Button type="submit" disabled={loading} className="gap-2 bg-brand-sapphire hover:bg-brand-sapphire-dark">
             {loading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-            Загрузить
+            {authorized ? 'Обновить' : 'Войти'}
           </Button>
+          {authorized && (
+            <Button type="button" variant="outline" onClick={logout} className="gap-2">
+              <LogOut className="h-4 w-4" />
+              Выйти
+            </Button>
+          )}
         </form>
       </div>
 
@@ -101,6 +146,9 @@ export function AiLeadsAdmin() {
                   <h2 className="text-lg font-semibold text-brand-deep-navy">
                     {lead.phone || lead.name || lead.product_interest || 'Новый интерес'}
                   </h2>
+                  <span className="rounded-md bg-brand-gold/20 px-2 py-1 text-xs text-brand-deep-navy">
+                    {leadTypeLabels[lead.lead_type] ?? lead.lead_type ?? 'Заявка'}
+                  </span>
                   <span className="rounded-md bg-stone-100 px-2 py-1 text-xs text-stone-600">
                     {lead.provider || 'provider unknown'}
                   </span>
@@ -118,13 +166,17 @@ export function AiLeadsAdmin() {
             <div className="mt-4 grid gap-3 text-sm md:grid-cols-2 lg:grid-cols-3">
               <Info label="Имя" value={lead.name} />
               <Info label="Телефон" value={lead.phone} />
+              <Info label="Email" value={lead.email} />
               <Info label="Город" value={lead.city} />
               <Info label="Продукт" value={lead.product_interest} />
+              <Info label="URL товара" value={lead.product_slug ? `/product/${lead.product_slug}/` : null} />
               <Info label="Объем" value={lead.quantity_tons ? `${lead.quantity_tons} т` : null} />
               <Info label="Упаковка" value={lead.packaging} />
+              <Info label="Сумма без доставки" value={formatMoney(lead.order_subtotal)} />
               <Info label="Бюджет" value={lead.budget} />
               <Info label="Задача" value={lead.need} />
               <Info label="Резюме" value={lead.summary} />
+              <Info label="Источник" value={lead.source_label || lead.source_path} />
             </div>
           </article>
         ))}
@@ -132,7 +184,7 @@ export function AiLeadsAdmin() {
 
       {!loading && leads.length === 0 && (
         <div className="rounded-lg border border-dashed border-stone-300 bg-white p-10 text-center text-sm text-stone-500">
-          Введите админ-токен и загрузите заявки.
+          Введите пароль админа, чтобы открыть заявки.
         </div>
       )}
     </div>

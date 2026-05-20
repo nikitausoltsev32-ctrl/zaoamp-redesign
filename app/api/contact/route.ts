@@ -50,11 +50,25 @@ export async function POST(request: Request) {
 
     // Сохранение в Supabase (опционально)
     if (supabaseAdmin) {
-      const { error } = await supabaseAdmin.from('contact_messages').insert({
+      const { error } = await supabaseAdmin.from('ai_assistant_leads').insert({
+        session_id: `contact_${crypto.randomUUID()}`,
+        lead_type: 'contact_form',
         name,
         phone,
         email: email || null,
-        message,
+        need: message,
+        summary: `Обращение через форму контактов: ${message}`,
+        messages: [],
+        source_path: '/contacts',
+        source_label: 'contacts',
+        provider: 'contact_form',
+        status: 'new',
+        raw_payload: {
+          name,
+          phone,
+          email,
+          message,
+        },
       })
       if (error) {
         console.error('[contact] Supabase error:', error)

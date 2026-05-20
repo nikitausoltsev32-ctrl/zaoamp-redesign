@@ -47,9 +47,48 @@ export async function POST(request: Request) {
 
     // Сохранение в Supabase (опционально — не блокирует отправку уведомлений)
     if (supabaseAdmin) {
-      const { error } = await supabaseAdmin.from('kp_leads').insert({ phone, source })
-      if (error) {
-        console.error('[leads] Supabase error:', error)
+      const sourceLabel = String(source)
+      const { error: kpError } = await supabaseAdmin.from('kp_leads').insert({ phone, source: sourceLabel })
+      if (kpError) {
+        console.error('[leads] Supabase kp_leads error:', kpError)
+      }
+
+      const summaryLines = [
+        productName ? `Товар: ${productName}` : '',
+        productSlug ? `URL: /product/${productSlug}/` : '',
+        quantityTons ? `Объем: ${quantityTons} т` : '',
+        packaging ? `Упаковка: ${packaging}` : '',
+        subtotal ? `Товар без доставки: ${new Intl.NumberFormat('ru-RU').format(subtotal)} ₽` : '',
+      ].filter(Boolean)
+
+      const { error: adminError } = await supabaseAdmin.from('ai_assistant_leads').insert({
+        session_id: `kp_${crypto.randomUUID()}`,
+        lead_type: 'kp_request',
+        phone,
+        product_interest: productName || null,
+        product_slug: productSlug || null,
+        quantity_tons: quantityTons ?? null,
+        packaging: packaging || null,
+        order_subtotal: subtotal ?? null,
+        need: 'Заявка на коммерческое предложение',
+        summary: summaryLines.length ? summaryLines.join('\n') : 'Заявка на КП: клиент оставил телефон',
+        messages: [],
+        source_path: productSlug ? `/product/${productSlug}/` : null,
+        source_label: sourceLabel,
+        provider: 'site_form',
+        status: 'new',
+        raw_payload: {
+          phone,
+          source: sourceLabel,
+          productName,
+          productSlug,
+          quantityTons,
+          packaging,
+          subtotal,
+        },
+      })
+      if (adminError) {
+        console.error('[leads] Supabase admin lead error:', adminError)
       }
     } else {
       console.warn('[leads] Supabase не настроен, заявка не сохранена в БД')

@@ -50,6 +50,7 @@ export async function POST(request: Request) {
         .upsert(
           {
             session_id: sessionId,
+            lead_type: 'ai_assistant',
             name: result.lead.name ?? null,
             phone: result.lead.phone ?? null,
             city: result.lead.city ?? null,
