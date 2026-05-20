@@ -18,7 +18,7 @@ import {
 import { Product } from '@/types'
 import { PriceTag } from './price-tag'
 import Link from 'next/link'
-import { FileText } from 'lucide-react'
+import { FileText, Loader2 } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
 import { getProductImageAlt } from '@/lib/seo/metadata'
 
@@ -182,13 +182,18 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
                   required
                   disabled={kpLoading}
                   className="w-full"
+                  aria-invalid={!!kpError}
+                  aria-describedby={kpError ? `kp-error-${product.id}` : undefined}
                 />
               </div>
               {kpError && (
-                <p className="text-sm text-destructive">{kpError}</p>
+                <p id={`kp-error-${product.id}`} className="text-sm text-destructive">
+                  {kpError}
+                </p>
               )}
               <DialogFooter>
                 <Button type="submit" disabled={kpLoading}>
+                  {kpLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />}
                   {kpLoading ? 'Отправка...' : 'Отправить'}
                 </Button>
               </DialogFooter>
