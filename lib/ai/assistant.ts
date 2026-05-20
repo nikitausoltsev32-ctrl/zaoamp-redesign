@@ -15,8 +15,16 @@ export interface AssistantMessage {
 
 export type AssistantLead = AssistantLeadDraft
 
+export interface AssistantStructured {
+  solution?: string | null
+  recommendation?: string | null
+  nextStep?: string | null
+  handoff?: string | null
+}
+
 export interface AssistantResult {
   reply: string
+  structured?: AssistantStructured
   lead: AssistantLead
   shouldSave: boolean
   provider: 'groq' | 'gemini' | 'fallback'
@@ -24,16 +32,22 @@ export interface AssistantResult {
 
 const ASSISTANT_OUTPUT_HINT = `Ответь строго JSON без markdown:
 {
-  "reply": "короткий ответ клиенту на русском",
+  "reply": "разговорный ответ менеджера, 2-3 предложения на русском",
+  "structured": {
+    "solution": "конкретный продукт/фракция если уже понятно, иначе null",
+    "recommendation": "1-2 ключевые рекомендации если есть, иначе null",
+    "nextStep": "что нужно уточнить или что будет дальше, всегда заполняй",
+    "handoff": "текст о передаче менеджеру если телефон уже есть, иначе null"
+  },
   "lead": {
     "name": "имя если известно",
     "phone": "телефон если известен",
     "city": "город доставки если известен",
     "need": "задача клиента",
     "productInterest": "интересующий продукт или фракция",
-    "quantityTons": 10,
+    "quantityTons": null,
     "packaging": "упаковка",
-    "budget": "бюджет если известен",
+    "budget": "бюджет или сроки если известны",
     "summary": "краткое резюме интереса"
   },
   "shouldSave": true
@@ -55,22 +69,28 @@ function productCatalogForPrompt() {
 }
 
 function systemPrompt() {
-  return `Ты AI-менеджер сайта ЗАО АМП, производителя мраморной крошки, щебня и микрокальцита.
+  return `Ты Алекс — менеджер продаж ЗАО АМП. Компания производит мраморную крошку, щебень и микрокальцит. Работаешь с B2B клиентами: строители, ландшафтники, производители.
 
-Цель: помочь посетителю подобрать фракцию, понять примерный продукт, собрать заявку и передать менеджеру.
+КАК ТЫ РАЗГОВАРИВАЕШЬ:
+- Живо и по-человечески, как опытный коллега. "Хорошо, разберёмся" вместо "Информация принята к обработке".
+- Уточняешь 1-2 вещи за раз — не засыпаешь анкетой.
+- Когда понятна задача — сразу называешь конкретный продукт из каталога и объясняешь почему именно он.
+- Мягко и естественно предлагаешь оставить телефон для КП: "Если скинете телефон — менеджер рассчитает точно с доставкой".
 
-Правила:
-- Пиши по-русски, живо и по делу, как внимательный B2B-менеджер. Не будь сухим ботом, но не раздувай ответ.
-- Не обещай точный остаток, точную доставку, дату отгрузки и финальную цену. Пиши, что менеджер подтвердит наличие, логистику и итоговые условия.
-- Используй только каталог ниже. Если информации нет, честно попроси уточнение.
-- Подробно, но без выдумок объясняй продукцию: мраморная крошка для декора/ландшафта/штукатурок/смесей, щебень для строительства/дренажа/бетона, мраморная мука и микрокальцит для тонких промышленных задач.
-- Активно собирай поля заявки: имя, телефон, город доставки, продукт или фракция, объем в тоннах, упаковка, задача применения, сроки или бюджет.
-- Если телефон уже есть, прямо скажи в reply: "Передал информацию менеджеру, с вами свяжутся". Не спрашивай разрешение еще раз.
-- Не выдумывай скидки, сертификаты, паспорта качества, сроки отгрузки и города доставки. По документам говори, что менеджер подтвердит доступные паспорта/сертификаты под конкретную партию.
-- Для калькуляций называй только ориентир по товару без доставки и отмечай, что доставка и финальная цена подтверждаются отдельно.
-- Если клиент спрашивает "что выбрать", дай 2-3 подходящих варианта из каталога и сразу попроси недостающие lead-поля.
+СЦЕНАРИЙ РАЗГОВОРА:
+1. Первый вопрос → уточни главную задачу, если ещё не понятно.
+2. Квалификация → узнай объём, город, как применяют.
+3. Рекомендация → назови продукт из каталога, коротко объясни выбор.
+4. Сбор контакта → предложи телефон для КП.
+5. Передача → если телефон есть, скажи что передал менеджеру.
 
-Каталог:
+ПРАВИЛА:
+- Не обещай точные остатки, точные сроки, финальную цену — это подтвердит менеджер.
+- Если в каталоге есть pricePerTon — можешь назвать как ориентир, сразу добавив "без доставки, финальная цена с менеджером".
+- Не выдумывай скидки, сертификаты, паспорта качества. По документам: "менеджер подтвердит доступные паспорта под партию".
+- Используй только продукты из каталога ниже.
+
+КАТАЛОГ:
 ${JSON.stringify(productCatalogForPrompt())}
 
 ${ASSISTANT_OUTPUT_HINT}`
@@ -90,6 +110,18 @@ function normalizeMessages(messages: AssistantMessage[]) {
     }))
 }
 
+function parseStructured(raw: unknown): AssistantStructured | undefined {
+  if (!raw || typeof raw !== 'object') return undefined
+  const s = raw as Record<string, unknown>
+  const str = (v: unknown) => (typeof v === 'string' && v.trim() ? v.trim() : null)
+  return {
+    solution: str(s.solution),
+    recommendation: str(s.recommendation),
+    nextStep: str(s.nextStep),
+    handoff: str(s.handoff),
+  }
+}
+
 function parseAssistantJson(
   text: string,
   messages: AssistantMessage[]
@@ -101,6 +133,7 @@ function parseAssistantJson(
 
   const parsed = JSON.parse(jsonText) as {
     reply?: unknown
+    structured?: unknown
     lead?: Record<string, unknown>
     shouldSave?: unknown
   }
@@ -126,12 +159,19 @@ function parseAssistantJson(
     budget: typeof parsedLead.budget === 'string' ? parsedLead.budget.trim() : undefined,
     summary: typeof parsedLead.summary === 'string' ? parsedLead.summary.trim() : undefined,
   }, messages)
+
+  const structured = parseStructured(parsed.structured)
   const baseReply = typeof parsed.reply === 'string' && parsed.reply.trim()
     ? parsed.reply.trim()
     : 'Уточните, пожалуйста, город доставки, объем в тоннах и задачу. Я подберу подходящую фракцию.'
 
+  const reply = structured?.handoff
+    ? baseReply
+    : withManagerHandoffConfirmation(baseReply, lead)
+
   return {
-    reply: withManagerHandoffConfirmation(baseReply, lead),
+    reply,
+    structured,
     lead,
     shouldSave: shouldPersistAssistantLead(lead, parsed.shouldSave === true, messages),
   }
@@ -155,7 +195,13 @@ function buildFallbackReply(lead: AssistantLead) {
 function emptyFallbackResult(): AssistantResult {
   return {
     provider: 'fallback',
-    reply: 'Напишите, для какой задачи нужен материал: производство, бетон, ландшафт, штукатурка или другое. Я подберу фракцию и соберу заявку. Для расчета также нужны город, объем, упаковка и телефон.',
+    reply: 'Привет! Расскажите, для какой задачи нужен материал — ландшафт, штукатурка, бетон, производство? Подберу подходящую фракцию.',
+    structured: {
+      solution: null,
+      recommendation: null,
+      nextStep: 'Опишите задачу, город и примерный объём — и я сразу назову подходящий вариант.',
+      handoff: null,
+    },
     lead: {},
     shouldSave: false,
   }
@@ -193,8 +239,8 @@ async function callGroq(messages: AssistantMessage[]): Promise<AssistantResult> 
         { role: 'system', content: systemPrompt() },
         ...messages,
       ],
-      temperature: 0.2,
-      max_tokens: 700,
+      temperature: 0.5,
+      max_tokens: 900,
       response_format: { type: 'json_object' },
     }),
   })
@@ -241,8 +287,8 @@ async function callGemini(messages: AssistantMessage[]): Promise<AssistantResult
         },
       ],
       generationConfig: {
-        temperature: 0.2,
-        maxOutputTokens: 700,
+        temperature: 0.5,
+        maxOutputTokens: 900,
         responseMimeType: 'application/json',
       },
     }),

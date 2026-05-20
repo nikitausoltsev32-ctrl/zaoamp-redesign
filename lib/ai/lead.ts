@@ -93,5 +93,14 @@ export function withManagerHandoffConfirmation(reply: string, lead: AssistantLea
     return cleanReply
   }
 
-  return `${cleanReply}\n\nПередал информацию менеджеру: с вами свяжутся, чтобы подтвердить наличие, доставку и финальную цену.`
+  return `${cleanReply}\n\nПередал менеджеру: с вами свяжутся, чтобы подтвердить наличие, доставку и финальную цену.`
+}
+
+export type AssistantLeadStage = 'first_contact' | 'qualification' | 'lead_capture' | 'handoff'
+
+export function getAssistantLeadStage(lead: AssistantLeadDraft): AssistantLeadStage {
+  if (lead.phone?.trim()) return 'handoff'
+  if (lead.need && lead.productInterest && lead.quantityTons) return 'lead_capture'
+  if (lead.need) return 'qualification'
+  return 'first_contact'
 }

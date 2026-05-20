@@ -88,6 +88,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       sessionId,
       reply: result.reply,
+      structured: result.structured ?? null,
       lead: result.lead,
       saved,
       provider: result.provider,

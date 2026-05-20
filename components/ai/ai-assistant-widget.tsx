@@ -1,25 +1,77 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { Bot, CheckCircle2, Loader2, MessageCircle, Phone, Send, Sparkles, X } from 'lucide-react'
+import { ArrowRight, Bot, CheckCircle2, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ymGoal } from '@/lib/analytics'
 
+type StructuredBlock = {
+  solution?: string | null
+  recommendation?: string | null
+  nextStep?: string | null
+  handoff?: string | null
+}
+
 type ChatMessage = {
   role: 'user' | 'assistant'
   content: string
+  structured?: StructuredBlock
 }
 
 type AssistantResponse = {
   sessionId: string
   reply: string
+  structured?: StructuredBlock | null
   saved: boolean
   provider: string
   lead?: {
     phone?: string
   }
   error?: string
+}
+
+function StructuredBlocks({ structured }: { structured: StructuredBlock }) {
+  const hasAny = structured.solution || structured.recommendation || structured.nextStep || structured.handoff
+  if (!hasAny) return null
+
+  return (
+    <div className="mt-2 space-y-1.5">
+      {structured.solution && (
+        <div className="flex items-start gap-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs">
+          <Package className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600" />
+          <div>
+            <span className="font-semibold text-emerald-800">Решение: </span>
+            <span className="text-emerald-700">{structured.solution}</span>
+          </div>
+        </div>
+      )}
+      {structured.recommendation && (
+        <div className="flex items-start gap-2 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-xs">
+          <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-blue-600" />
+          <div>
+            <span className="font-semibold text-blue-800">Рекомендация: </span>
+            <span className="text-blue-700">{structured.recommendation}</span>
+          </div>
+        </div>
+      )}
+      {structured.nextStep && (
+        <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs">
+          <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
+          <div>
+            <span className="font-semibold text-amber-800">Следующий шаг: </span>
+            <span className="text-amber-700">{structured.nextStep}</span>
+          </div>
+        </div>
+      )}
+      {structured.handoff && (
+        <div className="flex items-start gap-2 rounded-lg bg-brand-deep-navy px-3 py-2 text-xs text-white">
+          <Phone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/80" />
+          <span>{structured.handoff}</span>
+        </div>
+      )}
+    </div>
+  )
 }
 
 const STARTER_MESSAGES = [
@@ -51,7 +103,10 @@ export function AiAssistantWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      content: 'Здравствуйте. Я AI-менеджер АМП. Помогу подобрать мраморную крошку, щебень или муку, прикинуть цену и доставку. Напишите задачу, город и примерный объем.',
+      content: 'Привет! Я Алекс, менеджер АМП. Подберу материал под вашу задачу — мраморная крошка, щебень или микрокальцит. Что нужно?',
+      structured: {
+        nextStep: 'Расскажите задачу, город и примерный объём — и я сразу назову подходящий вариант.',
+      },
     },
   ])
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
@@ -96,7 +151,14 @@ export function AiAssistantWidget() {
 
       setSessionId(data.sessionId)
       window.localStorage.setItem('amp-ai-session-id', data.sessionId)
-      setMessages((current) => [...current, { role: 'assistant', content: data.reply }])
+      setMessages((current) => [
+        ...current,
+        {
+          role: 'assistant',
+          content: data.reply,
+          structured: data.structured ?? undefined,
+        },
+      ])
 
       if (data.lead?.phone) {
         ymGoal('ai_lead_submit')
@@ -164,7 +226,10 @@ export function AiAssistantWidget() {
                       : 'max-w-[85%] rounded-2xl rounded-bl-md border border-stone-200 bg-white px-3.5 py-2.5 text-sm leading-relaxed text-stone-900 shadow-sm'
                   }
                 >
-                  {message.content}
+                  <span className="whitespace-pre-wrap">{message.content}</span>
+                  {message.role === 'assistant' && message.structured && (
+                    <StructuredBlocks structured={message.structured} />
+                  )}
                 </div>
               </div>
             ))}

@@ -2,6 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 
 import {
+  getAssistantLeadStage,
   enrichAssistantLead,
   shouldPersistAssistantLead,
   withManagerHandoffConfirmation,
@@ -48,6 +49,32 @@ test('withManagerHandoffConfirmation explicitly confirms handoff when phone is p
     { phone: '+79123456789' }
   )
 
-  assert.match(reply, /передал информацию менеджеру/i)
+  assert.match(reply, /передал менеджеру:/i)
   assert.match(reply, /с вами свяжутся/i)
+})
+
+test('shouldPersistAssistantLead triggers on purchase intent keywords in messages', () => {
+  const messages = [{ role: 'user' as const, content: 'хочу купить 10 тонн мраморной крошки' }]
+  assert.equal(shouldPersistAssistantLead({}, false, messages), true)
+  assert.equal(shouldPersistAssistantLead({}, false, [{ role: 'user', content: 'просто смотрю' }]), false)
+})
+
+test('getAssistantLeadStage follows a manager sales conversation path', () => {
+  assert.equal(getAssistantLeadStage({}), 'first_contact')
+  assert.equal(getAssistantLeadStage({ need: 'для дорожек' }), 'qualification')
+  assert.equal(
+    getAssistantLeadStage({
+      need: 'для дорожек',
+      productInterest: 'мраморная крошка 5-10 мм',
+      quantityTons: 20,
+    }),
+    'lead_capture'
+  )
+  assert.equal(
+    getAssistantLeadStage({
+      phone: '+79123456789',
+      productInterest: 'мраморная крошка 5-10 мм',
+    }),
+    'handoff'
+  )
 })
