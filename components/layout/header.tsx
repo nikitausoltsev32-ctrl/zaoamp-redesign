@@ -18,7 +18,8 @@ export function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll)
+    // Optimization: passive true allows browser to not wait for preventDefault, improving scroll performance
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
