@@ -15,10 +15,19 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
+      if (!ticking) {
+        // ⚡ Bolt: Throttle frequent scroll events using requestAnimationFrame to prevent unnecessary re-renders
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20)
+          ticking = false
+        })
+        ticking = true
+      }
     }
-    window.addEventListener('scroll', handleScroll)
+    // ⚡ Bolt: Use passive: true to prevent scroll blocking and improve scrolling performance
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
