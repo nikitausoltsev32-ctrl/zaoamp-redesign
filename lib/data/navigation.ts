@@ -11,6 +11,7 @@ export const navItems: NavItem[] = [
       { label: 'Мука и микрокальцит', href: '/catalog/muka' },
     ],
   },
+  { label: 'Применение', href: '/primenenie' },
   { label: 'Блог', href: '/blog' },
   { label: 'Паспорта качества', href: '/documents' },
   { label: 'О компании', href: '/about' },

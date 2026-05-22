@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { ArrowRight, Bot, CheckCircle2, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
+import { ArrowRight, Bot, CheckCircle2, ExternalLink, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ymGoal } from '@/lib/analytics'
@@ -11,12 +11,20 @@ type StructuredBlock = {
   recommendation?: string | null
   nextStep?: string | null
   handoff?: string | null
+  internetNote?: string | null
+}
+
+type AssistantSource = {
+  title: string
+  url: string
+  provider: string
 }
 
 type ChatMessage = {
   role: 'user' | 'assistant'
   content: string
   structured?: StructuredBlock
+  sources?: AssistantSource[]
 }
 
 type AssistantResponse = {
@@ -25,6 +33,7 @@ type AssistantResponse = {
   structured?: StructuredBlock | null
   saved: boolean
   provider: string
+  sources?: AssistantSource[]
   lead?: {
     phone?: string
   }
@@ -55,6 +64,15 @@ function StructuredBlocks({ structured }: { structured: StructuredBlock }) {
           </div>
         </div>
       )}
+      {structured.internetNote && (
+        <div className="flex items-start gap-2 rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 text-xs">
+          <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-violet-600" />
+          <div>
+            <span className="font-semibold text-violet-800">Интернет: </span>
+            <span className="text-violet-700">{structured.internetNote}</span>
+          </div>
+        </div>
+      )}
       {structured.nextStep && (
         <div className="flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs">
           <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
@@ -70,6 +88,27 @@ function StructuredBlocks({ structured }: { structured: StructuredBlock }) {
           <span>{structured.handoff}</span>
         </div>
       )}
+    </div>
+  )
+}
+
+function SourceLinks({ sources }: { sources?: AssistantSource[] }) {
+  if (!sources?.length) return null
+
+  return (
+    <div className="mt-2 flex flex-wrap gap-1.5">
+      {sources.slice(0, 3).map((source) => (
+        <a
+          key={source.url}
+          href={source.url}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex max-w-full items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] text-stone-600 transition hover:border-brand-sapphire hover:text-brand-sapphire"
+        >
+          <ExternalLink className="h-3 w-3 shrink-0" />
+          <span className="truncate">{source.title || source.provider}</span>
+        </a>
+      ))}
     </div>
   )
 }
@@ -103,9 +142,9 @@ export function AiAssistantWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      content: 'Привет! Я Алекс, менеджер АМП. Подберу материал под вашу задачу — мраморная крошка, щебень или микрокальцит. Что нужно?',
+      content: 'Привет! Я Алекс, AI-менеджер АМП. Подберу фракцию из нашего каталога, объясню по цене/упаковке/документам и, если нужно, сверю внешний источник или страницу по ссылке. Что планируете сделать?',
       structured: {
-        nextStep: 'Расскажите задачу, город и примерный объём — и я сразу назову подходящий вариант.',
+        nextStep: 'Напишите задачу, город и примерный объем - я сразу назову подходящий вариант и что нужно для точного КП.',
       },
     },
   ])
@@ -157,6 +196,7 @@ export function AiAssistantWidget() {
           role: 'assistant',
           content: data.reply,
           structured: data.structured ?? undefined,
+          sources: data.sources ?? undefined,
         },
       ])
 
@@ -194,7 +234,7 @@ export function AiAssistantWidget() {
                 <p className="text-sm font-semibold leading-tight">AI-менеджер АМП</p>
                 <p className="flex items-center gap-1 text-xs text-white/75">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  На связи, помогает с подбором
+                  Каталог, заявки и web-контекст
                 </p>
               </div>
             </div>
@@ -230,6 +270,7 @@ export function AiAssistantWidget() {
                   {message.role === 'assistant' && message.structured && (
                     <StructuredBlocks structured={message.structured} />
                   )}
+                  {message.role === 'assistant' && <SourceLinks sources={message.sources} />}
                 </div>
               </div>
             ))}
@@ -241,7 +282,7 @@ export function AiAssistantWidget() {
                 </div>
                 <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-stone-200 bg-white px-3.5 py-2.5 text-sm text-stone-600 shadow-sm">
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Проверяю фракции, цену и доставку
+                  Проверяю каталог, заявки и источники
                 </div>
               </div>
             )}
@@ -252,7 +293,7 @@ export function AiAssistantWidget() {
             <div className="mb-3 rounded-lg border border-brand-sapphire/15 bg-brand-sapphire/5 p-3">
               <div className="mb-2 flex items-start gap-2 text-xs text-stone-700">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
-                <span>Для точного расчета лучше указать город, объем и куда применяете материал.</span>
+                <span>Для точного расчета лучше указать город, объем, задачу и нужную упаковку.</span>
               </div>
               <button
                 type="button"

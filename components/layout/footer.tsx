@@ -3,6 +3,7 @@ import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
 import { navItems, productLinks, categoryLinks } from '@/lib/data/navigation'
 import { contactInfo } from '@/lib/data/contacts'
+import { applicationLinks, cityLinks } from '@/lib/data/seo-landings'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -139,6 +140,39 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-white mb-4">Контакты</h3>
             <ContactBar variant="footer" />
+          </div>
+        </div>
+
+        <div className="border-t border-stone-800 mt-10 pt-8 grid gap-8 md:grid-cols-2">
+          <div>
+            <h3 className="font-semibold text-white mb-4">Применение</h3>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {applicationLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-stone-400 hover:text-white transition-colors text-sm"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-4">География поставок</h3>
+            <ul className="grid gap-2 sm:grid-cols-2">
+              {cityLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-stone-400 hover:text-white transition-colors text-sm"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 

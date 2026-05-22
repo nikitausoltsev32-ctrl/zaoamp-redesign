@@ -72,6 +72,7 @@ export async function POST(request: Request) {
               modelRequestedSave: result.shouldSave,
               persistedByRule: shouldSave,
               pagePath,
+              sources: result.sources ?? [],
             },
             updated_at: new Date().toISOString(),
           },
@@ -90,6 +91,11 @@ export async function POST(request: Request) {
       reply: result.reply,
       structured: result.structured ?? null,
       lead: result.lead,
+      sources: (result.sources ?? []).map((source) => ({
+        title: source.title,
+        url: source.url,
+        provider: source.provider,
+      })),
       saved,
       provider: result.provider,
     })

@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { products } from '@/lib/data/products'
 import { categories } from '@/lib/data/categories'
 import { blogPosts } from '@/lib/data/blog'
+import { applicationLandingPages, cityLandingPages } from '@/lib/data/seo-landings'
 
 const BASE_URL = 'https://amp-minerals.ru'
 
@@ -53,6 +54,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    {
+      url: pageUrl('/primenenie'),
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
   ]
 
   const categoryPages: MetadataRoute.Sitemap = Object.values(categories).map((c) => ({
@@ -76,5 +83,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.65,
   }))
 
-  return [...staticPages, ...categoryPages, ...productPages, ...blogPages]
+  const applicationPages: MetadataRoute.Sitemap = Object.values(applicationLandingPages).map((page) => ({
+    url: pageUrl(`/primenenie/${page.slug}`),
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.75,
+  }))
+
+  const cityPages: MetadataRoute.Sitemap = Object.values(cityLandingPages).map((page) => ({
+    url: pageUrl(`/${page.slug}`),
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.75,
+  }))
+
+  return [...staticPages, ...categoryPages, ...productPages, ...blogPages, ...applicationPages, ...cityPages]
 }

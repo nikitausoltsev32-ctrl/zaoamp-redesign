@@ -17,7 +17,10 @@ export interface AssistantLeadDraft {
 
 const PHONE_PATTERN = /(?:\+?\d[\d\s().-]{8,}\d)/
 const QUANTITY_PATTERN = /(\d+(?:[,.]\d+)?)\s*(?:т|тонн|тонны|тонна)(?=\s|[,.!?]|$)/i
-const NAME_PATTERN = /(?:меня зовут|мое имя|моё имя|я)\s+([А-ЯЁA-Z][а-яёa-z-]{1,30})/i
+const NAME_PATTERNS = [
+  /(?:меня зовут|мое имя|моё имя)\s+([А-ЯЁA-Z][а-яёa-z-]{1,30})/i,
+  /(?:^|[.!?\n]\s*)я\s+([А-ЯЁA-Z][а-яёa-z-]{1,30})(?=\s|[,.!?]|$)/,
+]
 const CITY_PATTERN = /(?:в|до|город|доставка в|доставк[ау]\s+в)\s+([А-ЯЁA-Z][а-яёa-z -]{2,40})(?=[,.]|$)/i
 const PRODUCT_PATTERN =
   /((?:мраморн(?:ая|ую|ой)\s+)?(?:крошк[ауи]|щебень|мук[ауи])(?:\s+\d+(?:[,.]\d+)?\s*[-–]\s*\d+(?:[,.]\d+)?\s*(?:мм|мкм)?)?|микрокальцит(?:\s+\d+\s*[-–]\s*\d+\s*мкм)?)/i
@@ -43,6 +46,14 @@ function extractFirst(pattern: RegExp, text: string) {
   return clean(text.match(pattern)?.[1])
 }
 
+function extractName(text: string) {
+  for (const pattern of NAME_PATTERNS) {
+    const name = extractFirst(pattern, text)
+    if (name) return name
+  }
+  return undefined
+}
+
 function normalizeQuantity(value: string | undefined) {
   if (!value) return undefined
   const quantity = Number(value.replace(',', '.'))
@@ -60,7 +71,7 @@ export function enrichAssistantLead(
 
   return {
     ...draft,
-    name: clean(draft.name) ?? extractFirst(NAME_PATTERN, text),
+    name: clean(draft.name) ?? extractName(text),
     phone: clean(draft.phone) ?? clean(text.match(PHONE_PATTERN)?.[0]),
     city: clean(draft.city) ?? extractFirst(CITY_PATTERN, text),
     need: clean(need),

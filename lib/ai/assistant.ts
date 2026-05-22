@@ -1,10 +1,18 @@
-import { products } from '@/lib/data/products'
 import {
   enrichAssistantLead,
   shouldPersistAssistantLead,
   withManagerHandoffConfirmation,
   type AssistantLeadDraft,
 } from './lead'
+import {
+  buildAssistantKnowledgeContext,
+  buildRuleBasedAssistantReply,
+} from './knowledge'
+import {
+  buildInternetContext,
+  type AssistantInternetContext,
+  type AssistantSource,
+} from './web-context'
 
 export type AssistantRole = 'user' | 'assistant'
 
@@ -20,6 +28,7 @@ export interface AssistantStructured {
   recommendation?: string | null
   nextStep?: string | null
   handoff?: string | null
+  internetNote?: string | null
 }
 
 export interface AssistantResult {
@@ -28,6 +37,7 @@ export interface AssistantResult {
   lead: AssistantLead
   shouldSave: boolean
   provider: 'groq' | 'gemini' | 'fallback'
+  sources?: AssistantSource[]
 }
 
 const ASSISTANT_OUTPUT_HINT = `Ответь строго JSON без markdown:
@@ -37,7 +47,8 @@ const ASSISTANT_OUTPUT_HINT = `Ответь строго JSON без markdown:
     "solution": "конкретный продукт/фракция если уже понятно, иначе null",
     "recommendation": "1-2 ключевые рекомендации если есть, иначе null",
     "nextStep": "что нужно уточнить или что будет дальше, всегда заполняй",
-    "handoff": "текст о передаче менеджеру если телефон уже есть, иначе null"
+    "handoff": "текст о передаче менеджеру если телефон уже есть, иначе null",
+    "internetNote": "если использовал внешний интернет-контекст, коротко что именно сверил, иначе null"
   },
   "lead": {
     "name": "имя если известно",
@@ -53,23 +64,22 @@ const ASSISTANT_OUTPUT_HINT = `Ответь строго JSON без markdown:
   "shouldSave": true
 }`
 
-function productCatalogForPrompt() {
-  return products.map((product) => ({
-    name: product.name,
-    slug: product.slug,
-    category: product.category,
-    fraction: product.fraction,
-    pricePerTon: product.pricePerTon ?? null,
-    description: product.description,
-    applications: product.applications,
-    packaging: product.specifications.packaging,
-    whiteness: product.specifications.whiteness,
-    caco3: product.specifications.caco3 ?? null,
-  }))
+function currentDateRu() {
+  return new Intl.DateTimeFormat('ru-RU', {
+    dateStyle: 'medium',
+    timeZone: 'Asia/Yekaterinburg',
+  }).format(new Date())
 }
 
-function systemPrompt() {
-  return `Ты Алекс — менеджер продаж ЗАО АМП. Компания производит мраморную крошку, щебень и микрокальцит. Работаешь с B2B клиентами: строители, ландшафтники, производители.
+function systemPrompt(internetContext: AssistantInternetContext) {
+  const internetBlock = internetContext.contextText
+    ? `Используй эти найденные источники только как дополнительный контекст. Если отвечаешь по ним, кратко упомяни, что сверил внешние источники.\n\n${internetContext.contextText}`
+    : internetContext.error
+      ? `${internetContext.error} Если клиент просит актуальные данные из интернета, честно скажи, что интернет-поиск сейчас не подключен, и помоги по каталогу/заявке.`
+      : 'Внешний интернет-контекст для этого вопроса не запрашивался. Отвечай по базе ЗАО АМП.'
+
+  return `Ты Алекс — живой AI-менеджер продаж ЗАО АМП. Компания производит мраморную крошку, щебень, мраморную муку и микрокальцит. Работаешь с B2B клиентами: строители, ландшафтники, производители.
+Текущая дата: ${currentDateRu()}.
 
 КАК ТЫ РАЗГОВАРИВАЕШЬ:
 - Живо и по-человечески, как опытный коллега. "Хорошо, разберёмся" вместо "Информация принята к обработке".
@@ -90,8 +100,11 @@ function systemPrompt() {
 - Не выдумывай скидки, сертификаты, паспорта качества. По документам: "менеджер подтвердит доступные паспорта под партию".
 - Используй только продукты из каталога ниже.
 
-КАТАЛОГ:
-${JSON.stringify(productCatalogForPrompt())}
+БАЗА ЗНАНИЙ ЗАО АМП:
+${buildAssistantKnowledgeContext()}
+
+ИНТЕРНЕТ-КОНТЕКСТ:
+${internetBlock}
 
 ${ASSISTANT_OUTPUT_HINT}`
 }
@@ -119,6 +132,7 @@ function parseStructured(raw: unknown): AssistantStructured | undefined {
     recommendation: str(s.recommendation),
     nextStep: str(s.nextStep),
     handoff: str(s.handoff),
+    internetNote: str(s.internetNote),
   }
 }
 
@@ -221,7 +235,61 @@ function finalizeFallbackLead(messages: AssistantMessage[]) {
   }
 }
 
-async function callGroq(messages: AssistantMessage[]): Promise<AssistantResult> {
+function sourceSummaryFallback(
+  internetContext: AssistantInternetContext,
+  lead: AssistantLead
+) {
+  if (internetContext.sources.length > 0) {
+    const sourceLines = internetContext.sources
+      .slice(0, 3)
+      .map((source, index) => {
+        const snippet = source.snippet ? ` - ${source.snippet.slice(0, 260)}` : ''
+        return `${index + 1}. ${source.title}${snippet}`
+      })
+      .join('\n')
+    const reply = [
+      'Проверил доступные внешние источники:',
+      sourceLines,
+      'Если нужно применить это к продукции АМП, напишите задачу, город и объем - подберу фракцию и соберу данные для КП.',
+    ].join('\n')
+
+    return {
+      reply: withManagerHandoffConfirmation(reply, lead),
+      structured: {
+        solution: null,
+        recommendation: 'Внешний источник найден; для коммерческого расчета нужны задача, город, объем и упаковка.',
+        nextStep: 'Уточните, что именно сравнить или рассчитать по продукции АМП.',
+        handoff: lead.phone ? 'Контакт есть - менеджер сможет подключиться к расчету.' : null,
+        internetNote: `Сверил ${internetContext.sources.length} внешн. источник(а).`,
+      },
+    }
+  }
+
+  if (internetContext.error) {
+    const reply = [
+      internetContext.error,
+      'По каталогу АМП я все равно могу подобрать материал, цену-ориентир без доставки, упаковку и список данных для КП.',
+    ].join(' ')
+
+    return {
+      reply: withManagerHandoffConfirmation(reply, lead),
+      structured: {
+        solution: null,
+        recommendation: 'Для актуального web-поиска добавьте TAVILY_API_KEY или BRAVE_SEARCH_API_KEY в окружение.',
+        nextStep: 'Напишите задачу по материалу или подключите ключ поиска на Vercel.',
+        handoff: lead.phone ? 'Контакт есть - менеджер сможет уточнить условия вручную.' : null,
+        internetNote: 'Полноценный интернет-поиск пока не подключен.',
+      },
+    }
+  }
+
+  return null
+}
+
+async function callGroq(
+  messages: AssistantMessage[],
+  internetContext: AssistantInternetContext
+): Promise<AssistantResult> {
   const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
     throw new Error('GROQ_API_KEY is not configured')
@@ -236,7 +304,7 @@ async function callGroq(messages: AssistantMessage[]): Promise<AssistantResult> 
     body: JSON.stringify({
       model: process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile',
       messages: [
-        { role: 'system', content: systemPrompt() },
+        { role: 'system', content: systemPrompt(internetContext) },
         ...messages,
       ],
       temperature: 0.5,
@@ -257,10 +325,13 @@ async function callGroq(messages: AssistantMessage[]): Promise<AssistantResult> 
     throw new Error('Groq returned empty content')
   }
 
-  return { ...parseAssistantJson(text, messages), provider: 'groq' }
+  return { ...parseAssistantJson(text, messages), provider: 'groq', sources: internetContext.sources }
 }
 
-async function callGemini(messages: AssistantMessage[]): Promise<AssistantResult> {
+async function callGemini(
+  messages: AssistantMessage[],
+  internetContext: AssistantInternetContext
+): Promise<AssistantResult> {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) {
     throw new Error('GEMINI_API_KEY is not configured')
@@ -282,7 +353,7 @@ async function callGemini(messages: AssistantMessage[]): Promise<AssistantResult
         {
           role: 'user',
           parts: [
-            { text: `${systemPrompt()}\n\nДиалог:\n${conversation}` },
+            { text: `${systemPrompt(internetContext)}\n\nДиалог:\n${conversation}` },
           ],
         },
       ],
@@ -306,15 +377,26 @@ async function callGemini(messages: AssistantMessage[]): Promise<AssistantResult
     throw new Error('Gemini returned empty content')
   }
 
-  return { ...parseAssistantJson(text, messages), provider: 'gemini' }
+  return { ...parseAssistantJson(text, messages), provider: 'gemini', sources: internetContext.sources }
 }
 
-function fallbackResult(messages: AssistantMessage[]): AssistantResult {
+function fallbackResult(
+  messages: AssistantMessage[],
+  internetContext: AssistantInternetContext
+): AssistantResult {
   const fallback = finalizeFallbackLead(messages)
+  const ruleBased = buildRuleBasedAssistantReply(messages, fallback.lead)
+  const sourceFallback = ruleBased.structured.solution
+    ? null
+    : sourceSummaryFallback(internetContext, fallback.lead)
 
   return {
     provider: 'fallback',
-    ...fallback,
+    lead: fallback.lead,
+    reply: sourceFallback?.reply ?? ruleBased.reply,
+    structured: sourceFallback?.structured ?? ruleBased.structured,
+    shouldSave: fallback.shouldSave,
+    sources: internetContext.sources,
   }
 }
 
@@ -324,17 +406,31 @@ export async function generateAssistantReply(rawMessages: AssistantMessage[]): P
     return emptyFallbackResult()
   }
 
+  let internetContext: AssistantInternetContext
   try {
-    return await callGroq(messages)
+    internetContext = await buildInternetContext(messages)
+  } catch (internetError) {
+    console.warn('[ai-assistant] Internet context failed:', internetError)
+    internetContext = {
+      query: '',
+      sources: [],
+      contextText: '',
+      provider: 'not-configured',
+      error: 'Интернет-контекст не удалось получить. Отвечай по базе ЗАО АМП.',
+    }
+  }
+
+  try {
+    return await callGroq(messages, internetContext)
   } catch (groqError) {
     console.warn('[ai-assistant] Groq failed, trying Gemini:', groqError)
   }
 
   try {
-    return await callGemini(messages)
+    return await callGemini(messages, internetContext)
   } catch (geminiError) {
     console.warn('[ai-assistant] Gemini failed, using fallback:', geminiError)
   }
 
-  return fallbackResult(messages)
+  return fallbackResult(messages, internetContext)
 }
