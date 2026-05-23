@@ -294,10 +294,11 @@ export function JsonLd({
 }: {
   data: Record<string, unknown> | Array<Record<string, unknown>>
 }) {
+  // Security: Escaping '<' to prevent XSS vulnerability when rendering JSON-LD
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
     />
   )
 }
