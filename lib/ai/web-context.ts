@@ -76,7 +76,7 @@ function isPrivateIpv4(hostname: string) {
 }
 
 function isBlockedHostname(hostname: string) {
-  const host = hostname.toLowerCase()
+  const host = hostname.toLowerCase().replace(/^\[|\]$/g, '')
   return (
     host === 'localhost' ||
     host.endsWith('.localhost') ||
