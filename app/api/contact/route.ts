@@ -34,6 +34,7 @@ export async function POST(request: Request) {
     const phone = typeof body?.phone === 'string' ? body.phone.trim() : ''
     const email = typeof body?.email === 'string' ? body.email.trim() : ''
     const message = typeof body?.message === 'string' ? body.message.trim() : ''
+    const utm = body?.utm || {}
 
     if (!name || !phone || !message) {
       return NextResponse.json(
@@ -75,10 +76,20 @@ export async function POST(request: Request) {
       }
     }
 
+    // Формируем блок UTM
+    let utmText = ''
+    if (utm.utm_source || utm.utm_campaign) {
+      utmText = `\n\n<b>Реклама (UTM):</b>`
+      if (utm.utm_source) utmText += `\nИсточник: ${escapeHtml(utm.utm_source)}`
+      if (utm.utm_medium) utmText += `\nТип: ${escapeHtml(utm.utm_medium)}`
+      if (utm.utm_campaign) utmText += `\nКампания: ${escapeHtml(utm.utm_campaign)}`
+      if (utm.utm_term) utmText += `\nКлюч: ${escapeHtml(utm.utm_term)}`
+    }
+
     // Уведомление в Telegram
     const emailLine = safeEmail ? `\nEmail: ${safeEmail}` : ''
     await sendTelegram(
-      `<b>Новое обращение с сайта</b>\nИмя: <b>${safeName}</b>\nТелефон: <b>${safePhone}</b>${emailLine}\nСообщение: ${safeMessage}\nВремя: ${time}`
+      `<b>Новое обращение с сайта</b>\nИмя: <b>${safeName}</b>\nТелефон: <b>${safePhone}</b>${emailLine}\nСообщение: ${safeMessage}${utmText}\nВремя: ${time}`
     )
 
     // Уведомление на почту

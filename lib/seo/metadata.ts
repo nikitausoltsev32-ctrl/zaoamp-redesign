@@ -217,7 +217,7 @@ export const defaultMetadata: Metadata = {
 }
 
 export function generateHomeMetadata(): Metadata {
-  return createMetadata({
+  const base = createMetadata({
     title: 'Мраморная крошка и щебень купить в Екатеринбурге',
     description:
       'Белая мраморная крошка, щебень и микрокальцит от производителя. Белизна 98%, фракции 0–200 мм, доставка по России. Расчёт стоимости в день обращения.',
@@ -230,6 +230,25 @@ export function generateHomeMetadata(): Metadata {
       'мраморная мука цена',
     ],
   })
+
+  return {
+    ...base,
+    openGraph: {
+      ...base.openGraph,
+      images: [
+        {
+          url: absoluteUrl('/images/products/kroshka-5-10.jpg'),
+          width: 1200,
+          height: 630,
+          alt: 'Белая мраморная крошка 5-10 мм от производителя АМП',
+        },
+      ],
+    },
+    twitter: {
+      ...base.twitter,
+      images: [absoluteUrl('/images/products/kroshka-5-10.jpg')],
+    },
+  }
 }
 
 export function generateCatalogMetadata(productCount: number, minPrice?: number): Metadata {

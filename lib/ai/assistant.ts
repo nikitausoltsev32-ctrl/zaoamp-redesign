@@ -71,15 +71,19 @@ function currentDateRu() {
   }).format(new Date())
 }
 
-function systemPrompt(internetContext: AssistantInternetContext) {
+function systemPrompt(internetContext: AssistantInternetContext, pagePath?: string) {
   const internetBlock = internetContext.contextText
     ? `Используй эти найденные источники только как дополнительный контекст. Если отвечаешь по ним, кратко упомяни, что сверил внешние источники.\n\n${internetContext.contextText}`
     : internetContext.error
       ? `${internetContext.error} Если клиент просит актуальные данные из интернета, честно скажи, что интернет-поиск сейчас не подключен, и помоги по каталогу/заявке.`
       : 'Внешний интернет-контекст для этого вопроса не запрашивался. Отвечай по базе ЗАО АМП.'
 
+  const pageContextBlock = pagePath 
+    ? `\nТЕКУЩИЙ КОНТЕКСТ: Клиент сейчас просматривает страницу сайта: ${pagePath}. Обязательно учитывай это! Например, если он на странице доставки, сфокусируйся на логистике; если на карточке товара, предполагай, что он спрашивает именно про этот продукт.`
+    : ''
+
   return `Ты Алекс — живой AI-менеджер продаж ЗАО АМП. Компания производит мраморную крошку, щебень, мраморную муку и микрокальцит. Работаешь с B2B клиентами: строители, ландшафтники, производители.
-Текущая дата: ${currentDateRu()}.
+Текущая дата: ${currentDateRu()}.${pageContextBlock}
 
 КАК ТЫ РАЗГОВАРИВАЕШЬ:
 - Живо и по-человечески, как опытный коллега. "Хорошо, разберёмся" вместо "Информация принята к обработке".
@@ -288,7 +292,8 @@ function sourceSummaryFallback(
 
 async function callGroq(
   messages: AssistantMessage[],
-  internetContext: AssistantInternetContext
+  internetContext: AssistantInternetContext,
+  pagePath?: string
 ): Promise<AssistantResult> {
   const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
@@ -304,7 +309,7 @@ async function callGroq(
     body: JSON.stringify({
       model: process.env.GROQ_MODEL ?? 'llama-3.3-70b-versatile',
       messages: [
-        { role: 'system', content: systemPrompt(internetContext) },
+        { role: 'system', content: systemPrompt(internetContext, pagePath) },
         ...messages,
       ],
       temperature: 0.5,
@@ -330,7 +335,8 @@ async function callGroq(
 
 async function callGemini(
   messages: AssistantMessage[],
-  internetContext: AssistantInternetContext
+  internetContext: AssistantInternetContext,
+  pagePath?: string
 ): Promise<AssistantResult> {
   const apiKey = process.env.GEMINI_API_KEY
   if (!apiKey) {
@@ -353,7 +359,7 @@ async function callGemini(
         {
           role: 'user',
           parts: [
-            { text: `${systemPrompt(internetContext)}\n\nДиалог:\n${conversation}` },
+            { text: `${systemPrompt(internetContext, pagePath)}\n\nДиалог:\n${conversation}` },
           ],
         },
       ],
@@ -400,7 +406,10 @@ function fallbackResult(
   }
 }
 
-export async function generateAssistantReply(rawMessages: AssistantMessage[]): Promise<AssistantResult> {
+export async function generateAssistantReply(
+  rawMessages: AssistantMessage[], 
+  pagePath?: string
+): Promise<AssistantResult> {
   const messages = normalizeMessages(rawMessages)
   if (messages.length === 0) {
     return emptyFallbackResult()
@@ -421,13 +430,13 @@ export async function generateAssistantReply(rawMessages: AssistantMessage[]): P
   }
 
   try {
-    return await callGroq(messages, internetContext)
+    return await callGroq(messages, internetContext, pagePath)
   } catch (groqError) {
     console.warn('[ai-assistant] Groq failed, trying Gemini:', groqError)
   }
 
   try {
-    return await callGemini(messages, internetContext)
+    return await callGemini(messages, internetContext, pagePath)
   } catch (geminiError) {
     console.warn('[ai-assistant] Gemini failed, using fallback:', geminiError)
   }

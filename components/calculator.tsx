@@ -12,8 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { products } from '@/lib/data/products'
 import { deliveryRegions, calculatePrice, getDisplayDeliveryPrice } from '@/lib/data/calculator'
 import { Badge } from '@/components/ui/badge'
-import { Truck } from 'lucide-react'
+import { Truck, Send, CheckCircle2 } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
+import { getUTMData } from '@/lib/hooks/use-utm'
 
 export function Calculator({ initialProductId }: { initialProductId?: string }) {
   const [selectedProduct, setSelectedProduct] = useState<string>(initialProductId || '')
@@ -23,6 +24,8 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
   const [loading, setLoading] = useState(false)
   const [apiDeliveryPrice, setApiDeliveryPrice] = useState<number | null>(null)
   const [apiWarning, setApiWarning] = useState<string | null>(null)
+  const [leadPhone, setLeadPhone] = useState('')
+  const [leadStatus, setLeadStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
 
   const calculation = useMemo(() => {
     if (!selectedProduct || !volume || parseFloat(volume) <= 0) {
@@ -92,6 +95,34 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
       console.error('API error:', error)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!leadPhone || !calculation) return
+    setLeadStatus('loading')
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: leadPhone,
+          source: 'calculator',
+          productName: calculation.productName,
+          quantityTons: calculation.volumeNum,
+          region: calculation.deliveryInfo || 'Самовывоз',
+          subtotal: calculation.productPrice,
+          deliveryPrice: calculation.deliveryPrice,
+          totalPrice: calculation.total,
+          utm: getUTMData(),
+        }),
+      })
+      if (!response.ok) throw new Error()
+      ymGoal('calculator_lead_submit')
+      setLeadStatus('sent')
+    } catch (err) {
+      setLeadStatus('error')
     }
   }
 
@@ -225,6 +256,46 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
                 )}
               </div>
             )}
+
+            {/* Lead capture form */}
+            <div className="mt-6 pt-6 border-t border-stone-200">
+              {leadStatus === 'sent' ? (
+                <div className="bg-green-50 text-green-800 p-4 rounded-lg flex items-center gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-green-600" />
+                  <div>
+                    <p className="font-medium">Расчёт отправлен!</p>
+                    <p className="text-sm">Менеджер скоро свяжется с вами.</p>
+                  </div>
+                </div>
+              ) : (
+                <form onSubmit={handleLeadSubmit} className="space-y-3 bg-brand-ice-blue/50 p-4 rounded-lg border border-brand-sapphire/20">
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">Получить точный расчёт с учетом скидки на объём</p>
+                    <p className="text-xs text-muted-foreground">Отправим коммерческое предложение на WhatsApp или Email</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Input
+                      type="tel"
+                      placeholder="+7 (___) ___-__-__"
+                      value={leadPhone}
+                      onChange={(e) => setLeadPhone(e.target.value)}
+                      required
+                      className="flex-1"
+                    />
+                    <Button 
+                      type="submit" 
+                      disabled={leadStatus === 'loading'}
+                      className="bg-brand-sapphire hover:bg-brand-sapphire-dark"
+                    >
+                      {leadStatus === 'loading' ? 'Отправка...' : <><Send className="h-4 w-4 mr-2"/>Отправить</>}
+                    </Button>
+                  </div>
+                  {leadStatus === 'error' && (
+                    <p className="text-xs text-red-500">Ошибка отправки. Попробуйте ещё раз.</p>
+                  )}
+                </form>
+              )}
+            </div>
           </div>
         )}
 

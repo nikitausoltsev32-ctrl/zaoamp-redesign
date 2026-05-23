@@ -13,6 +13,7 @@ import { getCategoryLabel } from '@/lib/utils/products'
 import { getProductImageAlt } from '@/lib/seo/metadata'
 import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
+import { getUTMData } from '@/lib/hooks/use-utm'
 
 interface ProductHeroProps {
   product: Product
@@ -51,6 +52,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
           quantityTons: Math.max(1, quantity),
           packaging,
           subtotal,
+          utm: getUTMData(),
         }),
       })
       const data = await response.json()

@@ -1,12 +1,13 @@
-﻿'use client'
+'use client'
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { JsonLd } from '@/lib/seo/schema'
+import { JsonLd, generateItemListSchema } from '@/lib/seo/schema'
 import { CatalogHeader } from '@/components/sections/catalog-header'
 import { CatalogFilters, CategoryFilter } from '@/components/sections/catalog-filters'
 import { CatalogGrid } from '@/components/sections/catalog-grid'
+import { SamplesCTA } from '@/components/sections/samples-cta'
 import { products } from '@/lib/data/products'
 
 const CATEGORY_CARDS = [
@@ -48,6 +49,7 @@ export default function CatalogPage() {
   return (
     <>
       <JsonLd data={{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://amp-minerals.ru"},{"@type":"ListItem","position":2,"name":"Каталог","item":"https://amp-minerals.ru/catalog"}]}} />
+      <JsonLd data={generateItemListSchema(products)} />
       <div className="min-h-screen bg-brand-ice-blue">
         <CatalogHeader />
 
@@ -76,6 +78,9 @@ export default function CatalogPage() {
             ))}
           </div>
         </div>
+
+        {/* Lead Magnet */}
+        <SamplesCTA />
 
         <CatalogFilters
           activeFilter={activeFilter}

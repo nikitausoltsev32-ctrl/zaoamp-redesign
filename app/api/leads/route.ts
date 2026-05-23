@@ -37,6 +37,11 @@ export async function POST(request: Request) {
     const quantityTons = typeof body?.quantityTons === 'number' ? body.quantityTons : undefined
     const packaging = typeof body?.packaging === 'string' ? body.packaging.trim() : ''
     const subtotal = typeof body?.subtotal === 'number' ? body.subtotal : undefined
+    
+    // Новые поля из CRO обновлений
+    const name = typeof body?.name === 'string' ? body.name.trim() : ''
+    const city = typeof body?.city === 'string' ? body.city.trim() : ''
+    const utm = body?.utm || {}
 
     if (!phone) {
       return NextResponse.json(
@@ -109,9 +114,22 @@ export async function POST(request: Request) {
       ? orderLines.map((line) => `<p>${line}</p>`).join('')
       : ''
 
+    const nameLine = name ? `\nИмя: ${escapeHtml(name)}` : ''
+    const cityLine = city ? `\nГород: ${escapeHtml(city)}` : ''
+    
+    // Формируем блок UTM
+    let utmText = ''
+    if (utm.utm_source || utm.utm_campaign) {
+      utmText = `\n\n<b>Реклама (UTM):</b>`
+      if (utm.utm_source) utmText += `\nИсточник: ${escapeHtml(utm.utm_source)}`
+      if (utm.utm_medium) utmText += `\nТип: ${escapeHtml(utm.utm_medium)}`
+      if (utm.utm_campaign) utmText += `\nКампания: ${escapeHtml(utm.utm_campaign)}`
+      if (utm.utm_term) utmText += `\nКлюч: ${escapeHtml(utm.utm_term)}`
+    }
+
     // Уведомление в Telegram
     await sendTelegram(
-      `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>\nИсточник: ${safeSource}${orderText}\nВремя: ${time}`
+      `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>${nameLine}${cityLine}\nИсточник: ${safeSource}${orderText}${utmText}\nВремя: ${time}`
     )
 
     // Уведомление на почту

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Merriweather } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { UTMTracker } from '@/components/utm-tracker'
 import Script from 'next/script'
 import './globals.css'
 import { Header } from '@/components/layout/header'
@@ -59,6 +60,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased bg-brand-ice-blue">
+        <UTMTracker />
         <MotionProvider>
           <Header />
           <main className="pt-20 md:pt-28 bg-brand-ice-blue">

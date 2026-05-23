@@ -6,14 +6,15 @@ import { applicationLandingPages, cityLandingPages } from '@/lib/data/seo-landin
 
 const BASE_URL = 'https://amp-minerals.ru'
 
-function pageUrl(path = '') {
-  return path ? `${BASE_URL}${path}/` : BASE_URL
+function pageUrl(path = '/') {
+  if (path === '/') return `${BASE_URL}/`
+  return `${BASE_URL}${path}/`
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: BASE_URL,
+      url: pageUrl('/'),
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
@@ -26,25 +27,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: pageUrl('/about'),
-      lastModified: new Date(),
+      lastModified: new Date('2025-10-01'),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: pageUrl('/delivery'),
-      lastModified: new Date(),
+      lastModified: new Date('2025-10-01'),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: pageUrl('/contacts'),
-      lastModified: new Date(),
+      lastModified: new Date('2025-10-01'),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: pageUrl('/documents'),
-      lastModified: new Date(),
+      lastModified: new Date('2025-10-01'),
       changeFrequency: 'monthly',
       priority: 0.5,
     },
@@ -71,7 +72,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
     url: pageUrl(`/product/${product.slug}`),
-    lastModified: new Date(),
+    lastModified: new Date('2025-10-01'),
     changeFrequency: 'monthly',
     priority: 0.8,
   }))
@@ -85,14 +86,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const applicationPages: MetadataRoute.Sitemap = Object.values(applicationLandingPages).map((page) => ({
     url: pageUrl(`/primenenie/${page.slug}`),
-    lastModified: new Date(),
+    lastModified: new Date('2025-10-01'),
     changeFrequency: 'monthly',
     priority: 0.75,
   }))
 
   const cityPages: MetadataRoute.Sitemap = Object.values(cityLandingPages).map((page) => ({
     url: pageUrl(`/${page.slug}`),
-    lastModified: new Date(),
+    lastModified: new Date('2025-10-01'),
     changeFrequency: 'monthly',
     priority: 0.75,
   }))

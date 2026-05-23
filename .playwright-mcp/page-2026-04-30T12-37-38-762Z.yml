@@ -1,0 +1,456 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "PageSpeed Insights logo PageSpeed Insights" [ref=e3] [cursor=pointer]:
+      - /url: ./
+      - img "PageSpeed Insights logo" [ref=e4]
+      - generic [ref=e5]: PageSpeed Insights
+    - generic [ref=e6]:
+      - button "Скопировать ссылку" [ref=e8]:
+        - img [ref=e11]
+        - generic [ref=e14]: Скопировать ссылку
+      - generic [ref=e16]:
+        - generic [ref=e18]: Документация
+        - link "Документация" [ref=e19] [cursor=pointer]:
+          - /url: https://developers.google.com/speed/docs/insights/v5/about
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e28]: Сайт использует файлы cookie сервисов Google. Это необходимо для его стабильной работы и анализа трафика.
+      - generic [ref=e29]:
+        - generic [ref=e31]:
+          - generic [ref=e33]: Подробнее
+          - link "Подробнее" [ref=e34] [cursor=pointer]:
+            - /url: https://policies.google.com/technologies/cookies
+        - button "ОК" [ref=e36]:
+          - generic [ref=e39]: ОК
+    - generic [ref=e94]: Отчет от 30 апр. 2026 г., 17:36:08
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - textbox [ref=e98]:
+          - /placeholder: Укажите URL страницы
+          - text: https://amp-minerals.ru/
+        - paragraph [ref=e100]: Введите действительный URL.
+      - button "Анализировать" [ref=e102]:
+        - generic [ref=e105]: Анализировать
+    - generic [ref=e108]:
+      - tablist [ref=e109]:
+        - generic [ref=e112]:
+          - tab "Мобильные устройства" [selected] [ref=e113] [cursor=pointer]:
+            - generic:
+              - generic: smartphone
+              - generic: Мобильные устройства
+          - tab "Компьютер" [ref=e115] [cursor=pointer]:
+            - generic:
+              - generic: computer
+              - generic: Компьютер
+      - tabpanel "Мобильные устройства" [ref=e117]:
+        - generic [ref=e119]:
+          - generic [ref=e121]:
+            - generic [ref=e122]:
+              - generic [ref=e123]: Определяйте фактическую производительность сайта
+              - generic [ref=e125]:
+                - button "button" [ref=e127] [cursor=pointer]:
+                  - img [ref=e129]
+                - generic [ref=e131]: Нет данных
+            - separator [ref=e132]
+          - generic [ref=e133]:
+            - generic [ref=e136]: Выявляйте проблемы с производительностью
+            - article [ref=e140]:
+              - generic [ref=e141]:
+                - generic [ref=e146]:
+                  - link "69 Производительность" [ref=e147] [cursor=pointer]:
+                    - /url: "#performance"
+                    - img [ref=e149]
+                    - generic [ref=e152]: "69"
+                    - generic [ref=e153]: Производительность
+                  - link "91 Специальные возможности" [ref=e154] [cursor=pointer]:
+                    - /url: "#accessibility"
+                    - img [ref=e156]
+                    - generic [ref=e159]: "91"
+                    - generic [ref=e160]: Специальные возможности
+                  - link "96 Рекомендации" [ref=e161] [cursor=pointer]:
+                    - /url: "#best-practices"
+                    - img [ref=e163]
+                    - generic [ref=e166]: "96"
+                    - generic [ref=e167]: Рекомендации
+                  - link "100 Поисковая оптимизация" [ref=e168] [cursor=pointer]:
+                    - /url: "#seo"
+                    - img [ref=e170]
+                    - generic [ref=e173]: "100"
+                    - generic [ref=e174]: Поисковая оптимизация
+                - generic [ref=e176]:
+                  - generic [ref=e178]:
+                    - generic [ref=e179]:
+                      - generic [ref=e180]:
+                        - img [ref=e184]:
+                          - generic [ref=e189]: "69"
+                          - generic [ref=e190]:
+                            - generic:
+                              - generic: FCP
+                              - generic: "+8"
+                            - generic:
+                              - generic: LCP
+                              - generic: "+2"
+                            - generic:
+                              - generic: TBT
+                              - generic: "+28"
+                            - generic:
+                              - generic: CLS
+                              - generic: "+25"
+                            - generic:
+                              - generic: SI
+                              - generic: "+5"
+                          - generic [ref=e192]: Производительность
+                        - generic [ref=e194]:
+                          - generic [ref=e195]:
+                            - text: Значения приблизительные и могут изменяться.
+                            - link "Уровень производительности рассчитывается" [ref=e196] [cursor=pointer]:
+                              - /url: https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/?utm_source=lighthouse&utm_medium=lr
+                            - text: непосредственно на основании этих показателей.
+                          - link "Показать калькулятор" [ref=e197] [cursor=pointer]:
+                            - /url: https://googlechrome.github.io/lighthouse/scorecalc/#FCP=2101&LCP=6451&TBT=158&CLS=0&SI=5581&TTI=6481&device=mobile&version=13.0.1
+                        - generic [ref=e199]:
+                          - generic [ref=e200]: 0–49
+                          - generic [ref=e201]: 50–89
+                          - generic [ref=e202]: 90–100
+                      - img "Final Screenshot" [ref=e205]
+                    - generic [ref=e206]:
+                      - checkbox "Toggle the display of metric descriptions" [ref=e207]
+                      - generic [ref=e208]:
+                        - generic [ref=e209]: Показатели
+                        - generic [ref=e210] [cursor=pointer]: Развернуть
+                      - generic [ref=e211]:
+                        - generic [ref=e213]:
+                          - generic [ref=e215]: First Contentful Paint
+                          - generic [ref=e216]: 2,1 сек.
+                        - generic [ref=e218]:
+                          - generic [ref=e220]: Largest Contentful Paint
+                          - generic [ref=e221]: 6,5 сек.
+                        - generic [ref=e223]:
+                          - generic [ref=e225]: Total Blocking Time
+                          - generic [ref=e226]: 160 мс
+                        - generic [ref=e228]:
+                          - generic [ref=e230]: Cumulative Layout Shift
+                          - generic [ref=e231]: "0"
+                        - generic [ref=e233]:
+                          - generic [ref=e235]: Speed Index
+                          - generic [ref=e236]: 5,6 сек.
+                      - list [ref=e237]:
+                        - listitem [ref=e238]: Captured at 30 апр. 2026 г., 17:36 GMT+5
+                        - listitem [ref=e239]: Эмуляция устройства Moto G Power with Lighthouse 13.0.1
+                        - listitem [ref=e240]: Сеанс с просмотром одной страницы
+                        - listitem [ref=e241]: Начальная загрузка страницы
+                        - listitem [ref=e242]: Ограничение для сети 4G с низкой скоростью
+                        - listitem [ref=e243]: Using HeadlessChromium 146.0.7680.177 with lr
+                      - button "Открыть карту эффективности" [ref=e245] [cursor=pointer]
+                    - generic [ref=e247]:
+                      - img "Screenshot" [ref=e249]
+                      - img "Screenshot" [ref=e251]
+                      - img "Screenshot" [ref=e253]
+                      - img "Screenshot" [ref=e255]
+                      - img "Screenshot" [ref=e257]
+                      - img "Screenshot" [ref=e259]
+                      - img "Screenshot" [ref=e261]
+                      - img "Screenshot" [ref=e263]
+                    - generic [ref=e264]:
+                      - generic [ref=e265]:
+                        - generic [ref=e266]: Показать аудиты
+                        - radio "All" [checked] [ref=e267]
+                        - generic [ref=e268] [cursor=pointer]: All
+                        - radio "FCP" [ref=e269]
+                        - generic "First Contentful Paint" [ref=e270] [cursor=pointer]: FCP
+                        - radio "LCP" [ref=e271]
+                        - generic "Largest Contentful Paint" [ref=e272] [cursor=pointer]: LCP
+                        - radio "TBT" [ref=e273]
+                        - generic "Total Blocking Time" [ref=e274] [cursor=pointer]: TBT
+                        - radio "CLS" [ref=e275]
+                        - generic "Cumulative Layout Shift" [ref=e276] [cursor=pointer]: CLS
+                      - generic [ref=e277]:
+                        - generic [ref=e278]: Статистика
+                        - group [ref=e280]:
+                          - generic "Запросы, блокирующие отрисовку страницы —Ожидаемая экономия – 1 560 мс" [ref=e281] [cursor=pointer]:
+                            - generic [ref=e282]:
+                              - generic [ref=e284]:
+                                - generic [ref=e285]: Запросы, блокирующие отрисовку страницы
+                                - text: —Ожидаемая экономия – 1 560 мс
+                              - img [ref=e287]
+                        - group [ref=e292]:
+                          - generic "Выбирайте эффективный период хранения кеша —Ожидаемая экономия – 73 КиБ" [ref=e293] [cursor=pointer]:
+                            - generic [ref=e294]:
+                              - generic [ref=e296]:
+                                - generic [ref=e297]: Выбирайте эффективный период хранения кеша
+                                - text: —Ожидаемая экономия – 73 КиБ
+                              - img [ref=e299]
+                        - group [ref=e304]:
+                          - generic "Разбивка LCP" [ref=e305] [cursor=pointer]:
+                            - generic [ref=e306]:
+                              - generic [ref=e309]: Разбивка LCP
+                              - img [ref=e311]
+                        - group [ref=e316]:
+                          - generic "Дерево зависимостей в сети" [ref=e317] [cursor=pointer]:
+                            - generic [ref=e318]:
+                              - generic [ref=e321]: Дерево зависимостей в сети
+                              - img [ref=e323]
+                        - group [ref=e328]:
+                          - generic "Устаревший код JavaScript —Ожидаемая экономия – 12 КиБ" [ref=e329] [cursor=pointer]:
+                            - generic [ref=e330]:
+                              - generic [ref=e332]:
+                                - generic [ref=e333]: Устаревший код JavaScript
+                                - text: —Ожидаемая экономия – 12 КиБ
+                              - img [ref=e335]
+                        - group [ref=e340]:
+                          - generic "Оптимизация размера DOM-дерева" [ref=e341] [cursor=pointer]:
+                            - generic [ref=e342]:
+                              - generic [ref=e345]: Оптимизация размера DOM-дерева
+                              - img [ref=e347]
+                        - group [ref=e352]:
+                          - generic "Сторонний код" [ref=e353] [cursor=pointer]:
+                            - generic [ref=e354]:
+                              - generic [ref=e357]: Сторонний код
+                              - img [ref=e359]
+                        - generic [ref=e363]:
+                          - text: Статистические данные доступны на панели "Производительность" инструментов разработчика в Chrome. Чтобы узнавать подробную информацию,
+                          - link "создайте трассировку" [ref=e364] [cursor=pointer]:
+                            - /url: https://developer.chrome.com/docs/devtools/performance/reference?utm_source=lighthouse&utm_medium=lr
+                          - text: .
+                      - generic [ref=e365]:
+                        - generic [ref=e366]: Диагностика
+                        - group [ref=e368]:
+                          - generic "Сократите время выполнения кода JavaScript —1,4 сек." [ref=e369] [cursor=pointer]:
+                            - generic [ref=e370]:
+                              - generic [ref=e372]:
+                                - generic [ref=e373]: Сократите время выполнения кода JavaScript
+                                - text: —1,4 сек.
+                              - img [ref=e375]
+                        - group [ref=e380]:
+                          - generic "Минимизируйте работу в основном потоке —2,9 сек." [ref=e381] [cursor=pointer]:
+                            - generic [ref=e382]:
+                              - generic [ref=e384]:
+                                - generic [ref=e385]: Минимизируйте работу в основном потоке
+                                - text: —2,9 сек.
+                              - img [ref=e387]
+                        - group [ref=e392]:
+                          - generic "Удалите неиспользуемый код JavaScript —Ожидаемая экономия – 65 КиБ" [ref=e393] [cursor=pointer]:
+                            - generic [ref=e394]:
+                              - generic [ref=e396]:
+                                - generic [ref=e397]: Удалите неиспользуемый код JavaScript
+                                - text: —Ожидаемая экономия – 65 КиБ
+                              - img [ref=e399]
+                        - group [ref=e404]:
+                          - generic "Избегайте длительных задач в основном потоке —Обнаружено 5 длительных задач" [ref=e405] [cursor=pointer]:
+                            - generic [ref=e406]:
+                              - generic [ref=e408]:
+                                - generic [ref=e409]: Избегайте длительных задач в основном потоке
+                                - text: —Обнаружено 5 длительных задач
+                              - img [ref=e411]
+                        - group [ref=e416]:
+                          - generic "Избегайте некомбинированных анимаций —Обнаружено 2 анимированных элемента" [ref=e417] [cursor=pointer]:
+                            - generic [ref=e418]:
+                              - generic [ref=e420]:
+                                - generic [ref=e421]: Избегайте некомбинированных анимаций
+                                - text: —Обнаружено 2 анимированных элемента
+                              - img [ref=e423]
+                        - generic [ref=e427]:
+                          - text: Подробная информация о производительности вашего приложения. Эти цифры не влияют на показатель производительности
+                          - link "напрямую" [ref=e428] [cursor=pointer]:
+                            - /url: https://developer.chrome.com/docs/lighthouse/performance/performance-scoring/?utm_source=lighthouse&utm_medium=lr
+                          - text: .
+                      - group [ref=e430]:
+                        - generic "Успешные аудиты (15) Показать" [ref=e431] [cursor=pointer]:
+                          - generic [ref=e432]:
+                            - generic [ref=e433]: Успешные аудиты (15)
+                            - generic [ref=e434]: Показать
+                        - text: —
+                  - generic [ref=e436]:
+                    - generic [ref=e437]:
+                      - heading "91 Специальные возможности" [level=2] [ref=e438]:
+                        - generic [ref=e439]:
+                          - img [ref=e441]
+                          - generic [ref=e444]: "91"
+                          - generic [ref=e445]: Специальные возможности
+                      - generic [ref=e447]:
+                        - text: Узнайте, какие трудности могут возникнуть у людей с ограниченными возможностями при использовании вашего веб-приложения, и
+                        - link "сделайте его доступнее" [ref=e448] [cursor=pointer]:
+                          - /url: https://developer.chrome.com/docs/lighthouse/accessibility/?utm_source=lighthouse&utm_medium=lr
+                        - text: . Автоматические проверки не гарантируют доступность приложения, поэтому мы рекомендуем выполнять
+                        - link "тестирование вручную" [ref=e449] [cursor=pointer]:
+                          - /url: https://web.dev/articles/how-to-review?utm_source=lighthouse&utm_medium=lr
+                        - text: . Оно поможет выявить оставшиеся проблемы.
+                    - generic [ref=e450]:
+                      - generic [ref=e451]:
+                        - generic [ref=e452]: Названия и ярлыки
+                        - group [ref=e454]:
+                          - generic "Названия кнопок недоступны программам чтения с экрана" [ref=e455] [cursor=pointer]:
+                            - generic [ref=e456]:
+                              - generic [ref=e459]: Названия кнопок недоступны программам чтения с экрана
+                              - img [ref=e461]
+                        - generic [ref=e465]: Проверьте, насколько элементы управления в вашем приложении различимы для программ чтения с экрана.
+                      - generic [ref=e466]:
+                        - generic [ref=e467]: Контрастность
+                        - group [ref=e469]:
+                          - generic "Цвета фона и переднего плана недостаточно контрастны" [ref=e470] [cursor=pointer]:
+                            - generic [ref=e471]:
+                              - generic [ref=e474]: Цвета фона и переднего плана недостаточно контрастны
+                              - img [ref=e476]
+                        - generic [ref=e480]: Проверьте, хорошо ли виден ваш текст.
+                      - generic [ref=e481]:
+                        - generic [ref=e482]: Рекомендации
+                        - group [ref=e484]:
+                          - generic "У одинаковых ссылок одно назначение" [ref=e485] [cursor=pointer]:
+                            - generic [ref=e486]:
+                              - generic [ref=e489]: У одинаковых ссылок одно назначение
+                              - img [ref=e491]
+                        - generic [ref=e495]: Проверьте, соответствует ли ваш сайт рекомендациям по оптимизации для поисковых систем.
+                    - generic [ref=e496]:
+                      - group [ref=e497]:
+                        - generic "Дополнительные объекты для проверки вручную (10) Показать" [ref=e498] [cursor=pointer]:
+                          - generic [ref=e499]:
+                            - generic [ref=e500]: Дополнительные объекты для проверки вручную (10)
+                            - generic [ref=e501]: Показать
+                      - generic [ref=e502]:
+                        - text: Ручная проверка позволяет охватить области, которые невозможно протестировать автоматически. Подробнее
+                        - link "о проверке специальных возможностей" [ref=e503] [cursor=pointer]:
+                          - /url: https://web.dev/articles/how-to-review?utm_source=lighthouse&utm_medium=lr
+                        - text: …
+                    - group [ref=e505]:
+                      - generic "Успешные аудиты (22) Показать" [ref=e506] [cursor=pointer]:
+                        - generic [ref=e507]:
+                          - generic [ref=e508]: Успешные аудиты (22)
+                          - generic [ref=e509]: Показать
+                    - group [ref=e511]:
+                      - generic "Неприменимо (35) Показать" [ref=e512] [cursor=pointer]:
+                        - generic [ref=e513]:
+                          - generic [ref=e514]: Неприменимо (35)
+                          - generic [ref=e515]: Показать
+                  - generic [ref=e517]:
+                    - heading "96 Рекомендации" [level=2] [ref=e519]:
+                      - generic [ref=e520]:
+                        - img [ref=e522]
+                        - generic [ref=e525]: "96"
+                        - generic [ref=e526]: Рекомендации
+                    - generic [ref=e527]:
+                      - generic [ref=e528]:
+                        - generic [ref=e529]: Общие рекомендации
+                        - group [ref=e531]:
+                          - generic "Ошибки браузера занесены в журнал консоли" [ref=e532] [cursor=pointer]:
+                            - generic [ref=e533]:
+                              - generic [ref=e536]: Ошибки браузера занесены в журнал консоли
+                              - img [ref=e538]
+                      - generic [ref=e542]:
+                        - generic [ref=e543]: Надежность и безопасность
+                        - group [ref=e545]:
+                          - generic "Убедитесь, что политика CSP эффективна против атак XSS" [ref=e546] [cursor=pointer]:
+                            - generic [ref=e547]:
+                              - generic [ref=e550]: Убедитесь, что политика CSP эффективна против атак XSS
+                              - img [ref=e552]
+                        - group [ref=e557]:
+                          - generic "Использование строгого механизма HSTS" [ref=e558] [cursor=pointer]:
+                            - generic [ref=e559]:
+                              - generic [ref=e562]: Использование строгого механизма HSTS
+                              - img [ref=e564]
+                        - group [ref=e569]:
+                          - generic "Обеспечьте надлежащую изоляцию источников с помощью COOP" [ref=e570] [cursor=pointer]:
+                            - generic [ref=e571]:
+                              - generic [ref=e574]: Обеспечьте надлежащую изоляцию источников с помощью COOP
+                              - img [ref=e576]
+                        - group [ref=e581]:
+                          - generic "Защита от кликджекинга с использованием заголовка XFO или CSP" [ref=e582] [cursor=pointer]:
+                            - generic [ref=e583]:
+                              - generic [ref=e586]: Защита от кликджекинга с использованием заголовка XFO или CSP
+                              - img [ref=e588]
+                        - group [ref=e593]:
+                          - generic "Используйте Trusted Types для предотвращения XSS-атак на основе DOM" [ref=e594] [cursor=pointer]:
+                            - generic [ref=e595]:
+                              - generic [ref=e598]: Используйте Trusted Types для предотвращения XSS-атак на основе DOM
+                              - img [ref=e600]
+                    - group [ref=e605]:
+                      - generic "Успешные аудиты (12) Показать" [ref=e606] [cursor=pointer]:
+                        - generic [ref=e607]:
+                          - generic [ref=e608]: Успешные аудиты (12)
+                          - generic [ref=e609]: Показать
+                    - group [ref=e611]:
+                      - generic "Неприменимо (2) Показать" [ref=e612] [cursor=pointer]:
+                        - generic [ref=e613]:
+                          - generic [ref=e614]: Неприменимо (2)
+                          - generic [ref=e615]: Показать
+                  - generic [ref=e617]:
+                    - generic [ref=e618]:
+                      - heading "100 Поисковая оптимизация" [level=2] [ref=e619]:
+                        - generic [ref=e620]:
+                          - img [ref=e622]
+                          - generic [ref=e625]: "100"
+                          - generic [ref=e626]: Поисковая оптимизация
+                      - generic [ref=e628]:
+                        - text: Эти проверки позволяют узнать, соответствует ли страница основным рекомендациям к поисковой оптимизации. Lighthouse оценивает не все факторы, которые могут повлиять на позицию сайта в результатах поиска (например, производительность по
+                        - link "основным интернет-показателям" [ref=e629] [cursor=pointer]:
+                          - /url: https://web.dev/explore/vitals?utm_source=lighthouse&utm_medium=lr
+                        - text: ). Подробнее
+                        - link "о факторах, важных для Google Поиска" [ref=e630] [cursor=pointer]:
+                          - /url: https://support.google.com/webmasters/answer/35769
+                        - text: …
+                    - generic [ref=e631]:
+                      - group [ref=e632]:
+                        - generic "Дополнительные объекты для проверки вручную (1) Скрыть" [ref=e633] [cursor=pointer]:
+                          - generic [ref=e634]:
+                            - generic [ref=e635]: Дополнительные объекты для проверки вручную (1)
+                            - generic [ref=e637]: Скрыть
+                        - group [ref=e639]:
+                          - generic "Структурированные данные действительны" [ref=e640] [cursor=pointer]:
+                            - generic [ref=e641]:
+                              - generic [ref=e644]: Структурированные данные действительны
+                              - img [ref=e646]
+                      - generic [ref=e650]: Проверьте, соответствует ли ваш сайт рекомендациям по поисковой оптимизации (SEO), с помощью этих дополнительных сервисов.
+                    - group [ref=e652]:
+                      - generic "Успешные аудиты (10) Показать" [ref=e653] [cursor=pointer]:
+                        - generic [ref=e654]:
+                          - generic [ref=e655]: Успешные аудиты (10)
+                          - generic [ref=e656]: Показать
+      - text: — — — — — — — —
+  - contentinfo [ref=e52]:
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e55]:
+          - generic [ref=e56]: Подробные сведения о PageSpeed Insights
+          - link "Что нового" [ref=e58] [cursor=pointer]:
+            - /url: https://developers.google.com/speed/docs/insights/release_notes
+          - link "Документация" [ref=e60] [cursor=pointer]:
+            - /url: https://developers.google.com/speed/docs/insights/v5/about
+          - link "Данные о скорости загрузки страниц" [ref=e62] [cursor=pointer]:
+            - /url: https://developers.google.com/speed
+          - link "Задайте вопросы в Stack Overflow" [ref=e64] [cursor=pointer]:
+            - /url: https://stackoverflow.com/questions/tagged/pagespeed-insights
+          - link "Список рассылки" [ref=e66] [cursor=pointer]:
+            - /url: https://groups.google.com/g/pagespeed-insights-discuss
+        - generic [ref=e67]:
+          - generic [ref=e68]: Похожий контент
+          - link "Обновления" [ref=e70] [cursor=pointer]:
+            - /url: https://developer.chrome.com/blog
+          - link "Основы веб-дизайна" [ref=e72] [cursor=pointer]:
+            - /url: https://developers.google.com/focus/web-development
+          - link "Примеры использования" [ref=e74] [cursor=pointer]:
+            - /url: https://web.dev/case-studies
+          - link "Подкасты" [ref=e76] [cursor=pointer]:
+            - /url: https://web.dev/shows
+        - generic [ref=e77]:
+          - generic [ref=e78]: Связь
+          - link "Twitter" [ref=e80] [cursor=pointer]:
+            - /url: https://twitter.com/ChromiumDev
+          - link "YouTube" [ref=e82] [cursor=pointer]:
+            - /url: https://www.youtube.com/user/ChromeDevelopers
+      - generic [ref=e83]:
+        - link "Google Developers Logo" [ref=e84] [cursor=pointer]:
+          - /url: https://developers.google.com/
+          - img "Google Developers Logo" [ref=e85]
+        - link "Chrome" [ref=e86] [cursor=pointer]:
+          - /url: https://developer.chrome.com/
+        - link "Firebase" [ref=e87] [cursor=pointer]:
+          - /url: https://firebase.google.com/
+        - link "Все продукты" [ref=e88] [cursor=pointer]:
+          - /url: https://developers.google.com/products/
+      - generic [ref=e89]:
+        - link "Условия и политика конфиденциальности" [ref=e91] [cursor=pointer]:
+          - /url: https://policies.google.com/
+        - generic [ref=e92]:
+          - text: Чтобы узнать больше, прочитайте
+          - link "правила сайта Google Developers" [ref=e93] [cursor=pointer]:
+            - /url: https://developers.google.com/terms/site-policies
+          - text: .

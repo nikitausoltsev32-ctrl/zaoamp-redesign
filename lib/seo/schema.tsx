@@ -1,4 +1,6 @@
 import type { Product } from '@/types'
+import type { Author } from '@/lib/data/authors'
+import type { BlogPost } from '@/lib/data/blog'
 import { COMPANY_NAME, SITE_NAME, SITE_URL } from '@/lib/seo/metadata'
 
 function absoluteUrl(path = '/') {
@@ -86,6 +88,24 @@ export function generateOrganizationSchema() {
     logo: absoluteUrl('/logo.png'),
     email: 'evoprod@mail.ru',
     telephone: '+7-919-393-19-92',
+    foundingDate: '2004',
+    description:
+      'Производитель белой мраморной крошки, щебня и микрокальцита с собственным карьером в Челябинской области. 20+ лет на рынке, поставки по России, Беларуси и Казахстану.',
+    areaServed: ['RU', 'BY', 'KZ'],
+    knowsAbout: [
+      'Мраморная крошка',
+      'Мраморный щебень',
+      'Микрокальцит',
+      'Мраморная мука',
+      'Нерудные строительные материалы',
+      'Ландшафтный дизайн',
+      'Архитектурный бетон',
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Каталог мраморной продукции',
+      url: absoluteUrl('/catalog/'),
+    },
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'ул. Евгения Савкова 29, офис 262',
@@ -215,6 +235,56 @@ export function generateFAQSchema(faqs: Array<{ question: string; answer: string
         '@type': 'Answer',
         text: faq.answer,
       },
+    })),
+  }
+}
+
+export function generateArticleSchema(post: BlogPost, author: Author) {
+  const articleUrl = absoluteUrl(`/blog/${post.slug}/`)
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.h1,
+    description: post.excerpt,
+    url: articleUrl,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
+    datePublished: post.publishDate,
+    dateModified: post.publishDate,
+    image: {
+      '@type': 'ImageObject',
+      url: absoluteUrl('/images/products/kroshka-5-10.jpg'),
+      width: 1200,
+      height: 630,
+    },
+    author: {
+      '@type': 'Person',
+      name: author.name,
+      jobTitle: author.role,
+      worksFor: {
+        '@type': 'Organization',
+        name: COMPANY_NAME,
+        url: SITE_URL,
+      },
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
+      url: SITE_URL,
+      logo: { '@type': 'ImageObject', url: absoluteUrl('/logo.png') },
+    },
+  }
+}
+
+export function generateItemListSchema(products: Product[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: products.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: absoluteUrl(`/product/${product.slug}/`),
+      name: product.name,
     })),
   }
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Bot, CheckCircle2, ExternalLink, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -223,142 +224,181 @@ export function AiAssistantWidget() {
 
   return (
     <div className="fixed bottom-4 left-4 z-50">
-      {open ? (
-        <div className="flex h-[560px] max-h-[calc(100vh-2rem)] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-xl border border-white/60 bg-white shadow-2xl md:max-w-md">
-          <div className="flex items-center justify-between bg-brand-deep-navy px-4 py-3 text-white">
-            <div className="flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-sapphire shadow-lg shadow-brand-sapphire/20">
-                <Bot className="h-5 w-5" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold leading-tight">AI-менеджер АМП</p>
-                <p className="flex items-center gap-1 text-xs text-white/75">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                  Каталог, заявки и web-контекст
-                </p>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              aria-label="Закрыть AI-менеджера"
-              className="rounded-md p-2 text-white/80 transition hover:bg-white/10 hover:text-white"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-
-          <div className="flex-1 space-y-3 overflow-y-auto bg-stone-50 px-4 py-4">
-            {messages.map((message, index) => (
-              <div
-                key={`${message.role}-${index}`}
-                className={message.role === 'user' ? 'flex justify-end' : 'flex items-end gap-2'}
-              >
-                {message.role === 'assistant' && (
-                  <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-sapphire shadow-sm ring-1 ring-stone-200">
-                    <Sparkles className="h-3.5 w-3.5" />
-                  </div>
-                )}
-                <div
-                  className={
-                    message.role === 'user'
-                      ? 'max-w-[85%] rounded-2xl rounded-br-md bg-brand-sapphire px-3.5 py-2.5 text-sm leading-relaxed text-white shadow-sm'
-                      : 'max-w-[85%] rounded-2xl rounded-bl-md border border-stone-200 bg-white px-3.5 py-2.5 text-sm leading-relaxed text-stone-900 shadow-sm'
-                  }
+      <AnimatePresence>
+        {open && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className="mb-4 flex h-[560px] max-h-[calc(100vh-6rem)] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-2xl border border-white/40 bg-white/70 shadow-2xl backdrop-blur-xl md:max-w-md"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-4 py-3 text-white">
+              <div className="flex items-center gap-3">
+                <motion.div 
+                  initial={{ rotate: -10 }}
+                  animate={{ rotate: 0 }}
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 shadow-inner backdrop-blur-md"
                 >
-                  <span className="whitespace-pre-wrap">{message.content}</span>
-                  {message.role === 'assistant' && message.structured && (
-                    <StructuredBlocks structured={message.structured} />
-                  )}
-                  {message.role === 'assistant' && <SourceLinks sources={message.sources} />}
+                  <Bot className="h-5 w-5 text-white" />
+                </motion.div>
+                <div>
+                  <p className="text-sm font-semibold leading-tight tracking-wide">AI-менеджер АМП</p>
+                  <p className="flex items-center gap-1.5 text-[11px] text-white/80 font-medium">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    На связи
+                  </p>
                 </div>
-              </div>
-            ))}
-
-            {loading && (
-              <div className="flex items-end gap-2">
-                <div className="mb-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-sapphire shadow-sm ring-1 ring-stone-200">
-                  <Bot className="h-3.5 w-3.5" />
-                </div>
-                <div className="flex items-center gap-2 rounded-2xl rounded-bl-md border border-stone-200 bg-white px-3.5 py-2.5 text-sm text-stone-600 shadow-sm">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Проверяю каталог, заявки и источники
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          <div className="border-t bg-white p-3">
-            <div className="mb-3 rounded-lg border border-brand-sapphire/15 bg-brand-sapphire/5 p-3">
-              <div className="mb-2 flex items-start gap-2 text-xs text-stone-700">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
-                <span>Для точного расчета лучше указать город, объем, задачу и нужную упаковку.</span>
               </div>
               <button
                 type="button"
-                disabled={loading}
-                onClick={() => void sendMessage(PHONE_CTA_MESSAGE)}
-                className="inline-flex items-center gap-2 rounded-md bg-brand-deep-navy px-3 py-2 text-xs font-medium text-white transition hover:bg-brand-sapphire disabled:opacity-50"
+                onClick={() => setOpen(false)}
+                aria-label="Закрыть AI-менеджера"
+                className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
               >
-                <Phone className="h-3.5 w-3.5" />
-                Оставить телефон менеджеру
+                <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="mb-3 flex gap-2 overflow-x-auto pb-1">
-              {STARTER_MESSAGES.map((starter) => (
-                <button
-                  key={starter}
-                  type="button"
-                  disabled={loading}
-                  onClick={() => void sendMessage(starter)}
-                  className="shrink-0 rounded-full border border-stone-200 bg-white px-3 py-1.5 text-left text-xs text-stone-700 transition hover:border-brand-sapphire hover:bg-brand-sapphire/5 hover:text-brand-sapphire disabled:opacity-50"
+            {/* Chat Body */}
+            <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-stone-200">
+              {messages.map((message, index) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  key={`${message.role}-${index}`}
+                  className={message.role === 'user' ? 'flex justify-end' : 'flex items-end gap-2'}
                 >
-                  {starter}
-                </button>
+                  {message.role === 'assistant' && (
+                    <div className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-sapphire to-blue-500 text-white shadow-md">
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  )}
+                  <div
+                    className={
+                      message.role === 'user'
+                        ? 'max-w-[85%] rounded-2xl rounded-br-sm bg-gradient-to-br from-brand-sapphire to-blue-600 px-4 py-2.5 text-sm leading-relaxed text-white shadow-md'
+                        : 'max-w-[85%] rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm leading-relaxed text-stone-800 shadow-sm backdrop-blur-md'
+                    }
+                  >
+                    <span className="whitespace-pre-wrap">{message.content}</span>
+                    {message.role === 'assistant' && message.structured && (
+                      <StructuredBlocks structured={message.structured} />
+                    )}
+                    {message.role === 'assistant' && <SourceLinks sources={message.sources} />}
+                  </div>
+                </motion.div>
               ))}
+
+              {loading && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }} 
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-end gap-2"
+                >
+                  <div className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-sapphire to-blue-500 text-white shadow-md">
+                    <Bot className="h-4 w-4" />
+                  </div>
+                  <div className="flex items-center gap-2 rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm text-stone-500 shadow-sm backdrop-blur-md">
+                    <Loader2 className="h-4 w-4 animate-spin text-brand-sapphire" />
+                    Печатает...
+                  </div>
+                </motion.div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
-            {error && (
-              <p className="mb-2 rounded-md bg-red-50 px-3 py-2 text-xs text-red-700">
-                {error}
-              </p>
-            )}
+            {/* Footer Input Area */}
+            <div className="border-t border-stone-100 bg-white/80 p-3 backdrop-blur-xl">
+              <div className="mb-3 rounded-xl border border-brand-sapphire/20 bg-brand-sapphire/5 p-3 transition-colors hover:bg-brand-sapphire/10">
+                <div className="mb-2 flex items-start gap-2 text-xs font-medium text-stone-700">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
+                  <span>Для точного расчета укажите город, объем и задачу.</span>
+                </div>
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => void sendMessage(PHONE_CTA_MESSAGE)}
+                  className="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-3 py-2 text-xs font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg disabled:opacity-50"
+                >
+                  <Phone className="h-3.5 w-3.5" />
+                  Оставить телефон для КП
+                </button>
+              </div>
 
-            <form onSubmit={handleSubmit} className="flex gap-2">
-              <Input
-                value={input}
-                onChange={(event) => setInput(event.target.value)}
-                placeholder="Напишите задачу или объем"
-                disabled={loading}
-                className="h-11 rounded-xl"
-              />
-              <Button
-                type="submit"
-                disabled={loading || !input.trim()}
-                aria-label="Отправить сообщение"
-                className="h-11 w-11 shrink-0 rounded-xl bg-brand-sapphire p-0 hover:bg-brand-sapphire-dark"
-              >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
-              </Button>
-            </form>
-          </div>
-        </div>
-      ) : (
-        <button
-          type="button"
-          onClick={handleOpen}
-          aria-label="Открыть AI-менеджера"
-          className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-brand-sapphire text-white shadow-xl shadow-brand-sapphire/30 transition hover:bg-brand-sapphire-dark active:scale-95"
-        >
-          <span className="absolute inset-0 rounded-full bg-brand-sapphire/40 opacity-75 motion-safe:animate-ping" />
-          <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-brand-orange ring-2 ring-white">
-            <span className="h-1.5 w-1.5 rounded-full bg-white" />
-          </span>
-          <MessageCircle className="h-6 w-6" />
-        </button>
-      )}
+              <div className="mb-3 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                {STARTER_MESSAGES.map((starter) => (
+                  <button
+                    key={starter}
+                    type="button"
+                    disabled={loading}
+                    onClick={() => void sendMessage(starter)}
+                    className="shrink-0 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-left text-xs font-medium text-stone-600 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-sapphire hover:bg-brand-sapphire/5 hover:text-brand-sapphire hover:shadow disabled:opacity-50"
+                  >
+                    {starter}
+                  </button>
+                ))}
+              </div>
+
+              {error && (
+                <p className="mb-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 font-medium">
+                  {error}
+                </p>
+              )}
+
+              <form onSubmit={handleSubmit} className="flex gap-2">
+                <Input
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  placeholder="Задайте вопрос..."
+                  disabled={loading}
+                  className="h-12 rounded-xl border-stone-200 bg-white/80 shadow-inner focus-visible:ring-brand-sapphire"
+                />
+                <Button
+                  type="submit"
+                  disabled={loading || !input.trim()}
+                  aria-label="Отправить сообщение"
+                  className="h-12 w-12 shrink-0 rounded-xl bg-gradient-to-br from-brand-sapphire to-blue-600 p-0 text-white shadow-md transition-all hover:scale-105 hover:shadow-lg disabled:hover:scale-100"
+                >
+                  {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-5 w-5" />}
+                </Button>
+              </form>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {!open && (
+          <motion.button
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            type="button"
+            onClick={handleOpen}
+            aria-label="Открыть AI-менеджера"
+            className="group relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-sapphire to-blue-600 text-white shadow-2xl shadow-brand-sapphire/40 outline-none ring-4 ring-white/50 transition-all hover:shadow-brand-sapphire/60"
+          >
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-sapphire to-blue-500 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-60" />
+            
+            <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-orange ring-2 ring-white shadow-sm z-10">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+              </span>
+            </span>
+            
+            <MessageCircle className="relative z-10 h-7 w-7" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

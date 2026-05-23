@@ -10,6 +10,7 @@ import { SectionHeader } from '@/components/section-header'
 import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check } from 'lucide-react'
 import { m } from 'framer-motion'
 import { ymGoal } from '@/lib/analytics'
+import { getUTMData } from '@/lib/hooks/use-utm'
 
 export function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -31,7 +32,11 @@ export function ContactForm() {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          source: 'contact_page',
+          utm: getUTMData(),
+        }),
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? 'Ошибка отправки')

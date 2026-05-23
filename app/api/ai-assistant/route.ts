@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const result = await generateAssistantReply(messages)
+    const result = await generateAssistantReply(messages, pagePath)
     let saved = false
     const shouldSave = shouldPersistAssistantLead(result.lead, result.shouldSave, messages)
 

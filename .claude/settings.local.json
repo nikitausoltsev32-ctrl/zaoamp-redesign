@@ -1,5 +1,6 @@
 {
   "permissions": {
+    "defaultMode": "bypassPermissions",
     "allow": [
       "Bash(powershell -ExecutionPolicy Bypass -File \"C:/Users/HomePc/claude-seo/install.ps1\" 2>&1)",
       "Bash(powershell -ExecutionPolicy Bypass -Command \"[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; & 'C:/Users/HomePc/claude-seo/install.ps1'\" 2>&1)",
@@ -25,7 +26,10 @@
       "Bash(git commit:*)",
       "mcp__claude_ai_Vercel__get_deployment",
       "Bash(git add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:zaoamp.ru)",
+      "Bash(npx tsc *)",
+      "Skill(update-config)"
     ]
   }
 }

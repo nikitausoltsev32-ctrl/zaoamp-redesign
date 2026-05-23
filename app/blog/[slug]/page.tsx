@@ -3,8 +3,9 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { blogPosts } from '@/lib/data/blog'
 import { products } from '@/lib/data/products'
+import { getAuthor } from '@/lib/data/authors'
 import { generateBlogPostMetadata } from '@/lib/seo/metadata'
-import { generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
+import { generateBreadcrumbSchema, generateArticleSchema, JsonLd } from '@/lib/seo/schema'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -30,25 +31,7 @@ export default async function BlogPostPage({ params }: Props) {
     ? products.filter((p) => post.relatedProducts!.includes(p.slug))
     : []
 
-  const articleUrl = `https://amp-minerals.ru/blog/${post.slug}`
-
-  const articleSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.h1,
-    description: post.excerpt,
-    url: articleUrl,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
-    datePublished: post.publishDate,
-    dateModified: post.publishDate,
-    author: { '@type': 'Organization', name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ', url: 'https://amp-minerals.ru' },
-    publisher: {
-      '@type': 'Organization',
-      name: 'ЗАО АМП ИМПОРТ-ЭКСПОРТ',
-      url: 'https://amp-minerals.ru',
-      logo: { '@type': 'ImageObject', url: 'https://amp-minerals.ru/logo.png' },
-    },
-  }
+  const author = getAuthor(post.authorSlug)
 
   const breadcrumb = generateBreadcrumbSchema([
     { name: 'Главная', item: '/' },
@@ -58,7 +41,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <JsonLd data={articleSchema} />
+      {author && <JsonLd data={generateArticleSchema(post, author)} />}
       <JsonLd data={breadcrumb} />
       <main className="min-h-screen bg-white">
         {/* Breadcrumb */}
@@ -95,6 +78,19 @@ export default async function BlogPostPage({ params }: Props) {
               {post.h1}
             </h1>
             <p className="text-lg text-stone-500 leading-relaxed">{post.excerpt}</p>
+
+            {/* Author byline */}
+            {author && (
+              <div className="mt-6 flex items-center gap-3 pt-4 border-t border-stone-100">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-sapphire/10 text-brand-sapphire font-semibold text-sm">
+                  {author.name.split(' ').map((n) => n[0]).join('')}
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-stone-900">{author.name}</p>
+                  <p className="text-xs text-stone-500">{author.role}, ЗАО АМП</p>
+                </div>
+              </div>
+            )}
           </header>
 
           <div className="prose prose-stone prose-lg max-w-none">
@@ -130,6 +126,22 @@ export default async function BlogPostPage({ params }: Props) {
                 ))}
               </ul>
             </aside>
+          )}
+
+          {/* Author box at bottom */}
+          {author && (
+            <div className="mt-10 p-5 bg-stone-50 rounded-xl border border-stone-200">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-sapphire/10 text-brand-sapphire font-semibold">
+                  {author.name.split(' ').map((n) => n[0]).join('')}
+                </div>
+                <div>
+                  <p className="font-semibold text-stone-900">{author.name}</p>
+                  <p className="text-sm text-stone-500 mb-1">{author.role}, ЗАО АМП</p>
+                  <p className="text-sm text-stone-600">{author.bio}</p>
+                </div>
+              </div>
+            </div>
           )}
 
           <div className="mt-8 pt-6 border-t border-stone-200">

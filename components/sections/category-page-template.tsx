@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { CatalogGrid } from '@/components/sections/catalog-grid'
 import { CategoryData, getCategoryProducts } from '@/lib/data/categories'
 import { blogPosts } from '@/lib/data/blog'
-import { JsonLd, generateFAQSchema, generateBreadcrumbSchema } from '@/lib/seo/schema'
+import { JsonLd, generateFAQSchema, generateBreadcrumbSchema, generateItemListSchema } from '@/lib/seo/schema'
 
 interface Props {
   data: CategoryData
@@ -33,6 +33,7 @@ export function CategoryPageTemplate({ data }: Props) {
     <>
       <JsonLd data={breadcrumb} />
       <JsonLd data={generateFAQSchema(data.faqs)} />
+      <JsonLd data={generateItemListSchema(products)} />
       <div className="min-h-screen bg-brand-ice-blue">
         {/* Hero */}
         <section className="py-16 md:py-20 bg-gradient-to-br from-stone-50 to-stone-100">

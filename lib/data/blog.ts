@@ -12,6 +12,7 @@ export interface BlogPost {
   publishDate: string
   category: 'kroshka' | 'shcheben' | 'muka' | 'obshchee'
   readTime: number
+  authorSlug: string
   sections: BlogSection[]
   seo: { title: string; description: string; keywords: string[] }
   relatedProducts?: string[]
@@ -27,6 +28,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: '2026-04-10',
     category: 'kroshka',
     readTime: 6,
+    authorSlug: 'artem-dolgikh',
     sections: [
       {
         h2: 'Почему размер фракции важен',
@@ -97,6 +99,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: '2026-04-12',
     category: 'shcheben',
     readTime: 7,
+    authorSlug: 'artem-dolgikh',
     sections: [
       {
         h2: 'Состав и происхождение',
@@ -177,6 +180,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: '2026-04-15',
     category: 'shcheben',
     readTime: 5,
+    authorSlug: 'artem-dolgikh',
     sections: [
       {
         h2: 'Классы радиоактивности щебня в России',
@@ -231,6 +235,7 @@ export const blogPosts: BlogPost[] = [
     publishDate: '2026-04-18',
     category: 'muka',
     readTime: 6,
+    authorSlug: 'artem-dolgikh',
     sections: [
       {
         h2: 'Что такое белизна и как она измеряется',
