@@ -44,6 +44,8 @@ export function MobileNav() {
               <div key={item.href} className="border-b border-stone-100">
                 <button
                   onClick={() => toggle(item.href)}
+                  aria-expanded={expandedItem === item.href}
+                  aria-controls={`mobile-nav-submenu-${item.href.replace(/[^a-zA-Z0-9]/g, '')}`}
                   className="w-full flex items-center justify-between text-lg font-medium text-stone-900 hover:text-brand-sapphire transition-colors py-3"
                 >
                   {item.label}
@@ -54,7 +56,10 @@ export function MobileNav() {
                   />
                 </button>
                 {expandedItem === item.href && (
-                  <div className="flex flex-col pl-4 pb-2 gap-1">
+                  <div
+                    id={`mobile-nav-submenu-${item.href.replace(/[^a-zA-Z0-9]/g, '')}`}
+                    className="flex flex-col pl-4 pb-2 gap-1"
+                  >
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
