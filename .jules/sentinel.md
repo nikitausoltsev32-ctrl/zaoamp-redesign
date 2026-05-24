@@ -1,4 +1,4 @@
-## 2024-05-22 - SSRF bypass due to URL parsing of IPv6 brackets
-**Vulnerability:** In node, `new URL("http://[::1]").hostname` returns `"[::1]"`. The previous SSRF filtering checked for exactly `"::1"` and thus bypassed `[::1]`, opening up a critical SSRF vulnerability on loopback IP.
-**Learning:** When performing URL sanitization and SSRF blocklisting against node `URL.hostname`, any IPv6 bracketed IP address will keep its brackets (`[`, `]`).
-**Prevention:** Strip surrounding brackets via `.replace(/^\[|\]$/g, "")` before doing any matching or use a robust IP matching library.
+## 2025-05-24 - Timing attack in admin token comparison
+**Vulnerability:** Comparing sensitive tokens (like admin passwords or API keys) using standard string equality operators (`===` or `!==`) creates a timing vulnerability where attackers can guess the token length and contents character by character by measuring request latency.
+**Learning:** This occurred because simple string comparison was used by default instead of a cryptographic constant-time comparison.
+**Prevention:** Always use `crypto.timingSafeEqual` after verifying lengths when comparing secrets, passwords, or authentication tokens. Make sure to convert strings to Buffers first.
