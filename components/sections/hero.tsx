@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { m } from 'framer-motion'
-import { ArrowRight, Calculator, Phone } from 'lucide-react'
+import { ArrowRight, Calculator, Phone, Loader2 } from 'lucide-react'
 import { HeroBackgroundSlider } from '@/components/hero-background-slider'
 import { ymGoal } from '@/lib/analytics'
 
@@ -94,6 +94,9 @@ export function HeroSection() {
                       onChange={(e) => setPhone(e.target.value)}
                       required
                       disabled={loading}
+                      aria-label="Номер телефона"
+                      aria-invalid={!!error}
+                      aria-describedby={error ? "hero-phone-error" : undefined}
                       className="bg-white text-gray-900 placeholder:text-gray-400 border-0 flex-1"
                     />
                     <Button
@@ -101,12 +104,21 @@ export function HeroSection() {
                       disabled={loading}
                       className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 shrink-0"
                     >
-                      <Phone className="h-4 w-4 mr-2" />
-                      {loading ? '...' : 'Перезвоним'}
+                      {loading ? (
+                        <>
+                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                          Загрузка...
+                        </>
+                      ) : (
+                        <>
+                          <Phone className="h-4 w-4 mr-2" />
+                          Перезвоним
+                        </>
+                      )}
                     </Button>
                   </form>
                   {error && (
-                    <p className="text-red-300 text-sm mt-2">{error}</p>
+                    <p id="hero-phone-error" role="alert" className="text-red-300 text-sm mt-2">{error}</p>
                   )}
                   <p className="text-white/50 text-xs mt-2">
                     Предварительный расчёт в день обращения. Точная цена зависит от объёма, упаковки и доставки.
