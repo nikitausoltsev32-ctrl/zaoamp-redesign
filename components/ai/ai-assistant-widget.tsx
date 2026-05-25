@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useEffect, useRef, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Bot, CheckCircle2, ExternalLink, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -132,6 +132,43 @@ function createSessionId() {
     return crypto.randomUUID()
   }
   return `ai-${Date.now()}-${Math.random().toString(16).slice(2)}`
+}
+
+const MessageList = ({ messages }: { messages: ChatMessage[] }) => {
+  return useMemo(() => {
+    return (
+      <>
+        {messages.map((message, index) => (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            key={`${message.role}-${index}`}
+            className={message.role === 'user' ? 'flex justify-end' : 'flex items-end gap-2'}
+          >
+            {message.role === 'assistant' && (
+              <div className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-sapphire to-blue-500 text-white shadow-md">
+                <Sparkles className="h-4 w-4" />
+              </div>
+            )}
+            <div
+              className={
+                message.role === 'user'
+                  ? 'max-w-[85%] rounded-2xl rounded-br-sm bg-gradient-to-br from-brand-sapphire to-blue-600 px-4 py-2.5 text-sm leading-relaxed text-white shadow-md'
+                  : 'max-w-[85%] rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm leading-relaxed text-stone-800 shadow-sm backdrop-blur-md'
+              }
+            >
+              <span className="whitespace-pre-wrap">{message.content}</span>
+              {message.role === 'assistant' && message.structured && (
+                <StructuredBlocks structured={message.structured} />
+              )}
+              {message.role === 'assistant' && <SourceLinks sources={message.sources} />}
+            </div>
+          </motion.div>
+        ))}
+      </>
+    )
+  }, [messages])
 }
 
 export function AiAssistantWidget() {
@@ -266,34 +303,7 @@ export function AiAssistantWidget() {
 
             {/* Chat Body */}
             <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-stone-200">
-              {messages.map((message, index) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  key={`${message.role}-${index}`}
-                  className={message.role === 'user' ? 'flex justify-end' : 'flex items-end gap-2'}
-                >
-                  {message.role === 'assistant' && (
-                    <div className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-sapphire to-blue-500 text-white shadow-md">
-                      <Sparkles className="h-4 w-4" />
-                    </div>
-                  )}
-                  <div
-                    className={
-                      message.role === 'user'
-                        ? 'max-w-[85%] rounded-2xl rounded-br-sm bg-gradient-to-br from-brand-sapphire to-blue-600 px-4 py-2.5 text-sm leading-relaxed text-white shadow-md'
-                        : 'max-w-[85%] rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm leading-relaxed text-stone-800 shadow-sm backdrop-blur-md'
-                    }
-                  >
-                    <span className="whitespace-pre-wrap">{message.content}</span>
-                    {message.role === 'assistant' && message.structured && (
-                      <StructuredBlocks structured={message.structured} />
-                    )}
-                    {message.role === 'assistant' && <SourceLinks sources={message.sources} />}
-                  </div>
-                </motion.div>
-              ))}
+              <MessageList messages={messages} />
 
               {loading && (
                 <motion.div 
