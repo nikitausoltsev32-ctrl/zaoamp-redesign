@@ -1,0 +1,3 @@
+## 2024-05-25 - [Accessibility & UX Improvements to Hero Form]
+**Learning:** [Forms lack semantic error handling; simple visual states like "..." for loading are unclear. Using Radix-ui/lucide-react components for spinners improves understanding of state changes, and aria-invalid plus aria-describedby is critical for screen reader context when handling form errors.]
+**Action:** [Next time, ensure loading states clearly describe action taking place and visually show an indicator. For errors, rely on standard ARIA properties (aria-invalid, aria-describedby, role="alert") to directly bind the error context to its relevant input element.]
