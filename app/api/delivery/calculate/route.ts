@@ -142,17 +142,33 @@ export async function POST(request: NextRequest) {
       return { price, deliveryDays: calculateDeliveryDays(arrivalCity) }
     }
 
-    for (let i = 0; i < loads.length; i++) {
-      const { price, deliveryDays: days } = await calcOneTruck(loads[i])
-      totalPrice += price
-      if (i === 0) deliveryDays = days
+    // ⚡ Bolt: Cache identical truck requests to avoid repeated API calls
+    // and use Promise.all to execute distinct truck requests concurrently
+    const truckCache = new Map<number, Promise<{ price: number; deliveryDays: string }>>()
+    const getTruckData = (w: number) => {
+      if (!truckCache.has(w)) {
+        truckCache.set(w, calcOneTruck(w))
+      }
+      return truckCache.get(w)!
+    }
+
+    const truckResults = await Promise.all(
+      loads.map(async (loadWeight, i) => {
+        const res = await getTruckData(loadWeight)
+        return { ...res, weight: loadWeight, number: i + 1 }
+      })
+    )
+
+    for (const res of truckResults) {
+      totalPrice += res.price
+      if (res.number === 1) deliveryDays = res.deliveryDays
       trucks.push({
-        number: i + 1,
-        weight: loads[i],
-        volume: loads[i] * 0.7,
-        price,
-        pricePerTon: loads[i] > 0 ? Math.round(price / loads[i]) : 0,
-        deliveryDays: days,
+        number: res.number,
+        weight: res.weight,
+        volume: res.weight * 0.7,
+        price: res.price,
+        pricePerTon: res.weight > 0 ? Math.round(res.price / res.weight) : 0,
+        deliveryDays: res.deliveryDays,
       })
     }
 
