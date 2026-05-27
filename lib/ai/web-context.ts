@@ -82,9 +82,11 @@ function isBlockedHostname(hostname: string) {
     host.endsWith('.localhost') ||
     host.endsWith('.local') ||
     host === '::1' ||
+    host === '::' ||
     host.startsWith('fc') ||
     host.startsWith('fd') ||
     host.startsWith('fe80') ||
+    host.startsWith('::ffff:') ||
     isPrivateIpv4(host)
   )
 }
