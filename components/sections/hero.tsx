@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { m } from 'framer-motion'
-import { ArrowRight, Calculator, Phone } from 'lucide-react'
+import { ArrowRight, Calculator, Phone, Loader2 } from 'lucide-react'
 import { HeroBackgroundSlider } from '@/components/hero-background-slider'
 import { ymGoal } from '@/lib/analytics'
 
@@ -101,8 +101,7 @@ export function HeroSection() {
                       disabled={loading}
                       className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 shrink-0"
                     >
-                      <Phone className="h-4 w-4 mr-2" />
-                      {loading ? '...' : 'Перезвоним'}
+                      {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Отправка...</> : <><Phone className="h-4 w-4 mr-2" />Перезвоним</>}
                     </Button>
                   </form>
                   {error && (
