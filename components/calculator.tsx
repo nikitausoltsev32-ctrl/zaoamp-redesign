@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { products } from '@/lib/data/products'
 import { deliveryRegions, calculatePrice, getDisplayDeliveryPrice } from '@/lib/data/calculator'
 import { Badge } from '@/components/ui/badge'
-import { Truck, Send, CheckCircle2 } from 'lucide-react'
+import { Truck, Send, CheckCircle2, Loader2 } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
 import { getUTMData } from '@/lib/hooks/use-utm'
 
@@ -187,7 +187,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
             disabled={loading || !volume}
             variant="outline"
           >
-            {loading ? 'Расчёт...' : 'Рассчитать точную стоимость доставки'}
+            {loading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Расчёт...</> : 'Рассчитать точную стоимость доставки'}
           </Button>
         )}
 
@@ -287,7 +287,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
                       disabled={leadStatus === 'loading'}
                       className="bg-brand-sapphire hover:bg-brand-sapphire-dark"
                     >
-                      {leadStatus === 'loading' ? 'Отправка...' : <><Send className="h-4 w-4 mr-2"/>Отправить</>}
+                      {leadStatus === 'loading' ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Отправка...</> : <><Send className="h-4 w-4 mr-2"/>Отправить</>}
                     </Button>
                   </div>
                   {leadStatus === 'error' && (

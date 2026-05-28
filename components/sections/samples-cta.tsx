@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Package, Send, CheckCircle2 } from 'lucide-react'
+import { Package, Send, CheckCircle2, Loader2 } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
 import { getUTMData } from '@/lib/hooks/use-utm'
 
@@ -76,8 +76,9 @@ export function SamplesCTA() {
             <h3 className="text-xl font-bold mb-6 text-center">Заказать набор образцов</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Как к вам обращаться?</label>
+                <label htmlFor="samples-name" className="block text-sm font-medium text-gray-700 mb-1">Как к вам обращаться?</label>
                 <Input 
+                  id="samples-name"
                   placeholder="Иван Иванов" 
                   value={name} 
                   onChange={(e) => setName(e.target.value)} 
@@ -86,8 +87,9 @@ export function SamplesCTA() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+                <label htmlFor="samples-phone" className="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
                 <Input 
+                  id="samples-phone"
                   type="tel" 
                   placeholder="+7 (___) ___-__-__" 
                   value={phone} 
@@ -97,8 +99,9 @@ export function SamplesCTA() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Город доставки</label>
+                <label htmlFor="samples-city" className="block text-sm font-medium text-gray-700 mb-1">Город доставки</label>
                 <Input 
+                  id="samples-city"
                   placeholder="Например, Москва" 
                   value={city} 
                   onChange={(e) => setCity(e.target.value)} 
@@ -113,7 +116,7 @@ export function SamplesCTA() {
                 size="lg"
                 disabled={status === 'loading'}
               >
-                {status === 'loading' ? 'Отправка...' : <><Send className="mr-2 h-4 w-4" /> Получить образцы</>}
+                {status === 'loading' ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Отправка...</> : <><Send className="mr-2 h-4 w-4" /> Получить образцы</>}
               </Button>
               
               {status === 'error' && (

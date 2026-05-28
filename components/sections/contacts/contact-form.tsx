@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent } from '@/components/ui/card'
 import { SectionHeader } from '@/components/section-header'
-import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Send, MessageCircle, Check, Loader2 } from 'lucide-react'
 import { m } from 'framer-motion'
 import { ymGoal } from '@/lib/analytics'
 import { getUTMData } from '@/lib/hooks/use-utm'
@@ -109,7 +109,7 @@ export function ContactForm() {
         disabled={isLoading}
       >
         {isLoading ? (
-          'Отправка...'
+          <><Loader2 className="mr-2 h-4 w-4 animate-spin" />Отправка...</>
         ) : (
           <>
             <Send className="mr-2 h-4 w-4" />
