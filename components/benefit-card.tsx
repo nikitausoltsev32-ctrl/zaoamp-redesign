@@ -13,6 +13,8 @@ interface BenefitCardProps {
 export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps) {
   const Icon = benefit.icon
   const divRef = useRef<HTMLDivElement>(null)
+  const ticking = useRef(false)
+  const lastPos = useRef({ x: 0, y: 0 })
   const [isFocused, setIsFocused] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [opacity, setOpacity] = useState(0)
@@ -20,10 +22,20 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return
 
-    const div = divRef.current
-    const rect = div.getBoundingClientRect()
+    // ⚡ Bolt: Store latest coordinates synchronously to avoid stale positions in rAF callback
+    lastPos.current = { x: e.clientX, y: e.clientY }
 
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    // ⚡ Bolt: Throttle rapid mousemove events using requestAnimationFrame to prevent excessive re-renders and layout thrashing
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        if (divRef.current) {
+          const rect = divRef.current.getBoundingClientRect()
+          setPosition({ x: lastPos.current.x - rect.left, y: lastPos.current.y - rect.top })
+        }
+        ticking.current = false
+      })
+      ticking.current = true
+    }
   }
 
   const handleFocus = () => {
