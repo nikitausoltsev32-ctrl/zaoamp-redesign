@@ -146,9 +146,10 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                   Цена указана за товар без доставки. Логистику подтвердит менеджер.
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-[120px_1fr]">
-                  <label className="space-y-1 text-sm">
+                  <label htmlFor="hero-quantity" className="space-y-1 text-sm">
                     <span className="text-muted-foreground">Тонн</span>
                     <Input
+                      id="hero-quantity"
                       type="number"
                       min={1}
                       step={1}
@@ -157,9 +158,10 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                       disabled={orderStatus === 'loading' || orderStatus === 'sent'}
                     />
                   </label>
-                  <label className="space-y-1 text-sm">
+                  <label htmlFor="hero-packaging" className="space-y-1 text-sm">
                     <span className="text-muted-foreground">Упаковка</span>
                     <select
+                      id="hero-packaging"
                       value={packaging}
                       onChange={(event) => setPackaging(event.target.value)}
                       disabled={orderStatus === 'loading' || orderStatus === 'sent'}
@@ -173,9 +175,10 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                     </select>
                   </label>
                 </div>
-                <label className="mt-3 block space-y-1 text-sm">
+                <label htmlFor="hero-phone" className="mt-3 block space-y-1 text-sm">
                   <span className="text-muted-foreground">Телефон для подтверждения</span>
                   <Input
+                    id="hero-phone"
                     type="tel"
                     placeholder="+7 (999) 123-45-67"
                     value={phone}

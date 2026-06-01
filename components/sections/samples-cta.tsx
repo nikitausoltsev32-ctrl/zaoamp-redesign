@@ -76,8 +76,9 @@ export function SamplesCTA() {
             <h3 className="text-xl font-bold mb-6 text-center">Заказать набор образцов</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Как к вам обращаться?</label>
+                <label htmlFor="cta-name" className="block text-sm font-medium text-gray-700 mb-1">Как к вам обращаться?</label>
                 <Input 
+                  id="cta-name"
                   placeholder="Иван Иванов" 
                   value={name} 
                   onChange={(e) => setName(e.target.value)} 
@@ -86,8 +87,9 @@ export function SamplesCTA() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+                <label htmlFor="cta-phone" className="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
                 <Input 
+                  id="cta-phone"
                   type="tel" 
                   placeholder="+7 (___) ___-__-__" 
                   value={phone} 
@@ -97,8 +99,9 @@ export function SamplesCTA() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Город доставки</label>
+                <label htmlFor="cta-city" className="block text-sm font-medium text-gray-700 mb-1">Город доставки</label>
                 <Input 
+                  id="cta-city"
                   placeholder="Например, Москва" 
                   value={city} 
                   onChange={(e) => setCity(e.target.value)} 
