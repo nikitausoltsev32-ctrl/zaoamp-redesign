@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
+import crypto from 'node:crypto'
 
 export async function GET(request: Request) {
   const adminToken = process.env.ADMIN_TOKEN
@@ -12,7 +13,14 @@ export async function GET(request: Request) {
     )
   }
 
-  if (requestToken !== adminToken) {
+  // Security: Use constant-time comparison to prevent timing attacks on the admin token
+  const requestTokenBuffer = Buffer.from(requestToken)
+  const adminTokenBuffer = Buffer.from(adminToken)
+
+  if (
+    requestTokenBuffer.length !== adminTokenBuffer.length ||
+    !crypto.timingSafeEqual(requestTokenBuffer, adminTokenBuffer)
+  ) {
     return NextResponse.json(
       { error: 'Нет доступа' },
       { status: 401 }
