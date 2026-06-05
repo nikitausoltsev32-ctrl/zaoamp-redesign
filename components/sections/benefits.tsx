@@ -2,7 +2,6 @@
 
 import { benefits } from '@/lib/data/benefits'
 import { BenefitCard } from '@/components/benefit-card'
-import { motion } from 'framer-motion'
 
 export function BenefitsSection() {
   const getBentoClass = (index: number) => {
