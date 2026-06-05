@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/server'
+import crypto from 'crypto'
 
 export async function GET(request: Request) {
   const adminToken = process.env.ADMIN_TOKEN
@@ -12,7 +13,19 @@ export async function GET(request: Request) {
     )
   }
 
-  if (requestToken !== adminToken) {
+  // Mitigate timing attacks by comparing using crypto.timingSafeEqual.
+  // We avoid short-circuiting on length to prevent length-based timing leaks.
+  const aBuffer = Buffer.from(adminToken || '', 'utf-8')
+  const bBuffer = Buffer.from(requestToken || '', 'utf-8')
+
+  const isLengthEqual = aBuffer.length === bBuffer.length
+  // If lengths differ, compare aBuffer to itself to keep the time consistent
+  const isValid = crypto.timingSafeEqual(
+    aBuffer,
+    isLengthEqual ? bBuffer : aBuffer
+  ) && isLengthEqual
+
+  if (!isValid) {
     return NextResponse.json(
       { error: 'Нет доступа' },
       { status: 401 }
