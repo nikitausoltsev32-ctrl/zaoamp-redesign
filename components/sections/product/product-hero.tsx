@@ -146,9 +146,10 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                   Цена указана за товар без доставки. Логистику подтвердит менеджер.
                 </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-[120px_1fr]">
-                  <label className="space-y-1 text-sm">
-                    <span className="text-muted-foreground">Тонн</span>
+                  <div className="space-y-1 text-sm">
+                    <label htmlFor="hero-quantity" className="text-muted-foreground block">Тонн</label>
                     <Input
+                      id="hero-quantity"
                       type="number"
                       min={1}
                       step={1}
@@ -156,10 +157,11 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                       onChange={(event) => setQuantity(Number(event.target.value) || 1)}
                       disabled={orderStatus === 'loading' || orderStatus === 'sent'}
                     />
-                  </label>
-                  <label className="space-y-1 text-sm">
-                    <span className="text-muted-foreground">Упаковка</span>
+                  </div>
+                  <div className="space-y-1 text-sm">
+                    <label htmlFor="hero-packaging" className="text-muted-foreground block">Упаковка</label>
                     <select
+                      id="hero-packaging"
                       value={packaging}
                       onChange={(event) => setPackaging(event.target.value)}
                       disabled={orderStatus === 'loading' || orderStatus === 'sent'}
@@ -171,11 +173,12 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                         </option>
                       ))}
                     </select>
-                  </label>
+                  </div>
                 </div>
-                <label className="mt-3 block space-y-1 text-sm">
-                  <span className="text-muted-foreground">Телефон для подтверждения</span>
+                <div className="mt-3 block space-y-1 text-sm">
+                  <label htmlFor="hero-phone" className="text-muted-foreground block">Телефон для подтверждения</label>
                   <Input
+                    id="hero-phone"
                     type="tel"
                     placeholder="+7 (999) 123-45-67"
                     value={phone}
@@ -183,7 +186,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                     required
                     disabled={orderStatus === 'loading' || orderStatus === 'sent'}
                   />
-                </label>
+                </div>
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-sm">
                     <span className="text-muted-foreground">Товар без доставки: </span>
