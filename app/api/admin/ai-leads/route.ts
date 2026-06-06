@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import crypto from 'crypto'
 import { supabaseAdmin } from '@/lib/supabase/server'
 
 export async function GET(request: Request) {
@@ -12,7 +13,15 @@ export async function GET(request: Request) {
     )
   }
 
-  if (requestToken !== adminToken) {
+  // Use timing-safe comparison to prevent timing attacks
+  const expectedBuffer = Buffer.from(adminToken || '', 'utf-8')
+  const providedBuffer = Buffer.from(requestToken || '', 'utf-8')
+  const isLengthEqual = expectedBuffer.length === providedBuffer.length
+  // Always compare buffers of the same length to avoid early exit timing leaks
+  const compareBuffer = isLengthEqual ? providedBuffer : expectedBuffer
+  const isMatch = crypto.timingSafeEqual(expectedBuffer, compareBuffer) && isLengthEqual
+
+  if (!isMatch) {
     return NextResponse.json(
       { error: 'Нет доступа' },
       { status: 401 }
