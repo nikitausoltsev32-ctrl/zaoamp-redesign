@@ -45,7 +45,7 @@ export function SamplesCTA() {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle2 className="h-8 w-8 text-green-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Заявка на образцы принята!</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Заявка на образцы принята!</h2>
           <p className="text-muted-foreground">Наш менеджер свяжется с вами для уточнения адреса доставки.</p>
         </div>
       </section>
@@ -62,21 +62,21 @@ export function SamplesCTA() {
               <Package className="h-4 w-4" /> B2B Клиентам
             </div>
             <h2 className="text-3xl font-bold mb-4">Сомневаетесь во фракции или цвете?</h2>
-            <p className="text-brand-sapphire-light text-lg mb-6 leading-relaxed">
+            <p className="text-white/90 text-lg mb-6 leading-relaxed">
               Мы бесплатно отправим вам коробку с образцами нашей продукции (7 фракций крошки и щебня). Вы оплачиваете только услуги транспортной компании при получении.
             </p>
-            <ul className="space-y-2 mb-8 text-brand-sapphire-light">
+            <ul className="space-y-2 mb-8 text-white/90">
               <li className="flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-white/80" /> Вживую оцените белизну 98%</li>
               <li className="flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-white/80" /> Точно подберете фракцию для своих задач</li>
               <li className="flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-white/80" /> Проверите прочность и качество</li>
             </ul>
           </div>
           
-          <div className="bg-white text-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl">
+          <div className="bg-white text-foreground p-6 sm:p-8 rounded-2xl shadow-xl">
             <h3 className="text-xl font-bold mb-6 text-center">Заказать набор образцов</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Как к вам обращаться?</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Как к вам обращаться?</label>
                 <Input 
                   placeholder="Иван Иванов" 
                   value={name} 
@@ -86,7 +86,7 @@ export function SamplesCTA() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Телефон</label>
                 <Input 
                   type="tel" 
                   placeholder="+7 (___) ___-__-__" 
@@ -97,7 +97,7 @@ export function SamplesCTA() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Город доставки</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Город доставки</label>
                 <Input 
                   placeholder="Например, Москва" 
                   value={city} 
@@ -119,7 +119,7 @@ export function SamplesCTA() {
               {status === 'error' && (
                 <p className="text-sm text-red-500 text-center">Ошибка. Попробуйте ещё раз.</p>
               )}
-              <p className="text-xs text-center text-stone-500 mt-4">
+              <p className="text-xs text-center text-muted-foreground mt-4">
                 Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.
               </p>
             </form>

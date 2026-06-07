@@ -52,7 +52,7 @@ export function Header() {
                 <div key={item.href} className="relative group">
                   <Link
                     href={item.href}
-                    className="flex items-center gap-1 text-sm font-medium text-stone-700 hover:text-brand-sapphire transition-colors"
+                    className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-brand-sapphire transition-colors"
                     onClick={() => item.href === '/catalog' && ymGoal('catalog_click')}
                   >
                     {item.label}
@@ -64,7 +64,7 @@ export function Header() {
                         <Link
                           key={child.href}
                           href={child.href}
-                          className="block px-4 py-2.5 text-sm text-stone-700 hover:text-brand-sapphire hover:bg-stone-50 transition-colors"
+                          className="block px-4 py-2.5 text-sm text-foreground hover:text-brand-sapphire hover:bg-stone-50 transition-colors"
                           onClick={() => ymGoal('catalog_category_click')}
                         >
                           {child.label}
@@ -77,7 +77,7 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-sm font-medium text-stone-700 hover:text-brand-sapphire transition-colors"
+                  className="text-sm font-medium text-foreground hover:text-brand-sapphire transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -89,7 +89,7 @@ export function Header() {
           <div className="flex items-center gap-3 sm:gap-4">
             <a
               href={`tel:${contactInfo.whatsapp}`}
-              className="lg:hidden text-sm font-semibold text-stone-700 hover:text-brand-sapphire transition-colors whitespace-nowrap"
+              className="lg:hidden text-sm font-semibold text-foreground hover:text-brand-sapphire transition-colors whitespace-nowrap"
               onClick={() => ymGoal('phone_click')}
             >
               {contactInfo.phone}

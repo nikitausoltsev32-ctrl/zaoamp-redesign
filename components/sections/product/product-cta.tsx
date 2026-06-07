@@ -27,7 +27,7 @@ export function ProductCTA() {
             <Button 
               asChild 
               size="lg"
-              className="bg-white text-gray-900 hover:bg-gray-100"
+              className="bg-white text-foreground hover:bg-gray-100"
             >
               <a href="tel:+79193931992" onClick={() => ymGoal('phone_click')}>
                 <Phone className="mr-2 h-4 w-4" />
@@ -48,7 +48,7 @@ export function ProductCTA() {
               asChild 
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-gray-900"
+              className="border-white text-white hover:bg-white hover:text-foreground"
             >
               <a href="https://t.me/usolst" target="_blank" rel="noopener noreferrer">
                 <Send className="mr-2 h-4 w-4" />
@@ -59,7 +59,7 @@ export function ProductCTA() {
               asChild 
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-gray-900"
+              className="border-white text-white hover:bg-white hover:text-foreground"
             >
               <a href="mailto:evoprod@mail.ru">
                 <Mail className="mr-2 h-4 w-4" />
@@ -68,7 +68,7 @@ export function ProductCTA() {
             </Button>
           </div>
 
-          <p className="mt-8 text-center text-sm text-gray-400">
+          <p className="mt-8 text-center text-sm text-white/70">
             Отдел продаж: пн-пт с 9:00 до 18:00
           </p>
         </m.div>

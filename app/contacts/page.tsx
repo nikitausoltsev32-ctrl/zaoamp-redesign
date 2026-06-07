@@ -39,7 +39,7 @@ export default function ContactsPage() {
               <ContactInfo />
 
               <div className="mt-8">
-                <h3 className="font-medium text-gray-900 mb-3">Как найти</h3>
+                <h3 className="font-medium text-foreground mb-3">Как найти</h3>
                 <div className="aspect-video rounded-xl overflow-hidden border">
                   <iframe
                     src="https://yandex.ru/map-widget/v1/-/CDX"

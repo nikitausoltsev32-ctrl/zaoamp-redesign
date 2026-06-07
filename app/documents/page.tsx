@@ -21,7 +21,7 @@ export default function DocumentsPage() {
         <section className="py-20 bg-brand-ice-blue">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">Паспорта качества</h1>
+              <h1 className="text-4xl font-bold text-foreground mb-4">Паспорта качества</h1>
               <p className="text-lg text-muted-foreground">
                 Скачайте доступные паспорта качества на продукцию. По остальным позициям комплект
                 документов уточняйте у менеджера при запросе.
@@ -41,7 +41,7 @@ export default function DocumentsPage() {
                     <div className="h-10 w-10 rounded-lg bg-brand-sapphire/10 flex items-center justify-center">
                       <FileText className="h-5 w-5 text-brand-sapphire" />
                     </div>
-                    <span className="font-medium text-gray-900">{doc.name}</span>
+                    <span className="font-medium text-foreground">{doc.name}</span>
                   </div>
                   <Download className="h-4 w-4 text-muted-foreground shrink-0" />
                 </a>

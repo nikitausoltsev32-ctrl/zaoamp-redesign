@@ -41,7 +41,7 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
                   key={index} 
                   className={`flex justify-between items-center px-6 py-4 ${index % 2 === 0 ? 'bg-stone-50/50' : ''}`}
                 >
-                  <span className="font-medium text-gray-900">
+                  <span className="font-medium text-foreground">
                     {spec.label}
                   </span>
                   <span className="text-right">

@@ -37,7 +37,7 @@ export function TestimonialsSection() {
     <section className="py-20 bg-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl mb-4">
             Как работаем с поставками
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -56,7 +56,7 @@ export function TestimonialsSection() {
                 <MapPinned className="h-4 w-4" />
               </div>
               <div>
-                <p className="font-semibold text-gray-900 text-sm">{geo.label}</p>
+                <p className="font-semibold text-foreground text-sm">{geo.label}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{geo.desc}</p>
               </div>
             </div>
@@ -74,8 +74,8 @@ export function TestimonialsSection() {
               className="bg-white rounded-xl border border-stone-200 p-6 flex flex-col gap-4"
             >
               <block.icon className="h-5 w-5 text-brand-sapphire/60 shrink-0" />
-              <p className="text-sm font-semibold text-gray-900">{block.title}</p>
-              <p className="text-sm text-gray-700 leading-relaxed flex-1">{block.text}</p>
+              <p className="text-sm font-semibold text-foreground">{block.title}</p>
+              <p className="text-sm text-foreground leading-relaxed flex-1">{block.text}</p>
             </m.div>
           ))}
         </div>

@@ -178,11 +178,11 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="border-t border-stone-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-stone-500 text-sm">
+          <p className="text-stone-400 text-sm">
             © {currentYear} ЗАО &quot;АМП ИМПОРТ-ЭКСПОРТ&quot;. Все права защищены.
           </p>
           <div className="flex gap-6 text-sm">
-            <Link href="/privacy" className="text-stone-500 hover:text-stone-300 transition-colors">
+            <Link href="/privacy" className="text-stone-400 hover:text-stone-200 transition-colors">
               Политика конфиденциальности
             </Link>
           </div>

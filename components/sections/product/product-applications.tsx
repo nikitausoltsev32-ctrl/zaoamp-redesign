@@ -65,7 +65,7 @@ export function ProductApplications({ product }: ProductApplicationsProps) {
                     <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-brand-sapphire/10 text-brand-sapphire transition-colors group-hover:bg-brand-sapphire group-hover:text-white">
                       <Icon className="h-7 w-7" />
                     </div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-foreground">
                       {application}
                     </h3>
                   </CardContent>

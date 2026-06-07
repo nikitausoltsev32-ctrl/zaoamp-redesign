@@ -46,7 +46,7 @@ export function MobileNav() {
                   onClick={() => toggle(item.href)}
                   aria-expanded={expandedItem === item.href}
                   aria-controls={`mobile-nav-submenu-${item.href.replace(/[^a-zA-Z0-9]/g, '')}`}
-                  className="w-full flex items-center justify-between text-lg font-medium text-stone-900 hover:text-brand-sapphire transition-colors py-3"
+                  className="w-full flex items-center justify-between text-lg font-medium text-foreground hover:text-brand-sapphire transition-colors py-3"
                 >
                   {item.label}
                   <ChevronDown
@@ -63,7 +63,7 @@ export function MobileNav() {
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="text-sm text-stone-500 hover:text-brand-sapphire py-1.5 transition-colors"
+                      className="text-sm text-muted-foreground hover:text-brand-sapphire py-1.5 transition-colors"
                     >
                       Весь каталог
                     </Link>
@@ -72,7 +72,7 @@ export function MobileNav() {
                         key={child.href}
                         href={child.href}
                         onClick={() => setOpen(false)}
-                        className="text-sm font-medium text-stone-700 hover:text-brand-sapphire py-1.5 transition-colors"
+                        className="text-sm font-medium text-foreground hover:text-brand-sapphire py-1.5 transition-colors"
                       >
                         {child.label}
                       </Link>
@@ -85,7 +85,7 @@ export function MobileNav() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="text-lg font-medium text-stone-900 hover:text-brand-sapphire transition-colors py-3 border-b border-stone-100"
+                className="text-lg font-medium text-foreground hover:text-brand-sapphire transition-colors py-3 border-b border-stone-100"
               >
                 {item.label}
               </Link>

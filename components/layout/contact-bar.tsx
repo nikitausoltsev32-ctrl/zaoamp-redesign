@@ -77,7 +77,7 @@ export function ContactBar({ variant = 'header', className }: ContactBarProps) {
       <div className="text-right">
         <a
           href={phoneLink}
-          className="block text-lg font-bold text-stone-900 hover:text-brand-sapphire transition-colors"
+          className="block text-lg font-bold text-foreground hover:text-brand-sapphire transition-colors"
           onClick={() => ymGoal('phone_click')}
         >
           {contactInfo.phone}

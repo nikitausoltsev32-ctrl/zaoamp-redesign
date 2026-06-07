@@ -172,7 +172,7 @@ export function ContactInfo() {
                 <contact.icon className="h-5 w-5 text-brand-sapphire" />
               </div>
               <div>
-                <h3 className="font-medium text-gray-900">{contact.title}</h3>
+                <h3 className="font-medium text-foreground">{contact.title}</h3>
                 {contact.href ? (
                   <a
                     href={contact.href}
@@ -193,7 +193,7 @@ export function ContactInfo() {
 
       {/* Quick links */}
       <div className="pt-4">
-        <h3 className="font-medium text-gray-900 mb-3">Быстрые контакты</h3>
+        <h3 className="font-medium text-foreground mb-3">Быстрые контакты</h3>
         <div className="flex gap-3">
           <Button asChild variant="outline" className="flex-1">
             <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer" onClick={() => ymGoal('whatsapp_click')}>

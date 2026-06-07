@@ -45,7 +45,7 @@ export function CatalogFilters({ activeFilter, onFilterChange, productCounts }: 
                 'ml-1 rounded-full px-2 py-0.5 text-xs',
                 activeFilter === filter.value 
                   ? 'bg-white/20 text-white' 
-                  : 'bg-gray-100 text-gray-600'
+                  : 'bg-gray-100 text-muted-foreground'
               )}>
                 {productCounts[filter.value] || filter.count}
               </span>

@@ -87,7 +87,7 @@ export default function AboutPage() {
             <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
               О компании
             </Badge>
-            <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">
+            <h1 className="text-4xl font-bold text-foreground sm:text-5xl mb-6">
               ЗАО «АМП ИМПОРТ-ЭКСПОРТ» — производитель мраморной крошки, щебня и микрокальцита
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
@@ -120,7 +120,7 @@ export default function AboutPage() {
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-sapphire/10 text-brand-sapphire mb-4">
                   <stat.icon className="h-6 w-6" />
                 </div>
-                <div className="text-3xl font-bold text-gray-900">{stat.number}</div>
+                <div className="text-3xl font-bold text-foreground">{stat.number}</div>
                 <div className="text-sm text-muted-foreground mt-1">{stat.label}</div>
               </m.div>
             ))}
@@ -133,7 +133,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl font-bold text-foreground mb-6">
                 История компании
               </h2>
               <div className="space-y-4 text-muted-foreground">
@@ -208,7 +208,7 @@ export default function AboutPage() {
       <section className="py-16 bg-brand-ice-blue">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
               Наши преимущества
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -222,7 +222,7 @@ export default function AboutPage() {
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-brand-sapphire/10 text-brand-sapphire mb-4">
                     <value.icon className="h-7 w-7" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{value.title}</h3>
+                  <h3 className="font-semibold text-foreground mb-2">{value.title}</h3>
                   <p className="text-sm text-muted-foreground">{value.description}</p>
                 </>
               )
@@ -262,7 +262,7 @@ export default function AboutPage() {
             <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
               Галерея
             </Badge>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-foreground mb-4">
               Месторождение
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -356,7 +356,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
                 Производство
               </h2>
               <p className="text-muted-foreground">
@@ -368,7 +368,7 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-2 gap-6 mb-10 text-left">
               <div className="bg-white p-6 rounded-xl shadow-sm">
                 <div className="text-sm font-semibold text-brand-sapphire mb-2">Этап 1 — Добыча</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Карьер в Челябинской области</h3>
+                <h3 className="font-semibold text-foreground mb-2">Карьер в Челябинской области</h3>
                 <p className="text-sm text-muted-foreground">
                   Добыча ведётся буровзрывным методом. Мраморная порода грузится экскаваторами
                   Hitachi и Hyundai на самосвалы КАМАЗ грузоподъёмностью 25 тонн. Карьер обеспечивает
@@ -377,7 +377,7 @@ export default function AboutPage() {
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm">
                 <div className="text-sm font-semibold text-brand-sapphire mb-2">Этап 2 — Переработка</div>
-                <h3 className="font-semibold text-gray-900 mb-2">Дробление и фракционирование</h3>
+                <h3 className="font-semibold text-foreground mb-2">Дробление и фракционирование</h3>
                 <p className="text-sm text-muted-foreground">
                   Исходная порода проходит дробление и последующее разделение на фракции с помощью
                   грохотов. Готовый щебень транспортируется конвейерами и складируется. В цикле
@@ -430,7 +430,7 @@ export default function AboutPage() {
               <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                 FAQ
               </Badge>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
                 Частые вопросы о производстве
               </h2>
               <p className="text-muted-foreground">
@@ -447,7 +447,7 @@ export default function AboutPage() {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="group bg-stone-50 rounded-xl p-5 cursor-pointer open:bg-brand-ice-blue/60"
                 >
-                  <summary className="font-semibold text-gray-900 list-none flex justify-between items-center gap-4">
+                  <summary className="font-semibold text-foreground list-none flex justify-between items-center gap-4">
                     <span>{faq.question}</span>
                     <ArrowRight className="h-4 w-4 text-brand-sapphire transition-transform group-open:rotate-90 shrink-0" />
                   </summary>

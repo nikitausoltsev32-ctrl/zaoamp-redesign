@@ -22,8 +22,8 @@ export default function BlogPage() {
       <main className="min-h-screen bg-stone-50">
         <section className="bg-white border-b border-stone-200 py-12 md:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-stone-900 mb-4">Блог</h1>
-            <p className="text-lg text-stone-500 max-w-2xl">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Блог</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl">
               Технические статьи и практические материалы по применению мраморной крошки, щебня,
               муки и микрокальцита в строительстве, ландшафте и производстве.
             </p>

@@ -17,7 +17,7 @@ export function CatalogHeader() {
         {/* Title and description */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               Каталог продукции
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl">

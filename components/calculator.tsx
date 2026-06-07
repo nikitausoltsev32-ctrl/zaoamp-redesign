@@ -270,7 +270,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
               ) : (
                 <form onSubmit={handleLeadSubmit} className="space-y-3 bg-brand-ice-blue/50 p-4 rounded-lg border border-brand-sapphire/20">
                   <div>
-                    <p className="font-semibold text-gray-900 text-sm">Получить точный расчёт с учетом скидки на объём</p>
+                    <p className="font-semibold text-foreground text-sm">Получить точный расчёт с учетом скидки на объём</p>
                     <p className="text-xs text-muted-foreground">Отправим коммерческое предложение на WhatsApp или Email</p>
                   </div>
                   <div className="flex gap-2">

@@ -29,22 +29,22 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
       <main className="min-h-screen bg-stone-50">
         <section className="bg-white border-b border-stone-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-            <nav className="mb-6 flex flex-wrap gap-2 text-sm text-stone-500">
+            <nav className="mb-6 flex flex-wrap gap-2 text-sm text-muted-foreground">
               <Link href="/" className="hover:text-brand-sapphire">Главная</Link>
               <span>/</span>
               <span>Применение</span>
               <span>/</span>
-              <span className="text-stone-900">{page.label}</span>
+              <span className="text-foreground">{page.label}</span>
             </nav>
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                   Посадочная страница
                 </Badge>
-                <h1 className="max-w-4xl text-3xl font-bold tracking-normal text-stone-950 md:text-5xl">
+                <h1 className="max-w-4xl text-3xl font-bold tracking-normal text-foreground md:text-5xl">
                   {page.h1}
                 </h1>
-                <p className="mt-6 max-w-3xl text-lg leading-relaxed text-stone-600">
+                <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
                   {page.intro}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
@@ -85,7 +85,7 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
                     <CheckCircle2 className="h-5 w-5 text-brand-sapphire" />
                     <CardTitle className="text-base">Что закрываем</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-sm leading-relaxed text-stone-600">
+                  <CardContent className="text-sm leading-relaxed text-muted-foreground">
                     {problem}
                   </CardContent>
                 </Card>
@@ -100,7 +100,7 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
               <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                 Подбор материала
               </Badge>
-              <h2 className="text-2xl font-bold text-stone-950 md:text-3xl">
+              <h2 className="text-2xl font-bold text-foreground md:text-3xl">
                 Какие фракции подходят
               </h2>
             </div>
@@ -110,7 +110,7 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
                   <CardHeader>
                     <CardTitle className="text-lg">{item.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-sm leading-relaxed text-stone-600">
+                  <CardContent className="text-sm leading-relaxed text-muted-foreground">
                     {item.text}
                   </CardContent>
                 </Card>
@@ -136,10 +136,10 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
                 <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                   Аргументы для закупки
                 </Badge>
-                <h2 className="text-2xl font-bold text-stone-950 md:text-3xl">
+                <h2 className="text-2xl font-bold text-foreground md:text-3xl">
                   Что указать в заявке
                 </h2>
-                <p className="mt-4 text-sm leading-relaxed text-stone-600">
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                   Для точного КП укажите назначение материала, нужную фракцию, объем,
                   город доставки, упаковку и желаемые сроки отгрузки.
                 </p>
@@ -148,7 +148,7 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
                 {page.proofPoints.map((point) => (
                   <div key={point} className="flex gap-3 rounded-lg border border-stone-200 bg-white p-4">
                     <FileText className="mt-0.5 h-5 w-5 shrink-0 text-brand-sapphire" />
-                    <span className="text-sm font-medium text-stone-800">{point}</span>
+                    <span className="text-sm font-medium text-foreground">{point}</span>
                   </div>
                 ))}
               </div>
@@ -164,7 +164,7 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
                   <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                     Релевантные позиции
                   </Badge>
-                  <h2 className="text-2xl font-bold text-stone-950 md:text-3xl">
+                  <h2 className="text-2xl font-bold text-foreground md:text-3xl">
                     Товары под задачу
                   </h2>
                 </div>
@@ -183,16 +183,16 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
 
         <section className="py-12 md:py-16">
           <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <h2 className="mb-8 text-2xl font-bold text-stone-950 md:text-3xl">
+            <h2 className="mb-8 text-2xl font-bold text-foreground md:text-3xl">
               Частые вопросы
             </h2>
             <div className="space-y-4">
               {page.faqs.map((faq) => (
                 <details key={faq.question} className="rounded-lg border border-stone-200 bg-white p-5">
-                  <summary className="cursor-pointer font-semibold text-stone-950">
+                  <summary className="cursor-pointer font-semibold text-foreground">
                     {faq.question}
                   </summary>
-                  <p className="mt-3 text-sm leading-relaxed text-stone-600">
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                     {faq.answer}
                   </p>
                 </details>

@@ -32,10 +32,10 @@ export default function ApplicationsPage() {
             <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
               Применение
             </Badge>
-            <h1 className="max-w-4xl text-3xl font-bold text-stone-950 md:text-5xl">
+            <h1 className="max-w-4xl text-3xl font-bold text-foreground md:text-5xl">
               Как выбрать мраморную продукцию под задачу
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-stone-600">
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground">
               Подборки по сценариям закупки: какие фракции подходят, что указать в заявке,
               как считать объем и на какие документы смотреть.
             </p>
@@ -50,7 +50,7 @@ export default function ApplicationsPage() {
                   <CardTitle className="text-xl">{page.label}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-5">
-                  <p className="text-sm leading-relaxed text-stone-600">{page.description}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{page.description}</p>
                   <Button asChild variant="outline">
                     <Link href={`/primenenie/${page.slug}`}>
                       Открыть

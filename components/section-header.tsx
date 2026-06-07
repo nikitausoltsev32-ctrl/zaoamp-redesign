@@ -22,7 +22,7 @@ export function SectionHeader({
       className
     )}>
       <h2 className={cn(
-        'font-serif font-bold text-stone-900',
+        'font-serif font-bold text-foreground',
         'text-2xl md:text-3xl lg:text-4xl',
         'mb-3'
       )}>

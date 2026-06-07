@@ -66,9 +66,9 @@ export default function CatalogPage() {
                   <span className="text-xs font-medium text-brand-sapphire bg-brand-sapphire/10 px-2.5 py-1 rounded-full">
                     {cat.badge}
                   </span>
-                  <ArrowRight className="h-4 w-4 text-stone-400 group-hover:text-brand-sapphire group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-brand-sapphire group-hover:translate-x-0.5 transition-all" />
                 </div>
-                <h2 className="font-semibold text-gray-900 mb-2 group-hover:text-brand-sapphire transition-colors">
+                <h2 className="font-semibold text-foreground mb-2 group-hover:text-brand-sapphire transition-colors">
                   {cat.title}
                 </h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">

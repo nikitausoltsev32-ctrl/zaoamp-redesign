@@ -92,7 +92,7 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
             </motion.div>
           </motion.div>
 
-          <h3 className="mb-3 font-bold text-gray-900 md:text-lg">
+          <h3 className="mb-3 font-bold text-foreground md:text-lg">
             {benefit.title}
           </h3>
           <p className="mt-auto text-sm leading-relaxed text-muted-foreground">

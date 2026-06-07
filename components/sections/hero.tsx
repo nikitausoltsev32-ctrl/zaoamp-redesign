@@ -94,7 +94,7 @@ export function HeroSection() {
                       onChange={(e) => setPhone(e.target.value)}
                       required
                       disabled={loading}
-                      className="bg-white text-gray-900 placeholder:text-gray-400 border-0 flex-1"
+                      className="bg-white text-foreground placeholder:text-muted-foreground border-0 flex-1"
                     />
                     <Button
                       type="submit"
@@ -108,7 +108,7 @@ export function HeroSection() {
                   {error && (
                     <p className="text-red-300 text-sm mt-2">{error}</p>
                   )}
-                  <p className="text-white/50 text-xs mt-2">
+                  <p className="text-white/70 text-xs mt-2">
                     Предварительный расчёт в день обращения. Точная цена зависит от объёма, упаковки и доставки.
                   </p>
                 </>

@@ -27,10 +27,10 @@ export function BenefitsSection() {
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 relative z-20">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-stone-900 mb-6">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-foreground mb-6">
             Почему выбирают <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-sapphire to-blue-500">нас</span>
           </h2>
-          <p className="text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             8 причин работать напрямую с производителем. Мы гарантируем стабильное качество и честные цены без наценок посредников.
           </p>
         </div>

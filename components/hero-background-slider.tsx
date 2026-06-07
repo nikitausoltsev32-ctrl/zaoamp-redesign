@@ -47,7 +47,7 @@ export function HeroBackgroundSlider() {
       </AnimatePresence>
       
       {/* Градиентные затемнения для читаемости текста */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30 z-[2]" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/55 to-black/55 z-[2]" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/40 z-[2]" />
       
       {/* Индикаторы слайдов */}

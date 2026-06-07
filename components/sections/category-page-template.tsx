@@ -43,14 +43,14 @@ export function CategoryPageTemplate({ data }: Props) {
               <span>/</span>
               <Link href="/catalog" className="hover:text-brand-sapphire">Каталог</Link>
               <span>/</span>
-              <span className="text-gray-900">{data.breadcrumbLabel}</span>
+              <span className="text-foreground">{data.breadcrumbLabel}</span>
             </nav>
             <div className="grid lg:grid-cols-2 gap-10 items-center">
               <div className="max-w-3xl">
                 <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                   Каталог · {data.breadcrumbLabel}
                 </Badge>
-                <h1 className="text-4xl font-bold text-gray-900 sm:text-5xl mb-6">
+                <h1 className="text-4xl font-bold text-foreground sm:text-5xl mb-6">
                   {data.h1}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8">
@@ -66,7 +66,7 @@ export function CategoryPageTemplate({ data }: Props) {
                   {typeof minPrice === 'number' && (
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white border text-sm">
                       <span className="text-muted-foreground">от</span>
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-foreground">
                         {minPrice.toLocaleString('ru-RU')} ₽/т
                       </span>
                     </div>
@@ -97,7 +97,7 @@ export function CategoryPageTemplate({ data }: Props) {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl font-bold text-foreground mb-6">
                   О материале
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
@@ -115,7 +115,7 @@ export function CategoryPageTemplate({ data }: Props) {
                     className="bg-white p-5 rounded-xl shadow-sm"
                   >
                     <CheckCircle2 className="h-5 w-5 text-brand-sapphire mb-3" />
-                    <h3 className="font-semibold text-gray-900 mb-2 text-sm">{point.title}</h3>
+                    <h3 className="font-semibold text-foreground mb-2 text-sm">{point.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {point.description}
                     </p>
@@ -133,7 +133,7 @@ export function CategoryPageTemplate({ data }: Props) {
               <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                 Фракции в наличии
               </Badge>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
                 Каталог фракций
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -151,7 +151,7 @@ export function CategoryPageTemplate({ data }: Props) {
               <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                 Применения
               </Badge>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
                 Где применяется
               </h2>
             </div>
@@ -168,7 +168,7 @@ export function CategoryPageTemplate({ data }: Props) {
                   <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-brand-sapphire/10 text-brand-sapphire mb-4">
                     <Check className="h-5 w-5" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{app.title}</h3>
+                  <h3 className="font-semibold text-foreground mb-2">{app.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {app.description}
                   </p>
@@ -184,34 +184,34 @@ export function CategoryPageTemplate({ data }: Props) {
               <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                 Коммерческие условия
               </Badge>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-foreground mb-4">
                 Что важно при заказе
               </h2>
             </div>
             <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
               <div className="rounded-xl border border-stone-200 bg-white p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Как считается стоимость</h3>
+                <h3 className="font-semibold text-foreground mb-2">Как считается стоимость</h3>
                 <p className="text-sm text-muted-foreground">
                   Предварительный расчёт делаем в день обращения. Итоговая цена зависит от фракции,
                   объёма, упаковки и региона доставки.
                 </p>
               </div>
               <div className="rounded-xl border border-stone-200 bg-white p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Упаковка</h3>
+                <h3 className="font-semibold text-foreground mb-2">Упаковка</h3>
                 <p className="text-sm text-muted-foreground">
                   В зависимости от позиции доступна отгрузка навалом, в биг-бэгах 500 кг и 1 т,
                   а также в мешках.
                 </p>
               </div>
               <div className="rounded-xl border border-stone-200 bg-white p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Как проходит отгрузка</h3>
+                <h3 className="font-semibold text-foreground mb-2">Как проходит отгрузка</h3>
                 <p className="text-sm text-muted-foreground">
                   Поставляем авто и ж/д, самовывоз согласовываем отдельно. Формат отгрузки подбираем
                   под объект и способ выгрузки.
                 </p>
               </div>
               <div className="rounded-xl border border-stone-200 bg-white p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">Документы</h3>
+                <h3 className="font-semibold text-foreground mb-2">Документы</h3>
                 {/* TODO: добавить на сайт документы по всем SKU, когда будут подтверждённые файлы. */}
                 <p className="text-sm text-muted-foreground">
                   Паспорта качества доступны для части позиций в разделе документов. По остальной
@@ -230,7 +230,7 @@ export function CategoryPageTemplate({ data }: Props) {
                 <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
                   FAQ
                 </Badge>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl font-bold text-foreground mb-4">
                   Частые вопросы
                 </h2>
               </div>
@@ -244,7 +244,7 @@ export function CategoryPageTemplate({ data }: Props) {
                     transition={{ duration: 0.4, delay: i * 0.05 }}
                     className="group bg-white rounded-xl p-5 cursor-pointer open:shadow-sm"
                   >
-                    <summary className="font-semibold text-gray-900 list-none flex justify-between items-center gap-4">
+                    <summary className="font-semibold text-foreground list-none flex justify-between items-center gap-4">
                       <span>{faq.question}</span>
                       <ArrowRight className="h-4 w-4 text-brand-sapphire transition-transform group-open:rotate-90 shrink-0" />
                     </summary>
@@ -262,7 +262,7 @@ export function CategoryPageTemplate({ data }: Props) {
         {relatedPosts.length > 0 && (
           <section className="py-14 bg-stone-50">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Полезные статьи</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-6">Полезные статьи</h2>
               <div className="grid md:grid-cols-2 gap-5 max-w-3xl">
                 {relatedPosts.map((post) => (
                   <Link
@@ -273,10 +273,10 @@ export function CategoryPageTemplate({ data }: Props) {
                     <span className="text-xs text-brand-sapphire font-medium mb-2">
                       {post.readTime} мин чтения
                     </span>
-                    <span className="font-semibold text-stone-900 group-hover:text-brand-sapphire transition-colors text-sm leading-snug">
+                    <span className="font-semibold text-foreground group-hover:text-brand-sapphire transition-colors text-sm leading-snug">
                       {post.title}
                     </span>
-                    <span className="mt-2 text-xs text-stone-500 line-clamp-2">{post.excerpt}</span>
+                    <span className="mt-2 text-xs text-muted-foreground line-clamp-2">{post.excerpt}</span>
                   </Link>
                 ))}
               </div>

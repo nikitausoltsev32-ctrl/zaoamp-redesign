@@ -47,23 +47,23 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Breadcrumb */}
         <div className="bg-stone-50 border-b border-stone-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <nav className="flex items-center gap-2 text-sm text-stone-500">
-              <Link href="/" className="hover:text-stone-800 transition-colors">
+            <nav className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Link href="/" className="hover:text-foreground transition-colors">
                 Главная
               </Link>
               <span>/</span>
-              <Link href="/blog" className="hover:text-stone-800 transition-colors">
+              <Link href="/blog" className="hover:text-foreground transition-colors">
                 Блог
               </Link>
               <span>/</span>
-              <span className="text-stone-800 truncate">{post.title}</span>
+              <span className="text-foreground truncate">{post.title}</span>
             </nav>
           </div>
         </div>
 
         <article className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-3xl">
           <header className="mb-8">
-            <div className="flex items-center gap-3 mb-4 text-sm text-stone-500">
+            <div className="flex items-center gap-3 mb-4 text-sm text-muted-foreground">
               <time dateTime={post.publishDate}>
                 {new Date(post.publishDate).toLocaleDateString('ru-RU', {
                   day: 'numeric',
@@ -74,10 +74,10 @@ export default async function BlogPostPage({ params }: Props) {
               <span>·</span>
               <span>{post.readTime} мин чтения</span>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-stone-900 leading-tight mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-4">
               {post.h1}
             </h1>
-            <p className="text-lg text-stone-500 leading-relaxed">{post.excerpt}</p>
+            <p className="text-lg text-muted-foreground leading-relaxed">{post.excerpt}</p>
 
             {/* Author byline */}
             {author && (
@@ -86,8 +86,8 @@ export default async function BlogPostPage({ params }: Props) {
                   {author.name.split(' ').map((n) => n[0]).join('')}
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-stone-900">{author.name}</p>
-                  <p className="text-xs text-stone-500">{author.role}, ЗАО АМП</p>
+                  <p className="text-sm font-medium text-foreground">{author.name}</p>
+                  <p className="text-xs text-muted-foreground">{author.role}, ЗАО АМП</p>
                 </div>
               </div>
             )}
@@ -96,14 +96,14 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="prose prose-stone prose-lg max-w-none">
             {post.sections.map((section, i) => (
               <div key={i}>
-                <h2 className="text-2xl font-bold text-stone-900 mt-10 mb-4">{section.h2}</h2>
+                <h2 className="text-2xl font-bold text-foreground mt-10 mb-4">{section.h2}</h2>
                 {section.content && (
-                  <p className="text-stone-600 leading-relaxed mb-4">{section.content}</p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">{section.content}</p>
                 )}
                 {section.subsections?.map((sub, j) => (
                   <div key={j}>
-                    <h3 className="text-xl font-semibold text-stone-800 mt-6 mb-3">{sub.h3}</h3>
-                    <p className="text-stone-600 leading-relaxed">{sub.content}</p>
+                    <h3 className="text-xl font-semibold text-foreground mt-6 mb-3">{sub.h3}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{sub.content}</p>
                   </div>
                 ))}
               </div>
@@ -112,7 +112,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {relatedProductsList.length > 0 && (
             <aside className="mt-12 pt-8 border-t border-stone-200">
-              <h2 className="text-xl font-bold text-stone-900 mb-4">Связанные продукты</h2>
+              <h2 className="text-xl font-bold text-foreground mb-4">Связанные продукты</h2>
               <ul className="space-y-2">
                 {relatedProductsList.map((product) => (
                   <li key={product.slug}>
@@ -136,9 +136,9 @@ export default async function BlogPostPage({ params }: Props) {
                   {author.name.split(' ').map((n) => n[0]).join('')}
                 </div>
                 <div>
-                  <p className="font-semibold text-stone-900">{author.name}</p>
-                  <p className="text-sm text-stone-500 mb-1">{author.role}, ЗАО АМП</p>
-                  <p className="text-sm text-stone-600">{author.bio}</p>
+                  <p className="font-semibold text-foreground">{author.name}</p>
+                  <p className="text-sm text-muted-foreground mb-1">{author.role}, ЗАО АМП</p>
+                  <p className="text-sm text-muted-foreground">{author.bio}</p>
                 </div>
               </div>
             </div>
@@ -147,7 +147,7 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="mt-8 pt-6 border-t border-stone-200">
             <Link
               href="/blog"
-              className="text-sm text-stone-500 hover:text-stone-800 transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               ← Все статьи
             </Link>

@@ -46,7 +46,7 @@ export function CatalogGrid({ products }: CatalogGridProps) {
               <div className="rounded-full bg-gray-100 p-6 mb-4">
                 <PackageX className="h-12 w-12 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-foreground mb-2">
                 Продукты не найдены
               </h3>
               <p className="text-muted-foreground max-w-sm">

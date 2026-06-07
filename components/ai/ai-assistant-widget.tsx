@@ -104,7 +104,7 @@ function SourceLinks({ sources }: { sources?: AssistantSource[] }) {
           href={source.url}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex max-w-full items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] text-stone-600 transition hover:border-brand-sapphire hover:text-brand-sapphire"
+          className="inline-flex max-w-full items-center gap-1 rounded-full border border-stone-200 bg-stone-50 px-2 py-1 text-[11px] text-muted-foreground transition hover:border-brand-sapphire hover:text-brand-sapphire"
         >
           <ExternalLink className="h-3 w-3 shrink-0" />
           <span className="truncate">{source.title || source.provider}</span>
@@ -283,7 +283,7 @@ export function AiAssistantWidget() {
                     className={
                       message.role === 'user'
                         ? 'max-w-[85%] rounded-2xl rounded-br-sm bg-gradient-to-br from-brand-sapphire to-blue-600 px-4 py-2.5 text-sm leading-relaxed text-white shadow-md'
-                        : 'max-w-[85%] rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm leading-relaxed text-stone-800 shadow-sm backdrop-blur-md'
+                        : 'max-w-[85%] rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm leading-relaxed text-foreground shadow-sm backdrop-blur-md'
                     }
                   >
                     <span className="whitespace-pre-wrap">{message.content}</span>
@@ -304,7 +304,7 @@ export function AiAssistantWidget() {
                   <div className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-sapphire to-blue-500 text-white shadow-md">
                     <Bot className="h-4 w-4" />
                   </div>
-                  <div className="flex items-center gap-2 rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm text-stone-500 shadow-sm backdrop-blur-md">
+                  <div className="flex items-center gap-2 rounded-2xl rounded-bl-sm border border-stone-100 bg-white/90 px-4 py-2.5 text-sm text-muted-foreground shadow-sm backdrop-blur-md">
                     <Loader2 className="h-4 w-4 animate-spin text-brand-sapphire" />
                     Печатает...
                   </div>
@@ -316,7 +316,7 @@ export function AiAssistantWidget() {
             {/* Footer Input Area */}
             <div className="border-t border-stone-100 bg-white/80 p-3 backdrop-blur-xl">
               <div className="mb-3 rounded-xl border border-brand-sapphire/20 bg-brand-sapphire/5 p-3 transition-colors hover:bg-brand-sapphire/10">
-                <div className="mb-2 flex items-start gap-2 text-xs font-medium text-stone-700">
+                <div className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
                   <span>Для точного расчета укажите город, объем и задачу.</span>
                 </div>
@@ -338,7 +338,7 @@ export function AiAssistantWidget() {
                     type="button"
                     disabled={loading}
                     onClick={() => void sendMessage(starter)}
-                    className="shrink-0 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-left text-xs font-medium text-stone-600 shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-sapphire hover:bg-brand-sapphire/5 hover:text-brand-sapphire hover:shadow disabled:opacity-50"
+                    className="shrink-0 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-left text-xs font-medium text-muted-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-sapphire hover:bg-brand-sapphire/5 hover:text-brand-sapphire hover:shadow disabled:opacity-50"
                   >
                     {starter}
                   </button>

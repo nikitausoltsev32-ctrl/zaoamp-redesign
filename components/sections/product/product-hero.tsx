@@ -107,7 +107,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-brand-ice-blue shadow-lg flex items-center justify-center">
-                    <span className="text-5xl font-serif text-stone-400">М</span>
+                    <span className="text-5xl font-serif text-muted-foreground">М</span>
                   </div>
                   <p className="text-muted-foreground">{product.name}</p>
                 </div>
@@ -121,7 +121,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
               {categoryLabel}
             </Badge>
             
-            <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl mb-4">
+            <h1 className="text-3xl font-bold text-foreground sm:text-4xl mb-4">
               {product.name}
             </h1>
 
@@ -141,7 +141,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                 onSubmit={submitOrder}
                 className="mb-8 rounded-xl border bg-white p-4 shadow-sm"
               >
-                <p className="font-semibold text-gray-900">Оформить заказ на товар</p>
+                <p className="font-semibold text-foreground">Оформить заказ на товар</p>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Цена указана за товар без доставки. Логистику подтвердит менеджер.
                 </p>

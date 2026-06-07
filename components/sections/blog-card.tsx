@@ -20,14 +20,14 @@ export function BlogCard({ post }: BlogCardProps) {
           <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-brand-powder-blue/20 text-brand-sapphire">
             {categoryLabels[post.category]}
           </span>
-          <span className="text-xs text-stone-400">{post.readTime} мин чтения</span>
+          <span className="text-xs text-muted-foreground">{post.readTime} мин чтения</span>
         </div>
-        <h2 className="text-lg font-semibold text-stone-900 group-hover:text-brand-sapphire transition-colors mb-2 line-clamp-2">
+        <h2 className="text-lg font-semibold text-foreground group-hover:text-brand-sapphire transition-colors mb-2 line-clamp-2">
           <Link href={`/blog/${post.slug}`}>{post.title}</Link>
         </h2>
-        <p className="text-sm text-stone-500 line-clamp-3 flex-1">{post.excerpt}</p>
+        <p className="text-sm text-muted-foreground line-clamp-3 flex-1">{post.excerpt}</p>
         <div className="mt-4 flex items-center justify-between">
-          <time className="text-xs text-stone-400" dateTime={post.publishDate}>
+          <time className="text-xs text-muted-foreground" dateTime={post.publishDate}>
             {new Date(post.publishDate).toLocaleDateString('ru-RU', {
               day: 'numeric',
               month: 'long',
