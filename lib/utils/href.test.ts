@@ -29,3 +29,7 @@ test('preserves query and hash', () => {
   assert.equal(internalHref('/catalog?sort=price'), '/catalog/?sort=price')
   assert.equal(internalHref('/about#team'), '/about/#team')
 })
+
+test('appends slash to dotted path segment that is not a file', () => {
+  assert.equal(internalHref('/v1.2/page'), '/v1.2/page/')
+})
