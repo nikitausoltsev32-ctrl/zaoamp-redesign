@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { Product } from '@/types'
 import type { BlogPost } from '@/lib/data/blog'
 import type { CategoryData } from '@/lib/data/categories'
+import { keywordsForTarget } from '@/lib/data/semantic-core'
 
 export const SITE_URL = 'https://amp-minerals.ru'
 export const SITE_NAME = 'АМП'
@@ -14,6 +15,11 @@ const DEFAULT_DESCRIPTION =
 
 function absoluteUrl(path = '/') {
   return new URL(path, SITE_URL).toString()
+}
+
+// Ключи семантического ядра для пути (по частотности) + ручные дополнения, без дублей.
+function mergeKeywords(path: string, extra: string[] = []): string[] {
+  return Array.from(new Set([...keywordsForTarget(path), ...extra]))
 }
 
 export function absoluteSiteUrl(path = '/') {
@@ -222,13 +228,11 @@ export function generateHomeMetadata(): Metadata {
     description:
       'Белая мраморная крошка, щебень и микрокальцит от производителя. Белизна 98%, фракции 0–200 мм, доставка по России. Расчёт стоимости в день обращения.',
     path: '/',
-    keywords: [
+    keywords: mergeKeywords('/', [
       'мраморная крошка купить екатеринбург',
       'белая мраморная крошка 98% белизна',
       'мраморный щебень от производителя',
-      'микрокальцит купить',
-      'мраморная мука цена',
-    ],
+    ]),
   })
 
   return {
@@ -258,13 +262,13 @@ export function generateCatalogMetadata(productCount: number, minPrice?: number)
     title: 'Каталог мраморной крошки и щебня — купить в Екатеринбурге',
     description: `Каталог белой мраморной продукции: ${productCount} позиций с характеристиками, упаковкой и доставкой по России. ${priceText} Подберём решение под объект и регион.`,
     path: '/catalog',
-    keywords: [
+    keywords: mergeKeywords('/catalog', [
       'каталог мраморной крошки',
       'мраморный щебень купить',
       'микрокальцит от производителя',
       'мраморная мука цена',
       'доставка мраморной продукции',
-    ],
+    ]),
   })
 }
 
@@ -284,7 +288,7 @@ export function generateCategoryMetadata(category: CategoryData, products: Produ
     title: titleMap[category.slug],
     description: buildCategoryDescription(category, products.length, minPrice),
     path: `/catalog/${category.slug}`,
-    keywords: category.seo.keywords,
+    keywords: mergeKeywords(`/catalog/${category.slug}`, category.seo.keywords),
   })
 }
 
@@ -296,12 +300,12 @@ export function generateProductMetadata(product: Product): Metadata {
       title: buildProductTitle(product),
       description: buildProductDescription(product),
       path,
-      keywords: [
+      keywords: mergeKeywords(path, [
         product.name.toLowerCase(),
         `${product.fraction} купить`,
         'доставка по россии',
         'цена за тонну',
-      ],
+      ]),
     }),
     openGraph: {
       type: 'website',
@@ -372,11 +376,11 @@ export function generateDocumentsMetadata(documentCount: number): Metadata {
     title: 'Паспорта качества на мраморную продукцию',
     description: `Раздел с доступными паспортами качества на мраморную продукцию АМП. Сейчас на сайте опубликовано ${documentCount} подтверждённых документов для отдельных позиций.`,
     path: '/documents',
-    keywords: [
+    keywords: mergeKeywords('/documents', [
       'паспорта качества мраморная крошка',
       'документы на щебень',
       'паспорт качества микрокальцит',
-    ],
+    ]),
   })
 }
 
@@ -386,12 +390,12 @@ export function generateBlogMetadata(): Metadata {
     description:
       'Статьи о выборе фракции, применении мраморной крошки, щебня, муки и микрокальцита. Практика для строительных, производственных и ландшафтных задач.',
     path: '/blog',
-    keywords: [
+    keywords: mergeKeywords('/blog', [
       'блог о мраморной крошке',
       'применение мраморного щебня',
       'статьи о микрокальците',
       'как выбрать фракцию',
-    ],
+    ]),
   })
 }
 
@@ -401,7 +405,7 @@ export function generateBlogPostMetadata(post: BlogPost): Metadata {
       title: post.seo.title,
       description: post.seo.description,
       path: `/blog/${post.slug}`,
-      keywords: post.seo.keywords,
+      keywords: mergeKeywords(`/blog/${post.slug}`, post.seo.keywords),
       type: 'article',
     }),
     openGraph: {

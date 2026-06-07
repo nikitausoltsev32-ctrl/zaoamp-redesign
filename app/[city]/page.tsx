@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { CityLandingPageTemplate } from '@/components/sections/city-landing-page'
 import { cityLandingPages, getCityLandingPage } from '@/lib/data/seo-landings'
+import { keywordsForTarget } from '@/lib/data/semantic-core'
 
 interface CityPageProps {
   params: {
@@ -25,6 +26,7 @@ export function generateMetadata({ params }: CityPageProps): Metadata {
   return {
     title: page.title,
     description: page.description,
+    keywords: keywordsForTarget(`/${page.slug}`),
     alternates: {
       canonical: `/${page.slug}/`,
     },
