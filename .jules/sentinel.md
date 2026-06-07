@@ -1,4 +1,4 @@
-## 2024-05-22 - SSRF bypass due to URL parsing of IPv6 brackets
-**Vulnerability:** In node, `new URL("http://[::1]").hostname` returns `"[::1]"`. The previous SSRF filtering checked for exactly `"::1"` and thus bypassed `[::1]`, opening up a critical SSRF vulnerability on loopback IP.
-**Learning:** When performing URL sanitization and SSRF blocklisting against node `URL.hostname`, any IPv6 bracketed IP address will keep its brackets (`[`, `]`).
-**Prevention:** Strip surrounding brackets via `.replace(/^\[|\]$/g, "")` before doing any matching or use a robust IP matching library.
+## 2024-06-07 - Fixed Timing Attack Vulnerability in Admin Token Validation
+**Vulnerability:** The admin endpoint `app/api/admin/ai-leads/route.ts` used a simple equality check (`!==`) to compare the user-provided request token with the server's admin token. This is susceptible to timing attacks, allowing an attacker to incrementally guess the admin token by observing the response time differences for each character.
+**Learning:** Node.js native comparison operators like `===` or `!==` return as soon as they find a mismatch. In security contexts (authentication/authorization), this short-circuiting exposes timing leaks. Additionally, native `crypto.timingSafeEqual` throws a fatal error if either buffer is missing or lengths are not identical.
+**Prevention:** Always use `crypto.timingSafeEqual` with Buffers for sensitive token/password comparisons. Convert strings via `Buffer.from(token || '', 'utf-8')` to prevent fatal TypeError crashes. Also, perform a dummy comparison `crypto.timingSafeEqual(adminBuffer, adminBuffer)` when lengths differ to prevent length-based timing leaks.
