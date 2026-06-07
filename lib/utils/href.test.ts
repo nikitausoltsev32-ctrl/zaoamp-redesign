@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-import { internalHref } from './href'
+import { internalHref } from './href.ts'
 
 test('appends slash to internal path', () => {
   assert.equal(internalHref('/catalog'), '/catalog/')
