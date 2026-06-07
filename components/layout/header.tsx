@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ChevronDown, MessageCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Logo } from './logo'

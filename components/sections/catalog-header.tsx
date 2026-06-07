@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ChevronRight, Package } from 'lucide-react'
 
 export function CatalogHeader() {

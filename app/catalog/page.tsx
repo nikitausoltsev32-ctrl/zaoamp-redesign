@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ArrowRight } from 'lucide-react'
 import { JsonLd, generateItemListSchema } from '@/lib/seo/schema'
 import { CatalogHeader } from '@/components/sections/catalog-header'

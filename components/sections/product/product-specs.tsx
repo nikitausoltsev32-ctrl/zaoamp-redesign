@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { Product } from '@/types'
 import { SectionHeader } from '@/components/section-header'
 import { Badge } from '@/components/ui/badge'

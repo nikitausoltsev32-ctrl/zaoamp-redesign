@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/dialog'
 import { Product } from '@/types'
 import { PriceTag } from './price-tag'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { FileText, Loader2 } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
 import { getProductImageAlt } from '@/lib/seo/metadata'
