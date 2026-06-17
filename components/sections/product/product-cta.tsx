@@ -1,6 +1,6 @@
 'use client'
 
-import { Phone, MessageCircle, Send, Mail } from 'lucide-react'
+import { Phone, Mail } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { m } from 'framer-motion'
 import { SectionHeader } from '@/components/section-header'
@@ -24,39 +24,18 @@ export function ProductCTA() {
           />
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              asChild 
+            <Button
+              asChild
               size="lg"
               className="bg-white text-gray-900 hover:bg-gray-100"
             >
               <a href="tel:+79193931992" onClick={() => ymGoal('phone_click')}>
                 <Phone className="mr-2 h-4 w-4" />
-                Позвонить
+                Позвонить +7 (919) 393-19-92
               </a>
             </Button>
-            <Button 
-              asChild 
-              size="lg"
-              className="bg-green-500 text-white hover:bg-green-600 border-0"
-            >
-              <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer" onClick={() => ymGoal('whatsapp_click')}>
-                <MessageCircle className="mr-2 h-4 w-4" />
-                WhatsApp
-              </a>
-            </Button>
-            <Button 
-              asChild 
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-gray-900"
-            >
-              <a href="https://t.me/usolst" target="_blank" rel="noopener noreferrer">
-                <Send className="mr-2 h-4 w-4" />
-                Telegram
-              </a>
-            </Button>
-            <Button 
-              asChild 
+            <Button
+              asChild
               size="lg"
               variant="outline"
               className="border-white text-white hover:bg-white hover:text-gray-900"
