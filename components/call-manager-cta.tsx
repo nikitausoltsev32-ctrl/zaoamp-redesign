@@ -1,6 +1,6 @@
 'use client'
 
-import { Phone, MessageCircle, Clock } from 'lucide-react'
+import { Phone, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
@@ -10,19 +10,17 @@ interface CallManagerCTAProps {
   title?: string
   subtitle?: string
   className?: string
-  showWhatsapp?: boolean
 }
 
 /**
  * Единый блок «Позвоните менеджеру».
  * Заменяет формы сбора персональных данных (152-ФЗ): связь идёт только
- * по телефону/мессенджеру, никакие данные на сайте не собираются.
+ * по телефону, никакие данные на сайте не собираются.
  */
 export function CallManagerCTA({
   title = 'Позвоните нашему менеджеру',
   subtitle = 'Рассчитаем стоимость, подберём фракцию и оформим заказ по телефону',
   className,
-  showWhatsapp = true,
 }: CallManagerCTAProps) {
   const digits = contactInfo.whatsapp
 
@@ -44,31 +42,13 @@ export function CallManagerCTA({
         {contactInfo.phone}
       </a>
 
-      <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
+      <div className="mt-4 flex justify-center">
         <Button asChild size="lg" className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
           <a href={`tel:${digits}`} onClick={() => ymGoal('phone_click')}>
             <Phone className="mr-2 h-4 w-4" />
             Позвонить
           </a>
         </Button>
-        {showWhatsapp && (
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
-          >
-            <a
-              href={`https://wa.me/${digits}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => ymGoal('whatsapp_click')}
-            >
-              <MessageCircle className="mr-2 h-4 w-4" />
-              WhatsApp
-            </a>
-          </Button>
-        )}
       </div>
 
       <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">

@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Package, CheckCircle2, Phone, MessageCircle } from 'lucide-react'
+import { Package, CheckCircle2, Phone } from 'lucide-react'
 import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 
@@ -40,29 +40,14 @@ export function SamplesCTA() {
               {contactInfo.phone}
             </a>
 
-            <div className="mt-5 flex flex-col gap-3">
+            <div className="mt-5">
               <Button
                 asChild
                 size="lg"
                 className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white"
               >
                 <a href={`tel:${contactInfo.whatsapp}`} onClick={() => ymGoal('phone_click')}>
-                  <Phone className="mr-2 h-4 w-4" /> Позвонить
-                </a>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
-              >
-                <a
-                  href={`https://wa.me/${contactInfo.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => ymGoal('whatsapp_click')}
-                >
-                  <MessageCircle className="mr-2 h-4 w-4" /> Написать в WhatsApp
+                  <Phone className="mr-2 h-4 w-4" /> Позвонить {contactInfo.phone}
                 </a>
               </Button>
             </div>

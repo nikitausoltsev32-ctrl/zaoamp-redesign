@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChevronRight, Check, Phone, MessageCircle } from 'lucide-react'
+import { ChevronRight, Check, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Product } from '@/types'
@@ -127,7 +127,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex">
               <Button asChild size="lg" className="bg-brand-sapphire hover:bg-brand-sapphire-dark">
                 <a
                   href={`tel:${contactInfo.whatsapp}`}
@@ -137,25 +137,9 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                   Позвонить {contactInfo.phone}
                 </a>
               </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
-              >
-                <a
-                  href={`https://wa.me/${contactInfo.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => ymGoal('whatsapp_click')}
-                >
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  Написать в WhatsApp
-                </a>
-              </Button>
             </div>
             <p className="text-sm text-muted-foreground mt-3">
-              Ответим за 5 минут в рабочее время · WhatsApp 24/7
+              Ответим на все вопросы в рабочее время: {contactInfo.workingHours}
             </p>
 
             {/* Trust badges */}

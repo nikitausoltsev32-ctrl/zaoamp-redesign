@@ -1,8 +1,7 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 import { m } from 'framer-motion'
 import { ymGoal } from '@/lib/analytics'
 
@@ -71,25 +70,6 @@ export function ContactInfo() {
           </Card>
         </m.div>
       ))}
-
-      {/* Quick links */}
-      <div className="pt-4">
-        <h3 className="font-medium text-gray-900 mb-3">Быстрые контакты</h3>
-        <div className="flex gap-3">
-          <Button asChild variant="outline" className="flex-1">
-            <a href="https://wa.me/79193931992" target="_blank" rel="noopener noreferrer" onClick={() => ymGoal('whatsapp_click')}>
-              <MessageCircle className="mr-2 h-4 w-4" />
-              WhatsApp
-            </a>
-          </Button>
-          <Button asChild variant="outline" className="flex-1">
-            <a href="https://t.me/usolst" target="_blank" rel="noopener noreferrer">
-              <Send className="mr-2 h-4 w-4" />
-              Telegram
-            </a>
-          </Button>
-        </div>
-      </div>
     </div>
   )
 }
