@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { ContactForm, ContactInfo } from '@/components/sections/contacts/contact-form'
+import { ContactInfo } from '@/components/sections/contacts/contact-form'
+import { CallManagerCTA } from '@/components/call-manager-cta'
 import { SectionHeader } from '@/components/section-header'
 import { generateContactsMetadata } from '@/lib/seo/metadata'
 import { generateBreadcrumbSchema, generateLocalBusinessSchema, JsonLd } from '@/lib/seo/schema'
@@ -30,8 +31,11 @@ export default function ContactsPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold mb-6">Напишите нам</h2>
-              <ContactForm />
+              <h2 className="text-2xl font-bold mb-6">Свяжитесь с нами</h2>
+              <CallManagerCTA
+                title="Позвоните — ответим на все вопросы"
+                subtitle="Подберём фракцию, рассчитаем стоимость с доставкой и оформим заказ по телефону"
+              />
             </div>
 
             <div>

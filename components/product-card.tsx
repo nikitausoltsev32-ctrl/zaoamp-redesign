@@ -1,24 +1,14 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
 import { Product } from '@/types'
 import { PriceTag } from './price-tag'
 import Link from 'next/link'
-import { FileText, Loader2 } from 'lucide-react'
+import { Phone } from 'lucide-react'
+import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 import { getProductImageAlt } from '@/lib/seo/metadata'
 
@@ -28,35 +18,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, variant = 'default' }: ProductCardProps) {
-  const [kpOpen, setKpOpen] = useState(false)
-  const [kpPhone, setKpPhone] = useState('')
-  const [kpSubmitted, setKpSubmitted] = useState(false)
-  const [kpLoading, setKpLoading] = useState(false)
-  const [kpError, setKpError] = useState<string | null>(null)
-
-  const handleKpSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const phone = kpPhone.trim()
-    if (!phone) return
-    setKpLoading(true)
-    setKpError(null)
-    try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, source: `product-${product.slug}` }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error ?? 'Ошибка отправки')
-      ymGoal('kp_submit')
-      setKpSubmitted(true)
-    } catch (err) {
-      setKpError(err instanceof Error ? err.message : 'Ошибка отправки')
-    } finally {
-      setKpLoading(false)
-    }
-  }
-
   const hasPrice = product.pricePerTon !== undefined && product.pricePerTon !== null
   if (variant === 'compact') {
     return (
@@ -140,67 +101,14 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
           <Link href={`/product/${product.slug}`} onClick={() => ymGoal('product_view')}>Подробнее</Link>
         </Button>
         {!hasPrice && (
-          <Button variant="outline" className="flex-1" onClick={() => { ymGoal('kp_open'); setKpOpen(true) }}>
-            <FileText className="mr-2 h-4 w-4" />
-            Получить КП
+          <Button asChild variant="outline" className="flex-1">
+            <a href={`tel:${contactInfo.whatsapp}`} onClick={() => ymGoal('phone_click')}>
+              <Phone className="mr-2 h-4 w-4" />
+              Узнать цену
+            </a>
           </Button>
         )}
       </CardFooter>
-
-      <Dialog
-        open={kpOpen}
-        onOpenChange={(open) => {
-          setKpOpen(open)
-          if (!open) {
-            setKpPhone('')
-            setKpSubmitted(false)
-            setKpError(null)
-          }
-        }}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Получить КП на {product.name}</DialogTitle>
-            <DialogDescription>
-              Оставьте номер телефона и мы вам перезвоним
-            </DialogDescription>
-          </DialogHeader>
-          {kpSubmitted ? (
-            <p className="text-sm text-green-600 py-4">
-              Спасибо! Мы перезвоним в ближайшее время.
-            </p>
-          ) : (
-            <form onSubmit={handleKpSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor={`kp-phone-${product.id}`}>Телефон</Label>
-                <Input
-                  id={`kp-phone-${product.id}`}
-                  type="tel"
-                  placeholder="+7 (999) 123-45-67"
-                  value={kpPhone}
-                  onChange={(e) => setKpPhone(e.target.value)}
-                  required
-                  disabled={kpLoading}
-                  className="w-full"
-                  aria-invalid={!!kpError}
-                  aria-describedby={kpError ? `kp-error-${product.id}` : undefined}
-                />
-              </div>
-              {kpError && (
-                <p id={`kp-error-${product.id}`} className="text-sm text-destructive">
-                  {kpError}
-                </p>
-              )}
-              <DialogFooter>
-                <Button type="submit" disabled={kpLoading}>
-                  {kpLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />}
-                  {kpLoading ? 'Отправка...' : 'Отправить'}
-                </Button>
-              </DialogFooter>
-            </form>
-          )}
-        </DialogContent>
-      </Dialog>
     </Card>
   )
 }

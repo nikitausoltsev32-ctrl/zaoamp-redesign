@@ -1,57 +1,11 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Package, Send, CheckCircle2 } from 'lucide-react'
+import { Package, CheckCircle2, Phone, MessageCircle } from 'lucide-react'
+import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
-import { getUTMData } from '@/lib/hooks/use-utm'
 
 export function SamplesCTA() {
-  const [phone, setPhone] = useState('')
-  const [name, setName] = useState('')
-  const [city, setCity] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!phone || !name || !city) return
-    setStatus('loading')
-    try {
-      const response = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone,
-          name,
-          city,
-          source: 'samples_request',
-          productName: 'Набор образцов (7 видов)',
-          utm: getUTMData(),
-        }),
-      })
-      if (!response.ok) throw new Error()
-      ymGoal('samples_request')
-      setStatus('sent')
-    } catch (err) {
-      setStatus('error')
-    }
-  }
-
-  if (status === 'sent') {
-    return (
-      <section className="py-12 bg-stone-50 border-y border-stone-200 mt-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle2 className="h-8 w-8 text-green-600" />
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Заявка на образцы принята!</h2>
-          <p className="text-muted-foreground">Наш менеджер свяжется с вами для уточнения адреса доставки.</p>
-        </div>
-      </section>
-    )
-  }
-
   return (
     <section className="py-12 bg-brand-sapphire text-white border-y border-brand-sapphire-dark mt-12 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10 bg-[url('/images/pattern.svg')] bg-repeat"></div>
@@ -72,57 +26,50 @@ export function SamplesCTA() {
             </ul>
           </div>
           
-          <div className="bg-white text-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl">
-            <h3 className="text-xl font-bold mb-6 text-center">Заказать набор образцов</h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Как к вам обращаться?</label>
-                <Input 
-                  placeholder="Иван Иванов" 
-                  value={name} 
-                  onChange={(e) => setName(e.target.value)} 
-                  required 
-                  className="bg-stone-50"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
-                <Input 
-                  type="tel" 
-                  placeholder="+7 (___) ___-__-__" 
-                  value={phone} 
-                  onChange={(e) => setPhone(e.target.value)} 
-                  required 
-                  className="bg-stone-50"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Город доставки</label>
-                <Input 
-                  placeholder="Например, Москва" 
-                  value={city} 
-                  onChange={(e) => setCity(e.target.value)} 
-                  required 
-                  className="bg-stone-50"
-                />
-              </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white mt-2" 
+          <div className="bg-white text-gray-900 p-6 sm:p-8 rounded-2xl shadow-xl text-center">
+            <h3 className="text-xl font-bold mb-2">Заказать набор образцов</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              Позвоните менеджеру — уточним фракции, адрес доставки и оформим отправку образцов.
+            </p>
+
+            <a
+              href={`tel:${contactInfo.whatsapp}`}
+              onClick={() => ymGoal('phone_click')}
+              className="block text-2xl font-bold text-brand-sapphire transition-colors hover:text-brand-sapphire-dark"
+            >
+              {contactInfo.phone}
+            </a>
+
+            <div className="mt-5 flex flex-col gap-3">
+              <Button
+                asChild
                 size="lg"
-                disabled={status === 'loading'}
+                className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white"
               >
-                {status === 'loading' ? 'Отправка...' : <><Send className="mr-2 h-4 w-4" /> Получить образцы</>}
+                <a href={`tel:${contactInfo.whatsapp}`} onClick={() => ymGoal('phone_click')}>
+                  <Phone className="mr-2 h-4 w-4" /> Позвонить
+                </a>
               </Button>
-              
-              {status === 'error' && (
-                <p className="text-sm text-red-500 text-center">Ошибка. Попробуйте ещё раз.</p>
-              )}
-              <p className="text-xs text-center text-stone-500 mt-4">
-                Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.
-              </p>
-            </form>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="w-full border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+              >
+                <a
+                  href={`https://wa.me/${contactInfo.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => ymGoal('whatsapp_click')}
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" /> Написать в WhatsApp
+                </a>
+              </Button>
+            </div>
+
+            <p className="text-xs text-center text-stone-500 mt-5">
+              {contactInfo.workingHours}
+            </p>
           </div>
         </div>
       </div>

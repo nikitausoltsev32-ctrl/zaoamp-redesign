@@ -6,7 +6,7 @@ import { ymGoal } from '@/lib/analytics'
 
 export function FloatingActions() {
   return (
-    <div className="lg:hidden fixed bottom-4 right-4 z-40 flex flex-col gap-3">
+    <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-3">
       <a
         href={`https://wa.me/${contactInfo.whatsapp}`}
         target="_blank"

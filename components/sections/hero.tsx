@@ -1,44 +1,15 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { m } from 'framer-motion'
 import { ArrowRight, Calculator, Phone } from 'lucide-react'
 import { HeroBackgroundSlider } from '@/components/hero-background-slider'
+import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 
 export function HeroSection() {
-  const [phone, setPhone] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const val = phone.trim()
-    if (!val) return
-    setLoading(true)
-    setError(null)
-    try {
-      const res = await fetch('/api/leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone: val, source: 'hero' }),
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error ?? 'Ошибка отправки')
-      ymGoal('hero_lead_submit')
-      setSubmitted(true)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка отправки')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const stats = [
     { value: '20+', label: 'лет на рынке', sub: 'с 2004 года' },
     { value: '98%', label: 'белизна', sub: 'высший класс' },
@@ -75,44 +46,24 @@ export function HeroSection() {
               Собственное месторождение белого мрамора.
             </p>
 
-            {/* КП форма */}
+            {/* Звонок менеджеру */}
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/20">
-              {submitted ? (
-                <p className="text-white font-medium py-2">
-                  Спасибо! Перезвоним в ближайшее время.
-                </p>
-              ) : (
-                <>
-                  <p className="text-white font-semibold mb-3 text-base">
-                    Получить коммерческое предложение
-                  </p>
-                  <form onSubmit={handleSubmit} className="flex gap-2">
-                    <Input
-                      type="tel"
-                      placeholder="+7 (999) 123-45-67"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      disabled={loading}
-                      className="bg-white text-gray-900 placeholder:text-gray-400 border-0 flex-1"
-                    />
-                    <Button
-                      type="submit"
-                      disabled={loading}
-                      className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 shrink-0"
-                    >
-                      <Phone className="h-4 w-4 mr-2" />
-                      {loading ? '...' : 'Перезвоним'}
-                    </Button>
-                  </form>
-                  {error && (
-                    <p className="text-red-300 text-sm mt-2">{error}</p>
-                  )}
-                  <p className="text-white/50 text-xs mt-2">
-                    Предварительный расчёт в день обращения. Точная цена зависит от объёма, упаковки и доставки.
-                  </p>
-                </>
-              )}
+              <p className="text-white font-semibold mb-1 text-base">
+                Получить коммерческое предложение
+              </p>
+              <p className="text-white/70 text-sm mb-4">
+                Позвоните — рассчитаем стоимость и подберём фракцию в день обращения.
+              </p>
+              <Button
+                asChild
+                size="lg"
+                className="bg-brand-sapphire hover:bg-brand-sapphire-dark text-white border-0 w-full sm:w-auto"
+              >
+                <a href={`tel:${contactInfo.whatsapp}`} onClick={() => ymGoal('phone_click')}>
+                  <Phone className="h-4 w-4 mr-2" />
+                  Позвонить {contactInfo.phone}
+                </a>
+              </Button>
             </div>
 
             <div className="flex flex-wrap gap-3">
