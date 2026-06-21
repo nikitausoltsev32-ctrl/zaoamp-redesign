@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint && node scripts/check-internal-links.mjs",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "node --test scripts/lib/*.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
