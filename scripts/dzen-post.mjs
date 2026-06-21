@@ -63,9 +63,23 @@ async function main() {
   await page.pause() // ручной контроль публикации
 
   const url = await page.url()
-  const data = readTopics()
-  markStatus(data, fm.title ? findSlug(fm) : '', 'published', { url })
-  writeTopics(data)
+
+  // Записать статус в сам .md файл статьи, иначе findGenerated() выберет её снова → дубль-постинг
+  const raw = readFileSync(article.full, 'utf8')
+  const updated = raw
+    .replace(/^status: generated$/m, 'status: published')
+    .replace(/^url:.*$/m, `url: ${url}`)
+  writeFileSync(article.full, updated)
+
+  // И обновить очередь тем, если тема нашлась по заголовку
+  const slug = findSlug(fm)
+  if (slug) {
+    const data = readTopics()
+    markStatus(data, slug, 'published', { url })
+    writeTopics(data)
+  } else {
+    console.warn(`Тема для «${fm.title}» не найдена в topics.json — обновлён только файл статьи.`)
+  }
   await browser.close()
 }
 
