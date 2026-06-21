@@ -1,0 +1,32 @@
+{
+  "queue": [
+    {
+      "slug": "mramornaya-kroshka-dlya-shtukaturki-rashod",
+      "title": "Мраморная крошка для декоративной штукатурки: фракции, расход, выбор поставщика",
+      "platform": "dzen",
+      "audience": "b2b",
+      "status": "pending"
+    },
+    {
+      "slug": "mikrokaltsit-v-proizvodstve-lkm",
+      "title": "Микрокальцит в производстве ЛКМ: какой брать и на что смотреть в паспорте",
+      "platform": "dzen",
+      "audience": "b2b",
+      "status": "pending"
+    },
+    {
+      "slug": "mramornyj-shheben-dlya-dorog-i-blagoustrojstva",
+      "title": "Мраморный щебень для дорог и благоустройства: фракции и приёмка партии",
+      "platform": "dzen",
+      "audience": "builders",
+      "status": "pending"
+    },
+    {
+      "slug": "kak-prinyat-partiyu-mramornoj-kroshki-na-obekte",
+      "title": "Как снабженцу принять партию мраморной крошки: что проверять кроме цены",
+      "platform": "vc",
+      "audience": "b2b",
+      "status": "pending"
+    }
+  ]
+}
