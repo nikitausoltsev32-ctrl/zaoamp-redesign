@@ -8,6 +8,7 @@ import { ProductCTA } from '@/components/sections/product/product-cta'
 import { getProductBySlug, getAllProductSlugs } from '@/lib/utils/products'
 import { generateProductSchema, generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
 import { generateProductMetadata } from '@/lib/seo/metadata'
+import { SeoLongContent } from '@/components/sections/seo-long-content'
 
 interface ProductPageProps {
   params: {
@@ -63,6 +64,11 @@ export default function ProductPage({ params }: ProductPageProps) {
       <ProductHero product={product} categoryBreadcrumb={cat} />
       <ProductSpecs product={product} />
       <ProductApplications product={product} />
+      {product.seoContent && (
+        <section className="bg-white py-16">
+          <SeoLongContent content={product.seoContent} className="" hideSpecs />
+        </section>
+      )}
       <ProductCalculator product={product} />
       <ProductCTA />
     </div>

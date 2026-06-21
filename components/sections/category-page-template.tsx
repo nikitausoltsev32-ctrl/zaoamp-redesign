@@ -297,7 +297,7 @@ export function CategoryPageTemplate({ data }: Props) {
               <Button asChild size="lg" className="bg-white text-brand-deep-navy hover:bg-stone-100">
                 <Link href="/contacts">Написать нам</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
                 <a href="tel:+79193931992">+7 (919) 393-19-92</a>
               </Button>
             </div>

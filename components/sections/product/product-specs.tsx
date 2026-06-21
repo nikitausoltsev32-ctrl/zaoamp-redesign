@@ -10,9 +10,13 @@ interface ProductSpecsProps {
   product: Product
 }
 
+function isHighlight(label: string) {
+  return label.includes('Белизна') || label.includes('CaCO')
+}
+
 export function ProductSpecs({ product }: ProductSpecsProps) {
   const passport = getDocumentByProductSlug(product.slug)
-  const specs = [
+  const specs = product.seoContent?.specs?.rows ?? [
     { label: 'Фракция', value: product.fraction },
     { label: 'Белизна', value: product.specifications.whiteness },
     { label: 'Насыпная плотность', value: product.specifications.density || '1400-1600 кг/м³' },
@@ -35,27 +39,32 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
 
         <div className="mt-8 max-w-3xl mx-auto">
           <div className="bg-brand-ice-blue rounded-xl shadow-sm overflow-hidden">
-            <div className="divide-y">
-              {specs.map((spec, index) => (
-                <div 
-                  key={index} 
-                  className={`flex justify-between items-center px-6 py-4 ${index % 2 === 0 ? 'bg-stone-50/50' : ''}`}
-                >
-                  <span className="font-medium text-foreground">
-                    {spec.label}
-                  </span>
-                  <span className="text-right">
-                    {spec.label === 'Белизна' || spec.label === 'Содержание CaCO₃' ? (
-                      <Badge variant="secondary" className="bg-brand-sapphire/10 text-brand-sapphire">
-                        {spec.value}
-                      </Badge>
-                    ) : (
-                      spec.value
-                    )}
-                  </span>
-                </div>
-              ))}
-            </div>
+            <table className="w-full border-collapse">
+              <tbody className="divide-y">
+                {specs.map((spec, index) => (
+                  <tr
+                    key={index}
+                    className={index % 2 === 0 ? 'bg-stone-50/50' : ''}
+                  >
+                    <th
+                      scope="row"
+                      className="px-6 py-4 text-left font-medium text-foreground"
+                    >
+                      {spec.label}
+                    </th>
+                    <td className="px-6 py-4 text-right">
+                      {isHighlight(spec.label) ? (
+                        <Badge variant="secondary" className="bg-brand-sapphire/10 text-brand-sapphire">
+                          {spec.value}
+                        </Badge>
+                      ) : (
+                        spec.value
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
           {/* Паспорт качества */}

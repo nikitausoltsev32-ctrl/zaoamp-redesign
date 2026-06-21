@@ -20,7 +20,7 @@ export function ProductCTA() {
             title="Остались вопросы?"
             subtitle="Наши специалисты помогут подобрать оптимальное решение для ваших задач"
             centered
-            className="text-white"
+            inverted
           />
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -48,7 +48,7 @@ export function ProductCTA() {
               asChild 
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-foreground"
+              className="bg-transparent border-white text-white hover:bg-white hover:text-foreground"
             >
               <a href="https://t.me/usolst" target="_blank" rel="noopener noreferrer">
                 <Send className="mr-2 h-4 w-4" />
@@ -59,7 +59,7 @@ export function ProductCTA() {
               asChild 
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white hover:text-foreground"
+              className="bg-transparent border-white text-white hover:bg-white hover:text-foreground"
             >
               <a href="mailto:evoprod@mail.ru">
                 <Mail className="mr-2 h-4 w-4" />

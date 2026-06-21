@@ -122,7 +122,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             </Badge>
             
             <h1 className="text-3xl font-bold text-foreground sm:text-4xl mb-4">
-              {product.name}
+              {product.h1 ?? product.name}
             </h1>
 
             <div className="mb-6">

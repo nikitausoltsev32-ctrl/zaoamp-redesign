@@ -294,11 +294,13 @@ export function generateCategoryMetadata(category: CategoryData, products: Produ
 
 export function generateProductMetadata(product: Product): Metadata {
   const path = `/product/${product.slug}/`
+  const title = product.metaTitle ?? buildProductTitle(product)
+  const description = product.metaDescription ?? buildProductDescription(product)
 
   return {
     ...createMetadata({
-      title: buildProductTitle(product),
-      description: buildProductDescription(product),
+      title,
+      description,
       path,
       keywords: mergeKeywords(path, [
         product.name.toLowerCase(),
@@ -310,8 +312,8 @@ export function generateProductMetadata(product: Product): Metadata {
     openGraph: {
       type: 'website',
       url: path,
-      title: buildProductTitle(product),
-      description: buildProductDescription(product),
+      title,
+      description,
       siteName: SITE_NAME,
       locale: 'ru_RU',
       images: product.image
