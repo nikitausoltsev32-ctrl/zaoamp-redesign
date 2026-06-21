@@ -8,7 +8,8 @@ import { ProductCard } from '@/components/product-card'
 import type { CityLandingPage } from '@/lib/data/seo-landings'
 import { getProductsForLanding } from '@/lib/data/seo-landings'
 import { products } from '@/lib/data/products'
-import { generateBreadcrumbSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
+import { generateBreadcrumbSchema, generateFAQSchema, generateLocalBusinessSchema, JsonLd } from '@/lib/seo/schema'
+import { SeoLongContent } from '@/components/sections/seo-long-content'
 
 interface CityLandingPageTemplateProps {
   page: CityLandingPage
@@ -25,6 +26,7 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
     <>
       <JsonLd data={breadcrumb} />
       <JsonLd data={generateFAQSchema(page.faqs)} />
+      <JsonLd data={generateLocalBusinessSchema(page.city)} />
       <main className="min-h-screen bg-stone-50">
         <section className="bg-white border-b border-stone-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -153,6 +155,12 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
                 ))}
               </div>
             </div>
+          </section>
+        )}
+
+        {page.seoContent && (
+          <section className="py-12 md:py-16 border-t border-stone-200">
+            <SeoLongContent content={page.seoContent} className="" />
           </section>
         )}
 
