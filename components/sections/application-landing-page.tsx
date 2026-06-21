@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ArrowRight, CheckCircle2, FileText, Phone } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import type { ApplicationLandingPage } from '@/lib/data/seo-landings'
 import { getProductsForLanding } from '@/lib/data/seo-landings'
 import { products } from '@/lib/data/products'
 import { generateBreadcrumbSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
+import { SeoLongContent } from '@/components/sections/seo-long-content'
 
 interface ApplicationLandingPageTemplateProps {
   page: ApplicationLandingPage
@@ -129,6 +130,12 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
           </div>
         </section>
 
+        {page.seoContent && (
+          <section className="bg-white py-12 md:py-16 border-t border-stone-200">
+            <SeoLongContent content={page.seoContent} className="" />
+          </section>
+        )}
+
         <section className="py-12 md:py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
@@ -211,7 +218,7 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
               <Button asChild size="lg" className="bg-white text-brand-deep-navy hover:bg-stone-100">
                 <Link href="/contacts">Оставить заявку</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
                 <a href="tel:+79193931992">+7 (919) 393-19-92</a>
               </Button>
             </div>

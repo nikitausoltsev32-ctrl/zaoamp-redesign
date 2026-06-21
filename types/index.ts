@@ -1,3 +1,21 @@
+export interface SeoContentSection {
+  heading: string
+  paragraphs?: string[]
+  items?: { label: string; text: string }[]
+}
+
+export interface SeoSpecTable {
+  caption?: string
+  rows: { label: string; value: string }[]
+}
+
+export interface SeoLongContent {
+  lead?: string[]
+  sections?: SeoContentSection[]
+  specs?: SeoSpecTable
+  outro?: string[]
+}
+
 export interface Product {
   id: string
   slug: string
@@ -8,6 +26,10 @@ export interface Product {
   priceRetail?: number
   availability?: 'in_stock' | 'preorder' | 'out_of_stock'
   description: string
+  h1?: string
+  metaTitle?: string
+  metaDescription?: string
+  seoContent?: SeoLongContent
   applications: string[]
   specifications: {
     whiteness: string

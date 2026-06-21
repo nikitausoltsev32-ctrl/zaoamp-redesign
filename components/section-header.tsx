@@ -5,15 +5,17 @@ interface SectionHeaderProps {
   subtitle?: string
   centered?: boolean
   withLine?: boolean
+  inverted?: boolean
   className?: string
 }
 
-export function SectionHeader({ 
-  title, 
-  subtitle, 
-  centered = false, 
+export function SectionHeader({
+  title,
+  subtitle,
+  centered = false,
   withLine = false,
-  className 
+  inverted = false,
+  className
 }: SectionHeaderProps) {
   return (
     <div className={cn(
@@ -22,22 +24,26 @@ export function SectionHeader({
       className
     )}>
       <h2 className={cn(
-        'font-serif font-bold text-foreground',
+        'font-serif font-bold',
+        inverted ? 'text-white' : 'text-foreground',
         'text-2xl md:text-3xl lg:text-4xl',
         'mb-3'
       )}>
         {title}
       </h2>
-      
+
       {withLine && (
         <div className={cn(
           'w-16 h-1 bg-brand-sapphire rounded-full mb-4',
           centered && 'mx-auto'
         )} />
       )}
-      
+
       {subtitle && (
-        <p className="text-base md:text-lg text-muted-foreground max-w-2xl">
+        <p className={cn(
+          'text-base md:text-lg max-w-2xl',
+          inverted ? 'text-white/80' : 'text-muted-foreground'
+        )}>
           {subtitle}
         </p>
       )}

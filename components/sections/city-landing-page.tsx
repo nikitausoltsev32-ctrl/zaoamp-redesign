@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ArrowRight, MapPin, Phone, Truck } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -188,7 +188,7 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
               <Button asChild size="lg" className="bg-white text-brand-deep-navy hover:bg-stone-100">
                 <Link href="/contacts">Оставить заявку</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="bg-transparent border-white text-white hover:bg-white/10">
                 <a href="tel:+79193931992">+7 (919) 393-19-92</a>
               </Button>
             </div>

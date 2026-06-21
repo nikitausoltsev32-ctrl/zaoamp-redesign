@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
 import { navItems, productLinks, categoryLinks } from '@/lib/data/navigation'

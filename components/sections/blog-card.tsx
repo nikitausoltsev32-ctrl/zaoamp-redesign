@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { BlogPost } from '@/lib/data/blog'
 
 const categoryLabels: Record<BlogPost['category'], string> = {

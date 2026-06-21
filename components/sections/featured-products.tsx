@@ -4,7 +4,7 @@ import { featuredProducts } from '@/lib/data/products'
 import { ProductCard } from '@/components/product-card'
 import { SectionHeader } from '@/components/section-header'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ArrowRight } from 'lucide-react'
 import { m } from 'framer-motion'
 

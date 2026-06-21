@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 import { ChevronRight, Check, Phone, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -122,7 +122,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             </Badge>
             
             <h1 className="text-3xl font-bold text-foreground sm:text-4xl mb-4">
-              {product.name}
+              {product.h1 ?? product.name}
             </h1>
 
             <div className="mb-6">
