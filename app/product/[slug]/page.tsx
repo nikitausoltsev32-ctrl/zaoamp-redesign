@@ -6,9 +6,10 @@ import { ProductApplications } from '@/components/sections/product/product-appli
 import { ProductCalculator } from '@/components/sections/product/product-calculator'
 import { ProductCTA } from '@/components/sections/product/product-cta'
 import { getProductBySlug, getAllProductSlugs } from '@/lib/utils/products'
-import { generateProductSchema, generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
+import { generateProductSchema, generateBreadcrumbSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
 import { generateProductMetadata } from '@/lib/seo/metadata'
 import { SeoLongContent } from '@/components/sections/seo-long-content'
+import { ProductFaq } from '@/components/sections/product/product-faq'
 
 interface ProductPageProps {
   params: {
@@ -61,6 +62,9 @@ export default function ProductPage({ params }: ProductPageProps) {
     <div className="min-h-screen bg-brand-ice-blue">
       <JsonLd data={generateProductSchema(product)} />
       <JsonLd data={breadcrumb} />
+      {product.faqs && product.faqs.length > 0 && (
+        <JsonLd data={generateFAQSchema(product.faqs)} />
+      )}
       <ProductHero product={product} categoryBreadcrumb={cat} />
       <ProductSpecs product={product} />
       <ProductApplications product={product} />
@@ -69,6 +73,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           <SeoLongContent content={product.seoContent} className="" hideSpecs />
         </section>
       )}
+      {product.faqs && <ProductFaq faqs={product.faqs} />}
       <ProductCalculator product={product} />
       <ProductCTA />
     </div>

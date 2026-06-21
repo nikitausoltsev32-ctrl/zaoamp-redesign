@@ -125,7 +125,7 @@ export function generateOrganizationSchema() {
   }
 }
 
-export function generateLocalBusinessSchema() {
+export function generateLocalBusinessSchema(areaServed?: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -155,6 +155,9 @@ export function generateLocalBusinessSchema() {
       latitude: 56.8389,
       longitude: 60.6057,
     },
+    ...(areaServed
+      ? { areaServed: { '@type': 'City', name: areaServed } }
+      : {}),
   }
 }
 

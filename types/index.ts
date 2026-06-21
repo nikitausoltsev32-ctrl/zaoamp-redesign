@@ -30,6 +30,7 @@ export interface Product {
   metaTitle?: string
   metaDescription?: string
   seoContent?: SeoLongContent
+  faqs?: { question: string; answer: string }[]
   applications: string[]
   specifications: {
     whiteness: string
