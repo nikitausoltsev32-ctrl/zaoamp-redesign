@@ -144,7 +144,7 @@ const contacts = [
     icon: MapPin,
     title: 'Адрес',
     value: 'г. Екатеринбург, ул. Евгения Савкова 29, офис 262',
-    href: 'https://yandex.ru/maps/-/CDX', 
+    href: 'https://yandex.ru/maps/org/amp_import_eksport/170350594774/',
     description: 'Офис и пункт выдачи'
   },
   {

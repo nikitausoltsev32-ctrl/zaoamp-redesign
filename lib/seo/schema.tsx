@@ -121,7 +121,10 @@ export function generateOrganizationSchema() {
       areaServed: 'RU',
       availableLanguage: 'ru',
     },
-    sameAs: ['https://t.me/usolst'],
+    sameAs: [
+      'https://t.me/usolst',
+      'https://yandex.ru/maps/org/amp_import_eksport/170350594774/',
+    ],
   }
 }
 
@@ -152,9 +155,13 @@ export function generateLocalBusinessSchema(areaServed?: string) {
     ],
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 56.8389,
-      longitude: 60.6057,
+      latitude: 56.790945,
+      longitude: 60.487171,
     },
+    sameAs: [
+      'https://t.me/usolst',
+      'https://yandex.ru/maps/org/amp_import_eksport/170350594774/',
+    ],
     ...(areaServed
       ? { areaServed: { '@type': 'City', name: areaServed } }
       : {}),
