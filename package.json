@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint && node scripts/check-internal-links.mjs",
     "type-check": "tsc --noEmit",
-    "test": "node --test scripts/lib/*.test.mjs"
+    "test": "node --test scripts/lib/*.test.mjs",
+    "post:dzen": "node scripts/dzen-post.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -42,5 +43,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5",
     "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.0"
   }
 }
