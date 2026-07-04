@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import { generateAssistantReply, type AssistantMessage } from '@/lib/ai/assistant'
-import { shouldPersistAssistantLead } from '@/lib/ai/lead'
-import { supabaseAdmin } from '@/lib/supabase/server'
+import { escapeHtml, sendTelegram } from '@/lib/telegram'
+
+const PHONE_PATTERN = /(?:\+?\d[\d\s().-]{8,}\d)/
 
 function getString(value: unknown) {
   return typeof value === 'string' ? value.trim() : ''
@@ -44,46 +45,31 @@ export async function POST(request: Request) {
 
     const result = await generateAssistantReply(messages, pagePath)
     let saved = false
-    const shouldSave = shouldPersistAssistantLead(result.lead, result.shouldSave, messages)
 
-    if (supabaseAdmin && shouldSave) {
-      const { error } = await supabaseAdmin
-        .from('ai_assistant_leads')
-        .upsert(
-          {
-            session_id: sessionId,
-            lead_type: 'ai_assistant',
-            name: result.lead.name ?? null,
-            phone: result.lead.phone ?? null,
-            city: result.lead.city ?? null,
-            need: result.lead.need ?? null,
-            product_interest: result.lead.productInterest ?? null,
-            quantity_tons: result.lead.quantityTons ?? null,
-            packaging: result.lead.packaging ?? null,
-            budget: result.lead.budget ?? null,
-            summary: result.lead.summary ?? null,
-            messages,
-            source_path: pagePath || null,
-            source_label: 'ai_chat',
-            provider: result.provider,
-            status: 'new',
-            raw_payload: {
-              lead: result.lead,
-              modelRequestedSave: result.shouldSave,
-              persistedByRule: shouldSave,
-              pagePath,
-              sources: result.sources ?? [],
-            },
-            updated_at: new Date().toISOString(),
-          },
-          { onConflict: 'session_id' }
-        )
+    // Уведомляем в Telegram один раз — когда в диалоге впервые появился телефон
+    const userMessages = messages.filter((message) => message.role === 'user')
+    const earlierText = userMessages.slice(0, -1).map((message) => message.content).join('\n')
+    const phoneJustCaptured =
+      Boolean(result.lead.phone?.trim()) && !PHONE_PATTERN.test(earlierText)
 
-      if (error) {
-        console.error('[ai-assistant] Supabase save error:', error)
-      } else {
-        saved = true
-      }
+    if (phoneJustCaptured) {
+      const lead = result.lead
+      const lines = [
+        '<b>Новый лид из AI-чата</b>',
+        lead.name ? `Имя: <b>${escapeHtml(lead.name)}</b>` : '',
+        `Телефон: <b>${escapeHtml(lead.phone ?? '')}</b>`,
+        lead.city ? `Город: ${escapeHtml(lead.city)}` : '',
+        lead.productInterest ? `Товар: ${escapeHtml(lead.productInterest)}` : '',
+        lead.quantityTons ? `Объём: ${lead.quantityTons} т` : '',
+        lead.packaging ? `Упаковка: ${escapeHtml(lead.packaging)}` : '',
+        lead.budget ? `Бюджет/сроки: ${escapeHtml(lead.budget)}` : '',
+        lead.need ? `Задача: ${escapeHtml(lead.need)}` : '',
+        lead.summary ? `Итог: ${escapeHtml(lead.summary)}` : '',
+        pagePath ? `Страница: ${escapeHtml(pagePath)}` : '',
+        `Время: ${new Date().toLocaleString('ru-RU')}`,
+      ].filter(Boolean)
+      await sendTelegram(lines.join('\n'))
+      saved = true
     }
 
     return NextResponse.json({

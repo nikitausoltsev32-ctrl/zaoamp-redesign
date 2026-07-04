@@ -1,30 +1,10 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { supabaseAdmin } from '@/lib/supabase/server'
+import { escapeHtml, sendTelegram } from '@/lib/telegram'
 
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null
-
-function escapeHtml(value: string) {
-  return value
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-}
-
-async function sendTelegram(text: string) {
-  const token = process.env.TELEGRAM_BOT_TOKEN
-  const chatId = process.env.TELEGRAM_CHAT_ID
-  if (!token || !chatId) return
-  await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' }),
-  })
-}
 
 /** POST /api/contact — обращение через форму контактов */
 export async function POST(request: Request) {
@@ -48,33 +28,6 @@ export async function POST(request: Request) {
     const safePhone = escapeHtml(phone)
     const safeEmail = escapeHtml(email)
     const safeMessage = escapeHtml(message)
-
-    // Сохранение в Supabase (опционально)
-    if (supabaseAdmin) {
-      const { error } = await supabaseAdmin.from('ai_assistant_leads').insert({
-        session_id: `contact_${crypto.randomUUID()}`,
-        lead_type: 'contact_form',
-        name,
-        phone,
-        email: email || null,
-        need: message,
-        summary: `Обращение через форму контактов: ${message}`,
-        messages: [],
-        source_path: '/contacts',
-        source_label: 'contacts',
-        provider: 'contact_form',
-        status: 'new',
-        raw_payload: {
-          name,
-          phone,
-          email,
-          message,
-        },
-      })
-      if (error) {
-        console.error('[contact] Supabase error:', error)
-      }
-    }
 
     // Формируем блок UTM
     let utmText = ''
