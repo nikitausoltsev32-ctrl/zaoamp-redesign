@@ -120,7 +120,11 @@ export function SamplesCTA() {
                 <p className="text-sm text-red-500 text-center">Ошибка. Попробуйте ещё раз.</p>
               )}
               <p className="text-xs text-center text-muted-foreground mt-4">
-                Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.
+                Нажимая кнопку, вы соглашаетесь с{' '}
+                <a href="/privacy/" className="underline hover:text-foreground">
+                  политикой конфиденциальности
+                </a>
+                .
               </p>
             </form>
           </div>

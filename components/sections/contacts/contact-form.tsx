@@ -119,7 +119,10 @@ export function ContactForm() {
       </Button>
 
       <p className="text-xs text-muted-foreground text-center">
-        Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+        Нажимая кнопку, вы соглашаетесь с{' '}
+        <a href="/privacy/" className="underline hover:text-foreground">
+          обработкой персональных данных
+        </a>
       </p>
     </form>
   )
