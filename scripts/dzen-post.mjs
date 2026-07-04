@@ -46,7 +46,7 @@ async function main() {
   const browser = await chromium.launch({ headless: false, slowMo: 120 })
   const ctx = await browser.newContext({ storageState: SESSION })
   const page = await ctx.newPage()
-  await page.goto('https://dzen.ru/profile/editor')
+  await page.goto('https://dzen.ru/profile/editor/id/6a391d4fd0b41a3347041428')
 
   // Антибот-проверка: если просят капчу — стоп
   if (await page.locator('text=/captcha|подтвердите|robot/i').count()) {
