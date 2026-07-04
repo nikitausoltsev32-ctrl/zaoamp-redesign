@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.env*
+!.env.example
+docs
+content
+scripts
+claude-seo
+.agents
+.claude
+.planning
+memory
+*.md
