@@ -42,6 +42,7 @@ export function SectionHeader({
       {subtitle && (
         <p className={cn(
           'text-base md:text-lg max-w-2xl',
+          centered && 'mx-auto',
           inverted ? 'text-white/80' : 'text-muted-foreground'
         )}>
           {subtitle}
