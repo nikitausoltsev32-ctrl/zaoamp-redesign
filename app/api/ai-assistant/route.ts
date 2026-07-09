@@ -49,6 +49,16 @@ export async function POST(request: Request) {
     // Уведомляем в Telegram один раз — когда в диалоге впервые появился телефон
     const userMessages = messages.filter((message) => message.role === 'user')
     const earlierText = userMessages.slice(0, -1).map((message) => message.content).join('\n')
+
+    // Fallback: LLM не извлёк телефон, но он есть в последнем сообщении пользователя
+    if (!result.lead.phone?.trim()) {
+      const lastUserText = userMessages.at(-1)?.content ?? ''
+      const phoneMatch = lastUserText.match(PHONE_PATTERN)
+      if (phoneMatch) {
+        result.lead.phone = phoneMatch[0].trim()
+      }
+    }
+
     const phoneJustCaptured =
       Boolean(result.lead.phone?.trim()) && !PHONE_PATTERN.test(earlierText)
 

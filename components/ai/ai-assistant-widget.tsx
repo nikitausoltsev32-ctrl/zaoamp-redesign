@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Bot, CheckCircle2, ExternalLink, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 
 type StructuredBlock = {
@@ -84,10 +85,17 @@ function StructuredBlocks({ structured }: { structured: StructuredBlock }) {
         </div>
       )}
       {structured.handoff && (
-        <div className="flex items-start gap-2 rounded-lg bg-brand-deep-navy px-3 py-2 text-xs text-white">
+        <a
+          href={`tel:${contactInfo.whatsapp}`}
+          onClick={() => ymGoal('phone_click')}
+          className="flex items-start gap-2 rounded-lg bg-brand-deep-navy px-3 py-2 text-xs text-white transition-colors hover:bg-brand-sapphire"
+        >
           <Phone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/80" />
-          <span>{structured.handoff}</span>
-        </div>
+          <span>
+            {structured.handoff}
+            <span className="mt-0.5 block font-semibold underline underline-offset-2">{contactInfo.phone}</span>
+          </span>
+        </a>
       )}
     </div>
   )
@@ -125,7 +133,7 @@ const STARTER_MESSAGES = [
   'Хочу получить КП на 20 тонн',
 ]
 
-const PHONE_CTA_MESSAGE = 'Хочу оставить телефон для расчета и консультации'
+const MIN_PHONE_DIGITS = 10
 
 function createSessionId() {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
@@ -140,6 +148,9 @@ export function AiAssistantWidget() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [sessionId, setSessionId] = useState('')
+  const [phoneMode, setPhoneMode] = useState(false)
+  const [phoneValue, setPhoneValue] = useState('')
+  const [phoneError, setPhoneError] = useState('')
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
@@ -217,6 +228,19 @@ export function AiAssistantWidget() {
     void sendMessage(input)
   }
 
+  const handlePhoneSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const digits = phoneValue.replace(/\D/g, '')
+    if (digits.length < MIN_PHONE_DIGITS) {
+      setPhoneError('Укажите номер полностью, например +7 900 123-45-67')
+      return
+    }
+    setPhoneError('')
+    setPhoneMode(false)
+    setPhoneValue('')
+    void sendMessage(`Мой телефон: ${phoneValue.trim()}. Перезвоните мне для расчета и КП.`)
+  }
+
   const handleOpen = () => {
     setOpen(true)
     ymGoal('ai_chat_open')
@@ -254,14 +278,24 @@ export function AiAssistantWidget() {
                   </p>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Закрыть AI-менеджера"
-                className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
-              >
-                <X className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <a
+                  href={`tel:${contactInfo.whatsapp}`}
+                  onClick={() => ymGoal('phone_click')}
+                  aria-label={`Позвонить: ${contactInfo.phone}`}
+                  className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+                >
+                  <Phone className="h-5 w-5" />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Закрыть AI-менеджера"
+                  className="rounded-full p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             {/* Chat Body */}
@@ -316,19 +350,57 @@ export function AiAssistantWidget() {
             {/* Footer Input Area */}
             <div className="border-t border-stone-100 bg-white/80 p-3 backdrop-blur-xl">
               <div className="mb-3 rounded-xl border border-brand-sapphire/20 bg-brand-sapphire/5 p-3 transition-colors hover:bg-brand-sapphire/10">
-                <div className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
-                  <span>Для точного расчета укажите город, объем и задачу.</span>
-                </div>
-                <button
-                  type="button"
-                  disabled={loading}
-                  onClick={() => void sendMessage(PHONE_CTA_MESSAGE)}
-                  className="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-3 py-2 text-xs font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg disabled:opacity-50"
-                >
-                  <Phone className="h-3.5 w-3.5" />
-                  Оставить телефон для КП
-                </button>
+                {phoneMode ? (
+                  <form onSubmit={handlePhoneSubmit}>
+                    <label htmlFor="ai-phone-input" className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
+                      <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
+                      <span>Оставьте номер — перезвоним с расчетом в рабочее время.</span>
+                    </label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="ai-phone-input"
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
+                        autoFocus
+                        value={phoneValue}
+                        onChange={(event) => setPhoneValue(event.target.value)}
+                        placeholder="+7 (900) 123-45-67"
+                        disabled={loading}
+                        className="h-10 rounded-lg border-stone-200 bg-white text-sm focus-visible:ring-brand-sapphire"
+                      />
+                      <Button
+                        type="submit"
+                        disabled={loading}
+                        className="h-10 shrink-0 rounded-lg bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-4 text-xs font-semibold text-white shadow-md"
+                      >
+                        Жду звонка
+                      </Button>
+                    </div>
+                    {phoneError && (
+                      <p className="mt-1.5 text-xs font-medium text-red-600">{phoneError}</p>
+                    )}
+                  </form>
+                ) : (
+                  <>
+                    <div className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
+                      <span>Для точного расчета укажите город, объем и задачу.</span>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={loading}
+                      onClick={() => {
+                        setPhoneMode(true)
+                        ymGoal('ai_phone_form_open')
+                      }}
+                      className="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-3 py-2 text-xs font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg disabled:opacity-50"
+                    >
+                      <Phone className="h-3.5 w-3.5" />
+                      Оставить телефон для КП
+                    </button>
+                  </>
+                )}
               </div>
 
               <div className="mb-3 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
