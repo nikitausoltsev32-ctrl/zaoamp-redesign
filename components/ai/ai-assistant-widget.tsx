@@ -124,14 +124,10 @@ function SourceLinks({ sources }: { sources?: AssistantSource[] }) {
 }
 
 const STARTER_MESSAGES = [
-  'Подберите фракцию для декоративной штукатурки',
-  'Какая фракция подойдет для ландшафта?',
-  'Нужна мраморная крошка с доставкой',
   'Сколько стоит 20 тонн с доставкой?',
-  'Какая упаковка доступна?',
-  'Какие документы идут с отгрузкой?',
-  'Есть ли фракции 5-10 и 10-20 мм?',
-  'Хочу получить КП на 20 тонн',
+  'Подберите фракцию под мою задачу',
+  'Хочу получить КП',
+  'Какая упаковка и документы?',
 ]
 
 const MIN_PHONE_DIGITS = 10
@@ -157,9 +153,9 @@ export function AiAssistantWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      content: 'Привет! Я Алекс, AI-менеджер АМП. Подберу фракцию из нашего каталога, объясню по цене/упаковке/документам и, если нужно, сверю внешний источник или страницу по ссылке. Что планируете сделать?',
+      content: 'Привет! Я Алекс, AI-менеджер АМП. Подберу фракцию, сориентирую по цене, упаковке и документам.',
       structured: {
-        nextStep: 'Напишите задачу, город и примерный объем - я сразу назову подходящий вариант и что нужно для точного КП.',
+        nextStep: 'Напишите задачу, город и объем - сразу предложу вариант и что нужно для КП.',
       },
     },
   ])
@@ -274,6 +270,8 @@ export function AiAssistantWidget() {
     ymGoal('ai_chat_open')
   }
 
+  const hasUserMessages = messages.some((message) => message.role === 'user')
+
   return (
     <div className="fixed bottom-4 left-4 z-50">
       <AnimatePresence>
@@ -377,8 +375,8 @@ export function AiAssistantWidget() {
 
             {/* Footer Input Area */}
             <div className="border-t border-stone-100 bg-white/80 p-3 backdrop-blur-xl">
-              <div className="mb-3 rounded-xl border border-brand-sapphire/20 bg-brand-sapphire/5 p-3 transition-colors hover:bg-brand-sapphire/10">
-                {phoneMode ? (
+              {phoneMode ? (
+                <div className="mb-3 rounded-xl border border-brand-sapphire/20 bg-brand-sapphire/5 p-3">
                   <form onSubmit={handlePhoneSubmit}>
                     <label htmlFor="ai-phone-input" className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
                       <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
@@ -409,41 +407,56 @@ export function AiAssistantWidget() {
                       <p className="mt-1.5 text-xs font-medium text-red-600">{phoneError}</p>
                     )}
                   </form>
-                ) : (
-                  <>
-                    <div className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
-                      <span>Для точного расчета укажите город, объем и задачу.</span>
-                    </div>
-                    <button
-                      type="button"
-                      disabled={loading}
-                      onClick={() => {
-                        setPhoneMode(true)
-                        ymGoal('ai_phone_form_open')
-                      }}
-                      className="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-3 py-2 text-xs font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg disabled:opacity-50"
-                    >
-                      <Phone className="h-3.5 w-3.5" />
-                      Оставить телефон для КП
-                    </button>
-                  </>
-                )}
-              </div>
-
-              <div className="mb-3 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-                {STARTER_MESSAGES.map((starter) => (
+                </div>
+              ) : !hasUserMessages ? (
+                <div className="mb-3 rounded-xl border border-brand-sapphire/20 bg-brand-sapphire/5 p-3 transition-colors hover:bg-brand-sapphire/10">
+                  <div className="mb-2 flex items-start gap-2 text-xs font-medium text-foreground">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand-sapphire" />
+                    <span>Для точного расчета укажите город, объем и задачу.</span>
+                  </div>
                   <button
-                    key={starter}
                     type="button"
                     disabled={loading}
-                    onClick={() => void sendMessage(starter)}
-                    className="shrink-0 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-left text-xs font-medium text-muted-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-sapphire hover:bg-brand-sapphire/5 hover:text-brand-sapphire hover:shadow disabled:opacity-50"
+                    onClick={() => {
+                      setPhoneMode(true)
+                      ymGoal('ai_phone_form_open')
+                    }}
+                    className="inline-flex w-full justify-center items-center gap-2 rounded-lg bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-3 py-2 text-xs font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg disabled:opacity-50"
                   >
-                    {starter}
+                    <Phone className="h-3.5 w-3.5" />
+                    Оставить телефон для КП
                   </button>
-                ))}
-              </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => {
+                    setPhoneMode(true)
+                    ymGoal('ai_phone_form_open')
+                  }}
+                  className="mb-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-brand-sapphire/30 bg-brand-sapphire/5 px-3 py-1.5 text-xs font-semibold text-brand-sapphire transition-colors hover:bg-brand-sapphire/10 disabled:opacity-50"
+                >
+                  <Phone className="h-3.5 w-3.5" />
+                  Оставить телефон для КП
+                </button>
+              )}
+
+              {!hasUserMessages && (
+                <div className="mb-3 flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+                  {STARTER_MESSAGES.map((starter) => (
+                    <button
+                      key={starter}
+                      type="button"
+                      disabled={loading}
+                      onClick={() => void sendMessage(starter)}
+                      className="shrink-0 rounded-full border border-stone-200 bg-white px-3.5 py-1.5 text-left text-xs font-medium text-muted-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:border-brand-sapphire hover:bg-brand-sapphire/5 hover:text-brand-sapphire hover:shadow disabled:opacity-50"
+                    >
+                      {starter}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {error && (
                 <p className="mb-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600 font-medium">
