@@ -17,7 +17,7 @@ export interface AssistantInternetContext {
 
 const URL_PATTERN = /https?:\/\/[^\s<>"')]+/gi
 const INTERNET_INTENT_PATTERN =
-  /(интернет|найди|поищи|проверь|актуальн|сейчас|сегодня|новост|рынок|конкурент|сравни|гост|санпин|норматив|тренд|поставщик|дилер|цена на рынке)/i
+  /(в интернете|найди|поищи|провер(?:ь|ите) (?:в интернете|по ссылке|источник)|актуальн|новост|рынок|конкурент|сравни с|гост|санпин|норматив|цена на рынке)/i
 
 function lastUserText(messages: AssistantLeadMessage[]) {
   return [...messages].reverse().find((message) => message.role === 'user')?.content ?? ''

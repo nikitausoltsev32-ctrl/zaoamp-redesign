@@ -313,7 +313,7 @@ async function callGroq(
         ...messages,
       ],
       temperature: 0.5,
-      max_tokens: 900,
+      max_tokens: 500,
       response_format: { type: 'json_object' },
     }),
   })
@@ -365,7 +365,7 @@ async function callGemini(
       ],
       generationConfig: {
         temperature: 0.5,
-        maxOutputTokens: 900,
+        maxOutputTokens: 500,
         responseMimeType: 'application/json',
       },
     }),
