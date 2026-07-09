@@ -167,11 +167,28 @@ export function AiAssistantWidget() {
     const nextSessionId = storedSessionId || createSessionId()
     window.localStorage.setItem('amp-ai-session-id', nextSessionId)
     setSessionId(nextSessionId)
+
+    try {
+      const storedMessages = window.localStorage.getItem('amp-ai-messages')
+      if (storedMessages) {
+        const parsed = JSON.parse(storedMessages) as ChatMessage[]
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setMessages(parsed)
+        }
+      }
+    } catch {
+      window.localStorage.removeItem('amp-ai-messages')
+    }
   }, [])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [messages, open])
+
+  useEffect(() => {
+    if (messages.length <= 1) return
+    window.localStorage.setItem('amp-ai-messages', JSON.stringify(messages.slice(-30)))
+  }, [messages])
 
   const sendMessage = async (text: string) => {
     const content = text.trim()
