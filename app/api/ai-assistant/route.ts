@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { generateAssistantReply, type AssistantMessage } from '@/lib/ai/assistant'
 import { appendAiLead } from '@/lib/ai/lead-store'
+import { getAssistantLeadStage } from '@/lib/ai/lead'
 import { escapeHtml, sendTelegram } from '@/lib/telegram'
 
 const PHONE_PATTERN = /(?:\+?\d[\d\s().-]{8,}\d)/
@@ -106,6 +107,7 @@ export async function POST(request: Request) {
       reply: result.reply,
       structured: result.structured ?? null,
       lead: result.lead,
+      stage: getAssistantLeadStage(result.lead),
       sources: (result.sources ?? []).map((source) => ({
         title: source.title,
         url: source.url,

@@ -35,6 +35,7 @@ type AssistantResponse = {
   structured?: StructuredBlock | null
   saved: boolean
   provider: string
+  stage?: string
   sources?: AssistantSource[]
   lead?: {
     phone?: string
@@ -135,6 +136,8 @@ const STARTER_MESSAGES = [
 
 const MIN_PHONE_DIGITS = 10
 
+const STAGE_ORDER = ['first_contact', 'qualification', 'lead_capture', 'handoff']
+
 function createSessionId() {
   if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
     return crypto.randomUUID()
@@ -161,6 +164,7 @@ export function AiAssistantWidget() {
     },
   ])
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const stageRef = useRef<string>('first_contact')
 
   useEffect(() => {
     const storedSessionId = window.localStorage.getItem('amp-ai-session-id')
@@ -228,6 +232,13 @@ export function AiAssistantWidget() {
           sources: data.sources ?? undefined,
         },
       ])
+
+      if (data.stage && STAGE_ORDER.indexOf(data.stage) > STAGE_ORDER.indexOf(stageRef.current)) {
+        stageRef.current = data.stage
+        if (data.stage !== 'first_contact') {
+          ymGoal(`ai_stage_${data.stage}`)
+        }
+      }
 
       if (data.lead?.phone) {
         ymGoal('ai_lead_submit')
