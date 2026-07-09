@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { appendAiLead } from '@/lib/ai/lead-store'
 import { escapeHtml, sendTelegram } from '@/lib/telegram'
 
 const resend = process.env.RESEND_API_KEY
@@ -58,10 +59,33 @@ export async function POST(request: Request) {
       if (utm.utm_term) utmText += `\nКлюч: ${escapeHtml(utm.utm_term)}`
     }
 
+    // Лид на диск до внешних отправок — переживёт сбой Telegram/почты
+    try {
+      await appendAiLead({
+        lead: {
+          phone,
+          name: name || undefined,
+          city: city || undefined,
+          productInterest: productName || undefined,
+          quantityTons,
+          packaging: packaging || undefined,
+        },
+        pagePath: String(source),
+        sessionId: 'leads-form',
+        capturedAt: new Date().toISOString(),
+      })
+    } catch (storeError) {
+      console.error('[leads] Lead file write failed:', storeError, phone)
+    }
+
     // Уведомление в Telegram
-    await sendTelegram(
-      `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>${nameLine}${cityLine}\nИсточник: ${safeSource}${orderText}${utmText}\nВремя: ${time}`
-    )
+    try {
+      await sendTelegram(
+        `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>${nameLine}${cityLine}\nИсточник: ${safeSource}${orderText}${utmText}\nВремя: ${time}`
+      )
+    } catch (telegramError) {
+      console.error('[leads] Telegram send failed, lead persisted to file:', telegramError)
+    }
 
     // Уведомление на почту
     const notificationEmail = process.env.NOTIFICATION_EMAIL
