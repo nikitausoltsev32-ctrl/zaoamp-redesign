@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { generateAssistantReply, type AssistantMessage } from '@/lib/ai/assistant'
+import { appendAiLead } from '@/lib/ai/lead-store'
 import { escapeHtml, sendTelegram } from '@/lib/telegram'
 
 const PHONE_PATTERN = /(?:\+?\d[\d\s().-]{8,}\d)/
@@ -64,6 +65,19 @@ export async function POST(request: Request) {
 
     if (phoneJustCaptured) {
       const lead = result.lead
+
+      try {
+        await appendAiLead({
+          lead,
+          pagePath,
+          sessionId,
+          capturedAt: new Date().toISOString(),
+        })
+        saved = true
+      } catch (storeError) {
+        console.error('[ai-assistant] Lead file write failed:', storeError, JSON.stringify(lead))
+      }
+
       const lines = [
         '<b>Новый лид из AI-чата</b>',
         lead.name ? `Имя: <b>${escapeHtml(lead.name)}</b>` : '',
@@ -78,8 +92,13 @@ export async function POST(request: Request) {
         pagePath ? `Страница: ${escapeHtml(pagePath)}` : '',
         `Время: ${new Date().toLocaleString('ru-RU')}`,
       ].filter(Boolean)
-      await sendTelegram(lines.join('\n'))
-      saved = true
+
+      try {
+        await sendTelegram(lines.join('\n'))
+        saved = true
+      } catch (telegramError) {
+        console.error('[ai-assistant] Telegram send failed, lead persisted to file:', telegramError)
+      }
     }
 
     return NextResponse.json({

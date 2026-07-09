@@ -5,6 +5,8 @@ services:
     env_file: .env
     expose:
       - "3000"
+    volumes:
+      - ./data:/app/data
 
   caddy:
     image: caddy:2-alpine
