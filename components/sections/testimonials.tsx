@@ -1,6 +1,3 @@
-'use client'
-
-import { m } from 'framer-motion'
 import { BadgeCheck, FileText, MapPinned, MessageSquareQuote, Truck } from 'lucide-react'
 
 const BUSINESS_BLOCKS = [
@@ -34,7 +31,7 @@ const GEOGRAPHIES = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-20 bg-stone-50">
+    <section className="content-auto py-20 bg-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl mb-4">
@@ -64,19 +61,15 @@ export function TestimonialsSection() {
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-          {BUSINESS_BLOCKS.map((block, i) => (
-            <m.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
+          {BUSINESS_BLOCKS.map((block) => (
+            <div
+              key={block.title}
               className="bg-white rounded-xl border border-stone-200 p-6 flex flex-col gap-4"
             >
               <block.icon className="h-5 w-5 text-brand-sapphire/60 shrink-0" />
               <p className="text-sm font-semibold text-foreground">{block.title}</p>
               <p className="text-sm text-foreground leading-relaxed flex-1">{block.text}</p>
-            </m.div>
+            </div>
           ))}
         </div>
       </div>

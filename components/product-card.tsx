@@ -21,6 +21,7 @@ import Link from '@/components/ui/app-link'
 import { FileText, Loader2 } from 'lucide-react'
 import { ymGoal } from '@/lib/analytics'
 import { getProductImageAlt } from '@/lib/seo/metadata'
+import { MediaSlot } from '@/components/media-slot'
 
 interface ProductCardProps {
   product: Product
@@ -61,7 +62,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
   if (variant === 'compact') {
     return (
       <Card className="h-full transition-shadow hover:shadow-lg overflow-hidden group">
-        {product.image && (
+        {product.image ? (
           <Link href={`/product/${product.slug}`} className="block relative h-44 overflow-hidden">
             <Image
               src={product.image}
@@ -69,6 +70,14 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
+            />
+          </Link>
+        ) : (
+          <Link href={`/product/${product.slug}`} className="block">
+            <MediaSlot
+              title={`Фото продукции: ${product.fraction}`}
+              caption="Подтверждённое фото этой фракции пока не предоставлено."
+              className="min-h-44 rounded-none border-x-0 border-t-0"
             />
           </Link>
         )}
@@ -92,7 +101,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
 
   return (
       <Card className="h-full transition-shadow hover:shadow-lg overflow-hidden group">
-        {product.image && (
+        {product.image ? (
           <Link href={`/product/${product.slug}`} className="block relative h-52 overflow-hidden">
             <Image
               src={product.image}
@@ -105,8 +114,16 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               <Badge variant="secondary" className="bg-brand-ice-blue/90">{product.fraction}</Badge>
             </div>
           </Link>
+        ) : (
+          <Link href={`/product/${product.slug}`} className="block">
+            <MediaSlot
+              title={`Фото продукции: ${product.fraction}`}
+              caption="Слот для подтверждённого фото фракции. Изображение не подменяется иллюстрацией."
+              className="min-h-52 rounded-none border-x-0 border-t-0"
+            />
+          </Link>
         )}
-      <CardHeader className={product.image ? 'pt-4' : ''}>
+      <CardHeader className="pt-4">
         <div className="flex items-start justify-between gap-2">
           {!product.image && <Badge variant="secondary">{product.fraction}</Badge>}
           <PriceTag price={product.pricePerTon} />

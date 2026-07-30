@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Script from 'next/script'
-import Link from 'next/link'
+import Link from '@/components/ui/app-link'
 
 const STORAGE_KEY = 'cookie_consent'
 const MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000

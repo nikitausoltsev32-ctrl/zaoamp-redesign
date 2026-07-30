@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import { m } from 'framer-motion'
 import { generateBreadcrumbSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
+import { MediaSlot } from '@/components/media-slot'
 
 const faqs = [
   {
@@ -323,23 +324,29 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative group"
+              className="relative"
             >
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src="/images/quarry/quarry-3.jpg"
-                  alt="Мраморный карьер - добыча сырья"
-                  fill
-                  className="object-cover transition-all duration-700 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <p className="text-white font-semibold">Природное сырье</p>
-                  <p className="text-white/80 text-sm">Белый мрамор с месторождения</p>
-                </div>
-              </div>
+              <MediaSlot
+                title="Фото месторождения: природное сырьё"
+                caption="Слот для подтверждённого фото белого мрамора. Исходный файл отсутствует."
+                className="aspect-[4/3] min-h-0 shadow-sm"
+              />
             </m.div>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <MediaSlot
+              title="Фото объектов"
+              caption="Примеры реализованных объектов будут добавлены после получения подтверждённых материалов и подписей."
+            />
+            <MediaSlot
+              title="Фото офиса"
+              caption="Слот для фактического фото офиса в Екатеринбурге с подписью места."
+            />
+            <MediaSlot
+              title="Фото интерьеров"
+              caption="Слот для подтверждённых примеров применения мраморной продукции в интерьерах."
+            />
           </div>
           
           <div className="mt-8 text-center">

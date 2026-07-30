@@ -1,8 +1,5 @@
-'use client'
-
 import { benefits } from '@/lib/data/benefits'
 import { BenefitCard } from '@/components/benefit-card'
-import { motion } from 'framer-motion'
 
 export function BenefitsSection() {
   const getBentoClass = (index: number) => {
@@ -21,7 +18,7 @@ export function BenefitsSection() {
   }
 
   return (
-    <section id="benefits" className="py-20 bg-stone-50 overflow-hidden relative">
+    <section id="benefits" className="content-auto py-20 bg-stone-50 overflow-hidden relative">
       {/* Декоративный фон */}
       <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-[0.03] bg-repeat mix-blend-multiply pointer-events-none"></div>
       

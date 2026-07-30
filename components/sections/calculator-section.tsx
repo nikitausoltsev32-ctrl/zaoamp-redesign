@@ -5,7 +5,7 @@ import { Calculator } from '@/components/calculator'
 
 export function CalculatorSection() {
   return (
-    <section id="calculator" className="py-20 bg-stone-50">
+    <section id="calculator" className="content-auto py-20 bg-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title="Рассчитайте стоимость"

@@ -35,12 +35,16 @@ export function generateMetadata({ params }: ApplicationPageProps): Metadata {
       title: page.title,
       description: page.description,
       url: `/primenenie/${page.slug}/`,
-      images: [
-        {
-          url: page.heroImage,
-          alt: page.heroImageAlt,
-        },
-      ],
+      ...(page.heroImage
+        ? {
+            images: [
+              {
+                url: page.heroImage,
+                alt: page.heroImageAlt,
+              },
+            ],
+          }
+        : {}),
     },
   }
 }

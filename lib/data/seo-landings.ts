@@ -15,7 +15,7 @@ export interface ApplicationLandingPage {
   title: string
   description: string
   intro: string
-  heroImage: string
+  heroImage?: string
   heroImageAlt: string
   productSlugs: string[]
   categoryLinks: { label: string; href: string }[]
@@ -34,7 +34,7 @@ export interface CityLandingPage {
   description: string
   intro: string
   deliveryText: string
-  heroImage: string
+  heroImage?: string
   heroImageAlt: string
   productSlugs: string[]
   targetProducts: { title: string; text: string; href: string }[]
@@ -53,7 +53,7 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
       'Белая мраморная крошка для клумб, дорожек, рокариев, сухих ручьев и декоративной отсыпки. Фракции 0-1, 2-3, 5-10 мм, доставка по России.',
     intro:
       'Подбираем фракцию под дорожки, клумбы, рокарии, отсыпку вокруг деревьев и декоративные зоны. Для ландшафта важны белизна, стабильный размер зерна, отсутствие пыли и удобная упаковка.',
-    heroImage: '/images/products/kroshka-5-10.jpg',
+    heroImage: '/images/products/optimized/kroshka-5-10.webp',
     heroImageAlt: 'Белая мраморная крошка 5-10 мм для ландшафтного дизайна',
     productSlugs: [
       'mramornaya-kroshka-5-10',
@@ -162,7 +162,7 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
       'Мраморный щебень 10-20, 20-50 и 50-200 мм для оснований, дренажа, отсыпки и благоустройства. Цена за тонну, доставка авто и ж/д.',
     intro:
       'Для дорожных и строительных задач важны фракция, стабильность поставки, документы качества и логистика. Подбираем щебень под основание, дренаж, отсыпку и благоустройство.',
-    heroImage: '/images/products/shheben-20-50.jpg',
+    heroImage: '/images/products/optimized/shheben-20-50.webp',
     heroImageAlt: 'Мраморный щебень 20-50 мм для дорожной отсыпки',
     productSlugs: [
       'mramornyj-shheben-20-50',
@@ -270,7 +270,6 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
       'Белая мраморная крошка и мука для декоративных штукатурок «короед», «шуба», венецианских составов и сухих смесей. Белизна 98%, все фракции. Опт от 5 тонн.',
     intro:
       'Производители декоративных штукатурок, фасадных систем и сухих строительных смесей применяют мраморную крошку как основной заполнитель, определяющий фактуру и белизну готового покрытия. От качества сырья напрямую зависит цвет финишного слоя, стабильность от партии к партии и совместимость со связующим.',
-    heroImage: '/images/products/kroshka-0-5.jpg',
     heroImageAlt: 'Мраморная крошка 0-5 мм для штукатурки',
     productSlugs: [
       'mramornaya-kroshka-0-5',
@@ -385,7 +384,7 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
       'Микрокальцит и мраморная мука для красок, грунтов, пластика и резины. Белизна 98%, CaCO₃ до 99%, фракции 5–200 мкм. Опт от 5 тонн, доставка по РФ и СНГ.',
     intro:
       'Производители красок, грунтов, шпаклёвок и водно-дисперсионных составов используют карбонат кальция как основной минеральный наполнитель. Микрокальцит и мраморная мука позволяют снизить себестоимость готового продукта, управлять реологией состава и обеспечить стабильный белый тон без желтизны.',
-    heroImage: '/images/products/muka-0-0-2.jpg',
+    heroImage: '/images/products/optimized/muka-0-0-2.webp',
     heroImageAlt: 'Микрокальцит и мраморная мука для ЛКМ и пластика',
     productSlugs: ['mikrokaltsit-5-200-mkm', 'mramornaya-muka-0-0-2'],
     categoryLinks: [
@@ -500,7 +499,7 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
       'Мраморная мука и карбонат кальция для раскисления почвы, агрохимических задач, комбикормов и премиксов. CaCO3 до 99%, доставка по России.',
     intro:
       'Для сельского хозяйства мраморная мука используется как источник карбоната кальция: для работы с кислотностью почвы, кормовых задач и агрохимических смесей.',
-    heroImage: '/images/products/muka-0-0-2.jpg',
+    heroImage: '/images/products/optimized/muka-0-0-2.webp',
     heroImageAlt: 'Мраморная мука для сельского хозяйства',
     productSlugs: ['mramornaya-muka-0-0-2', 'mikrokaltsit-5-200-mkm'],
     categoryLinks: [
@@ -609,7 +608,7 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
       'Екатеринбург - базовый регион продаж и быстрый рынок для поставки мраморной продукции. Подберем фракцию, упаковку и способ отгрузки под объект.',
     deliveryText:
       'Для Екатеринбурга возможны оперативные автомобильные поставки, самовывоз по согласованию и отправка больших партий через ж/д логистику.',
-    heroImage: '/images/products/kroshka-5-10.jpg',
+    heroImage: '/images/products/optimized/kroshka-5-10.webp',
     heroImageAlt: 'Мраморная крошка с доставкой в Екатеринбург',
     productSlugs: [
       'mramornaya-kroshka-5-10',
@@ -684,7 +683,7 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
       'Поставляем мраморную продукцию в Челябинск для строительных, ландшафтных и производственных задач. Подбираем фракцию и формат отгрузки под объект.',
     deliveryText:
       'Для Челябинска актуальны автомобильные поставки и крупные партии под строительные и производственные закупки.',
-    heroImage: '/images/products/shheben-20-50.jpg',
+    heroImage: '/images/products/optimized/shheben-20-50.webp',
     heroImageAlt: 'Мраморный щебень с доставкой в Челябинск',
     productSlugs: [
       'mramornyj-shheben-20-50',
@@ -759,7 +758,6 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
       'Для Тюмени подбираем поставки под ландшафтные проекты, дорожное благоустройство, строительные смеси и производственные закупки.',
     deliveryText:
       'Доставка в Тюмень рассчитывается по весу, объему, упаковке и адресу выгрузки. Для крупных партий подбираем наиболее выгодный маршрут.',
-    heroImage: '/images/products/kroshka-0-5.jpg',
     heroImageAlt: 'Мраморная крошка с доставкой в Тюмень',
     productSlugs: [
       'mramornaya-kroshka-0-5',
@@ -834,7 +832,7 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
       'Поставляем белую мраморную продукцию в Пермь для объектов благоустройства, строительных компаний, производств и закупщиков.',
     deliveryText:
       'Для Перми рассчитываем автомобильную доставку и крупные отгрузки с учетом веса, объема и требуемого формата упаковки.',
-    heroImage: '/images/products/1,5-2,0-RU.jpg',
+    heroImage: '/images/products/optimized/kroshka-1-5-2-0.webp',
     heroImageAlt: 'Белая мраморная крошка с доставкой в Пермь',
     productSlugs: [
       'mramornaya-kroshka-1-5-2-0',
@@ -909,7 +907,6 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
       'Для Москвы и области готовим поставки под ландшафтные проекты, строительные компании, производственные закупки и оптовых покупателей.',
     deliveryText:
       'Доставка в Москву рассчитывается индивидуально. Для крупных партий подбираем авто или ж/д маршрут с учетом сроков и формата выгрузки.',
-    heroImage: '/images/products/0,5-1,0-mm-RU.jpg',
     heroImageAlt: 'Мраморная крошка с доставкой в Москву',
     productSlugs: [
       'mramornaya-kroshka-0-5-1-0',

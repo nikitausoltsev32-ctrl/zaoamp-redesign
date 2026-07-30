@@ -35,12 +35,16 @@ export function generateMetadata({ params }: CityPageProps): Metadata {
       title: page.title,
       description: page.description,
       url: `/${page.slug}/`,
-      images: [
-        {
-          url: page.heroImage,
-          alt: page.heroImageAlt,
-        },
-      ],
+      ...(page.heroImage
+        ? {
+            images: [
+              {
+                url: page.heroImage,
+                alt: page.heroImageAlt,
+              },
+            ],
+          }
+        : {}),
     },
   }
 }

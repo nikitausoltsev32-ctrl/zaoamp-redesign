@@ -14,6 +14,7 @@ import { getProductImageAlt } from '@/lib/seo/metadata'
 import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 import { getUTMData } from '@/lib/hooks/use-utm'
+import { MediaSlot } from '@/components/media-slot'
 
 interface ProductHeroProps {
   product: Product
@@ -104,14 +105,11 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                 priority
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-brand-ice-blue shadow-lg flex items-center justify-center">
-                    <span className="text-5xl font-serif text-muted-foreground">М</span>
-                  </div>
-                  <p className="text-muted-foreground">{product.name}</p>
-                </div>
-              </div>
+              <MediaSlot
+                title={`Фото продукции: ${product.fraction}`}
+                caption={`Слот для подтверждённого фото «${product.name}». Иллюстрация не используется вместо фактического материала.`}
+                className="absolute inset-0 min-h-0 rounded-none"
+              />
             )}
           </div>
 

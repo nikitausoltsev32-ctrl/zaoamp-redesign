@@ -2,21 +2,14 @@
 
 import { Button } from '@/components/ui/button'
 import { Phone, MessageCircle } from 'lucide-react'
-import { m } from 'framer-motion'
 import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 
 export function CTASection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-brand-sapphire via-blue-600 to-brand-deep-navy">
+    <section className="content-auto py-20 bg-gradient-to-br from-brand-sapphire via-blue-600 to-brand-deep-navy">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center"
-        >
+        <div className="text-center">
           <h2 className="font-serif text-3xl font-bold text-white mb-4 sm:text-4xl">
             Нужна консультация?
           </h2>
@@ -64,7 +57,7 @@ export function CTASection() {
           <p className="mt-6 text-sm text-white/80">
             Или звоните: <a href="tel:+79193931992" className="font-semibold underline" onClick={() => ymGoal('phone_click')}>+7 (919) 393-19-92</a>
           </p>
-        </m.div>
+        </div>
       </div>
     </section>
   )

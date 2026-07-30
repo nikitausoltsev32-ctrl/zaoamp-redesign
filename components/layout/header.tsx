@@ -1,9 +1,7 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
 import Link from '@/components/ui/app-link'
 import { ChevronDown, MessageCircle } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { Logo } from './logo'
 import { ContactBar } from './contact-bar'
 import { MobileNav } from './mobile-nav'
@@ -12,34 +10,8 @@ import { contactInfo } from '@/lib/data/contacts'
 import { ymGoal } from '@/lib/analytics'
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    let ticking = false
-    const handleScroll = () => {
-      if (!ticking) {
-        // ⚡ Bolt: Throttle frequent scroll events using requestAnimationFrame to prevent unnecessary re-renders
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 20)
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-    // ⚡ Bolt: Use passive: true to prevent scroll blocking and improve scrolling performance
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        scrolled
-          ? 'bg-brand-ice-blue/95 backdrop-blur-md shadow-md'
-          : 'bg-brand-ice-blue'
-      )}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-ice-blue shadow-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}

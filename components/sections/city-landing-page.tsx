@@ -10,6 +10,7 @@ import { getProductsForLanding } from '@/lib/data/seo-landings'
 import { products } from '@/lib/data/products'
 import { generateBreadcrumbSchema, generateFAQSchema, generateLocalBusinessSchema, JsonLd } from '@/lib/seo/schema'
 import { SeoLongContent } from '@/components/sections/seo-long-content'
+import { MediaSlot } from '@/components/media-slot'
 
 interface CityLandingPageTemplateProps {
   page: CityLandingPage
@@ -62,14 +63,22 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
                 </div>
               </div>
               <div className="relative hidden aspect-[4/3] overflow-hidden rounded-xl border border-stone-200 shadow-xl lg:block">
-                <Image
-                  src={page.heroImage}
-                  alt={page.heroImageAlt}
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 0px, 45vw"
-                />
+                {page.heroImage ? (
+                  <Image
+                    src={page.heroImage}
+                    alt={page.heroImageAlt}
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 0px, 45vw"
+                  />
+                ) : (
+                  <MediaSlot
+                    title={`Фото поставки: ${page.city}`}
+                    caption="Именованный слот для подтверждённого фото объекта или отгрузки в регионе."
+                    className="absolute inset-0 min-h-0 rounded-none"
+                  />
+                )}
               </div>
             </div>
           </div>
