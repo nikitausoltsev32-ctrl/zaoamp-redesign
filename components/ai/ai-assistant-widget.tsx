@@ -467,6 +467,7 @@ export function AiAssistantWidget() {
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <Input
                   value={input}
+                  aria-label="Ваш вопрос"
                   onChange={(event) => setInput(event.target.value)}
                   placeholder="Задайте вопрос..."
                   disabled={loading}

@@ -276,6 +276,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
                   <div className="flex gap-2">
                     <Input
                       type="tel"
+                      aria-label="Номер телефона"
                       placeholder="+7 (___) ___-__-__"
                       value={leadPhone}
                       onChange={(e) => setLeadPhone(e.target.value)}
