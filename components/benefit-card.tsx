@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { motion, useAnimation } from 'framer-motion'
+import { m, useAnimation } from 'framer-motion'
 import { Benefit } from '@/lib/data/benefits'
 
 interface BenefitCardProps {
@@ -13,6 +13,8 @@ interface BenefitCardProps {
 export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps) {
   const Icon = benefit.icon
   const divRef = useRef<HTMLDivElement>(null)
+  const lastPos = useRef({ x: 0, y: 0 })
+  const ticking = useRef(false)
   const [isFocused, setIsFocused] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [opacity, setOpacity] = useState(0)
@@ -23,7 +25,15 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
     const div = divRef.current
     const rect = div.getBoundingClientRect()
 
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    lastPos.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        setPosition(lastPos.current)
+        ticking.current = false
+      })
+      ticking.current = true
+    }
   }
 
   const handleFocus = () => {
@@ -45,7 +55,7 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
   }
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -72,12 +82,12 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
 
         <div className="relative z-10 flex h-full flex-col">
           {/* Animated Icon Container */}
-          <motion.div 
+          <m.div
             className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-sapphire/5 to-brand-sapphire/20 text-brand-sapphire transition-colors group-hover:from-brand-sapphire group-hover:to-brand-sapphire-light group-hover:text-white"
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            <motion.div
+            <m.div
                animate={{ 
                  y: [0, -3, 0],
                }}
@@ -89,8 +99,8 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
                }}
             >
               <Icon className="h-7 w-7" />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
 
           <h3 className="mb-3 font-bold text-foreground md:text-lg">
             {benefit.title}
@@ -100,6 +110,6 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
           </p>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }

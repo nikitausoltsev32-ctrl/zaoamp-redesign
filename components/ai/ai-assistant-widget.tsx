@@ -1,7 +1,7 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Bot, CheckCircle2, ExternalLink, Lightbulb, Loader2, MessageCircle, Package, Phone, Send, Sparkles, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -276,7 +276,7 @@ export function AiAssistantWidget() {
     <div className="fixed bottom-4 left-4 z-50">
       <AnimatePresence>
         {open && (
-          <motion.div 
+          <m.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -286,13 +286,13 @@ export function AiAssistantWidget() {
             {/* Header */}
             <div className="flex items-center justify-between bg-gradient-to-r from-brand-deep-navy to-brand-sapphire px-4 py-3 text-white">
               <div className="flex items-center gap-3">
-                <motion.div 
+                <m.div
                   initial={{ rotate: -10 }}
                   animate={{ rotate: 0 }}
                   className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 shadow-inner backdrop-blur-md"
                 >
                   <Bot className="h-5 w-5 text-white" />
-                </motion.div>
+                </m.div>
                 <div>
                   <p className="text-sm font-semibold leading-tight tracking-wide">AI-менеджер АМП</p>
                   <p className="flex items-center gap-1.5 text-[11px] text-white/80 font-medium">
@@ -327,7 +327,7 @@ export function AiAssistantWidget() {
             {/* Chat Body */}
             <div className="flex-1 space-y-4 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-stone-200">
               {messages.map((message, index) => (
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
@@ -352,11 +352,11 @@ export function AiAssistantWidget() {
                     )}
                     {message.role === 'assistant' && <SourceLinks sources={message.sources} />}
                   </div>
-                </motion.div>
+                </m.div>
               ))}
 
               {loading && (
-                <motion.div 
+                <m.div
                   initial={{ opacity: 0, y: 10 }} 
                   animate={{ opacity: 1, y: 0 }}
                   className="flex items-end gap-2"
@@ -368,7 +368,7 @@ export function AiAssistantWidget() {
                     <Loader2 className="h-4 w-4 animate-spin text-brand-sapphire" />
                     Печатает...
                   </div>
-                </motion.div>
+                </m.div>
               )}
               <div ref={messagesEndRef} />
             </div>
@@ -482,13 +482,13 @@ export function AiAssistantWidget() {
                 </Button>
               </form>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       <AnimatePresence>
         {!open && (
-          <motion.button
+          <m.button
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -509,7 +509,7 @@ export function AiAssistantWidget() {
             </span>
             
             <MessageCircle className="relative z-10 h-7 w-7" />
-          </motion.button>
+          </m.button>
         )}
       </AnimatePresence>
     </div>
