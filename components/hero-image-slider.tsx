@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { m, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 import { products } from '@/lib/data/products'
 
 const heroImages = products
@@ -14,18 +14,23 @@ const heroImages = products
   }))
 
 export function HeroImageSlider() {
+  const ref = useRef<HTMLDivElement>(null)
+  // ⚡ Bolt: Pause slider when off-screen to save CPU and prevent unnecessary re-renders
+  const isInView = useInView(ref)
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
+    if (!isInView) return
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroImages.length)
     }, 4000) // Меняем каждые 4 секунды
 
     return () => clearInterval(timer)
-  }, [])
+  }, [isInView])
 
   return (
-    <div className="relative w-full h-full rounded-2xl overflow-hidden bg-stone-100">
+    <div ref={ref} className="relative w-full h-full rounded-2xl overflow-hidden bg-stone-100">
       <AnimatePresence mode="wait">
         <m.div
           key={currentIndex}

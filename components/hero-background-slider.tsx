@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { m, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence, useInView } from 'framer-motion'
 
 const backgroundImages = [
   { src: '/images/products/muka-0-0-2.jpg', alt: 'Мраморная мука' },
@@ -13,18 +13,23 @@ const backgroundImages = [
 ]
 
 export function HeroBackgroundSlider() {
+  const ref = useRef<HTMLDivElement>(null)
+  // ⚡ Bolt: Pause slider when off-screen to save CPU and prevent unnecessary re-renders
+  const isInView = useInView(ref)
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
+    if (!isInView) return
+
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % backgroundImages.length)
     }, 3500)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [isInView])
 
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div ref={ref} className="absolute inset-0 overflow-hidden">
       <AnimatePresence mode="sync">
         <m.div
           key={currentIndex}
