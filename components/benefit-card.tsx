@@ -17,13 +17,30 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [opacity, setOpacity] = useState(0)
 
+  // ⚡ Bolt Optimization: Throttling high-frequency mousemove events
+  // What: Uses requestAnimationFrame to limit React state updates to display refresh rate.
+  // Why: Prevents excessive re-renders from high-polling mice which can cause main-thread jank.
+  // Impact: Reduces CPU usage and state updates during hover by aligning with browser paints.
+  const ticking = useRef(false)
+  const lastPos = useRef({ x: 0, y: 0 })
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return
 
     const div = divRef.current
     const rect = div.getBoundingClientRect()
 
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    // Synchronously capture latest position
+    lastPos.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+
+    // Dispatch state update at next animation frame
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        setPosition(lastPos.current)
+        ticking.current = false
+      })
+      ticking.current = true
+    }
   }
 
   const handleFocus = () => {
