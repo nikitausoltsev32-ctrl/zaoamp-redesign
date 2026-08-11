@@ -63,9 +63,9 @@ export async function POST(request: NextRequest) {
     const { derivalCity, arrivalCity, weight, volume } = body as DeliveryCalculationRequest
 
     // Валидация
-    if (!arrivalCity || !weight) {
+    if (!arrivalCity || weight === undefined || weight === null) {
       // #region agent log
-      log('Validation failed', { arrivalCity, weight });
+      log('Validation failed: missing parameters', { arrivalCity, weight });
       // #endregion
       return NextResponse.json(
         { error: 'Не указаны обязательные параметры' },
@@ -73,7 +73,28 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const loads = splitWeightIntoTrunks(Number(weight))
+    const numWeight = Number(weight);
+    if (!Number.isFinite(numWeight) || numWeight <= 0 || numWeight > 100000) {
+      // #region agent log
+      log('Validation failed: invalid weight', { weight });
+      // #endregion
+      return NextResponse.json(
+        { error: 'Некорректный вес груза' },
+        { status: 400 }
+      )
+    }
+
+    if (volume !== undefined && (!Number.isFinite(Number(volume)) || Number(volume) <= 0 || Number(volume) > 100000)) {
+      // #region agent log
+      log('Validation failed: invalid volume', { volume });
+      // #endregion
+      return NextResponse.json(
+        { error: 'Некорректный объем груза' },
+        { status: 400 }
+      )
+    }
+
+    const loads = splitWeightIntoTrunks(numWeight)
     const splitByTrucks = loads.length > 1
     const arrivalAddress = ARRIVAL_ADDRESSES[arrivalCity]
     const derivalLabel = 'Екатеринбург (терминал 14)'
