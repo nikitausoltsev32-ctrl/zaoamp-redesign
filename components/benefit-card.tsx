@@ -17,13 +17,26 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [opacity, setOpacity] = useState(0)
 
+  const ticking = useRef(false)
+  const lastPos = useRef({ x: 0, y: 0 })
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return
 
     const div = divRef.current
     const rect = div.getBoundingClientRect()
 
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    // Synchronously store the latest position
+    lastPos.current = { x: e.clientX - rect.left, y: e.clientY - rect.top }
+
+    // Throttle React state update using requestAnimationFrame
+    if (!ticking.current) {
+      window.requestAnimationFrame(() => {
+        setPosition(lastPos.current)
+        ticking.current = false
+      })
+      ticking.current = true
+    }
   }
 
   const handleFocus = () => {
