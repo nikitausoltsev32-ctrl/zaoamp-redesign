@@ -13,6 +13,7 @@ interface BenefitCardProps {
 export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps) {
   const Icon = benefit.icon
   const divRef = useRef<HTMLDivElement>(null)
+  const ticking = useRef(false)
   const [isFocused, setIsFocused] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [opacity, setOpacity] = useState(0)
@@ -20,10 +21,19 @@ export function BenefitCard({ benefit, index, className = '' }: BenefitCardProps
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || isFocused) return
 
-    const div = divRef.current
-    const rect = div.getBoundingClientRect()
-
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    if (!ticking.current) {
+      // ⚡ Bolt: Throttling frequent mousemove events using requestAnimationFrame.
+      // This prevents excessive React re-renders and reduces CPU usage by aligning state updates
+      // with the browser's refresh rate (measurably reduces JS execution time during hover).
+      window.requestAnimationFrame(() => {
+        if (!divRef.current) return
+        const div = divRef.current
+        const rect = div.getBoundingClientRect()
+        setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+        ticking.current = false
+      })
+      ticking.current = true
+    }
   }
 
   const handleFocus = () => {

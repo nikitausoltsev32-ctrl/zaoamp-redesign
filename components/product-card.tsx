@@ -68,6 +68,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               alt={getProductImageAlt(product)}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              loading="lazy"
               className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
             />
           </Link>
@@ -99,6 +100,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               alt={getProductImageAlt(product)}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              loading="lazy"
               className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
             />
             <div className="absolute top-3 left-3">
