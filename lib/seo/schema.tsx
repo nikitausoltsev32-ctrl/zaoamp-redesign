@@ -169,22 +169,6 @@ export function generateLocalBusinessSchema(areaServed?: string) {
 }
 
 export function generateProductSchema(product: Product) {
-  const offer: Record<string, unknown> = {
-    '@type': 'Offer',
-    url: productUrl(product),
-    priceCurrency: 'RUB',
-    availability: getSchemaAvailability(product),
-    seller: {
-      '@type': 'Organization',
-      name: COMPANY_NAME,
-    },
-  }
-
-  if (typeof product.pricePerTon === 'number') {
-    offer.price = product.pricePerTon
-    offer.priceValidUntil = getPriceValidUntil()
-  }
-
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -201,8 +185,22 @@ export function generateProductSchema(product: Product) {
       name: COMPANY_NAME,
     },
     category: getCategoryName(product.category),
-    offers: offer,
     additionalProperty: getProductAdditionalProperties(product),
+  }
+
+  if (typeof product.pricePerTon === 'number') {
+    schema.offers = {
+      '@type': 'Offer',
+      url: productUrl(product),
+      priceCurrency: 'RUB',
+      price: product.pricePerTon,
+      priceValidUntil: getPriceValidUntil(),
+      availability: getSchemaAvailability(product),
+      seller: {
+        '@type': 'Organization',
+        name: COMPANY_NAME,
+      },
+    }
   }
 
   if (product.image) {

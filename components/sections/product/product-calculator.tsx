@@ -13,8 +13,8 @@ export function ProductCalculator({ product }: ProductCalculatorProps) {
     <section id="calculator" className="py-16 bg-stone-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
-          title="Рассчитать стоимость"
-          subtitle={`Быстрый расчет стоимости ${product.name.toLowerCase()} с доставкой`}
+          title="Запросить стоимость"
+          subtitle={`Рассчитаем цену ${product.name.toLowerCase()} и доставки под ваш объём`}
           centered
         />
         <div className="mt-8">

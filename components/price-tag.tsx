@@ -25,12 +25,12 @@ export function PriceTag({
     lg: 'text-3xl font-bold'
   }
 
-  // If no price, show "Price on request"
+  // If no price, show the catalog-wide request-only label.
   if (price === undefined || price === null) {
     return (
       <div className={cn('flex flex-col items-end', className)}>
         <div className={cn('text-brand-sapphire font-medium', sizeClasses[size])}>
-          Цена по запросу
+          По запросу
         </div>
       </div>
     )

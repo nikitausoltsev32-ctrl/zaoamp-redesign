@@ -28,6 +28,7 @@ export const productLinks: NavItem[] = [
   { label: 'Крошка 1.5-2.0 мм', href: '/product/mramornaya-kroshka-1-5-2-0' },
   { label: 'Крошка 1.0-1.5 мм', href: '/product/mramornaya-kroshka-1-0-1-5' },
   { label: 'Крошка 0.5-1.0 мм', href: '/product/mramornaya-kroshka-0-5-1-0' },
+  { label: 'Крошка 0,2-0,5 мм', href: '/product/mramornaya-kroshka-0-2-0-5' },
   { label: 'Крошка 0-5 мм', href: '/product/mramornaya-kroshka-0-5' },
   { label: 'Крошка 0-1 мм', href: '/product/mramornaya-kroshka-0-1' },
   { label: 'Мука 0-0.2 мм', href: '/product/mramornaya-muka-0-0-2' },

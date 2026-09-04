@@ -71,7 +71,7 @@ export function HeroSection() {
 
             <p className="text-lg text-white/90 drop-shadow-md">
               Белизна 98%. Доставка по всей России.{' '}
-              <span className="font-bold text-white">От 2 000 ₽/тонна</span>.
+              <span className="font-bold text-white">Цена по запросу</span>.
               Собственное месторождение белого мрамора.
             </p>
 

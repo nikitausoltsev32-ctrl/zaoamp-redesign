@@ -76,9 +76,8 @@ function normalizeText(value: string) {
     .trim()
 }
 
-function formatPrice(product: Product) {
-  if (!product.pricePerTon) return 'цена по запросу'
-  return `${new Intl.NumberFormat('ru-RU').format(product.pricePerTon)} ₽/т без доставки`
+function formatPrice(_product: Product) {
+  return 'цена по запросу'
 }
 
 function productSearchText(product: Product) {
@@ -208,7 +207,7 @@ export function buildAssistantKnowledgeContext() {
     },
     rules: [
       'точные остатки, финальные сроки и итоговую цену с доставкой подтверждает менеджер',
-      'если цена есть в каталоге, называй ее только как ориентир без доставки',
+      'не называй фиксированную цену: стоимость всей продукции рассчитывается по запросу',
       'если документа нет в списке, говори что менеджер подтвердит актуальный паспорт под партию',
       'для расчета КП нужны город, объем в тоннах, фракция или задача, упаковка и телефон',
     ],

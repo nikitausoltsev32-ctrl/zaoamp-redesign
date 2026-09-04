@@ -1,5 +1,6 @@
 import Link from '@/components/ui/app-link'
-import { ChevronRight, Package } from 'lucide-react'
+import { ChevronRight, FileText, Package } from 'lucide-react'
+import { products } from '@/lib/data/products'
 
 export function CatalogHeader() {
   return (
@@ -31,13 +32,16 @@ export function CatalogHeader() {
             <div className="text-center">
               <div className="flex items-center justify-center gap-2 text-brand-sapphire">
                 <Package className="h-5 w-5" />
-                <span className="text-2xl font-bold">12</span>
+                <span className="text-2xl font-bold">{products.length}</span>
               </div>
               <p className="text-sm text-muted-foreground">видов продукции</p>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-brand-sapphire">2 000 ₽</div>
-              <p className="text-sm text-muted-foreground">от за тонну</p>
+              <div className="flex items-center justify-center gap-2 text-brand-sapphire">
+                <FileText className="h-5 w-5" />
+                <span className="text-2xl font-bold">По запросу</span>
+              </div>
+              <p className="text-sm text-muted-foreground">для каждой партии</p>
             </div>
           </div>
         </div>
