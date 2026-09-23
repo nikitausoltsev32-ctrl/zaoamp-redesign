@@ -1,0 +1,25 @@
+{
+  "hosts": [
+    {
+      "host_id": "https:amp-minerals.ru:443",
+      "verified": true,
+      "main_mirror": null,
+      "ascii_host_url": "https://amp-minerals.ru/",
+      "unicode_host_url": "https://amp-minerals.ru/"
+    },
+    {
+      "host_id": "http:english2026ege.tilda.ws:80",
+      "verified": false,
+      "main_mirror": null,
+      "ascii_host_url": "http://english2026ege.tilda.ws/",
+      "unicode_host_url": "http://english2026ege.tilda.ws/"
+    },
+    {
+      "host_id": "https:english2026ege.tilda.ws:443",
+      "verified": false,
+      "main_mirror": null,
+      "ascii_host_url": "https://english2026ege.tilda.ws/",
+      "unicode_host_url": "https://english2026ege.tilda.ws/"
+    }
+  ]
+}

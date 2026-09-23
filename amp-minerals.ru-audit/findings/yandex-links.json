@@ -1,0 +1,85 @@
+{
+  "history": {
+    "indicators": {
+      "LINKS_TOTAL_COUNT": [
+        {
+          "date": "2026-05-01T00:00:00.000+03:00",
+          "value": 0
+        },
+        {
+          "date": "2026-05-24T00:00:00.000+03:00",
+          "value": 0
+        },
+        {
+          "date": "2026-06-05T00:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-06-15T00:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-06-26T00:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-05T00:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-14T00:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-07-24T00:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-08-04T00:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-08-14T00:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-08-25T00:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-09-06T00:00:00.000+03:00",
+          "value": 4
+        }
+      ]
+    }
+  },
+  "samples": {
+    "count": 4,
+    "links": [
+      {
+        "source_url": "https://shortenurls.eu/share/133587",
+        "destination_url": "https://amp-minerals.ru/",
+        "discovery_date": "2026-08-30",
+        "source_last_access_date": "2026-08-30"
+      },
+      {
+        "source_url": "https://yandex.ru/maps/org/amp_import_eksport/170350594774/",
+        "destination_url": "https://amp-minerals.ru/",
+        "discovery_date": "2026-07-11",
+        "source_last_access_date": "2026-07-11"
+      },
+      {
+        "source_url": "https://yandex.com.tr/maps/org/amp_import_eksport/170350594774/?lang=ru",
+        "destination_url": "https://amp-minerals.ru/",
+        "discovery_date": "2026-07-10",
+        "source_last_access_date": "2026-08-07"
+      },
+      {
+        "source_url": "https://yandex.com/maps/org/amp_import_eksport/170350594774/",
+        "destination_url": "https://amp-minerals.ru/",
+        "discovery_date": "2026-06-03",
+        "source_last_access_date": "2026-08-02"
+      }
+    ]
+  }
+}

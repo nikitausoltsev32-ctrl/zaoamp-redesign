@@ -1,0 +1,30 @@
+cluster_id,target_url,url_state,product,market,business_value,demand,realism,readiness,priority,required_material,status
+RU-CAT-KROSHKA,/catalog/kroshka/,existing,Мраморная крошка,Россия,high,unknown,unknown,medium,pending,цены и условия отгрузки,hypothesis_pending_serp
+RU-CAT-SHCHEBEN,/catalog/shcheben/,existing,Мраморный щебень,Россия,high,unknown,unknown,medium,pending,цены и условия отгрузки,hypothesis_pending_serp
+RU-CAT-MUKA,/catalog/muka/,existing,Мраморная мука и микрокальцит,Россия,high,unknown,unknown,medium,pending,цены и условия отгрузки,hypothesis_pending_serp
+RU-SKU-SH-50-200,/product/mramornyj-shheben-50-200/,existing,Мраморный щебень 50-200 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-SH-20-50,/product/mramornyj-shheben-20-50/,existing,Мраморный щебень 20-50 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-SH-10-20,/product/mramornyj-shheben-10-20/,existing,Мраморный щебень 10-20 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-5-10,/product/mramornaya-kroshka-5-10/,existing,Мраморная крошка 5-10 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-0-5,/product/mramornaya-kroshka-0-5/,existing,Мраморная крошка 0-5 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-MUKA-0-02,/product/mramornaya-muka-0-0-2/,existing,Мраморная мука 0-0.2 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-0-1,/product/mramornaya-kroshka-0-1/,existing,Мраморная крошка 0-1 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-02-05,/product/mramornaya-kroshka-0-2-0-5/,existing,"Мраморная крошка 0,2-0,5 мм",Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-05-10,/product/mramornaya-kroshka-0-5-1-0/,existing,Мраморная крошка 0.5-1.0 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-10-15,/product/mramornaya-kroshka-1-0-1-5/,existing,Мраморная крошка 1.0-1.5 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-15-20,/product/mramornaya-kroshka-1-5-2-0/,existing,Мраморная крошка 1.5-2.0 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-KR-2-3,/product/mramornaya-kroshka-2-3/,existing,Мраморная крошка 2-3 мм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-SKU-MICRO-5-200,/product/mikrokaltsit-5-200-mkm/,existing,Микрокальцит 5-200 мкм,Россия,high,unknown,unknown,medium,pending,цена и паспорт,hypothesis_pending_serp
+RU-APP-LANDSHAFT,/primenenie/landshaft/,existing,Ландшафтный дизайн,Россия,medium,unknown,unknown,medium,pending,кейсы и фото,hypothesis_pending_serp
+RU-APP-DOROGI,/primenenie/dorogi/,existing,Дороги и отсыпка,Россия,medium,unknown,unknown,medium,pending,кейсы и условия,hypothesis_pending_serp
+RU-APP-SHTUKATURKA,/primenenie/shtukaturka/,existing,Декоративные штукатурки,Россия,medium,unknown,unknown,medium,pending,кейсы и характеристики,hypothesis_pending_serp
+RU-APP-LKM,/primenenie/lkm/,existing,ЛКМ и пластики,Россия,medium,unknown,unknown,medium,pending,технические данные и кейсы,hypothesis_pending_serp
+RU-APP-SELHOZ,/primenenie/selhoz/,existing,Сельское хозяйство,Россия,medium,unknown,unknown,medium,pending,подтверждённые применения,hypothesis_pending_serp
+RU-CAT-LANDSHAFT,/catalog/landshaftnyj-kamen/,new,Ландшафтный камень,Россия,medium,"ландшафтный камень 7926/46; декоративный щебень 5162/303",unknown,high,pending,,implemented_local
+RU-SKU-DOLOMIT,/product/dolomitovyj-shheben/,new,Доломитовый щебень,Россия,medium,"доломитовый щебень 3438/457",unknown,high,pending,,implemented_local
+RU-SKU-ZLATOLIT,/product/zlatolit/,new,Златолит,Россия,medium,"златолит 3499/381",unknown,high,pending,,implemented_local
+RU-SKU-ZMEEVIK,/product/zmeevik-shheben/,new,Змеевик,Россия,medium,"серпентин камень 364/124; змеевик щебень 105/10",unknown,high,pending,,implemented_local
+RU-SKU-GALKA,/product/rechnaya-galka/,new,Речная галька,Россия,medium,"речная галька 6631/232",unknown,high,pending,,implemented_local
+RU-SKU-SLANEC,/product/slancevyj-shheben/,new,Сланцевый щебень,Россия,medium,"сланцевый камень 471/69; сланцевый щебень 253/53",unknown,high,pending,,implemented_local
+RU-SKU-FELZIT,/product/felzit/,new,Фельзит жёлтый и розовый,Россия,medium,"фельзит желтый 8/4; фельзит розовый 8/4",unknown,high,pending,,implemented_local
+RU-SKU-YASHMA,/product/yashma-shheben/,new,Щебень яшма,Россия,medium,"щебень яшма 121/15",unknown,high,pending,,implemented_local

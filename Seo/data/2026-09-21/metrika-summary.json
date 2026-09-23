@@ -1,0 +1,22 @@
+{
+  "counter_id": 108746641,
+  "period": { "date1": "2026-06-23", "date2": "2026-09-19" },
+  "traffic": {
+    "all": { "visits": 52, "users": 30 },
+    "organic": { "visits": 14, "users": 3 },
+    "direct": { "visits": 33, "users": 25 },
+    "referral": { "visits": 5, "users": 3 }
+  },
+  "organic_goal_reaches": {
+    "phone_click": 3,
+    "whatsapp_click_duplicate_goal_1": 1,
+    "whatsapp_click_duplicate_goal_2": 1,
+    "form_submit_duplicate_goal_1": 0,
+    "form_submit_duplicate_goal_2": 0,
+    "auto_form": 6,
+    "auto_contact_sent": 2,
+    "auto_phone": 3,
+    "auto_messenger": 2
+  },
+  "note": "Goals overlap and must not be summed as unique leads. Organic actions were recorded on sessions landing mainly on the home page."
+}

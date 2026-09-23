@@ -1,0 +1,17 @@
+cluster_id,cluster_name,main_query,supporting_queries,intent,serp_type,overlap_evidence,market,status
+RU-CAT-KROSHKA,Мраморная крошка оптом,мраморная крошка купить оптом,мраморная крошка цена за тонну,commercial,category,,Россия,hypothesis_pending_serp
+RU-CAT-SHCHEBEN,Мраморный щебень оптом,мраморный щебень купить оптом,мраморный щебень цена за тонну,commercial,category,,Россия,hypothesis_pending_serp
+RU-CAT-MUKA,Мраморная мука и микрокальцит,мраморная мука купить оптом,микрокальцит купить оптом,commercial,category,,Россия,hypothesis_pending_serp
+RU-APP-LANDSHAFT,Ландшафтный дизайн,мраморная крошка для ландшафтного дизайна,,mixed,application,,Россия,hypothesis_pending_serp
+RU-APP-DOROGI,Дороги и отсыпка,мраморный щебень для дорог,,commercial,application,,Россия,hypothesis_pending_serp
+RU-APP-SHTUKATURKA,Декоративные штукатурки,мраморная крошка для декоративной штукатурки,,commercial,application,,Россия,hypothesis_pending_serp
+RU-APP-LKM,ЛКМ и пластики,микрокальцит для ЛКМ и пластиков,,commercial,application,,Россия,hypothesis_pending_serp
+RU-APP-SELHOZ,Сельское хозяйство,мраморная мука для сельского хозяйства,,mixed,application,,Россия,hypothesis_pending_serp
+RU-CAT-LANDSHAFT,Ландшафтный камень и декоративный щебень,ландшафтный камень,"декоративный щебень; купить камни для ландшафтного дизайна; декоративный щебень для ландшафтного дизайна",commercial,category,,Россия,frequency_collected_pending_serp
+RU-SKU-DOLOMIT,Доломитовый щебень,доломитовый щебень,"доломитка купить; доломитовый щебень для септика; доломитовый щебень для дренажа",commercial,product,,Россия,frequency_collected_pending_serp
+RU-SKU-ZLATOLIT,Златолит,златолит,"златолит камень; златолит камень купить; златолит для дорожек",commercial,product,,Россия,frequency_collected_pending_serp
+RU-SKU-ZMEEVIK,Змеевик (серпентинит),змеевик щебень,"серпентин камень; щебень змеевик купить",commercial,product,,Россия,frequency_collected_pending_serp
+RU-SKU-GALKA,Речная галька,речная галька,"речная галька купить; речная галька для дорожек; галька декоративная для сада и ландшафта купить",commercial,product,,Россия,frequency_collected_pending_serp
+RU-SKU-SLANEC,Сланцевый щебень,сланцевый щебень,"сланцевый камень; щебень сланец",commercial,product,,Россия,frequency_collected_pending_serp
+RU-SKU-FELZIT,Фельзит,фельзит,"фельзит желтый; фельзит розовый",commercial,product,,Россия,frequency_collected_pending_serp
+RU-SKU-YASHMA,Щебень яшма,щебень яшма,"щебень яшма купить",commercial,product,,Россия,frequency_collected_pending_serp
