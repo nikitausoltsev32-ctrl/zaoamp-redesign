@@ -34,6 +34,13 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Полоса прокрутки страницы скрыта, прокрутка работает */
+  html {
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer utilities {

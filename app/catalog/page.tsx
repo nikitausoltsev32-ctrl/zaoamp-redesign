@@ -29,6 +29,12 @@ const CATEGORY_CARDS = [
     description: '0-0,2 мм и 5-200 мкм. CaCO₃ 98%, белизна 98%. Для ЛКМ, пластиков, сельского хозяйства.',
     badge: '2 вида',
   },
+  {
+    href: '/catalog/landshaftnyj-kamen',
+    title: 'Ландшафтный камень',
+    description: 'Яшма, змеевик, фельзит, златолит, доломит, сланец, речная галька. Природный цвет для ландшафта.',
+    badge: '7 пород',
+  },
 ]
 
 export default function CatalogPage() {
@@ -44,6 +50,7 @@ export default function CatalogPage() {
     scherb: products.filter(p => p.category === 'scherb').length,
     kroshka: products.filter(p => p.category === 'kroshka').length,
     muika: products.filter(p => p.category === 'muika' || p.category === 'otsev').length,
+    landshaft: products.filter(p => p.category === 'landshaft').length,
   }), [])
 
   return (
@@ -55,7 +62,7 @@ export default function CatalogPage() {
 
         {/* Категории */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid sm:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {CATEGORY_CARDS.map((cat) => (
               <Link
                 key={cat.href}

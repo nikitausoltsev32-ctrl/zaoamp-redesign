@@ -2,6 +2,7 @@
 const nextConfig = {
   output: 'standalone',
   trailingSlash: true,
+  poweredByHeader: false,
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { ContactForm, ContactInfo } from '@/components/sections/contacts/contact-form'
-import { SectionHeader } from '@/components/section-header'
 import { generateContactsMetadata } from '@/lib/seo/metadata'
 import { generateBreadcrumbSchema, generateLocalBusinessSchema, JsonLd } from '@/lib/seo/schema'
 
@@ -19,11 +18,14 @@ export default function ContactsPage() {
       <div className="min-h-screen bg-brand-ice-blue">
         <div className="bg-gradient-to-br from-stone-50 to-stone-100 py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionHeader
-              title="Контакты"
-              subtitle="Свяжитесь с нами любым удобным способом"
-              centered
-            />
+            <div className="mb-8 md:mb-12 text-center">
+              <h1 className="font-serif font-bold text-foreground text-2xl md:text-3xl lg:text-4xl mb-3">
+                Контакты ЗАО «АМП ИМПОРТ-ЭКСПОРТ» — отдел продаж и отгрузка
+              </h1>
+              <p className="text-base md:text-lg max-w-2xl mx-auto text-muted-foreground">
+                Свяжитесь с нами любым удобным способом
+              </p>
+            </div>
           </div>
         </div>
 

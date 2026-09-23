@@ -7,6 +7,9 @@ function absoluteUrl(path = '/') {
   return new URL(path, SITE_URL).toString()
 }
 
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`
+export const WEBSITE_ID = `${SITE_URL}/#website`
+
 function withTrailingSlash(path: string) {
   if (path === '/' || path.endsWith('/')) return path
   return `${path}/`
@@ -48,6 +51,7 @@ function getCategoryName(category: Product['category']) {
     kroshka: 'Мраморная крошка',
     muika: 'Мраморная мука и микрокальцит',
     otsev: 'Мраморная мука и микрокальцит',
+    landshaft: 'Ландшафтный камень',
   }
 
   return labels[category]
@@ -55,7 +59,8 @@ function getCategoryName(category: Product['category']) {
 
 function getProductAdditionalProperties(product: Product) {
   const properties = [
-    { name: 'Фракция', value: product.fraction },
+    { name: 'Порода', value: product.rock },
+    { name: 'Фракция', value: product.fraction || undefined },
     { name: 'Белизна', value: normalizeValue(product.specifications.whiteness) },
     { name: 'CaCO3', value: normalizeValue(product.specifications.caco3) },
     {
@@ -81,16 +86,20 @@ export function generateOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': ORGANIZATION_ID,
     name: COMPANY_NAME,
     alternateName: SITE_NAME,
-    brand: SITE_NAME,
+    brand: {
+      '@type': 'Brand',
+      name: SITE_NAME,
+    },
     url: SITE_URL,
     logo: absoluteUrl('/logo.png'),
     email: 'evoprod@mail.ru',
     telephone: '+7-919-393-19-92',
     foundingDate: '2004',
     description:
-      'Производитель белой мраморной крошки, щебня и микрокальцита с собственным карьером в Челябинской области. 20+ лет на рынке, поставки по России, Беларуси и Казахстану.',
+      'Производитель белой мраморной крошки, щебня и микрокальцита с собственным карьером в Челябинской области, а также цветного ландшафтного камня: яшмы, змеевика, фельзита, златолита, доломита, сланца и речной гальки. 20+ лет на рынке, поставки по России, Беларуси и Казахстану.',
     areaServed: ['RU', 'BY', 'KZ'],
     knowsAbout: [
       'Мраморная крошка',
@@ -100,10 +109,12 @@ export function generateOrganizationSchema() {
       'Нерудные строительные материалы',
       'Ландшафтный дизайн',
       'Архитектурный бетон',
+      'Ландшафтный камень',
+      'Декоративный щебень',
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Каталог мраморной продукции',
+      name: 'Каталог мраморной продукции и ландшафтного камня',
       url: absoluteUrl('/catalog/'),
     },
     address: {
@@ -128,10 +139,11 @@ export function generateOrganizationSchema() {
   }
 }
 
-export function generateLocalBusinessSchema(areaServed?: string) {
+export function generateLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
+    '@id': `${SITE_URL}/contacts/#localbusiness`,
     name: COMPANY_NAME,
     url: SITE_URL,
     email: 'evoprod@mail.ru',
@@ -162,9 +174,16 @@ export function generateLocalBusinessSchema(areaServed?: string) {
       'https://t.me/usolst',
       'https://yandex.ru/maps/org/amp_import_eksport/170350594774/',
     ],
-    ...(areaServed
-      ? { areaServed: { '@type': 'City', name: areaServed } }
-      : {}),
+  }
+}
+
+export function generateCityServiceSchema(city: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Поставка мраморной крошки и щебня в ${city}`,
+    provider: { '@id': ORGANIZATION_ID },
+    areaServed: { '@type': 'City', name: city },
   }
 }
 
@@ -180,11 +199,9 @@ export function generateProductSchema(product: Product) {
       '@type': 'Brand',
       name: SITE_NAME,
     },
-    manufacturer: {
-      '@type': 'Organization',
-      name: COMPANY_NAME,
-    },
+    manufacturer: { '@id': ORGANIZATION_ID },
     category: getCategoryName(product.category),
+    ...(product.rock ? { material: product.rock } : {}),
     additionalProperty: getProductAdditionalProperties(product),
   }
 
@@ -196,10 +213,15 @@ export function generateProductSchema(product: Product) {
       price: product.pricePerTon,
       priceValidUntil: getPriceValidUntil(),
       availability: getSchemaAvailability(product),
-      seller: {
-        '@type': 'Organization',
-        name: COMPANY_NAME,
-      },
+      seller: { '@id': ORGANIZATION_ID },
+    }
+  } else {
+    schema.offers = {
+      '@type': 'AggregateOffer',
+      url: productUrl(product),
+      priceCurrency: 'RUB',
+      availability: getSchemaAvailability(product),
+      seller: { '@id': ORGANIZATION_ID },
     }
   }
 
@@ -227,8 +249,10 @@ export function generateWebSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': WEBSITE_ID,
     name: SITE_NAME,
     url: SITE_URL,
+    publisher: { '@id': ORGANIZATION_ID },
   }
 }
 
@@ -236,6 +260,10 @@ export function generateFAQSchema(faqs: Array<{ question: string; answer: string
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.faq-question', '.faq-answer'],
+    },
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
@@ -275,12 +303,7 @@ export function generateArticleSchema(post: BlogPost, author: Author) {
         url: SITE_URL,
       },
     },
-    publisher: {
-      '@type': 'Organization',
-      name: COMPANY_NAME,
-      url: SITE_URL,
-      logo: { '@type': 'ImageObject', url: absoluteUrl('/logo.png') },
-    },
+    publisher: { '@id': ORGANIZATION_ID },
   }
 }
 

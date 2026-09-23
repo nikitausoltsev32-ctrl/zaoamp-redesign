@@ -101,12 +101,17 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                 src={product.image}
                 alt={getProductImageAlt(product)}
                 fill
-                className="object-cover grayscale-[20%] sepia-[15%]"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className={
+                  product.category === 'landshaft'
+                    ? 'object-cover'
+                    : 'object-cover grayscale-[20%] sepia-[15%]'
+                }
                 priority
               />
             ) : (
               <MediaSlot
-                title={`Фото продукции: ${product.fraction}`}
+                title={`Фото продукции: ${product.fraction || product.name}`}
                 caption={`Слот для подтверждённого фото «${product.name}». Иллюстрация не используется вместо фактического материала.`}
                 className="absolute inset-0 min-h-0 rounded-none"
               />
@@ -210,8 +215,10 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             {/* Quick specs */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="bg-stone-50 p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-1">Белизна</p>
-                <p className="font-semibold">{product.specifications.whiteness}</p>
+                <p className="text-sm text-muted-foreground mb-1">
+                  {product.specifications.whiteness ? 'Белизна' : 'Порода'}
+                </p>
+                <p className="font-semibold">{product.specifications.whiteness ?? product.rock}</p>
               </div>
               <div className="bg-stone-50 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground mb-1">Упаковка</p>
@@ -255,7 +262,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
             <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Опт от 1 тонны</span>
+                <span>Опт от 5 тонн</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
@@ -263,7 +270,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Check className="h-4 w-4 text-green-500" />
-                <span>Паспорта качества</span>
+                <span>{product.category === 'landshaft' ? 'Собственный карьер' : 'Паспорта качества'}</span>
               </div>
             </div>
           </div>

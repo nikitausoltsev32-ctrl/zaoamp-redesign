@@ -8,7 +8,7 @@ import { applicationLandingPages } from '@/lib/data/seo-landings'
 import { generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
 
 export const metadata: Metadata = {
-  title: 'Применение мраморной крошки, щебня, муки и микрокальцита',
+  title: { absolute: 'Применение мраморной крошки, щебня, муки и микрокальцита' },
   description:
     'Посадочные страницы по применению мраморной продукции: ландшафт, дорожная отсыпка, штукатурки, ЛКМ, пластики и сельское хозяйство.',
   alternates: {

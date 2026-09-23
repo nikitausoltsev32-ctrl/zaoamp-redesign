@@ -9,6 +9,7 @@ export const navItems: NavItem[] = [
       { label: 'Мраморный щебень', href: '/catalog/shcheben' },
       { label: 'Мраморная крошка', href: '/catalog/kroshka' },
       { label: 'Мука и микрокальцит', href: '/catalog/muka' },
+      { label: 'Ландшафтный камень', href: '/catalog/landshaftnyj-kamen' },
     ],
   },
   { label: 'Применение', href: '/primenenie' },
@@ -39,4 +40,5 @@ export const categoryLinks: NavItem[] = [
   { label: 'Мраморный щебень', href: '/catalog/shcheben' },
   { label: 'Мраморная крошка', href: '/catalog/kroshka' },
   { label: 'Мука и микрокальцит', href: '/catalog/muka' },
+  { label: 'Ландшафтный камень', href: '/catalog/landshaftnyj-kamen' },
 ]

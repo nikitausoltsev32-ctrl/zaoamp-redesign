@@ -69,13 +69,13 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               alt={getProductImageAlt(product)}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
+              className={`object-cover transition-all duration-500 ${product.category === 'landshaft' ? '' : 'grayscale-[15%] group-hover:grayscale-0'}`}
             />
           </Link>
         ) : (
           <Link href={`/product/${product.slug}`} className="block">
             <MediaSlot
-              title={`Фото продукции: ${product.fraction}`}
+              title={`Фото продукции: ${product.fraction || product.name}`}
               caption="Подтверждённое фото этой фракции пока не предоставлено."
               className="min-h-44 rounded-none border-x-0 border-t-0"
             />
@@ -84,7 +84,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <Badge variant="secondary" className="mb-2">
-              {product.fraction}
+              {product.fraction || product.rock}
             </Badge>
             <PriceTag price={product.pricePerTon} size="sm" />
           </div>
@@ -100,7 +100,7 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
   }
 
   return (
-      <Card className="h-full transition-shadow hover:shadow-lg overflow-hidden group">
+      <Card className="h-full flex flex-col transition-shadow hover:shadow-lg overflow-hidden group">
         {product.image ? (
           <Link href={`/product/${product.slug}`} className="block relative h-52 overflow-hidden">
             <Image
@@ -108,16 +108,16 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
               alt={getProductImageAlt(product)}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover grayscale-[15%] group-hover:grayscale-0 transition-all duration-500"
+              className={`object-cover transition-all duration-500 ${product.category === 'landshaft' ? '' : 'grayscale-[15%] group-hover:grayscale-0'}`}
             />
             <div className="absolute top-3 left-3">
-              <Badge variant="secondary" className="bg-brand-ice-blue/90">{product.fraction}</Badge>
+              <Badge variant="secondary" className="bg-brand-ice-blue/90">{product.fraction || product.rock}</Badge>
             </div>
           </Link>
         ) : (
           <Link href={`/product/${product.slug}`} className="block">
             <MediaSlot
-              title={`Фото продукции: ${product.fraction}`}
+              title={`Фото продукции: ${product.fraction || product.name}`}
               caption="Слот для подтверждённого фото фракции. Изображение не подменяется иллюстрацией."
               className="min-h-52 rounded-none border-x-0 border-t-0"
             />
@@ -125,40 +125,46 @@ export function ProductCard({ product, variant = 'default' }: ProductCardProps) 
         )}
       <CardHeader className="pt-4">
         <div className="flex items-start justify-between gap-2">
-          {!product.image && <Badge variant="secondary">{product.fraction}</Badge>}
+          {!product.image && <Badge variant="secondary">{product.fraction || product.rock}</Badge>}
           <PriceTag price={product.pricePerTon} />
         </div>
         <CardTitle className="font-serif text-xl mt-2">{product.name}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="flex-1 space-y-4">
         <p className="text-sm text-muted-foreground line-clamp-2">
           {product.description}
         </p>
         <div className="space-y-2">
           <p className="text-xs font-medium text-muted-foreground">Применение:</p>
           <div className="flex flex-wrap gap-1">
-            {product.applications.slice(0, 3).map((app, idx) => {
-              const words = app.split(' ')
-              const label = words.length > 2 ? words.slice(0, 2).join(' ') + '…' : app
-              return (
-                <Badge key={idx} variant="outline" className="text-xs">
-                  {label}
-                </Badge>
-              )
-            })}
+            {product.applications.slice(0, 3).map((app, idx) => (
+              <Badge
+                key={idx}
+                variant="outline"
+                className="text-xs font-medium border-brand-sapphire/20 bg-brand-sapphire/10 text-brand-sapphire"
+              >
+                {app}
+              </Badge>
+            ))}
           </div>
         </div>
-        <div className="text-xs text-muted-foreground">
-          <span className="font-medium">Белизна:</span> {product.specifications.whiteness}
-        </div>
+        {(product.specifications.whiteness || product.rock) && (
+          <div className="text-xs text-muted-foreground">
+            {product.specifications.whiteness ? (
+              <><span className="font-medium">Белизна:</span> {product.specifications.whiteness}</>
+            ) : (
+              <><span className="font-medium">Порода:</span> {product.rock}</>
+            )}
+          </div>
+        )}
       </CardContent>
-      <CardFooter className="flex gap-2">
-        <Button asChild variant="default" className="flex-1">
+      <CardFooter className="grid grid-cols-1 gap-2">
+        <Button asChild variant="default" className="w-full min-w-0 px-3">
           <Link href={`/product/${product.slug}`} onClick={() => ymGoal('product_view')}>Подробнее</Link>
         </Button>
         {!hasPrice && (
-          <Button variant="outline" className="flex-1" onClick={() => { ymGoal('kp_open'); setKpOpen(true) }}>
-            <FileText className="mr-2 h-4 w-4" />
+          <Button variant="outline" className="w-full min-w-0 px-3" onClick={() => { ymGoal('kp_open'); setKpOpen(true) }}>
+            <FileText className="mr-2 h-4 w-4 shrink-0" />
             Получить КП
           </Button>
         )}

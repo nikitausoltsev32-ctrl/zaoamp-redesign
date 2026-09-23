@@ -10,6 +10,9 @@ import { generateProductSchema, generateBreadcrumbSchema, generateFAQSchema, Jso
 import { generateProductMetadata } from '@/lib/seo/metadata'
 import { SeoLongContent } from '@/components/sections/seo-long-content'
 import { ProductFaq } from '@/components/sections/product/product-faq'
+import { ProductCard } from '@/components/product-card'
+import { products } from '@/lib/data/products'
+import Link from '@/components/ui/app-link'
 
 interface ProductPageProps {
   params: {
@@ -48,8 +51,13 @@ export default function ProductPage({ params }: ProductPageProps) {
     kroshka: { slug: 'kroshka', label: 'Мраморная крошка' },
     muika: { slug: 'muka', label: 'Мука и микрокальцит' },
     otsev: { slug: 'muka', label: 'Мука и микрокальцит' },
+    landshaft: { slug: 'landshaftnyj-kamen', label: 'Ландшафтный камень' },
   }
   const cat = categoryMap[product.category]
+  const otherStones =
+    product.category === 'landshaft'
+      ? products.filter((p) => p.category === 'landshaft' && p.slug !== product.slug)
+      : []
 
   const breadcrumb = generateBreadcrumbSchema([
     { name: 'Главная', item: '/' },
@@ -74,6 +82,26 @@ export default function ProductPage({ params }: ProductPageProps) {
         </section>
       )}
       {product.faqs && <ProductFaq faqs={product.faqs} />}
+      {otherStones.length > 0 && (
+        <section className="bg-stone-50 py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+              <h2 className="text-2xl font-bold text-foreground md:text-3xl">Другие породы</h2>
+              <Link
+                href="/catalog/landshaftnyj-kamen"
+                className="text-sm font-medium text-brand-sapphire hover:underline"
+              >
+                Весь ландшафтный камень →
+              </Link>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {otherStones.map((stone) => (
+                <ProductCard key={stone.slug} product={stone} variant="compact" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       <ProductCalculator product={product} />
       <ProductCTA />
     </div>

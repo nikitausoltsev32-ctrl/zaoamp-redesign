@@ -131,13 +131,14 @@ export function CategoryPageTemplate({ data }: Props) {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12">
             <div className="text-center mb-2">
               <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
-                Фракции в наличии
+                {data.labels?.productsBadge ?? 'Фракции в наличии'}
               </Badge>
               <h2 className="text-3xl font-bold text-foreground mb-4">
-                Каталог фракций
+                {data.labels?.productsTitle ?? 'Каталог фракций'}
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Все фракции этой категории — с ценами, техническими характеристиками и упаковкой
+                {data.labels?.productsSubtitle ??
+                  'Все фракции этой категории — с ценами, техническими характеристиками и упаковкой'}
               </p>
             </div>
           </div>
@@ -214,8 +215,8 @@ export function CategoryPageTemplate({ data }: Props) {
                 <h3 className="font-semibold text-foreground mb-2">Документы</h3>
                 {/* TODO: добавить на сайт документы по всем SKU, когда будут подтверждённые файлы. */}
                 <p className="text-sm text-muted-foreground">
-                  Паспорта качества доступны для части позиций в разделе документов. По остальной
-                  номенклатуре наличие документов уточняйте при запросе.
+                  {data.labels?.documentsNote ??
+                    'Паспорта качества доступны для части позиций в разделе документов. По остальной номенклатуре наличие документов уточняйте при запросе.'}
                 </p>
               </div>
             </div>
@@ -244,11 +245,11 @@ export function CategoryPageTemplate({ data }: Props) {
                     transition={{ duration: 0.4, delay: i * 0.05 }}
                     className="group bg-white rounded-xl p-5 cursor-pointer open:shadow-sm"
                   >
-                    <summary className="font-semibold text-foreground list-none flex justify-between items-center gap-4">
+                    <summary className="faq-question font-semibold text-foreground list-none flex justify-between items-center gap-4">
                       <span>{faq.question}</span>
                       <ArrowRight className="h-4 w-4 text-brand-sapphire transition-transform group-open:rotate-90 shrink-0" />
                     </summary>
-                    <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                    <p className="faq-answer mt-3 text-sm text-muted-foreground leading-relaxed">
                       {faq.answer}
                     </p>
                   </m.details>
@@ -288,10 +289,11 @@ export function CategoryPageTemplate({ data }: Props) {
         <section className="py-16 bg-brand-deep-navy text-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl font-bold mb-4">
-              Нужна консультация по фракции?
+              {data.labels?.ctaTitle ?? 'Нужна консультация по фракции?'}
             </h2>
             <p className="text-stone-300 mb-8 max-w-2xl mx-auto">
-              Подскажем, какая фракция подойдёт под вашу задачу, рассчитаем объём и стоимость доставки
+              {data.labels?.ctaText ??
+                'Подскажем, какая фракция подойдёт под вашу задачу, рассчитаем объём и стоимость доставки'}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Button asChild size="lg" className="bg-white text-brand-deep-navy hover:bg-stone-100">

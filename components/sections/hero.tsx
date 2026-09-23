@@ -65,8 +65,8 @@ export function HeroSection() {
             </Badge>
 
             <h1 className="font-serif text-4xl font-bold tracking-tight text-white sm:text-5xl drop-shadow-lg">
-              Мраморная крошка и щебень{' '}
-              <span className="text-brand-powder-blue">премиум-качества</span>
+              Белая мраморная крошка и щебень{' '}
+              <span className="text-brand-powder-blue">с собственного карьера</span>
             </h1>
 
             <p className="text-lg text-white/90 drop-shadow-md">

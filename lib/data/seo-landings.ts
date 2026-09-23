@@ -29,6 +29,9 @@ export interface ApplicationLandingPage {
 export interface CityLandingPage {
   slug: CitySlug
   city: string
+  cityPrepositional: string
+  cityGenitive: string
+  cityAccusative: string
   h1: string
   title: string
   description: string
@@ -48,7 +51,7 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
     slug: 'landshaft',
     label: 'Ландшафтный дизайн',
     h1: 'Мраморная крошка для ландшафтного дизайна',
-    title: 'Мраморная крошка для ландшафтного дизайна купить - фракции, цена, доставка',
+    title: 'Мраморная крошка для ландшафтного дизайна - фракции и цена',
     description:
       'Белая мраморная крошка для клумб, дорожек, рокариев, сухих ручьев и декоративной отсыпки. Фракции 0-1, 2-3, 5-10 мм, доставка по России.',
     intro:
@@ -65,6 +68,9 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
       { label: 'Все фракции крошки', href: '/catalog/kroshka' },
       { label: 'Крошка 5-10 мм', href: '/product/mramornaya-kroshka-5-10' },
       { label: 'Крошка 2-3 мм', href: '/product/mramornaya-kroshka-2-3' },
+      { label: 'Цветной ландшафтный камень', href: '/catalog/landshaftnyj-kamen' },
+      { label: 'Златолит', href: '/product/zlatolit' },
+      { label: 'Речная галька', href: '/product/rechnaya-galka' },
     ],
     buyerProblems: [
       'Нужно подобрать фракцию, которая не пылит и не разносится ветром.',
@@ -494,7 +500,7 @@ export const applicationLandingPages: Record<ApplicationSlug, ApplicationLanding
     slug: 'selhoz',
     label: 'Сельское хозяйство',
     h1: 'Мраморная мука для сельского хозяйства',
-    title: 'Мраморная мука для сельского хозяйства купить - CaCO3 для почвы и кормов',
+    title: 'Мраморная мука для сельского хозяйства - CaCO3 для почвы',
     description:
       'Мраморная мука и карбонат кальция для раскисления почвы, агрохимических задач, комбикормов и премиксов. CaCO3 до 99%, доставка по России.',
     intro:
@@ -600,6 +606,9 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
   ekaterinburg: {
     slug: 'ekaterinburg',
     city: 'Екатеринбург',
+    cityPrepositional: 'Екатеринбурге',
+    cityGenitive: 'Екатеринбурга',
+    cityAccusative: 'Екатеринбург',
     h1: 'Мраморная крошка и щебень в Екатеринбурге',
     title: 'Мраморная крошка и щебень купить в Екатеринбурге - ЗАО АМП',
     description:
@@ -675,8 +684,11 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
   chelyabinsk: {
     slug: 'chelyabinsk',
     city: 'Челябинск',
+    cityPrepositional: 'Челябинске',
+    cityGenitive: 'Челябинска',
+    cityAccusative: 'Челябинск',
     h1: 'Мраморная крошка и щебень с доставкой в Челябинск',
-    title: 'Мраморная крошка и щебень купить в Челябинске - доставка от производителя',
+    title: 'Мраморная крошка и щебень в Челябинске от производителя',
     description:
       'Белая мраморная крошка, щебень, мука и микрокальцит с доставкой в Челябинск и область. Фракции, цена за тонну, расчет логистики.',
     intro:
@@ -750,6 +762,9 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
   tyumen: {
     slug: 'tyumen',
     city: 'Тюмень',
+    cityPrepositional: 'Тюмени',
+    cityGenitive: 'Тюмени',
+    cityAccusative: 'Тюмень',
     h1: 'Мраморная крошка и щебень с доставкой в Тюмень',
     title: 'Мраморная крошка и щебень купить в Тюмени - доставка по региону',
     description:
@@ -824,6 +839,9 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
   perm: {
     slug: 'perm',
     city: 'Пермь',
+    cityPrepositional: 'Перми',
+    cityGenitive: 'Перми',
+    cityAccusative: 'Пермь',
     h1: 'Мраморная крошка и щебень с доставкой в Пермь',
     title: 'Мраморная крошка и щебень купить в Перми - цена и доставка',
     description:
@@ -899,6 +917,9 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
   moskva: {
     slug: 'moskva',
     city: 'Москва',
+    cityPrepositional: 'Москве',
+    cityGenitive: 'Москвы',
+    cityAccusative: 'Москву',
     h1: 'Мраморная крошка и щебень с доставкой в Москву',
     title: 'Мраморная крошка и щебень купить в Москве - поставка по России',
     description:

@@ -35,7 +35,8 @@ export function getCategoryLabel(category: Product['category']): string {
     scherb: 'Щебень',
     kroshka: 'Крошка',
     muika: 'Мраморная мука',
-    otsev: 'Отсев'
+    otsev: 'Отсев',
+    landshaft: 'Ландшафтный камень'
   }
   return labels[category] || category
 }

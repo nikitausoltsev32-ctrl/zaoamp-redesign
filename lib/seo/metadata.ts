@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import type { Product } from '@/types'
 import type { BlogPost } from '@/lib/data/blog'
 import type { CategoryData } from '@/lib/data/categories'
-import { keywordsForTarget } from '@/lib/data/semantic-core'
 
 export const SITE_URL = 'https://amp-minerals.ru'
 export const SITE_NAME = 'АМП'
@@ -15,11 +14,6 @@ const DEFAULT_DESCRIPTION =
 
 function absoluteUrl(path = '/') {
   return new URL(path, SITE_URL).toString()
-}
-
-// Ключи семантического ядра для пути (по частотности) + ручные дополнения, без дублей.
-function mergeKeywords(path: string, extra: string[] = []): string[] {
-  return Array.from(new Set([...keywordsForTarget(path), ...extra]))
 }
 
 export function absoluteSiteUrl(path = '/') {
@@ -63,21 +57,20 @@ function createMetadata({
   title,
   description,
   path,
-  keywords,
   type = 'website',
+  brandSuffix = false,
 }: {
   title: string
   description: string
   path: string
-  keywords?: string[]
   type?: 'website' | 'article'
+  brandSuffix?: boolean
 }): Metadata {
   const normalizedPath = withTrailingSlash(path)
 
   return {
-    title,
+    title: brandSuffix ? title : { absolute: title },
     description,
-    keywords,
     alternates: {
       canonical: normalizedPath,
     },
@@ -132,8 +125,8 @@ function buildProductTitle(product: Product) {
 function buildProductDescription(product: Product) {
   const segments = [
     `${product.name} от производителя.`,
-    `Фракция ${product.fraction}.`,
-  ]
+    product.fraction ? `Фракция ${product.fraction}.` : '',
+  ].filter(Boolean)
 
   const whiteness = normalizeValue(product.specifications.whiteness)
   if (whiteness) {
@@ -165,7 +158,11 @@ function buildCategoryDescription(category: CategoryData, productCount: number, 
     parts.push(`Цена от ${formatPrice(minPrice)} ₽/т.`)
   }
 
-  parts.push('Подберём фракцию, упаковку и доставку по России под объект, объём и регион.')
+  parts.push(
+    category.slug === 'landshaftnyj-kamen'
+      ? 'Яшма, змеевик, фельзит, златолит, доломит, сланец, речная галька. Опт от 5 тонн, доставка по России.'
+      : 'Подберём фракцию, упаковку и доставку по России под объект, объём и регион.'
+  )
 
   return parts.join(' ')
 }
@@ -224,15 +221,10 @@ export const defaultMetadata: Metadata = {
 
 export function generateHomeMetadata(): Metadata {
   const base = createMetadata({
-    title: 'Мраморная крошка и щебень купить в Екатеринбурге',
+    title: 'Мраморная крошка и щебень от производителя — свой карьер',
     description:
-      'Белая мраморная крошка, щебень и микрокальцит от производителя. Белизна 98%, фракции 0–200 мм, доставка по России. Расчёт стоимости в день обращения.',
+      'Белая мраморная крошка, щебень и микрокальцит с собственного карьера. Белизна 98%, фракции 0–200 мм, доставка по России. Расчёт стоимости в день обращения.',
     path: '/',
-    keywords: mergeKeywords('/', [
-      'мраморная крошка купить екатеринбург',
-      'белая мраморная крошка 98% белизна',
-      'мраморный щебень от производителя',
-    ]),
   })
 
   return {
@@ -259,16 +251,9 @@ export function generateCatalogMetadata(productCount: number, minPrice?: number)
   const priceText = typeof minPrice === 'number' ? `Цена от ${formatPrice(minPrice)} ₽/т.` : ''
 
   return createMetadata({
-    title: 'Каталог мраморной крошки и щебня — купить в Екатеринбурге',
-    description: `Каталог белой мраморной продукции: ${productCount} позиций с характеристиками, упаковкой и доставкой по России. ${priceText} Подберём решение под объект и регион.`,
+    title: 'Каталог мраморной крошки, щебня и ландшафтного камня от производителя',
+    description: `Каталог с собственного карьера: белая мраморная крошка, щебень, мука, микрокальцит и цветной ландшафтный камень — ${productCount} позиций с характеристиками, упаковкой и доставкой по России. ${priceText}`.trim(),
     path: '/catalog',
-    keywords: mergeKeywords('/catalog', [
-      'каталог мраморной крошки',
-      'мраморный щебень купить',
-      'микрокальцит от производителя',
-      'мраморная мука цена',
-      'доставка мраморной продукции',
-    ]),
   })
 }
 
@@ -279,16 +264,16 @@ export function generateCategoryMetadata(category: CategoryData, products: Produ
     .sort((a, b) => a - b)[0]
 
   const titleMap: Record<CategoryData['slug'], string> = {
-    shcheben: 'Мраморный щебень купить в Екатеринбурге — фракции 10–200 мм, цена от производителя',
-    kroshka: 'Мраморная крошка купить в Екатеринбурге — фракции, белизна 98%, цена от производителя',
+    shcheben: 'Мраморный щебень от производителя — фракции 10–200 мм',
+    kroshka: 'Мраморная крошка от производителя — белизна 98%',
     muka: 'Мраморная мука и микрокальцит купить от производителя',
+    'landshaftnyj-kamen': 'Ландшафтный камень и декоративный щебень от производителя',
   }
 
   return createMetadata({
     title: titleMap[category.slug],
     description: buildCategoryDescription(category, products.length, minPrice),
     path: `/catalog/${category.slug}`,
-    keywords: mergeKeywords(`/catalog/${category.slug}`, category.seo.keywords),
   })
 }
 
@@ -302,15 +287,8 @@ export function generateProductMetadata(product: Product): Metadata {
       title,
       description,
       path,
-      keywords: mergeKeywords(path, [
-        product.name.toLowerCase(),
-        `${product.fraction} купить`,
-        'доставка по россии',
-        'цена за тонну',
-      ]),
     }),
     openGraph: {
-      type: 'website',
       url: path,
       title,
       description,
@@ -325,6 +303,9 @@ export function generateProductMetadata(product: Product): Metadata {
           ]
         : undefined,
     },
+    other: {
+      'og:type': 'product',
+    },
   }
 }
 
@@ -334,12 +315,7 @@ export function generateAboutMetadata(): Metadata {
     description:
       'Производство белой мраморной крошки, щебня, мраморной муки и микрокальцита. Собственное сырьё, упаковка, отгрузка и поставки по России.',
     path: '/about',
-    keywords: [
-      'о производстве мраморной крошки',
-      'производитель мраморного щебня',
-      'карьер белого мрамора',
-      'амп екатеринбург',
-    ],
+    brandSuffix: true,
   })
 }
 
@@ -349,12 +325,7 @@ export function generateContactsMetadata(): Metadata {
     description:
       'Контакты АМП: телефон, email, Telegram, WhatsApp и адрес офиса в Екатеринбурге. Рассчитаем стоимость под ваш объём, упаковку и регион поставки.',
     path: '/contacts',
-    keywords: [
-      'контакты амп',
-      'купить мраморную крошку екатеринбург',
-      'отдел продаж щебень',
-      'контакты микрокальцит',
-    ],
+    brandSuffix: true,
   })
 }
 
@@ -364,12 +335,6 @@ export function generateDeliveryMetadata(): Metadata {
     description:
       'Авто- и ж/д доставка мраморной крошки, щебня, муки и микрокальцита по России. Точная стоимость зависит от объёма, упаковки и способа отгрузки.',
     path: '/delivery',
-    keywords: [
-      'доставка мраморной крошки',
-      'доставка мраморного щебня',
-      'жд отгрузка',
-      'автодоставка по россии',
-    ],
   })
 }
 
@@ -378,11 +343,6 @@ export function generateDocumentsMetadata(documentCount: number): Metadata {
     title: 'Паспорта качества на мраморную продукцию',
     description: `Раздел с доступными паспортами качества на мраморную продукцию АМП. Сейчас на сайте опубликовано ${documentCount} подтверждённых документов для отдельных позиций.`,
     path: '/documents',
-    keywords: mergeKeywords('/documents', [
-      'паспорта качества мраморная крошка',
-      'документы на щебень',
-      'паспорт качества микрокальцит',
-    ]),
   })
 }
 
@@ -392,12 +352,6 @@ export function generateBlogMetadata(): Metadata {
     description:
       'Статьи о выборе фракции, применении мраморной крошки, щебня, муки и микрокальцита. Практика для строительных, производственных и ландшафтных задач.',
     path: '/blog',
-    keywords: mergeKeywords('/blog', [
-      'блог о мраморной крошке',
-      'применение мраморного щебня',
-      'статьи о микрокальците',
-      'как выбрать фракцию',
-    ]),
   })
 }
 
@@ -407,7 +361,6 @@ export function generateBlogPostMetadata(post: BlogPost): Metadata {
       title: post.seo.title,
       description: post.seo.description,
       path: `/blog/${post.slug}`,
-      keywords: mergeKeywords(`/blog/${post.slug}`, post.seo.keywords),
       type: 'article',
     }),
     openGraph: {

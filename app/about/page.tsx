@@ -454,11 +454,11 @@ export default function AboutPage() {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="group bg-stone-50 rounded-xl p-5 cursor-pointer open:bg-brand-ice-blue/60"
                 >
-                  <summary className="font-semibold text-foreground list-none flex justify-between items-center gap-4">
+                  <summary className="faq-question font-semibold text-foreground list-none flex justify-between items-center gap-4">
                     <span>{faq.question}</span>
                     <ArrowRight className="h-4 w-4 text-brand-sapphire transition-transform group-open:rotate-90 shrink-0" />
                   </summary>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  <p className="faq-answer mt-3 text-sm text-muted-foreground leading-relaxed">
                     {faq.answer}
                   </p>
                 </m.details>

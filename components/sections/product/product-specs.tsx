@@ -67,7 +67,12 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
             </table>
           </div>
 
-          {/* Паспорт качества */}
+          {product.category === 'landshaft' ? (
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              Справочные данные по породе, не паспорт партии. Документы по позиции — по запросу.
+            </p>
+          ) : (
+          /* Паспорт качества */
           <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
             {passport ? (
               <Button asChild variant="outline" size="sm">
@@ -88,6 +93,7 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
               Сертификат и паспорт предоставляются при отгрузке
             </span>
           </div>
+          )}
         </div>
       </div>
     </section>

@@ -10,7 +10,8 @@
     "type-check": "tsc --noEmit",
     "test": "node --test scripts/lib/*.test.mjs",
     "post:dzen": "node scripts/dzen-post.mjs",
-    "generate:article": "node scripts/generate-article.mjs"
+    "generate:article": "node scripts/generate-article.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

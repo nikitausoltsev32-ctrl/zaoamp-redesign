@@ -15,13 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: pageUrl('/'),
-      lastModified: new Date(),
+      lastModified: new Date('2026-09-12'),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: pageUrl('/catalog'),
-      lastModified: new Date(),
+      lastModified: new Date('2026-09-12'),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
