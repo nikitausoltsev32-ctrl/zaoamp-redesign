@@ -773,6 +773,7 @@ export const cityLandingPages: Record<CitySlug, CityLandingPage> = {
       'Для Тюмени подбираем поставки под ландшафтные проекты, дорожное благоустройство, строительные смеси и производственные закупки.',
     deliveryText:
       'Доставка в Тюмень рассчитывается по весу, объему, упаковке и адресу выгрузки. Для крупных партий подбираем наиболее выгодный маршрут.',
+    heroImage: '/images/products/optimized/kroshka-5-10.webp',
     heroImageAlt: 'Мраморная крошка с доставкой в Тюмень',
     productSlugs: [
       'mramornaya-kroshka-0-5',
