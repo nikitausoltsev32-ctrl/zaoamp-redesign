@@ -1,11 +1,36 @@
 import type { Metadata } from 'next'
 
+const TITLE = 'Политика конфиденциальности'
+const DESCRIPTION =
+  'Политика обработки персональных данных сайта amp-minerals.ru: какие данные собираются, цели обработки, права субъекта, использование cookie и Яндекс.Метрики.'
+
 export const metadata: Metadata = {
-  title: 'Политика конфиденциальности',
-  description:
-    'Политика обработки персональных данных сайта amp-minerals.ru: какие данные собираются, цели обработки, права субъекта, использование cookie и Яндекс.Метрики.',
+  title: TITLE,
+  description: DESCRIPTION,
   robots: { index: true, follow: true },
   alternates: { canonical: 'https://amp-minerals.ru/privacy/' },
+  openGraph: {
+    type: 'website',
+    url: 'https://amp-minerals.ru/privacy/',
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: 'АМП',
+    locale: 'ru_RU',
+    images: [
+      {
+        url: 'https://amp-minerals.ru/images/products/kroshka-5-10.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Белая мраморная крошка и щебень от производителя АМП',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ['https://amp-minerals.ru/images/products/kroshka-5-10.jpg'],
+  },
 }
 
 const sections = [

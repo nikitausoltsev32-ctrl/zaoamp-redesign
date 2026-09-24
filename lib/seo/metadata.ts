@@ -11,6 +11,8 @@ export const DEFAULT_REGION = 'Россия'
 const DEFAULT_TITLE = 'Белая мраморная крошка и щебень от производителя'
 const DEFAULT_DESCRIPTION =
   'Белая мраморная крошка, щебень, мраморная мука и микрокальцит от производителя. Подберём фракцию, упаковку и доставку по России под ваш объект и регион.'
+const DEFAULT_OG_IMAGE = '/images/products/kroshka-5-10.jpg'
+const DEFAULT_OG_IMAGE_ALT = 'Белая мраморная крошка и щебень от производителя АМП'
 
 function absoluteUrl(path = '/') {
   return new URL(path, SITE_URL).toString()
@@ -59,14 +61,18 @@ function createMetadata({
   path,
   type = 'website',
   brandSuffix = false,
+  image,
 }: {
   title: string
   description: string
   path: string
   type?: 'website' | 'article'
   brandSuffix?: boolean
+  image?: { url: string; alt?: string }
 }): Metadata {
   const normalizedPath = withTrailingSlash(path)
+  const ogImageUrl = absoluteUrl(image?.url ?? DEFAULT_OG_IMAGE)
+  const ogImageAlt = image?.alt ?? DEFAULT_OG_IMAGE_ALT
 
   return {
     title: brandSuffix ? title : { absolute: title },
@@ -81,11 +87,13 @@ function createMetadata({
       description,
       siteName: SITE_NAME,
       locale: 'ru_RU',
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: ogImageAlt }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [ogImageUrl],
     },
   }
 }
@@ -274,6 +282,7 @@ export function generateCategoryMetadata(category: CategoryData, products: Produ
     title: titleMap[category.slug],
     description: buildCategoryDescription(category, products.length, minPrice),
     path: `/catalog/${category.slug}`,
+    image: { url: category.heroImage, alt: category.heroImageAlt },
   })
 }
 
@@ -282,26 +291,18 @@ export function generateProductMetadata(product: Product): Metadata {
   const title = product.metaTitle ?? buildProductTitle(product)
   const description = product.metaDescription ?? buildProductDescription(product)
 
+  const base = createMetadata({
+    title,
+    description,
+    path,
+    image: { url: product.image ?? DEFAULT_OG_IMAGE, alt: getProductImageAlt(product) },
+  })
+
   return {
-    ...createMetadata({
-      title,
-      description,
-      path,
-    }),
+    ...base,
     openGraph: {
+      ...base.openGraph,
       url: path,
-      title,
-      description,
-      siteName: SITE_NAME,
-      locale: 'ru_RU',
-      images: product.image
-        ? [
-            {
-              url: absoluteUrl(product.image),
-              alt: getProductImageAlt(product),
-            },
-          ]
-        : undefined,
     },
     other: {
       'og:type': 'product',
@@ -356,20 +357,18 @@ export function generateBlogMetadata(): Metadata {
 }
 
 export function generateBlogPostMetadata(post: BlogPost): Metadata {
+  const base = createMetadata({
+    title: post.seo.title,
+    description: post.seo.description,
+    path: `/blog/${post.slug}`,
+    type: 'article',
+  })
+
   return {
-    ...createMetadata({
-      title: post.seo.title,
-      description: post.seo.description,
-      path: `/blog/${post.slug}`,
-      type: 'article',
-    }),
+    ...base,
     openGraph: {
+      ...base.openGraph,
       type: 'article',
-      url: `/blog/${post.slug}`,
-      title: post.seo.title,
-      description: post.seo.description,
-      siteName: SITE_NAME,
-      locale: 'ru_RU',
       publishedTime: post.publishDate,
     },
   }
