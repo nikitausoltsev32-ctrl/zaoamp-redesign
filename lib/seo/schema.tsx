@@ -215,15 +215,11 @@ export function generateProductSchema(product: Product) {
       availability: getSchemaAvailability(product),
       seller: { '@id': ORGANIZATION_ID },
     }
-  } else {
-    schema.offers = {
-      '@type': 'AggregateOffer',
-      url: productUrl(product),
-      priceCurrency: 'RUB',
-      availability: getSchemaAvailability(product),
-      seller: { '@id': ORGANIZATION_ID },
-    }
   }
+  // Цена не зафиксирована (запрос по заявке) — Google требует price/lowPrice
+  // для Offer/AggregateOffer, поэтому при отсутствии цены блок offers не
+  // публикуем вовсе, чтобы не получать ошибку "missing field 'price'"
+  // в Rich Results. Видимая цена "по запросу" остаётся в контенте страницы.
 
   if (product.image) {
     schema.image = absoluteUrl(product.image)
