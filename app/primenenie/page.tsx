@@ -5,16 +5,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { applicationLandingPages } from '@/lib/data/seo-landings'
+import { generateApplicationsMetadata } from '@/lib/seo/metadata'
 import { generateBreadcrumbSchema, JsonLd } from '@/lib/seo/schema'
 
-export const metadata: Metadata = {
-  title: { absolute: 'Применение мраморной крошки, щебня, муки и микрокальцита' },
-  description:
-    'Посадочные страницы по применению мраморной продукции: ландшафт, дорожная отсыпка, штукатурки, ЛКМ, пластики и сельское хозяйство.',
-  alternates: {
-    canonical: '/primenenie/',
-  },
-}
+export const metadata: Metadata = generateApplicationsMetadata()
 
 export default function ApplicationsPage() {
   const pages = Object.values(applicationLandingPages)

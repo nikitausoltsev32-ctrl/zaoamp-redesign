@@ -347,6 +347,15 @@ export function generateDocumentsMetadata(documentCount: number): Metadata {
   })
 }
 
+export function generateApplicationsMetadata(): Metadata {
+  return createMetadata({
+    title: 'Применение мраморной крошки, щебня, муки и микрокальцита',
+    description:
+      'Посадочные страницы по применению мраморной продукции: ландшафт, дорожная отсыпка, штукатурки, ЛКМ, пластики и сельское хозяйство.',
+    path: '/primenenie',
+  })
+}
+
 export function generateBlogMetadata(): Metadata {
   return createMetadata({
     title: 'Блог о мраморной крошке, щебне и микрокальците',
