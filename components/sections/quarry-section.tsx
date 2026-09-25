@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { Drill, Truck, Layers, Boxes } from 'lucide-react'
-import { MediaSlot } from '@/components/media-slot'
 
 const features = [
   {
@@ -92,11 +91,26 @@ export function QuarrySection() {
         </div>
 
         {/* Third Image - Full Width */}
-        <MediaSlot
-          title="Фото месторождения: блоки белого мрамора"
-          caption="Именованный слот для подтверждённого фото сырья с месторождения. Файл в исходных материалах отсутствует."
-          className="mb-12 min-h-64 md:mb-16"
-        />
+        <div className="relative group mb-12 md:mb-16">
+          <div className="relative aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
+            <Image
+              src="/images/quarry/quarry-3.jpg"
+              alt="Мраморный карьер - огромные блоки мрамора"
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="text-white font-semibold text-lg">
+                Белый мрамор высшего качества
+              </p>
+              <p className="text-white/80 text-sm">
+                Природное сырье с месторождения
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* Features */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
