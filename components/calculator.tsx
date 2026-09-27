@@ -89,6 +89,7 @@ export function Calculator({ initialProductId }: { initialProductId?: string }) 
                 <Label htmlFor="volume">Объём, тонн</Label>
                 <Input
                   id="volume"
+                  className="h-11"
                   type="number"
                   min="1"
                   step="0.1"

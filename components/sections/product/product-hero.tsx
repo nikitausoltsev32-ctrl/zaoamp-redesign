@@ -241,7 +241,7 @@ export function ProductHero({ product, categoryBreadcrumb }: ProductHeroProps) {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+                className="border-green-600 text-green-700 hover:bg-green-600 hover:text-white"
               >
                 <a
                   href={`https://wa.me/${contactInfo.whatsapp}`}

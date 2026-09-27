@@ -68,7 +68,6 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
                     src={page.heroImage}
                     alt={page.heroImageAlt}
                     fill
-                    priority
                     className="object-cover"
                     sizes="(max-width: 1024px) 0px, 45vw"
                   />

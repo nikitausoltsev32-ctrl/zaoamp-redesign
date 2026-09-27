@@ -1,0 +1,1225 @@
+{
+  "runs": 2,
+  "pages": {
+    "/": {
+      "desktop": {
+        "median": {
+          "score": 98,
+          "lcp_ms": 982,
+          "cls": 0.0030270583428187847,
+          "tbt_ms": 26.5,
+          "fcp_ms": 363,
+          "ttfb_ms": 19
+        },
+        "scores": [
+          98,
+          98
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0,
+            "value": "Est savings of 21 KiB",
+            "details": [
+              {
+                "wastedPercent": 57.33090501085427,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 36743,
+                "wastedBytes": 21065
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 763 KiB",
+            "details": [
+              {
+                "totalBytes": 98072,
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/image/?url=%2Fimages%2Fquarry%2Fquarry-3.jpg&w=1920&q=75",
+                "totalBytes": 76709
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2",
+                "totalBytes": 52065
+              },
+              {
+                "totalBytes": 51070,
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 20 ms",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/",
+                "responseTime": 19
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "2 layout shifts found",
+            "details": [
+              {
+                "score": 0.002985531039313546,
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Web font loaded",
+                      "extra": {
+                        "type": "url",
+                        "value": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "node": {
+                  "lhId": "page-5-NAV",
+                  "boundingRect": {
+                    "left": 173,
+                    "right": 1032,
+                    "height": 20,
+                    "top": 38,
+                    "bottom": 58,
+                    "width": 859
+                  },
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,1,NAV",
+                  "selector": "header.fixed > div.container > div.flex > nav.hidden",
+                  "nodeLabel": "Главная\nКаталог\nПрименение\nБлог\nПаспорта качества\nО компании\nДоставка\nКонтакты",
+                  "type": "node",
+                  "snippet": "<nav class=\"hidden lg:flex items-center gap-8\">"
+                }
+              },
+              {
+                "score": 0.00004152730350523889,
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Web font loaded",
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                        "type": "url"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "node": {
+                  "boundingRect": {
+                    "bottom": 74,
+                    "right": 1283,
+                    "top": 22,
+                    "left": 1057,
+                    "width": 226,
+                    "height": 52
+                  },
+                  "type": "node",
+                  "lhId": "page-1-DIV",
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "nodeLabel": "+7 (919) 393-19-92\nПн-Пт: 9:00-18:00",
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "mobile": {
+        "median": {
+          "score": 77,
+          "lcp_ms": 4543,
+          "cls": 0,
+          "tbt_ms": 73.5,
+          "fcp_ms": 2553,
+          "ttfb_ms": 18
+        },
+        "scores": [
+          77,
+          77
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0,
+            "value": "Est savings of 21 KiB",
+            "details": [
+              {
+                "wastedPercent": 57.47237647671005,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "wastedBytes": 21130,
+                "totalBytes": 36766
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 534 KiB",
+            "details": [
+              {
+                "totalBytes": 98072,
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2"
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "totalBytes": 51070,
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 37277
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 20 ms",
+            "details": [
+              {
+                "responseTime": 18,
+                "url": "https://amp-minerals.ru/"
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": null,
+            "value": null,
+            "details": []
+          }
+        }
+      }
+    },
+    "/catalog/": {
+      "desktop": {
+        "median": {
+          "score": 99,
+          "lcp_ms": 737,
+          "cls": 0.00279348097802294,
+          "tbt_ms": 44,
+          "fcp_ms": 363,
+          "ttfb_ms": 6
+        },
+        "scores": [
+          99,
+          99
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0,
+            "value": "Est savings of 20 KiB",
+            "details": [
+              {
+                "wastedPercent": 56.599156049531274,
+                "wastedBytes": 20809,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 36766
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 1,120 KiB",
+            "details": [
+              {
+                "totalBytes": 116022,
+                "url": "https://amp-minerals.ru/_next/image/?url=%2Fimages%2Fproducts%2Foptimized%2Flandshaft%2Fdolomitovyj-shheben.webp&w=640&q=75"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/image/?url=%2Fimages%2Fproducts%2Foptimized%2Flandshaft%2Fzlatolit.webp&w=640&q=75",
+                "totalBytes": 102761
+              },
+              {
+                "totalBytes": 98131,
+                "url": "https://amp-minerals.ru/_next/image/?url=%2Fimages%2Fproducts%2Foptimized%2Flandshaft%2Fzmeevik-shheben.webp&w=640&q=75"
+              },
+              {
+                "totalBytes": 98072,
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2"
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 10 ms",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/catalog/",
+                "responseTime": 6
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "2 layout shifts found",
+            "details": [
+              {
+                "node": {
+                  "lhId": "page-1-NAV",
+                  "boundingRect": {
+                    "height": 20,
+                    "right": 1032,
+                    "top": 38,
+                    "left": 173,
+                    "width": 859,
+                    "bottom": 58
+                  },
+                  "nodeLabel": "Главная\nКаталог\nПрименение\nБлог\nПаспорта качества\nО компании\nДоставка\nКонтакты",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,1,NAV",
+                  "snippet": "<nav class=\"hidden lg:flex items-center gap-8\">",
+                  "type": "node",
+                  "selector": "header.fixed > div.container > div.flex > nav.hidden"
+                },
+                "score": 0.0027660414660129,
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Media element lacking an explicit size",
+                      "extra": {
+                        "lhId": "page-3-IMG",
+                        "snippet": "<img alt=\"АМП ИМПОРТ-ЭКСПОРТ\" fetchpriority=\"high\" width=\"160\" height=\"60\" decoding=\"async\" data-nimg=\"1\" class=\"w-auto object-contain h-24 brightness-0 invert\" style=\"color:transparent\" srcset=\"/_next/image/?url=%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image/?url=%2Flogo.png…\" src=\"https://amp-minerals.ru/_next/image/?url=%2Flogo.png&amp;w=256&amp;q=75\">",
+                        "boundingRect": {
+                          "height": 96,
+                          "top": 4860,
+                          "right": 163,
+                          "left": 67,
+                          "width": 96,
+                          "bottom": 4956
+                        },
+                        "path": "1,HTML,1,BODY,2,FOOTER,0,DIV,0,DIV,0,DIV,0,A,0,IMG",
+                        "nodeLabel": "АМП ИМПОРТ-ЭКСПОРТ",
+                        "selector": "div.grid > div.lg:col-span-1 > a.flex > img.w-auto",
+                        "type": "node"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                }
+              },
+              {
+                "node": {
+                  "lhId": "page-2-DIV",
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV",
+                  "nodeLabel": "+7 (919) 393-19-92\nПн-Пт: 9:00-18:00",
+                  "boundingRect": {
+                    "bottom": 74,
+                    "width": 226,
+                    "left": 1057,
+                    "top": 22,
+                    "right": 1283,
+                    "height": 52
+                  },
+                  "type": "node"
+                },
+                "score": 0.00002743951201003998,
+                "subItems": {
+                  "items": [
+                    {
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                        "type": "url"
+                      },
+                      "cause": "Web font loaded"
+                    }
+                  ],
+                  "type": "subitems"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "mobile": {
+        "median": {
+          "score": 92,
+          "lcp_ms": 5106,
+          "cls": 0.0004796108965244937,
+          "tbt_ms": 59,
+          "fcp_ms": 2553,
+          "ttfb_ms": 9
+        },
+        "scores": [
+          92,
+          75
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0,
+            "value": "Est savings of 20 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 36766,
+                "wastedPercent": 56.599156049531274,
+                "wastedBytes": 20809
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 590 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                "totalBytes": 98072
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2",
+                "totalBytes": 52065
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js",
+                "totalBytes": 51070
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 37277
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 10 ms",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/catalog/",
+                "responseTime": 9
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "1 layout shift found",
+            "details": [
+              {
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Media element lacking an explicit size",
+                      "extra": {
+                        "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,0,A,0,IMG",
+                        "snippet": "<img alt=\"АМП ИМПОРТ-ЭКСПОРТ\" fetchpriority=\"high\" width=\"160\" height=\"60\" decoding=\"async\" data-nimg=\"1\" class=\"w-auto object-contain h-20\" style=\"color:transparent\" srcset=\"/_next/image/?url=%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image/?url=%2Flogo.png…\" src=\"/_next/image/?url=%2Flogo.png&amp;w=384&amp;q=75\">",
+                        "boundingRect": {
+                          "left": 16,
+                          "top": 0,
+                          "width": 80,
+                          "bottom": 80,
+                          "height": 80,
+                          "right": 96
+                        },
+                        "selector": "div.container > div.flex > a.flex > img.w-auto",
+                        "lhId": "page-14-IMG",
+                        "nodeLabel": "АМП ИМПОРТ-ЭКСПОРТ",
+                        "type": "node"
+                      }
+                    },
+                    {
+                      "cause": "Web font loaded",
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                        "type": "url"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "score": 0.0004796108965244937,
+                "node": {
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "nodeLabel": "+7 (919) 393-19-92\nОткрыть меню",
+                  "type": "node",
+                  "lhId": "page-1-DIV",
+                  "boundingRect": {
+                    "top": 20,
+                    "left": 157,
+                    "right": 396,
+                    "height": 40,
+                    "width": 239,
+                    "bottom": 60
+                  },
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/catalog/kroshka/": {
+      "mobile": {
+        "median": {
+          "score": 91,
+          "lcp_ms": 3456,
+          "cls": 0.0004796108965244937,
+          "tbt_ms": 0,
+          "fcp_ms": 1052,
+          "ttfb_ms": 10
+        },
+        "scores": [
+          91,
+          91
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0.5,
+            "value": "Est savings of 21 KiB",
+            "details": [
+              {
+                "totalBytes": 36743,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "wastedPercent": 57.562625515273226,
+                "wastedBytes": 21150
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 597 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                "totalBytes": 98072
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js",
+                "totalBytes": 51070
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 37277
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 10 ms",
+            "details": [
+              {
+                "responseTime": 10,
+                "url": "https://amp-minerals.ru/catalog/kroshka/"
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "1 layout shift found",
+            "details": [
+              {
+                "score": 0.0004796108965244937,
+                "subItems": {
+                  "type": "subitems",
+                  "items": [
+                    {
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                        "type": "url"
+                      },
+                      "cause": "Web font loaded"
+                    }
+                  ]
+                },
+                "node": {
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "nodeLabel": "+7 (919) 393-19-92\nОткрыть меню",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV",
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "type": "node",
+                  "boundingRect": {
+                    "top": 20,
+                    "left": 157,
+                    "right": 396,
+                    "height": 40,
+                    "width": 239,
+                    "bottom": 60
+                  },
+                  "lhId": "page-1-DIV"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "desktop": {
+        "median": {
+          "score": 99,
+          "lcp_ms": 1092,
+          "cls": 0.0031608058255260785,
+          "tbt_ms": 16,
+          "fcp_ms": 286,
+          "ttfb_ms": 44
+        },
+        "scores": [
+          96,
+          99
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0.5,
+            "value": "Est savings of 20 KiB",
+            "details": [
+              {
+                "wastedPercent": 55.74382281918483,
+                "wastedBytes": 20496,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 36768
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 737 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                "totalBytes": 98072
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js",
+                "totalBytes": 51070
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "totalBytes": 37277,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js"
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 40 ms",
+            "details": [
+              {
+                "responseTime": 44,
+                "url": "https://amp-minerals.ru/catalog/kroshka/"
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "3 layout shifts found",
+            "details": [
+              {
+                "subItems": {
+                  "type": "subitems",
+                  "items": [
+                    {
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                        "type": "url"
+                      },
+                      "cause": "Web font loaded"
+                    }
+                  ]
+                },
+                "score": 0.002816439015848,
+                "node": {
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,1,NAV",
+                  "nodeLabel": "Главная\nКаталог\nПрименение\nБлог\nПаспорта качества\nО компании\nДоставка\nКонтакты",
+                  "boundingRect": {
+                    "bottom": 58,
+                    "right": 1032,
+                    "top": 38,
+                    "width": 859,
+                    "left": 173,
+                    "height": 20
+                  },
+                  "lhId": "page-1-NAV",
+                  "type": "node",
+                  "selector": "header.fixed > div.container > div.flex > nav.hidden",
+                  "snippet": "<nav class=\"hidden lg:flex items-center gap-8\">"
+                }
+              },
+              {
+                "node": {
+                  "snippet": "<nav class=\"hidden lg:flex items-center gap-8\">",
+                  "boundingRect": {
+                    "left": 173,
+                    "right": 1032,
+                    "height": 20,
+                    "bottom": 58,
+                    "top": 38,
+                    "width": 859
+                  },
+                  "type": "node",
+                  "lhId": "page-1-NAV",
+                  "selector": "header.fixed > div.container > div.flex > nav.hidden",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,1,NAV",
+                  "nodeLabel": "Главная\nКаталог\nПрименение\nБлог\nПаспорта качества\nО компании\nДоставка\nКонтакты"
+                },
+                "score": 0.0003028395061728395,
+                "subItems": {
+                  "items": [
+                    {
+                      "extra": {
+                        "type": "url",
+                        "value": "https://amp-minerals.ru/_next/static/media/21350d82a1f187e9-s.p.woff2"
+                      },
+                      "cause": "Web font loaded"
+                    },
+                    {
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2",
+                        "type": "url"
+                      },
+                      "cause": "Web font loaded"
+                    }
+                  ],
+                  "type": "subitems"
+                }
+              },
+              {
+                "score": 0.00004152730350523889,
+                "subItems": {
+                  "items": [
+                    {
+                      "extra": {
+                        "type": "url",
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2"
+                      },
+                      "cause": "Web font loaded"
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "node": {
+                  "boundingRect": {
+                    "width": 226,
+                    "left": 1057,
+                    "height": 52,
+                    "right": 1283,
+                    "top": 22,
+                    "bottom": 74
+                  },
+                  "type": "node",
+                  "lhId": "page-2-DIV",
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "nodeLabel": "+7 (919) 393-19-92\nПн-Пт: 9:00-18:00",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/catalog/shcheben/": {
+      "desktop": {
+        "median": {
+          "score": 98,
+          "lcp_ms": 1031,
+          "cls": 0.0028579663193532387,
+          "tbt_ms": 4,
+          "fcp_ms": 363,
+          "ttfb_ms": 3
+        },
+        "scores": [
+          98,
+          98
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0.5,
+            "value": "Est savings of 20 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "wastedPercent": 55.74382281918483,
+                "totalBytes": 36744,
+                "wastedBytes": 20483
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 627 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                "totalBytes": 98072
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "totalBytes": 51070,
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js"
+              },
+              {
+                "totalBytes": 48893,
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2"
+              },
+              {
+                "totalBytes": 37277,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js"
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 0 ms",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/catalog/shcheben/",
+                "responseTime": 3
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "2 layout shifts found",
+            "details": [
+              {
+                "subItems": {
+                  "items": [
+                    {
+                      "extra": {
+                        "value": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                        "type": "url"
+                      },
+                      "cause": "Web font loaded"
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "score": 0.002816439015848,
+                "node": {
+                  "selector": "header.fixed > div.container > div.flex > nav.hidden",
+                  "boundingRect": {
+                    "top": 38,
+                    "bottom": 58,
+                    "height": 20,
+                    "width": 859,
+                    "left": 173,
+                    "right": 1032
+                  },
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,1,NAV",
+                  "lhId": "page-5-NAV",
+                  "nodeLabel": "Главная\nКаталог\nПрименение\nБлог\nПаспорта качества\nО компании\nДоставка\nКонтакты",
+                  "type": "node",
+                  "snippet": "<nav class=\"hidden lg:flex items-center gap-8\">"
+                }
+              },
+              {
+                "score": 0.00004152730350523889,
+                "node": {
+                  "boundingRect": {
+                    "height": 52,
+                    "bottom": 74,
+                    "width": 226,
+                    "right": 1283,
+                    "left": 1057,
+                    "top": 22
+                  },
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV",
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "type": "node",
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "nodeLabel": "+7 (919) 393-19-92\nПн-Пт: 9:00-18:00",
+                  "lhId": "page-1-DIV"
+                },
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Web font loaded",
+                      "extra": {
+                        "type": "url",
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "mobile": {
+        "median": {
+          "score": 77,
+          "lcp_ms": 4826,
+          "cls": 0,
+          "tbt_ms": 5,
+          "fcp_ms": 2703,
+          "ttfb_ms": 5
+        },
+        "scores": [
+          77,
+          76
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0,
+            "value": "Est savings of 20 KiB",
+            "details": [
+              {
+                "wastedBytes": 20592,
+                "totalBytes": 36743,
+                "wastedPercent": 56.04221378452432,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js"
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 580 KiB",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2",
+                "totalBytes": 98072
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js",
+                "totalBytes": 51070
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "totalBytes": 37277,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js"
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 10 ms",
+            "details": [
+              {
+                "responseTime": 5,
+                "url": "https://amp-minerals.ru/catalog/shcheben/"
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": null,
+            "value": null,
+            "details": []
+          }
+        }
+      }
+    },
+    "/catalog/muka/": {
+      "desktop": {
+        "median": {
+          "score": 99,
+          "lcp_ms": 954,
+          "cls": 0.0028579663193532387,
+          "tbt_ms": 22,
+          "fcp_ms": 286,
+          "ttfb_ms": 7
+        },
+        "scores": [
+          99,
+          99
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0.5,
+            "value": "Est savings of 22 KiB",
+            "details": [
+              {
+                "totalBytes": 36767,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "wastedBytes": 22093,
+                "wastedPercent": 60.08797248623905
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 630 KiB",
+            "details": [
+              {
+                "totalBytes": 98072,
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2"
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "totalBytes": 51070,
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 37277
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 10 ms",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/catalog/muka/",
+                "responseTime": 7
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": 1,
+            "value": "2 layout shifts found",
+            "details": [
+              {
+                "node": {
+                  "lhId": "page-5-NAV",
+                  "snippet": "<nav class=\"hidden lg:flex items-center gap-8\">",
+                  "selector": "header.fixed > div.container > div.flex > nav.hidden",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,1,NAV",
+                  "type": "node",
+                  "nodeLabel": "Главная\nКаталог\nПрименение\nБлог\nПаспорта качества\nО компании\nДоставка\nКонтакты",
+                  "boundingRect": {
+                    "left": 173,
+                    "height": 20,
+                    "right": 1032,
+                    "top": 38,
+                    "bottom": 58,
+                    "width": 859
+                  }
+                },
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Media element lacking an explicit size",
+                      "extra": {
+                        "lhId": "page-6-IMG",
+                        "nodeLabel": "АМП ИМПОРТ-ЭКСПОРТ",
+                        "type": "node",
+                        "selector": "div.grid > div.lg:col-span-1 > a.flex > img.w-auto",
+                        "snippet": "<img alt=\"АМП ИМПОРТ-ЭКСПОРТ\" fetchpriority=\"high\" width=\"160\" height=\"60\" decoding=\"async\" data-nimg=\"1\" class=\"w-auto object-contain h-24 brightness-0 invert\" style=\"color:transparent\" srcset=\"/_next/image/?url=%2Flogo.png&amp;w=256&amp;q=75 1x, /_next/image/?url=%2Flogo.png…\" src=\"https://amp-minerals.ru/_next/image/?url=%2Flogo.png&amp;w=256&amp;q=75\">",
+                        "boundingRect": {
+                          "bottom": 4731,
+                          "width": 96,
+                          "top": 4635,
+                          "right": 163,
+                          "height": 96,
+                          "left": 67
+                        },
+                        "path": "1,HTML,1,BODY,2,FOOTER,0,DIV,0,DIV,0,DIV,0,A,0,IMG"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "score": 0.002816439015848
+              },
+              {
+                "subItems": {
+                  "items": [
+                    {
+                      "cause": "Web font loaded",
+                      "extra": {
+                        "type": "url",
+                        "value": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2"
+                      }
+                    }
+                  ],
+                  "type": "subitems"
+                },
+                "node": {
+                  "boundingRect": {
+                    "top": 22,
+                    "height": 52,
+                    "right": 1283,
+                    "bottom": 74,
+                    "width": 226,
+                    "left": 1057
+                  },
+                  "type": "node",
+                  "snippet": "<div class=\"flex items-center gap-3 sm:gap-4\">",
+                  "nodeLabel": "+7 (919) 393-19-92\nПн-Пт: 9:00-18:00",
+                  "path": "1,HTML,1,BODY,0,HEADER,0,DIV,0,DIV,2,DIV",
+                  "selector": "header.fixed > div.container > div.flex > div.flex",
+                  "lhId": "page-1-DIV"
+                },
+                "score": 0.00004152730350523889
+              }
+            ]
+          }
+        }
+      },
+      "mobile": {
+        "median": {
+          "score": 77,
+          "lcp_ms": 4834,
+          "cls": 0,
+          "tbt_ms": 0,
+          "fcp_ms": 2703,
+          "ttfb_ms": 8
+        },
+        "scores": [
+          77,
+          76
+        ],
+        "field": null,
+        "audits": {
+          "unused-javascript": {
+            "score": 0,
+            "value": "Est savings of 20 KiB",
+            "details": [
+              {
+                "wastedPercent": 56.04221378452432,
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 36766,
+                "wastedBytes": 20604
+              }
+            ]
+          },
+          "unused-css-rules": {
+            "score": 1,
+            "value": null,
+            "details": []
+          },
+          "total-byte-weight": {
+            "score": 1,
+            "value": "Total size was 584 KiB",
+            "details": [
+              {
+                "totalBytes": 98072,
+                "url": "https://amp-minerals.ru/_next/static/media/1f3fe8c6df3d47c1-s.woff2"
+              },
+              {
+                "totalBytes": 52065,
+                "url": "https://amp-minerals.ru/_next/static/media/3e8ab5100a4aa694-s.p.woff2"
+              },
+              {
+                "totalBytes": 51070,
+                "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js"
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/media/e4af272ccee01ff0-s.woff2",
+                "totalBytes": 48893
+              },
+              {
+                "url": "https://amp-minerals.ru/_next/static/chunks/622-a5d9c5b6b54f403f.js",
+                "totalBytes": 37277
+              }
+            ]
+          },
+          "server-response-time": {
+            "score": 1,
+            "value": "Root document took 10 ms",
+            "details": [
+              {
+                "url": "https://amp-minerals.ru/catalog/muka/",
+                "responseTime": 6
+              }
+            ]
+          },
+          "layout-shifts": {
+            "score": null,
+            "value": null,
+            "details": []
+          }
+        }
+      }
+    }
+  }
+}

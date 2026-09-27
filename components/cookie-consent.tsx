@@ -7,63 +7,71 @@ import Link from '@/components/ui/app-link'
 const STORAGE_KEY = 'cookie_consent'
 const MAX_AGE_MS = 365 * 24 * 60 * 60 * 1000
 
-type Consent = 'accepted' | 'rejected' | null
-
-function readConsent(): Consent {
+// Баннер информационный: Метрика грузится всем, баннер только уведомляет.
+// Старые значения 'rejected' считаются как «уведомление показано».
+function wasNotified(): boolean {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return null
-    const parsed = JSON.parse(raw) as { value: Consent; ts: number }
+    if (!raw) return false
+    const parsed = JSON.parse(raw) as { ts?: number }
     if (!parsed.ts || Date.now() - parsed.ts > MAX_AGE_MS) {
       localStorage.removeItem(STORAGE_KEY)
-      return null
+      return false
     }
-    return parsed.value
+    return true
   } catch {
-    return null
+    return false
   }
 }
 
 export function CookieConsent() {
-  const [consent, setConsent] = useState<Consent>(null)
-  const [ready, setReady] = useState(false)
+  const [showBanner, setShowBanner] = useState(false)
 
   useEffect(() => {
-    setConsent(readConsent())
-    setReady(true)
+    setShowBanner(!wasNotified())
   }, [])
 
-  const choose = (value: Consent) => {
+  const dismiss = () => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ value, ts: Date.now() }))
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ value: 'accepted', ts: Date.now() }))
     } catch {}
-    setConsent(value)
+    setShowBanner(false)
   }
 
   return (
     <>
-      {consent === 'accepted' && (
-        <Script
-          id="yandex-metrika"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-              m[i].l=1*new Date();
-              for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
-              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-              (window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=108746641","ym");
-              ym(108746641,"init",{webvisor:true,clickmap:true,ecommerce:"dataLayer",accurateTrackBounce:true,trackLinks:true});
-            `,
-          }}
-        />
-      )}
-      {ready && consent === null && (
-        <div className="fixed bottom-0 inset-x-0 z-[60] p-3 sm:p-4">
-          <div className="mx-auto max-w-3xl rounded-xl border border-stone-200 bg-white shadow-lg p-4 sm:flex sm:items-center sm:gap-4">
+      {/* Метрика с вебвизором тяжёлая (в Lighthouse TBT +8 с), поэтому tag.js грузим
+          по первому действию посетителя или через 8 с после load. Очередь ym() копится
+          сразу, цели до загрузки не теряются. */}
+      <Script
+        id="yandex-metrika"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.ym=window.ym||function(){(window.ym.a=window.ym.a||[]).push(arguments)};
+            window.ym.l=1*new Date();
+            ym(108746641,"init",{webvisor:true,clickmap:true,ecommerce:"dataLayer",accurateTrackBounce:true,trackLinks:true});
+            (function(){
+              var done=false,ev=['scroll','pointerdown','keydown','touchstart','mousemove'];
+              function load(){
+                if(done)return;done=true;
+                ev.forEach(function(n){removeEventListener(n,load)});
+                var k=document.createElement('script');k.async=1;
+                k.src='https://mc.yandex.ru/metrika/tag.js?id=108746641';
+                document.head.appendChild(k);
+              }
+              ev.forEach(function(n){addEventListener(n,load,{once:true,passive:true})});
+              function later(){setTimeout(load,8000)}
+              if(document.readyState==='complete')later();else addEventListener('load',later,{once:true});
+            })();
+          `,
+        }}
+      />
+      {showBanner && (
+        <div className="fixed bottom-0 inset-x-0 z-[60] p-3 sm:p-4 pointer-events-none">
+          <div className="pointer-events-auto mx-auto max-w-3xl rounded-xl border border-stone-200 bg-white shadow-lg p-4 sm:flex sm:items-center sm:gap-4">
             <p className="text-sm text-muted-foreground flex-1">
-              Мы используем cookie и Яндекс.Метрику для анализа посещаемости.
-              Данные обрабатываются согласно{' '}
+              Сайт использует cookie и Яндекс.Метрику для анализа посещаемости. Подробнее — в{' '}
               <Link href="/privacy/" className="underline hover:text-foreground">
                 политике конфиденциальности
               </Link>
@@ -71,16 +79,10 @@ export function CookieConsent() {
             </p>
             <div className="flex gap-2 mt-3 sm:mt-0 shrink-0">
               <button
-                onClick={() => choose('rejected')}
-                className="px-4 py-2 text-sm rounded-lg border border-stone-300 text-muted-foreground hover:bg-stone-50 transition-colors"
-              >
-                Отклонить
-              </button>
-              <button
-                onClick={() => choose('accepted')}
+                onClick={dismiss}
                 className="px-4 py-2 text-sm rounded-lg bg-brand-sapphire text-white hover:opacity-90 transition-opacity"
               >
-                Принять
+                Понятно
               </button>
             </div>
           </div>

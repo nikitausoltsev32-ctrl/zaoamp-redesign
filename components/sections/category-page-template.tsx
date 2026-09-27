@@ -83,7 +83,6 @@ export function CategoryPageTemplate({ data }: Props) {
                   src={data.heroImage}
                   alt={data.heroImageAlt}
                   fill
-                  priority
                   className="object-cover"
                   sizes="(max-width: 1024px) 0px, 50vw"
                 />
