@@ -36,7 +36,7 @@ export const categories: Record<CategorySlug, CategoryData> = {
   shcheben: {
     slug: 'shcheben',
     productCategories: ['scherb'],
-    h1: 'Мраморный щебень от производителя',
+    h1: 'Белый мраморный щебень от производителя',
     breadcrumbLabel: 'Мраморный щебень',
     heroImage: '/images/products/shheben-20-50.jpg',
     heroImageAlt: 'Белый мраморный щебень фракции 20-50 мм',
@@ -133,7 +133,7 @@ export const categories: Record<CategorySlug, CategoryData> = {
   kroshka: {
     slug: 'kroshka',
     productCategories: ['kroshka'],
-    h1: 'Мраморная крошка — 8 фракций от производителя',
+    h1: 'Мраморная крошка — 8 фракций с собственного карьера',
     breadcrumbLabel: 'Мраморная крошка',
     heroImage: '/images/products/kroshka-5-10.jpg',
     heroImageAlt: 'Белая мраморная крошка фракции 5-10 мм',
@@ -319,7 +319,7 @@ export const categories: Record<CategorySlug, CategoryData> = {
   'landshaftnyj-kamen': {
     slug: 'landshaftnyj-kamen',
     productCategories: ['landshaft'],
-    h1: 'Ландшафтный камень и декоративный щебень от производителя',
+    h1: 'Декоративный щебень и ландшафтный камень от производителя',
     breadcrumbLabel: 'Ландшафтный камень',
     heroImage: '/images/products/optimized/landshaft/landshaftnyj-kamen-collage.webp',
     heroImageAlt: 'Ландшафтный камень: яшма, змеевик, фельзит, доломит, златолит и сланец',
