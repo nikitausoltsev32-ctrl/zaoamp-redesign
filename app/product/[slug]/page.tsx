@@ -54,6 +54,11 @@ export default function ProductPage({ params }: ProductPageProps) {
     landshaft: { slug: 'landshaftnyj-kamen', label: 'Ландшафтный камень' },
   }
   const cat = categoryMap[product.category]
+  const categoryAnchor: Record<string, string> = {
+    kroshka: 'Мраморная крошка оптом от производителя — все 8 фракций',
+    shcheben: 'Белый мраморный щебень оптом — все фракции',
+    muka: 'Мраморная мука и микрокальцит — весь ассортимент',
+  }
   const otherStones =
     product.category === 'landshaft'
       ? products.filter((p) => p.category === 'landshaft' && p.slug !== product.slug)
@@ -99,6 +104,18 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <ProductCard key={stone.slug} product={stone} variant="compact" />
               ))}
             </div>
+          </div>
+        </section>
+      )}
+      {cat && product.category !== 'landshaft' && (
+        <section className="bg-white py-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <Link
+              href={`/catalog/${cat.slug}`}
+              className="text-base font-medium text-brand-sapphire hover:underline"
+            >
+              {categoryAnchor[cat.slug]} →
+            </Link>
           </div>
         </section>
       )}

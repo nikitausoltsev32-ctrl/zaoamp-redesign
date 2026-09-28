@@ -169,7 +169,7 @@ function buildCategoryDescription(category: CategoryData, productCount: number, 
   parts.push(
     category.slug === 'landshaftnyj-kamen'
       ? 'Яшма, змеевик, фельзит, златолит, доломит, сланец, речная галька. Опт от 5 тонн, доставка по России.'
-      : 'Подберём фракцию, упаковку и доставку по России под объект, объём и регион.'
+      : 'Опт от 5 тонн. Подберём фракцию, упаковку и доставку по России под объект, объём и регион.'
   )
 
   return parts.join(' ')
@@ -273,7 +273,7 @@ export function generateCategoryMetadata(category: CategoryData, products: Produ
 
   const titleMap: Record<CategoryData['slug'], string> = {
     shcheben: 'Белый мраморный щебень от производителя — фракции 10–200 мм, цена',
-    kroshka: 'Мраморная крошка от производителя: цена, мешки и биг-бэги',
+    kroshka: 'Мраморная крошка оптом от производителя: 8 фракций, мешки, биг-бэги',
     muka: 'Мраморная мука и микрокальцит от производителя с карьера',
     'landshaftnyj-kamen': 'Декоративный щебень и камни для ландшафтного дизайна от производителя',
   }
