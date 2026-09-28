@@ -43,6 +43,16 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} ${merriweather.variable}`}>
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J982LCR0MP" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-J982LCR0MP');`,
+          }}
+        />
         <link rel="preconnect" href="https://mc.yandex.ru" />
         {/* Security: Escaping '<' to prevent XSS vulnerability when rendering JSON-LD */}
         <script
