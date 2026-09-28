@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { escapeHtml, sendTelegram } from '@/lib/telegram'
+import { escapeHtml, formatFirstTouch, sendTelegram } from '@/lib/telegram'
 
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
@@ -41,8 +41,10 @@ export async function POST(request: Request) {
 
     // Уведомление в Telegram
     const emailLine = safeEmail ? `\nEmail: ${safeEmail}` : ''
+    const firstTouch = formatFirstTouch(utm)
+    const firstTouchLine = firstTouch ? `\n${firstTouch}` : ''
     await sendTelegram(
-      `<b>Новое обращение с сайта</b>\nИмя: <b>${safeName}</b>\nТелефон: <b>${safePhone}</b>${emailLine}\nСообщение: ${safeMessage}${utmText}\nВремя: ${time}`
+      `<b>Новое обращение с сайта</b>\nИмя: <b>${safeName}</b>\nТелефон: <b>${safePhone}</b>${emailLine}\nСообщение: ${safeMessage}${firstTouchLine}${utmText}\nВремя: ${time}`
     )
 
     // Уведомление на почту

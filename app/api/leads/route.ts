@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { appendAiLead } from '@/lib/ai/lead-store'
-import { escapeHtml, sendTelegram } from '@/lib/telegram'
+import { escapeHtml, formatFirstTouch, sendTelegram } from '@/lib/telegram'
 
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
@@ -59,6 +59,9 @@ export async function POST(request: Request) {
       if (utm.utm_term) utmText += `\nКлюч: ${escapeHtml(utm.utm_term)}`
     }
 
+    const firstTouch = formatFirstTouch(utm)
+    const firstTouchLine = firstTouch ? `\n${firstTouch}` : ''
+
     // Лид на диск до внешних отправок — переживёт сбой Telegram/почты
     try {
       await appendAiLead({
@@ -81,7 +84,7 @@ export async function POST(request: Request) {
     // Уведомление в Telegram
     try {
       await sendTelegram(
-        `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>${nameLine}${cityLine}\nИсточник: ${safeSource}${orderText}${utmText}\nВремя: ${time}`
+        `<b>Новая заявка на КП</b>\nТелефон: <b>${safePhone}</b>${nameLine}${cityLine}\nИсточник: ${safeSource}${firstTouchLine}${orderText}${utmText}\nВремя: ${time}`
       )
     } catch (telegramError) {
       console.error('[leads] Telegram send failed, lead persisted to file:', telegramError)
@@ -100,6 +103,7 @@ export async function POST(request: Request) {
           <h2>Новая заявка на коммерческое предложение</h2>
           <p><strong>Телефон:</strong> ${safePhone}</p>
           <p><strong>Источник:</strong> ${safeSource}</p>
+          ${firstTouch ? `<p>${firstTouch}</p>` : ''}
           ${orderHtml}
           <p><strong>Время:</strong> ${time}</p>
         `,

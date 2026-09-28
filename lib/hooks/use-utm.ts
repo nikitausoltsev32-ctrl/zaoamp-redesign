@@ -9,9 +9,43 @@ export interface UTMData {
   utm_campaign: string | null
   utm_content: string | null
   utm_term: string | null
+  /** Первый заход: внешний referrer и страница входа — видно органику без UTM */
+  first_referrer?: string | null
+  first_landing?: string | null
 }
 
 const UTM_STORAGE_KEY = 'zaoamp_utm_data'
+const FIRST_TOUCH_KEY = 'zaoamp_first_touch'
+
+function saveFirstTouch() {
+  try {
+    if (localStorage.getItem(FIRST_TOUCH_KEY)) return
+    let referrer = ''
+    if (document.referrer) {
+      const host = new URL(document.referrer).hostname
+      if (host !== window.location.hostname) referrer = document.referrer
+    }
+    localStorage.setItem(
+      FIRST_TOUCH_KEY,
+      JSON.stringify({ referrer, landing: window.location.pathname, timestamp: Date.now() })
+    )
+  } catch {
+    // localStorage недоступен — источник просто не попадёт в заявку
+  }
+}
+
+function readFirstTouch(): Pick<UTMData, 'first_referrer' | 'first_landing'> {
+  try {
+    const saved = localStorage.getItem(FIRST_TOUCH_KEY)
+    if (saved) {
+      const parsed = JSON.parse(saved)
+      return { first_referrer: parsed.referrer || null, first_landing: parsed.landing || null }
+    }
+  } catch {
+    // ignore
+  }
+  return {}
+}
 
 export function useUTM() {
   const searchParams = useSearchParams()
@@ -24,6 +58,8 @@ export function useUTM() {
   })
 
   useEffect(() => {
+    saveFirstTouch()
+
     // 1. Попытаться прочитать из URL
     const currentUtm: Partial<UTMData> = {}
     let hasNewUtm = false
@@ -78,13 +114,14 @@ export function getUTMData(): UTMData {
   if (typeof window === 'undefined') {
     return { utm_source: null, utm_medium: null, utm_campaign: null, utm_content: null, utm_term: null }
   }
+  const firstTouch = readFirstTouch()
   try {
     const saved = localStorage.getItem(UTM_STORAGE_KEY)
     if (saved) {
-      return JSON.parse(saved)
+      return { ...JSON.parse(saved), ...firstTouch }
     }
   } catch (e) {
     // ignore
   }
-  return { utm_source: null, utm_medium: null, utm_campaign: null, utm_content: null, utm_term: null }
+  return { utm_source: null, utm_medium: null, utm_campaign: null, utm_content: null, utm_term: null, ...firstTouch }
 }

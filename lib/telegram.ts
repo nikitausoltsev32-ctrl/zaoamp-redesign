@@ -7,6 +7,27 @@ export function escapeHtml(value: string) {
     .replace(/'/g, '&#39;')
 }
 
+/** «Пришёл: Яндекс (поиск) → /catalog/kroshka/» по первому заходу посетителя; уже экранировано. */
+export function formatFirstTouch(utm: { first_referrer?: unknown; first_landing?: unknown }) {
+  const referrer = typeof utm?.first_referrer === 'string' ? utm.first_referrer : ''
+  const landing = typeof utm?.first_landing === 'string' ? utm.first_landing : ''
+  if (!referrer && !landing) return ''
+
+  let from = 'прямой заход / закладка'
+  if (referrer) {
+    let host = referrer
+    try {
+      host = new URL(referrer).hostname
+    } catch {
+      // оставляем как есть
+    }
+    if (/(^|\.)yandex\.|(^|\.)ya\.ru$/.test(host)) from = 'Яндекс (поиск)'
+    else if (/(^|\.)google\./.test(host)) from = 'Google (поиск)'
+    else from = host
+  }
+  return `Пришёл: ${escapeHtml(from)}${landing ? ` → ${escapeHtml(landing.slice(0, 200))}` : ''}`
+}
+
 /** Отправка уведомления в Telegram. Ошибки логируются, не пробрасываются. */
 export async function sendTelegram(text: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN
