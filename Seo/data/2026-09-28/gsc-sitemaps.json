@@ -1,0 +1,21 @@
+{
+  "sitemap": [
+    {
+      "path": "https://amp-minerals.ru/sitemap.xml",
+      "lastSubmitted": "2026-07-09T10:08:11.573Z",
+      "isPending": false,
+      "isSitemapsIndex": false,
+      "type": "sitemap",
+      "lastDownloaded": "2026-09-27T12:04:49.273Z",
+      "warnings": "0",
+      "errors": "0",
+      "contents": [
+        {
+          "type": "web",
+          "submitted": "48",
+          "indexed": "0"
+        }
+      ]
+    }
+  ]
+}
