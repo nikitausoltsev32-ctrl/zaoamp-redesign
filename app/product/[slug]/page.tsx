@@ -116,6 +116,14 @@ export default function ProductPage({ params }: ProductPageProps) {
             >
               {categoryAnchor[cat.slug]} →
             </Link>
+            {cat.slug === 'muka' && (
+              <Link
+                href="/blog/mramornaya-muka-primenenie"
+                className="mt-3 block text-base font-medium text-brand-sapphire hover:underline"
+              >
+                Где применяется мраморная мука: краски, пластики, строительство →
+              </Link>
+            )}
           </div>
         </section>
       )}

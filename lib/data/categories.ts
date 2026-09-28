@@ -300,7 +300,7 @@ export const categories: Record<CategorySlug, CategoryData> = {
           'Биг-бэги 500 кг, мешки 50 и 25 кг. Для промышленных заказов возможна отгрузка в специализированной таре по согласованию.',
       },
     ],
-    relatedBlogSlugs: ['belizna-mikrokalsita-98-procentov'],
+    relatedBlogSlugs: ['mramornaya-muka-primenenie', 'belizna-mikrokalsita-98-procentov'],
     seo: {
       title: 'Мраморная мука и микрокальцит купить | CaCO₃ 98% | ЗАО АМП',
       description:
