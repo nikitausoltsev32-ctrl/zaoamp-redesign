@@ -1,0 +1,891 @@
+{
+  "history": {
+    "indicators": {
+      "HTTP_3XX": [
+        {
+          "date": "2026-07-06T00:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-13T13:00:00.000+03:00",
+          "value": 4
+        },
+        {
+          "date": "2026-08-09T06:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-08-20T02:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-08-24T01:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-09-05T05:00:00.000+03:00",
+          "value": 2
+        }
+      ],
+      "HTTP_2XX": [
+        {
+          "date": "2026-07-06T02:00:00.000+03:00",
+          "value": 11
+        },
+        {
+          "date": "2026-07-07T15:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-09T17:00:00.000+03:00",
+          "value": 4
+        },
+        {
+          "date": "2026-07-10T20:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-07-12T20:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-13T11:00:00.000+03:00",
+          "value": 5
+        },
+        {
+          "date": "2026-07-14T16:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-20T18:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-07-21T15:00:00.000+03:00",
+          "value": 6
+        },
+        {
+          "date": "2026-07-22T06:00:00.000+03:00",
+          "value": 6
+        },
+        {
+          "date": "2026-07-23T10:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-07-25T07:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-08-07T03:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-08-09T19:00:00.000+03:00",
+          "value": 12
+        },
+        {
+          "date": "2026-08-10T12:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-08-14T15:00:00.000+03:00",
+          "value": 5
+        },
+        {
+          "date": "2026-08-15T14:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-08-19T11:00:00.000+03:00",
+          "value": 4
+        },
+        {
+          "date": "2026-08-20T02:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-08-23T01:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-08-24T02:00:00.000+03:00",
+          "value": 11
+        },
+        {
+          "date": "2026-08-26T17:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-09-01T20:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-09-04T18:00:00.000+03:00",
+          "value": 7
+        },
+        {
+          "date": "2026-09-05T12:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-09-07T14:00:00.000+03:00",
+          "value": 8
+        },
+        {
+          "date": "2026-09-08T15:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-09-09T14:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-09-11T02:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-09-12T22:00:00.000+03:00",
+          "value": 7
+        },
+        {
+          "date": "2026-09-13T21:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-09-16T22:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-09-21T20:00:00.000+03:00",
+          "value": 3
+        },
+        {
+          "date": "2026-09-22T22:00:00.000+03:00",
+          "value": 2
+        },
+        {
+          "date": "2026-09-23T23:00:00.000+03:00",
+          "value": 5
+        },
+        {
+          "date": "2026-09-24T15:00:00.000+03:00",
+          "value": 23
+        },
+        {
+          "date": "2026-09-25T13:00:00.000+03:00",
+          "value": 1
+        },
+        {
+          "date": "2026-09-27T21:00:00.000+03:00",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "downloaded_samples": {
+    "count": 208,
+    "samples": [
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/contacts",
+        "access_date": "2026-04-22T03:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/contacts/",
+        "access_date": "2026-04-22T06:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/about/",
+        "access_date": "2026-04-25T12:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/about",
+        "access_date": "2026-04-25T14:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/delivery",
+        "access_date": "2026-05-02T02:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/delivery/",
+        "access_date": "2026-05-02T02:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-05-10T04:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/about/",
+        "access_date": "2026-05-16T15:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/contacts/",
+        "access_date": "2026-05-17T03:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/contacts/",
+        "access_date": "2026-05-20T06:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-05-20T20:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-05-23T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/catalog",
+        "access_date": "2026-05-24T06:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/",
+        "access_date": "2026-05-24T06:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-05-24T16:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-05-31T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-04T14:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-08T03:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-09T15:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/contacts",
+        "access_date": "2026-06-09T15:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/contacts/",
+        "access_date": "2026-06-09T15:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-15T08:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-16T03:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/about",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/belizna-mikrokalsita-98-procentov/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/documents/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/ekaterinburg/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/dorogi/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/landshaft/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-1/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-5/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-10-20/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-20-50/",
+        "access_date": "2026-06-20T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/about/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/kak-vybrat-frakciyu-mramornoj-kroshki/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/mramornyj-shcheben-vs-granitnyj/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/catalog",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/muka/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/delivery/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/perm/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/selhoz/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mikrokaltsit-5-200-mkm/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-5-1-0/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-5-10/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-muka-0-0-2/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-50-200/",
+        "access_date": "2026-06-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/shtukaturka/",
+        "access_date": "2026-06-20T19:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-1-0-1-5/",
+        "access_date": "2026-06-20T19:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-2-3/",
+        "access_date": "2026-06-20T19:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/tyumen/",
+        "access_date": "2026-06-20T19:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/kak-vybrat-frakciyu-mramornoj-kroshki/",
+        "access_date": "2026-06-20T20:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/radiacionnaya-bezopasnost-shchebnya-klass-1/",
+        "access_date": "2026-06-20T20:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/selhoz/",
+        "access_date": "2026-06-20T20:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-2-3/",
+        "access_date": "2026-06-20T21:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-50-200/",
+        "access_date": "2026-06-20T22:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/lkm/",
+        "access_date": "2026-06-20T23:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-1-5-2-0/",
+        "access_date": "2026-06-21T01:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-21T10:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/documents",
+        "access_date": "2026-06-21T13:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/documents/",
+        "access_date": "2026-06-21T14:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-06-24T03:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/muka/",
+        "access_date": "2026-07-06T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/contacts",
+        "access_date": "2026-07-06T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/contacts/",
+        "access_date": "2026-07-06T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/",
+        "access_date": "2026-07-06T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mikrokaltsit-5-200-mkm/",
+        "access_date": "2026-07-06T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-5-1-0/",
+        "access_date": "2026-07-06T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-5/",
+        "access_date": "2026-07-06T01:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-1-0-1-5/",
+        "access_date": "2026-07-06T01:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-10-20/",
+        "access_date": "2026-07-06T01:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-07-06T02:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-50-200/",
+        "access_date": "2026-07-06T02:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-1-0-1-5/",
+        "access_date": "2026-07-07T15:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/shcheben/",
+        "access_date": "2026-07-09T16:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/",
+        "access_date": "2026-07-09T17:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/contacts/",
+        "access_date": "2026-07-09T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-2-3/",
+        "access_date": "2026-07-09T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/",
+        "access_date": "2026-07-10T00:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/catalog/kroshka/",
+        "access_date": "2026-07-10T20:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-1-0-1-5/",
+        "access_date": "2026-07-12T20:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-07-13T09:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-1",
+        "access_date": "2026-07-13T11:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-0-1/",
+        "access_date": "2026-07-13T11:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-5-10/",
+        "access_date": "2026-07-13T11:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-10-20/",
+        "access_date": "2026-07-13T11:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-20-50",
+        "access_date": "2026-07-13T11:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-20-50/",
+        "access_date": "2026-07-13T11:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-5-10",
+        "access_date": "2026-07-13T13:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_3XX",
+        "http_code": 308,
+        "url": "https://amp-minerals.ru/product/mramornyj-shheben-10-20",
+        "access_date": "2026-07-13T13:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/mramornyj-shcheben-vs-granitnyj/",
+        "access_date": "2026-07-14T16:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/kak-vybrat-frakciyu-mramornoj-kroshki/",
+        "access_date": "2026-07-20T18:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/blog/radiacionnaya-bezopasnost-shchebnya-klass-1/",
+        "access_date": "2026-07-21T01:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/primenenie/selhoz/",
+        "access_date": "2026-07-21T06:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-muka-0-0-2/",
+        "access_date": "2026-07-21T06:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/moskva/",
+        "access_date": "2026-07-21T15:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/",
+        "access_date": "2026-07-21T19:00:00.000+03:00"
+      },
+      {
+        "status": "HTTP_2XX",
+        "http_code": 200,
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-5-10/",
+        "access_date": "2026-07-21T19:00:00.000+03:00"
+      }
+    ]
+  },
+  "in_search_samples": {
+    "count": 19,
+    "samples": [
+      {
+        "url": "https://amp-minerals.ru/",
+        "last_access": "2026-09-23T06:59:30.000+03:00",
+        "title": "Мраморная крошка и щебень купить в Екатеринбурге"
+      },
+      {
+        "url": "https://amp-minerals.ru/catalog/",
+        "last_access": "2026-09-22T08:28:15.000+03:00",
+        "title": "Каталог мраморной крошки и щебня — купить в Екатеринбурге | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/tyumen/",
+        "last_access": "2026-09-21T20:13:29.000+03:00",
+        "title": "Мраморная крошка и щебень купить в Тюмени - доставка по региону | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/catalog/muka/",
+        "last_access": "2026-09-21T20:13:22.000+03:00",
+        "title": "Мраморная мука и микрокальцит купить от производителя"
+      },
+      {
+        "url": "https://amp-minerals.ru/contacts/",
+        "last_access": "2026-09-16T06:56:37.000+03:00",
+        "title": "Контакты АМП - отдел продаж и отгрузка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/catalog/kroshka/",
+        "last_access": "2026-09-12T19:55:02.000+03:00",
+        "title": "Мраморная крошка купить в Екатеринбурге — фракции, белизна 98%, цена от производителя"
+      },
+      {
+        "url": "https://amp-minerals.ru/privacy/",
+        "last_access": "2026-09-12T19:52:27.000+03:00",
+        "title": "Политика конфиденциальности | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/catalog/shcheben/",
+        "last_access": "2026-09-09T04:43:52.000+03:00",
+        "title": "Мраморный щебень купить в Екатеринбурге — фракции 10–200 мм, цена от производителя"
+      },
+      {
+        "url": "https://amp-minerals.ru/primenenie/dorogi/",
+        "last_access": "2026-09-08T15:55:38.000+03:00",
+        "title": "Мраморный щебень для дорог и отсыпки купить - фракции 10-200 мм | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/product/mramornaya-kroshka-5-10/",
+        "last_access": "2026-09-08T03:01:52.000+03:00",
+        "title": "Мраморная крошка 5-10 мм купить оптом — цена за тонну | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/documents/",
+        "last_access": "2026-09-07T14:25:15.000+03:00",
+        "title": "Паспорта качества на мраморную продукцию | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/moskva/",
+        "last_access": "2026-09-07T14:25:13.000+03:00",
+        "title": "Мраморная крошка и щебень купить в Москве - поставка по России | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/chelyabinsk/",
+        "last_access": "2026-08-19T12:11:20.000+03:00",
+        "title": "Мраморная крошка и щебень купить в Челябинске - доставка от производителя | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/delivery/",
+        "last_access": "2026-08-09T19:24:38.000+03:00",
+        "title": "Доставка мраморной крошки и щебня по России | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/ekaterinburg/",
+        "last_access": "2026-08-09T06:50:32.000+03:00",
+        "title": "Мраморная крошка и щебень купить в Екатеринбурге - ЗАО АМП | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/primenenie/selhoz/",
+        "last_access": "2026-08-09T06:50:22.000+03:00",
+        "title": "Мраморная мука для сельского хозяйства купить - CaCO3 для почвы и кормов | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/primenenie/",
+        "last_access": "2026-07-06T00:50:15.000+03:00",
+        "title": "Применение мраморной крошки, щебня, муки и микрокальцита | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/perm/",
+        "last_access": "2026-06-20T17:50:11.000+03:00",
+        "title": "Мраморная крошка и щебень купить в Перми - цена и доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      },
+      {
+        "url": "https://amp-minerals.ru/about/",
+        "last_access": "2026-06-20T17:49:35.000+03:00",
+        "title": "О производстве белой мраморной крошки и щебня | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»"
+      }
+    ]
+  }
+}
