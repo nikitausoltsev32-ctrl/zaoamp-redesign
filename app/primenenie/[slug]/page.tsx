@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ApplicationLandingPageTemplate } from '@/components/sections/application-landing-page'
 import { applicationLandingPages, getApplicationLandingPage } from '@/lib/data/seo-landings'
-import { keywordsForTarget } from '@/lib/data/semantic-core'
 
 interface ApplicationPageProps {
   params: {
@@ -24,9 +23,8 @@ export function generateMetadata({ params }: ApplicationPageProps): Metadata {
   }
 
   return {
-    title: page.title,
+    title: { absolute: page.title },
     description: page.description,
-    keywords: keywordsForTarget(`/primenenie/${page.slug}`),
     alternates: {
       canonical: `/primenenie/${page.slug}/`,
     },

@@ -326,11 +326,20 @@ export default function AboutPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="relative"
             >
-              <MediaSlot
-                title="Фото месторождения: природное сырьё"
-                caption="Слот для подтверждённого фото белого мрамора. Исходный файл отсутствует."
-                className="aspect-[4/3] min-h-0 shadow-sm"
-              />
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+                <Image
+                  src="/images/quarry/quarry-3.jpg"
+                  alt="Мраморный карьер - добыча сырья"
+                  fill
+                  className="object-cover transition-all duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  <p className="text-white font-semibold">Природное сырье</p>
+                  <p className="text-white/80 text-sm">Белый мрамор с месторождения</p>
+                </div>
+              </div>
             </m.div>
           </div>
 
@@ -454,11 +463,11 @@ export default function AboutPage() {
                   transition={{ duration: 0.4, delay: i * 0.05 }}
                   className="group bg-stone-50 rounded-xl p-5 cursor-pointer open:bg-brand-ice-blue/60"
                 >
-                  <summary className="font-semibold text-foreground list-none flex justify-between items-center gap-4">
+                  <summary className="faq-question font-semibold text-foreground list-none flex justify-between items-center gap-4">
                     <span>{faq.question}</span>
                     <ArrowRight className="h-4 w-4 text-brand-sapphire transition-transform group-open:rotate-90 shrink-0" />
                   </summary>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  <p className="faq-answer mt-3 text-sm text-muted-foreground leading-relaxed">
                     {faq.answer}
                   </p>
                 </m.details>

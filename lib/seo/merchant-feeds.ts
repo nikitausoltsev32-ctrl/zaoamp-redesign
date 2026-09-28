@@ -30,6 +30,7 @@ function getProductType(category: Product['category']) {
     kroshka: 'Мраморная крошка',
     muika: 'Мраморная мука и микрокальцит',
     otsev: 'Мраморная мука и микрокальцит',
+    landshaft: 'Ландшафтный камень',
   }
 
   return labels[category]
@@ -103,12 +104,14 @@ export function generateYandexYml() {
     { id: 1, name: 'Мраморный щебень' },
     { id: 2, name: 'Мраморная крошка' },
     { id: 3, name: 'Мраморная мука и микрокальцит' },
+    { id: 4, name: 'Ландшафтный камень' },
   ]
   const categoryIds: Record<Product['category'], number> = {
     scherb: 1,
     kroshka: 2,
     muika: 3,
     otsev: 3,
+    landshaft: 4,
   }
   const generatedAt = new Date().toISOString().replace(/\.\d{3}Z$/, '+00:00')
   const categoryXml = categories

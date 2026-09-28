@@ -43,7 +43,7 @@ export function CTASection() {
             <Button 
               asChild 
               size="lg"
-              className="bg-blue-500 text-white hover:bg-blue-600 border-0"
+              className="bg-blue-600 text-white hover:bg-blue-700 border-0"
             >
               <a href={`https://t.me/${contactInfo.telegram.replace('@', '')}`} target="_blank" rel="noopener noreferrer">
                 <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 24 24">

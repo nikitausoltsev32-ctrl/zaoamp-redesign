@@ -18,6 +18,7 @@ const CATEGORY_LABELS: Record<Product['category'], string> = {
   kroshka: 'мраморная крошка',
   muika: 'мраморная мука и микрокальцит',
   otsev: 'отсев',
+  landshaft: 'ландшафтный камень',
 }
 
 const USE_CASE_RULES = [
@@ -89,7 +90,8 @@ function productSearchText(product: Product) {
     product.description,
     product.applications.join(' '),
     product.specifications.packaging.join(' '),
-    product.specifications.whiteness,
+    product.rock ?? '',
+    product.specifications.whiteness ?? '',
     product.specifications.caco3 ?? '',
     product.seo.keywords.join(' '),
   ].join(' '))
@@ -153,7 +155,8 @@ export function buildAssistantKnowledgeContext() {
     description: product.description,
     applications: product.applications,
     packaging: product.specifications.packaging,
-    whiteness: product.specifications.whiteness,
+    rock: product.rock,
+    whiteness: product.specifications.whiteness ?? 'не применимо',
     caco3: product.specifications.caco3 ?? 'по запросу',
     radioactivity: product.specifications.radioactivity ?? 'по запросу',
     documents: qualityDocuments

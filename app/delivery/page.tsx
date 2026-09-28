@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from '@/components/ui/app-link'
 import { ArrowRight, Check, Truck } from 'lucide-react'
-import { SectionHeader } from '@/components/section-header'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { generateDeliveryMetadata } from '@/lib/seo/metadata'
@@ -21,11 +20,14 @@ export default function DeliveryPage() {
       <div className="min-h-screen bg-brand-ice-blue">
         <div className="bg-gradient-to-br from-stone-50 to-stone-100 py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <SectionHeader
-              title="Условия доставки"
-              subtitle="Доставка мраморной крошки и щебня по всей России"
-              centered
-            />
+            <div className="mb-8 md:mb-12 text-center">
+              <h1 className="font-serif font-bold text-foreground text-2xl md:text-3xl lg:text-4xl mb-3">
+                Доставка мраморной крошки и щебня по России
+              </h1>
+              <p className="text-base md:text-lg max-w-2xl mx-auto text-muted-foreground">
+                Условия доставки: автотранспорт, ж/д перевозки, самовывоз
+              </p>
+            </div>
             <div className="mt-8 flex justify-center gap-4 flex-wrap">
               <Badge variant="secondary" className="text-sm">
                 <Truck className="mr-1 h-3 w-3" />

@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
-export type CategoryFilter = 'all' | 'scherb' | 'kroshka' | 'muika'
+export type CategoryFilter = 'all' | 'scherb' | 'kroshka' | 'muika' | 'landshaft'
 
 interface FilterOption {
   value: CategoryFilter
@@ -22,6 +22,7 @@ const filters: FilterOption[] = [
   { value: 'scherb', label: 'Щебень', count: 3 },
   { value: 'kroshka', label: 'Крошка', count: 2 },
   { value: 'muika', label: 'Мука', count: 1 },
+  { value: 'landshaft', label: 'Ландшафтный камень', count: 7 },
 ]
 
 export function CatalogFilters({ activeFilter, onFilterChange, productCounts }: CatalogFiltersProps) {

@@ -1,0 +1,35 @@
+{
+  "captured_at": "2026-09-21",
+  "method": "public web search; directional feature review, not a paid TopVisor/Yandex regional SERP snapshot",
+  "clusters": {
+    "мраморная крошка купить": {
+      "observed_features": ["price per bag, kilogram or tonne", "availability", "fractions", "packaging", "delivery", "product photos", "consumption calculator"],
+      "sample_urls": [
+        "https://spb.russand.ru/products/molotyj-mramor/mramornaja-kroshka/",
+        "https://mariva.ru/product/mramornaya-kroshka/",
+        "https://mulchan.ru/katalog/kamennaya_kroshka/mramornaya_kroshka/product/mramornaya_kroshka_belaya_5_10_mm_tn/"
+      ]
+    },
+    "мраморный щебень купить": {
+      "observed_features": ["assortment by fraction", "visible price", "packaging", "delivery", "minimum volume", "VAT terms"],
+      "sample_urls": [
+        "https://vektortk.ru/produkcziya/mramornyij-shheben/",
+        "https://nsmgr.ru/materialy-sypuchie/shheben/mramorniy",
+        "https://betonych.com/shheben/mramornyj-shheben"
+      ]
+    },
+    "мраморная мука купить": {
+      "observed_features": ["grades and particle size", "price by grade", "packaging", "applications", "technical specification"],
+      "sample_urls": [
+        "https://koelgacarb.ru/catalog/81/"
+      ]
+    },
+    "микрокальцит купить оптом": {
+      "observed_features": ["particle size", "whiteness", "price per tonne", "bag and big-bag", "delivery", "contract terms", "client proof"],
+      "sample_urls": [
+        "https://polevskoi-mramor.com/mikrokaltsit/"
+      ]
+    }
+  },
+  "limitations": "Exact Yandex ranking, regional composition and URL-overlap clustering require a paid regional SERP snapshot after user approval."
+}

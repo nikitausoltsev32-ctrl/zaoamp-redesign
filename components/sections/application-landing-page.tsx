@@ -70,7 +70,6 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
                     src={page.heroImage}
                     alt={page.heroImageAlt}
                     fill
-                    priority
                     className="object-cover"
                     sizes="(max-width: 1024px) 0px, 45vw"
                   />
@@ -205,10 +204,10 @@ export function ApplicationLandingPageTemplate({ page }: ApplicationLandingPageT
             <div className="space-y-4">
               {page.faqs.map((faq) => (
                 <details key={faq.question} className="rounded-lg border border-stone-200 bg-white p-5">
-                  <summary className="cursor-pointer font-semibold text-foreground">
+                  <summary className="faq-question cursor-pointer font-semibold text-foreground">
                     {faq.question}
                   </summary>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="faq-answer mt-3 text-sm leading-relaxed text-muted-foreground">
                     {faq.answer}
                   </p>
                 </details>

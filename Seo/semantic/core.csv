@@ -1,0 +1,59 @@
+query,source,search_engine,market,region,frequency,frequency_type,seasonality,current_url,impressions,clicks,position,intent,status
+мраморная крошка купить оптом,site_inventory,yandex,Россия,,13,exact (broad 229),зимой ниже,/catalog/kroshka/,34,0,28.3,commercial,frequency_collected
+мраморная крошка цена за тонну,site_inventory,yandex,Россия,,10,exact (broad 40),зимой ниже,/catalog/kroshka/,4,0,29.0,commercial,frequency_collected
+мраморный щебень купить оптом,site_inventory,yandex,Россия,,0,exact (broad 10),зимой ниже,/catalog/shcheben/,,,,commercial,no_demand
+мраморный щебень цена за тонну,site_inventory,yandex,Россия,,0,exact (broad 13),зимой ниже,/catalog/shcheben/,,,,commercial,no_demand
+мраморная мука купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/catalog/muka/,,,,commercial,no_demand
+микрокальцит купить оптом,site_inventory,yandex,Россия,,19,exact (broad 46),зимой ниже,/catalog/muka/,,,,commercial,frequency_collected
+мраморный щебень 50-200 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornyj-shheben-50-200/,,,,commercial,no_demand
+мраморный щебень 20-50 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornyj-shheben-20-50/,,,,commercial,no_demand
+мраморный щебень 10-20 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornyj-shheben-10-20/,,,,commercial,no_demand
+мраморная крошка 5-10 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-5-10/,,,,commercial,no_demand
+мраморная крошка 0-5 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-0-5/,,,,commercial,no_demand
+мраморная мука 0-0.2 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-muka-0-0-2/,,,,commercial,no_demand
+мраморная крошка 0-1 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-0-1/,,,,commercial,no_demand
+"мраморная крошка 0,2-0,5 мм купить оптом",site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-0-2-0-5/,,,,commercial,no_demand
+мраморная крошка 0.5-1.0 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-0-5-1-0/,,,,commercial,no_demand
+мраморная крошка 1.0-1.5 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-1-0-1-5/,,,,commercial,no_demand
+мраморная крошка 1.5-2.0 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-1-5-2-0/,,,,commercial,no_demand
+мраморная крошка 2-3 мм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mramornaya-kroshka-2-3/,,,,commercial,no_demand
+микрокальцит 5-200 мкм купить оптом,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/product/mikrokaltsit-5-200-mkm/,,,,commercial,no_demand
+мраморная крошка для ландшафтного дизайна,site_inventory,yandex,Россия,,30,exact (broad 230),зимой ниже,/primenenie/landshaft/,2,0,36.5,mixed,frequency_collected
+мраморный щебень для дорог,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/primenenie/dorogi/,,,,commercial,no_demand
+мраморная крошка для декоративной штукатурки,site_inventory,yandex,Россия,,1,exact (broad 123),зимой ниже,/primenenie/shtukaturka/,,,,commercial,frequency_collected
+микрокальцит для ЛКМ и пластиков,site_inventory,,Россия,,,,зимой ниже,/primenenie/lkm/,,,,commercial,seed_pending_frequency
+мраморная мука для сельского хозяйства,site_inventory,yandex,Россия,,0,exact (broad 0),зимой ниже,/primenenie/selhoz/,,,,mixed,no_demand
+мраморная крошка,topvisor_collect+wordstat,yandex,Россия,,2803,exact (broad 64625),зимой ниже,/catalog/kroshka/,1,0,6.0,commercial,frequency_collected
+мраморная крошка цена,topvisor_collect+wordstat,yandex,Россия,,96,exact (broad 2994),зимой ниже,/catalog/kroshka/,,,,commercial,frequency_collected
+мраморная крошка в мешках,topvisor_collect+wordstat,yandex,Россия,,103,exact (broad 2795),зимой ниже,/catalog/kroshka/,1,0,56.0,commercial,frequency_collected
+купить мраморную крошку в мешках,topvisor_collect+wordstat,yandex,Россия,,87,exact (broad 2156),зимой ниже,/catalog/kroshka/,,,,commercial,frequency_collected
+мраморная крошка оптом,topvisor_collect+wordstat,yandex,Россия,,39,exact (broad 393),зимой ниже,/catalog/kroshka/,66,0,37.7,commercial,frequency_collected
+мраморная крошка купить оптом от производителя,topvisor_collect+wordstat,yandex,Россия,,32,exact (broad 103),зимой ниже,/catalog/kroshka/,34,0,27.8,commercial,frequency_collected
+купить мраморную крошку оптом от производителя,topvisor_collect+wordstat,yandex,Россия,,23,exact (broad 103),зимой ниже,/catalog/kroshka/,3,0,32.7,commercial,frequency_collected
+купить белую мраморную крошку в мешках,topvisor_collect+wordstat,yandex,Россия,,25,exact (broad 278),зимой ниже,/catalog/kroshka/,,,,commercial,frequency_collected
+где купить мраморную крошку,topvisor_collect+wordstat,yandex,Россия,,90,exact (broad 1545),зимой ниже,/catalog/kroshka/,,,,commercial,frequency_collected
+мраморная крошка в ландшафтном дизайне,topvisor_collect+wordstat,yandex,Россия,,57,exact (broad 201),зимой ниже,/primenenie/landshaft/,18,0,35.8,mixed,frequency_collected
+купить мраморную крошку для ландшафтного дизайна,topvisor_collect+wordstat,yandex,Россия,,52,exact (broad 163),зимой ниже,/primenenie/landshaft/,18,0,28.1,mixed,frequency_collected
+мраморная крошка на клумбе,topvisor_collect+wordstat,yandex,Россия,,21,exact (broad 124),зимой ниже,/primenenie/landshaft/,,,,mixed,frequency_collected
+мраморная крошка для сада,topvisor_collect+wordstat,yandex,Россия,,14,exact (broad 178),зимой ниже,/primenenie/landshaft/,,,,mixed,frequency_collected
+цветник из мраморной крошки,topvisor_collect+wordstat,yandex,Россия,,7,exact (broad 112),зимой ниже,/primenenie/landshaft/,,,,mixed,frequency_collected
+мраморная крошка для дорожек,topvisor_collect+wordstat,yandex,Россия,,347,exact (broad 943),зимой ниже,/primenenie/landshaft/,,,,mixed,frequency_collected
+мраморная крошка для фасада,topvisor_collect+wordstat,yandex,Россия,,123,exact (broad 904),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+мраморная крошка для цоколя,topvisor_collect+wordstat,yandex,Россия,,86,exact (broad 370),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+штукатурка мраморная крошка,topvisor_collect+wordstat,yandex,Россия,,74,exact (broad 2128),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+штукатурка с мраморной крошкой для фасада,topvisor_collect+wordstat,yandex,Россия,,72,exact (broad 102),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+штукатурка с мраморной крошкой для цоколя,topvisor_collect+wordstat,yandex,Россия,,55,exact (broad 117),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+отделка цоколя мраморной крошкой,topvisor_collect+wordstat,yandex,Россия,,46,exact (broad 156),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+декоративная штукатурка мраморная крошка,topvisor_collect+wordstat,yandex,Россия,,41,exact (broad 527),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+мраморная крошка для фасада купить,topvisor_collect+wordstat,yandex,Россия,,25,exact (broad 149),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+мраморная крошка для штукатурки,topvisor_collect+wordstat,yandex,Россия,,12,exact (broad 709),зимой ниже,/primenenie/shtukaturka/,,,,mixed,frequency_collected
+краска с мраморной крошкой,topvisor_collect+wordstat,yandex,Россия,,42,exact (broad 867),зимой ниже,/primenenie/lkm/,,,,mixed,frequency_collected
+эпоксидная смола с мраморной крошкой,topvisor_collect+wordstat,yandex,Россия,,18,exact (broad 140),зимой ниже,/primenenie/lkm/,,,,mixed,frequency_collected
+акриловая краска с микрокальцитом,topvisor_collect+wordstat,yandex,Россия,,5,exact (broad 7),зимой ниже,/primenenie/lkm/,,,,mixed,frequency_collected
+мраморная мука применение в лкм,topvisor_collect+wordstat,yandex,Россия,,5,exact (broad 5),зимой ниже,/primenenie/lkm/,,,,mixed,frequency_collected
+микрокальцит мел мрамор дозировка для краски,topvisor_collect+wordstat,yandex,Россия,,10,exact (broad 10),зимой ниже,/primenenie/lkm/,,,,mixed,frequency_collected
+мраморная крошка 5 10,topvisor_collect+wordstat,yandex,Россия,,26,exact (broad 532),зимой ниже,/product/mramornaya-kroshka-5-10/,1,0,25.0,mixed,frequency_collected
+мраморная крошка фракция 5 10,topvisor_collect+wordstat,yandex,Россия,,20,exact (broad 189),зимой ниже,/product/mramornaya-kroshka-5-10/,1,0,13.0,mixed,frequency_collected
+мраморная крошка 5 10 мм,topvisor_collect+wordstat,yandex,Россия,,2,exact (broad 286),зимой ниже,/product/mramornaya-kroshka-5-10/,8,0,30.0,mixed,frequency_collected
+мраморная крошка 5 10 купить,topvisor_collect+wordstat,yandex,Россия,,2,exact (broad 152),зимой ниже,/product/mramornaya-kroshka-5-10/,1,0,37.0,mixed,frequency_collected
+мраморная крошка фракцией 5 10 мм,topvisor_collect+wordstat,yandex,Россия,,11,exact (broad 102),зимой ниже,/product/mramornaya-kroshka-5-10/,4,0,29.0,mixed,frequency_collected

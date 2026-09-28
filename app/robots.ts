@@ -12,6 +12,8 @@ export default function robots(): MetadataRoute.Robots {
           'PerplexityBot',
           'Googlebot',
           'bingbot',
+          'YandexBot',
+          'YandexAdditional',
         ],
         allow: '/',
         disallow: '/api/',

@@ -8,7 +8,7 @@ import { ProductCard } from '@/components/product-card'
 import type { CityLandingPage } from '@/lib/data/seo-landings'
 import { getProductsForLanding } from '@/lib/data/seo-landings'
 import { products } from '@/lib/data/products'
-import { generateBreadcrumbSchema, generateFAQSchema, generateLocalBusinessSchema, JsonLd } from '@/lib/seo/schema'
+import { generateBreadcrumbSchema, generateCityServiceSchema, generateFAQSchema, JsonLd } from '@/lib/seo/schema'
 import { SeoLongContent } from '@/components/sections/seo-long-content'
 import { MediaSlot } from '@/components/media-slot'
 
@@ -27,7 +27,7 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
     <>
       <JsonLd data={breadcrumb} />
       <JsonLd data={generateFAQSchema(page.faqs)} />
-      <JsonLd data={generateLocalBusinessSchema(page.city)} />
+      <JsonLd data={generateCityServiceSchema(page.city)} />
       <main className="min-h-screen bg-stone-50">
         <section className="bg-white border-b border-stone-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -39,7 +39,7 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
             <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
               <div>
                 <Badge className="mb-4 bg-brand-sapphire/10 text-brand-sapphire hover:bg-brand-sapphire/20">
-                  Доставка в {page.city}
+                  Доставка в {page.cityPrepositional}
                 </Badge>
                 <h1 className="max-w-4xl text-3xl font-bold tracking-normal text-foreground md:text-5xl">
                   {page.h1}
@@ -68,7 +68,6 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
                     src={page.heroImage}
                     alt={page.heroImageAlt}
                     fill
-                    priority
                     className="object-cover"
                     sizes="(max-width: 1024px) 0px, 45vw"
                   />
@@ -117,7 +116,7 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
                 Что заказывают
               </Badge>
               <h2 className="text-2xl font-bold text-foreground md:text-3xl">
-                Основные направления для {page.city}
+                Основные направления для {page.cityGenitive}
               </h2>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
@@ -181,10 +180,10 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
             <div className="space-y-4">
               {page.faqs.map((faq) => (
                 <details key={faq.question} className="rounded-lg border border-stone-200 bg-stone-50 p-5">
-                  <summary className="cursor-pointer font-semibold text-foreground">
+                  <summary className="faq-question cursor-pointer font-semibold text-foreground">
                     {faq.question}
                   </summary>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="faq-answer mt-3 text-sm leading-relaxed text-muted-foreground">
                     {faq.answer}
                   </p>
                 </details>
@@ -196,7 +195,7 @@ export function CityLandingPageTemplate({ page }: CityLandingPageTemplateProps) 
         <section className="bg-brand-deep-navy py-12 text-white md:py-16">
           <div className="container mx-auto px-4 text-center sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold md:text-3xl">
-              Рассчитать поставку в {page.city}
+              Рассчитать поставку в {page.cityAccusative}
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-stone-300">
               Отправьте фракцию, объем, адрес выгрузки и желаемую упаковку. Вернем КП с материалом и логистикой.

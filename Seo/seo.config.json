@@ -1,0 +1,22 @@
+{
+  "domain": "amp-minerals.ru",
+  "origin": "https://amp-minerals.ru",
+  "region": "Россия — первый этап; СНГ — второй этап после роста в России и проверки спроса/логистики",
+  "yandex": {
+    "hostId": "https:amp-minerals.ru:443"
+  },
+  "gsc": {
+    "siteUrl": "sc-domain:amp-minerals.ru"
+  },
+  "topvisor": {
+    "projectId": 32272062
+  },
+  "keyPages": [
+    "/",
+    "/catalog/",
+    "/catalog/kroshka/",
+    "/catalog/shcheben/",
+    "/catalog/muka/"
+  ],
+  "out": "Seo/data"
+}

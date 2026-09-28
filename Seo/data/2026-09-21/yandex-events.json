@@ -1,0 +1,325 @@
+{
+  "count": 32,
+  "samples": [
+    {
+      "url": "https://amp-minerals.ru/privacy/",
+      "title": "Политика конфиденциальности | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-09-20T00:00:00.000+03:00",
+      "last_access": "2026-09-12T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/chelyabinsk/",
+      "title": "Мраморная крошка и щебень купить в Челябинске - доставка от производителя | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-08-25T00:00:00.000+03:00",
+      "last_access": "2026-08-19T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/product/mramornaya-kroshka-1-0-1-5/",
+      "title": "Мраморная крошка 1.0-1.5 мм купить оптом — цена за тонну | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-08-25T00:00:00.000+03:00",
+      "last_access": "2026-08-14T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/landshaft/",
+      "title": "Мраморная крошка для ландшафтного дизайна купить - фракции, цена, доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-08-23T00:00:00.000+03:00",
+      "last_access": "2026-08-14T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/lkm/",
+      "title": "Микрокальцит для ЛКМ купить — наполнитель CaCO₃ 99% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-08-23T00:00:00.000+03:00",
+      "last_access": "2026-08-10T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/landshaft/",
+      "title": "Мраморная крошка для ландшафтного дизайна купить - фракции, цена, доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-08-21T00:00:00.000+03:00",
+      "last_access": "2026-08-14T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/lkm/",
+      "title": "Микрокальцит для ЛКМ купить — наполнитель CaCO₃ 99% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-08-17T00:00:00.000+03:00",
+      "last_access": "2026-08-10T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/delivery/",
+      "title": "Доставка мраморной крошки и щебня по России | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-25T00:00:00.000+03:00",
+      "last_access": "2026-07-22T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/moskva/",
+      "title": "Мраморная крошка и щебень купить в Москве - поставка по России | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-25T00:00:00.000+03:00",
+      "last_access": "2026-07-21T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/product/mikrokaltsit-5-200-mkm/",
+      "title": "Микрокальцит 5-200 мкм купить оптом — CaCO₃ 99% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-16T00:00:00.000+03:00",
+      "last_access": "2026-07-06T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/catalog/kroshka/",
+      "title": "Мраморная крошка купить в Екатеринбурге — фракции, белизна 98%, цена от производителя",
+      "event_date": "2026-07-14T00:00:00.000+03:00",
+      "last_access": "2026-07-10T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/catalog/shcheben/",
+      "title": "Мраморный щебень купить в Екатеринбурге — фракции 10–200 мм, цена от производителя",
+      "event_date": "2026-07-13T00:00:00.000+03:00",
+      "last_access": "2026-07-09T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/landshaft/",
+      "title": "Мраморная крошка для ландшафтного дизайна купить - фракции, цена, доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-13T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/lkm/",
+      "title": "Микрокальцит для ЛКМ и пластика купить - CaCO3, белизна 98% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-13T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/shtukaturka/",
+      "title": "Мраморная крошка для штукатурки купить - фракции 0-5 мм | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-13T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/product/mikrokaltsit-5-200-mkm/",
+      "title": "Микрокальцит 5-200 мкм купить оптом — CaCO₃ 99% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-13T00:00:00.000+03:00",
+      "last_access": "2026-07-06T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/product/mikrokaltsit-5-200-mkm/",
+      "title": "Микрокальцит 5-200 мкм купить оптом — CaCO₃ 99% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-07-12T00:00:00.000+03:00",
+      "last_access": "2026-07-06T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/catalog/",
+      "title": "",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/catalog/muka/",
+      "title": "Мраморная мука и микрокальцит купить от производителя",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/documents/",
+      "title": "Паспорта качества на мраморную продукцию | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/ekaterinburg/",
+      "title": "Мраморная крошка и щебень купить в Екатеринбурге - ЗАО АМП | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/perm/",
+      "title": "Мраморная крошка и щебень купить в Перми - цена и доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/",
+      "title": "Применение мраморной крошки, щебня, муки и микрокальцита | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/dorogi/",
+      "title": "Мраморный щебень для дорог и отсыпки купить - фракции 10-200 мм | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/landshaft/",
+      "title": "Мраморная крошка для ландшафтного дизайна купить - фракции, цена, доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/lkm/",
+      "title": "Микрокальцит для ЛКМ и пластика купить - CaCO3, белизна 98% | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/selhoz/",
+      "title": "Мраморная мука для сельского хозяйства купить - CaCO3 для почвы и кормов | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/primenenie/shtukaturka/",
+      "title": "Мраморная крошка для штукатурки купить - фракции 0-5 мм | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/product/mikrokaltsit-5-200-mkm/",
+      "title": "Микрокальцит 5-200 мкм купить - характеристики и доставка | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/product/mramornaya-kroshka-5-10/",
+      "title": "Мраморная крошка 5-10 мм купить - цена 3 500 ₽/т | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/tyumen/",
+      "title": "Мраморная крошка и щебень купить в Тюмени - доставка по региону | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-26T00:00:00.000+03:00",
+      "last_access": "2026-06-20T00:00:00.000+03:00",
+      "event": "APPEARED_IN_SEARCH",
+      "excluded_url_status": null,
+      "bad_http_status": null,
+      "target_url": null
+    },
+    {
+      "url": "https://amp-minerals.ru/catalog/",
+      "title": "Каталог мраморной крошки и щебня — купить в Екатеринбурге | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "event_date": "2026-06-23T00:00:00.000+03:00",
+      "last_access": "2026-05-24T00:00:00.000+03:00",
+      "event": "REMOVED_FROM_SEARCH",
+      "excluded_url_status": "LOW_QUALITY",
+      "bad_http_status": null,
+      "target_url": null
+    }
+  ]
+}

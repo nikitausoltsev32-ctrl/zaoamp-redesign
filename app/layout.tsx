@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { FloatingActions } from '@/components/layout/floating-actions'
 import { MotionProvider } from '@/components/motion-provider'
-import { AiAssistantWidget } from '@/components/ai/ai-assistant-widget'
+import { AiAssistantWidgetLazy } from '@/components/ai/ai-assistant-widget-lazy'
 import { defaultMetadata } from '@/lib/seo/metadata'
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema'
 
@@ -21,6 +21,7 @@ const merriweather = Merriweather({
   weight: ['400', '700'],
   subsets: ['cyrillic'],
   variable: '--font-merriweather',
+  preload: false,
   display: 'swap',
 })
 
@@ -29,8 +30,6 @@ export const metadata: Metadata = defaultMetadata
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 }
 
 export default function RootLayout({
@@ -44,6 +43,17 @@ export default function RootLayout({
   return (
     <html lang="ru" className={`${inter.variable} ${merriweather.variable}`}>
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-J982LCR0MP" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-J982LCR0MP');`,
+          }}
+        />
+        <link rel="preconnect" href="https://mc.yandex.ru" />
         {/* Security: Escaping '<' to prevent XSS vulnerability when rendering JSON-LD */}
         <script
           type="application/ld+json"
@@ -67,7 +77,7 @@ export default function RootLayout({
           </main>
           <Footer />
           <FloatingActions />
-          <AiAssistantWidget />
+          <AiAssistantWidgetLazy />
         </MotionProvider>
         <CookieConsent />
       </body>

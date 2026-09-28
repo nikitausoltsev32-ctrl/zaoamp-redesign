@@ -1,0 +1,17 @@
+{
+  "info": {
+    "host_id": "https:amp-minerals.ru:443",
+    "verified": true,
+    "main_mirror": null,
+    "host_data_status": "OK",
+    "host_display_name": "amp-minerals.ru",
+    "ascii_host_url": "https://amp-minerals.ru/",
+    "unicode_host_url": "https://amp-minerals.ru/"
+  },
+  "summary": {
+    "sqi": 0,
+    "excluded_pages_count": 0,
+    "searchable_pages_count": 19,
+    "site_problems": {}
+  }
+}

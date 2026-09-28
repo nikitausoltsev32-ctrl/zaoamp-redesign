@@ -1,0 +1,19 @@
+{
+  "project_id": 32272062,
+  "project_name": "AMP",
+  "site": "amp-minerals.ru",
+  "keyword_count": 33,
+  "groups": 1,
+  "regions": [
+    { "searcher": "Yandex", "region": "Россия", "region_key": 225, "region_index": 5, "device": "desktop", "depth": 1 },
+    { "searcher": "Google", "region": "Россия", "region_key": 225, "region_index": 7, "device": "desktop", "depth": 1 }
+  ],
+  "position_dates": ["2026-08-25"],
+  "notable_positions": [
+    { "query": "амп минералс", "searcher": "Yandex", "position": 1, "url": "https://amp-minerals.ru/" },
+    { "query": "amp-minerals", "searcher": "Yandex", "position": 1, "url": "https://amp-minerals.ru/moskva/" },
+    { "query": "мраморная мука купить", "searcher": "Yandex", "position": 69, "url": "https://amp-minerals.ru/catalog/muka/" },
+    { "query": "производитель мраморного щебня", "searcher": "Yandex", "position": 91, "url": "https://amp-minerals.ru/" }
+  ],
+  "note": "Google had no TopVisor positions on the only check date, but GSC records 21 clicks and 2249 impressions. TopVisor is stale and not evidence of absent Google visibility. Frequency has not been confirmed."
+}

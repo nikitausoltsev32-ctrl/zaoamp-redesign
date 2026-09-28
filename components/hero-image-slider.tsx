@@ -6,7 +6,7 @@ import { m, AnimatePresence } from 'framer-motion'
 import { products } from '@/lib/data/products'
 
 const heroImages = products
-  .filter(p => p.image)
+  .filter(p => p.image && p.category !== 'landshaft')
   .map(p => ({
     src: p.image!,
     alt: p.name,

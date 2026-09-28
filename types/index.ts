@@ -20,7 +20,9 @@ export interface Product {
   id: string
   slug: string
   name: string
-  category: 'scherb' | 'kroshka' | 'muika' | 'otsev'
+  category: 'scherb' | 'kroshka' | 'muika' | 'otsev' | 'landshaft'
+  /** Порода для немраморных позиций (ландшафтный камень) */
+  rock?: string
   fraction: string
   pricePerTon?: number
   priceRetail?: number
@@ -33,7 +35,7 @@ export interface Product {
   faqs?: { question: string; answer: string }[]
   applications: string[]
   specifications: {
-    whiteness: string
+    whiteness?: string
     density?: string
     packaging: string[]
     frostResistance?: string

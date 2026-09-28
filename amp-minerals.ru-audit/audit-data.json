@@ -1,0 +1,745 @@
+{
+  "domain": "amp-minerals.ru",
+  "audit_date": "2026-09-12",
+  "pages_crawled": 40,
+  "sitemap_coverage": "100%",
+  "data_sources": [
+    "live crawl (40 URLs from sitemap.xml)",
+    "TopVisor API project 32272062 (positions snapshot 2026-08-25)",
+    "robots.txt / sitemap.xml / llms.txt",
+    "server-side TTFB and payload measurements",
+    "Yandex Webmaster API v4 (links/external) — выгружено 2026-09-12",
+    "PageSpeed Insights v5 / Lighthouse 12 — 4 страницы x 2 устройства, 2026-09-12"
+  ],
+  "summary": {
+    "health_score": 71,
+    "business_type": "B2B manufacturer of non-metallic materials (own marble quarry) with regional supply landing pages",
+    "top_findings": [
+      "Яндекс: ИКС 0, в поиске 19 из 40 страниц (вне индекса 11 из 13 товарных, весь блог, 3 страницы применений), 49 показов и 6 кликов за 90 дней",
+      "Позиционирование подтверждено измерением: «карьер/производитель/завод» — позиции 2-12, «купить» — 36-47",
+      "Мобильный LCP 5,0-8,5 с (категория «плохо») из-за того, что JS 818 КБ и CSS 55 КБ отдаются без сжатия; HTML при этом gzip. Desktop при этом 95-100",
+      "Внешних ссылок 4, уникальных доноров 2 (карточка Яндекс.Карт в трёх зеркалах + сокращатель ссылок) — данные Yandex Webmaster API. Главная причина нулевой коммерческой видимости",
+      "Нет H1 на /delivery/ и /contacts/ — старший заголовок начинается с h2",
+      "У Product-разметки нет offers на всех 13 товарных страницах — товарный rich result невозможен",
+      "20 из 40 title длиннее 70 символов (максимум 101) из-за жёсткого суффикса | ЗАО «АМП ИМПОРТ-ЭКСПОРТ»",
+      "TopVisor: 29 из 33 запросов вне top-100 Яндекса; в Google ноль позиций, включая брендовые",
+      "7 пустых фото-слотов (пунктирные заглушки) на главной, /about/, /moskva/, /tyumen/, /primenenie/shtukaturka/",
+      "www.amp-minerals.ru отдаёт 200 вместо 301 — раздвоенный хост",
+      "llms.txt содержит строку «фото объектов… не предоставлены… нельзя делать визуальные выводы» и числа, расходящиеся с каталогом",
+      "Плоская перелинковка: все 40 страниц имеют ровно 40 входящих ссылок (только меню и футер)"
+    ],
+    "quick_wins": [
+      "Отправить 21 непроиндексированную страницу на переобход в Вебмастере — бесплатно, 10 минут",
+      "Включить gzip/brotli на /_next/static/ в конфиге nginx — несколько строк, LCP с 8,5 до ~3-4 с",
+      "Задать главное зеркало в Яндекс.Вебмастере (main_mirror: null) вместе с 301 на www",
+      "Добавить H1 на /delivery/ и /contacts/ — 2 строки в app/delivery/page.tsx и app/contacts/page.tsx",
+      "301 с www на без-www в Caddyfile",
+      "Убрать maximum-scale=1, user-scalable=no из viewport",
+      "Исправить несклоняемые топонимы («для Москва» → «для Москвы») в city-landing-page.tsx",
+      "Добавить offers (AggregateOffer + priceCurrency + availability + url + seller) в Product",
+      "Синхронизировать числа в llms.txt с каталогом (12→13 позиций, семь→восемь фракций)",
+      "Убрать meta keywords с 40 страниц"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 78,
+      "weight": 0.22,
+      "what_works": [
+        "HTTP→HTTPS 301, /catalog→/catalog/ 308, слеши единообразны",
+        "robots.txt с явными Allow для GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Googlebot, bingbot",
+        "sitemap.xml: 40 URL, все отдают 200, у всех lastmod/changefreq/priority",
+        "Canonical self-referencing и абсолютный на всех 40 страницах",
+        "404 отдаёт 404, soft-404 нет",
+        "Верификации Google (K3sSDP3d...) и Яндекса (322f44e0...) в head"
+      ],
+      "findings": [
+        {
+          "title": "www.amp-minerals.ru отдаёт 200 вместо 301",
+          "severity": "High",
+          "description": "https://www.amp-minerals.ru/ возвращает 200 с Content-Length 180776, идентичным не-www версии. Canonical указывает на не-www, поэтому склейка частично работает, но хост раздвоен: ссылочный вес и поведенческие делятся между двумя адресами. /catalog/kroshka/ на www тоже 200.",
+          "recommendation": "Добавить 301 redirect с www на apex-домен на уровне Caddyfile."
+        },
+        {
+          "title": "Отсутствуют security-заголовки",
+          "severity": "Medium",
+          "description": "В ответе нет Strict-Transport-Security, X-Content-Type-Options, Referrer-Policy, Content-Security-Policy, X-Frame-Options. Присутствует X-Powered-By: Next.js (раскрытие стека).",
+          "recommendation": "Добавить заголовки в Caddyfile; poweredByHeader: false в next.config.js."
+        },
+        {
+          "title": "viewport блокирует зум",
+          "severity": "Medium",
+          "description": "meta viewport содержит maximum-scale=1, user-scalable=no на всех страницах.",
+          "recommendation": "Убрать maximum-scale и user-scalable из app/layout.tsx."
+        },
+        {
+          "title": "lastmod равен времени сборки",
+          "severity": "Low",
+          "description": "У / и /catalog/ lastmod = 2026-09-12T10:30:57.668Z — момент билда, а не правки контента. Статичные /about/ и /delivery/ при этом честно стоят на 2025-10-01.",
+          "recommendation": "Привязать lastmod к дате изменения контента в lib/data, а не к времени генерации sitemap."
+        },
+        {
+          "title": "Нет sitemap-индекса",
+          "severity": "Low",
+          "description": "/sitemap_index.xml отдаёт 404. При 40 URL некритично.",
+          "recommendation": "Добавить при росте до 200+ URL."
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 68,
+      "weight": 0.23,
+      "what_works": [
+        "E-E-A-T подкреплён фактами: собственный карьер, работа с 2004, паспорта качества, персональный автор статей (Артём Долгих, технолог, worksFor в разметке)",
+        "Паспортные числа с нормативами: белизна 96–98%, CaCO₃ ≥98–99%, Аэфф 72 Бк/кг при норме 370, F300, М200–М500",
+        "Категорийные страницы содержательные: /catalog/kroshka/ 854 слова, /catalog/shcheben/ 681",
+        "Страницы применений 516–680 слов, у всех FAQ и блок «Что указать в заявке»",
+        "Ни одного дубля title или description на 40 страницах"
+      ],
+      "findings": [
+        {
+          "title": "7 пустых фото-слотов на 6 страницах",
+          "severity": "High",
+          "description": "Вместо изображений отдаётся пунктирная рамка-заглушка. Главная — «Фото месторождения: блоки белого мрамора»; /about/ — 3 слота (сырьё, офис, интерьеры); /moskva/ и /tyumen/ — «Фото поставки: <город>» в герое (lg:block, aspect-[4/3], border-dashed); /primenenie/shtukaturka/ — «Фото применения». Это страницы, на которых держится позиционирование «производитель с собственным карьером».",
+          "recommendation": "Поставить реальные фото с производства и отгрузок. Стоки не подходят — теряется смысл позиционирования."
+        },
+        {
+          "title": "Тонкие страницы",
+          "severity": "High",
+          "description": "/contacts/ 113 слов, /documents/ 107, /delivery/ 165, /primenenie/ 189, /blog/ 251. /delivery/ и /documents/ транзакционно значимы для B2B-закупщика.",
+          "recommendation": "/delivery/ до 600+ слов (минимальные партии, сроки по регионам, ж/д отгрузка, документы с грузом). /documents/ до 400+ (что в паспорте, на какие ГОСТ/ТУ ссылается, как запросить на партию)."
+        },
+        {
+          "title": "Городские лендинги шаблонны, топонимы не склонены",
+          "severity": "High",
+          "description": "5 страниц по 420–472 слова с идентичной структурой H2. Заголовки «Основные направления для Москва» и «Рассчитать поставку в Москва» — падеж не согласован, машинная подстановка видна. Для Яндекса это прямой признак генерации.",
+          "recommendation": "Добавить падежные формы в данные городов; уникализировать текст реальными маршрутами, плечом от карьера и региональными кейсами."
+        },
+        {
+          "title": "Паспорта качества только на 6 позиций из 13",
+          "severity": "Medium",
+          "description": "/documents/ честно указывает 6 документов. Паспорт — ключевой аргумент против перекупщиков; 7 товаров без него теряют главный дифференциатор. Ссылки pasport-1-0-1-5.pdf, pasport-1-5-2-0.pdf, pasport-2-0-3-0.pdf имеют по 1 входящей ссылке, причём фракции 2.0–3.0 в каталоге нет.",
+          "recommendation": "Довыложить паспорта на остальные 7 позиций; удалить ссылку на несуществующую фракцию."
+        },
+        {
+          "title": "Блог мелкий и не обновляется",
+          "severity": "Medium",
+          "description": "5 статей по 344–766 слов, все с datePublished 2026-06-27, dateModified ни раз не менялся.",
+          "recommendation": "Наращивать до 1200–2000 слов под инфозапросы, обновлять dateModified."
+        },
+        {
+          "title": "Дубли H2 внутри товарных страниц",
+          "severity": "Medium",
+          "description": "H2 «Применение» встречается дважды на 9 товарных страницах (20-50, 0-5, 0-1, 0-2-0-5, 0-5-1-0, 1-0-1-5, 1-5-2-0, 2-3, muka-0-0-2).",
+          "recommendation": "Переименовать второй блок по смыслу: «Применение в производстве» / «Отрасли применения»."
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 62,
+      "weight": 0.2,
+      "what_works": [
+        "Уникальные title и description на всех 40 страницах",
+        "Description в диапазоне 119–182 символа, с конкретными характеристиками и УТП",
+        "Единственный H1 на 38 из 40 страниц",
+        "Полноценная структура H2 (3–8 на страницу) с FAQ и CTA-блоками"
+      ],
+      "findings": [
+        {
+          "title": "Нет H1 на /delivery/ и /contacts/",
+          "severity": "Critical",
+          "description": "На обеих страницах h1 отсутствует полностью. В app/delivery/page.tsx старший заголовок — h2 «Важная информация» (строка 47), в app/contacts/page.tsx — h2 «Напишите нам» (строка 33). Обе в sitemap с priority 0.6–0.7.",
+          "recommendation": "Добавить H1: «Доставка мраморной крошки и щебня по России» и «Контакты ЗАО «АМП ИМПОРТ-ЭКСПОРТ» — отдел продаж и отгрузка»."
+        },
+        {
+          "title": "20 из 40 title длиннее 70 символов",
+          "severity": "Critical",
+          "description": "Максимумы: /primenenie/landshaft/ 101, /chelyabinsk/ 100, /primenenie/selhoz/ 99, /blog/belizna-mikrokalsita-98-procentov/ 92, /primenenie/dorogi/ 90, /tyumen/ 90, /moskva/ 89. Причина одна — жёсткий суффикс «| ЗАО «АМП ИМПОРТ-ЭКСПОРТ»» (26 символов) на каждой странице.",
+          "recommendation": "Убрать суффикс везде, кроме /about/, /contacts/, /privacy/. Целевая длина 50–60 символов."
+        },
+        {
+          "title": "Плоская внутренняя перелинковка",
+          "severity": "High",
+          "description": "Все 40 страниц имеют ровно 40 входящих внутренних ссылок — это меню и футер, контекстных ссылок нет. Исключение — /blog/mramornaya-muka-primenenie/ с 1 входящей (не попала в футер). Внутренний вес распределён равномерно, приоритетные /catalog/kroshka/ и /catalog/shcheben/ не получают преимущества над /privacy/.",
+          "recommendation": "Добавить контекстные ссылки точными анкорами: из блога на товары, из /primenenie/* на фракции, из товаров на соседние фракции, из городских на приоритетные категории."
+        },
+        {
+          "title": "Title и H1 главной без позиционирования",
+          "severity": "Medium",
+          "description": "Title «Мраморная крошка и щебень купить в Екатеринбурге» — нет ни «производителя», ни «карьера», ни бренда. H1 «Мраморная крошка и щебень премиум-качества» — «премиум-качество» это шум, а не интент. При этом главная стоит 91-й по «производитель мраморного щебня» и по данным Вебмастера конвертят запросы с интентом «карьер/производитель».",
+          "recommendation": "Title: «Мраморная крошка и щебень от производителя — свой карьер» (55). H1: «Белая мраморная крошка и щебень с собственного карьера»."
+        },
+        {
+          "title": "Каннибализация запроса «мраморная мука»",
+          "severity": "Medium",
+          "description": "TopVisor отдал позицию 69 категории /catalog/muka/, а не товару /product/mramornaya-muka-0-0-2/. Две страницы конкурируют за один запрос.",
+          "recommendation": "Категорию — под «мраморная мука и микрокальцит купить оптом», товар — под «мраморная мука 0-0,2 мм»; из категории дать контекстную ссылку точным анкором."
+        },
+        {
+          "title": "meta keywords и og:type",
+          "severity": "Low",
+          "description": "meta keywords присутствует на всех 40 страницах (игнорируется поисковиками с 2009). og:type=website на товарах и статьях вместо product/article.",
+          "recommendation": "Удалить keywords; выставить корректный og:type."
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 72,
+      "weight": 0.1,
+      "what_works": [
+        "Ни одной ошибки парсинга JSON-LD на 40 страницах",
+        "Organization + WebSite на всех 40; Organization заполнен: foundingDate 2004, areaServed RU/BY/KZ, knowsAbout (7 тем), hasOfferCatalog, contactPoint, address, sameAs",
+        "BreadcrumbList на 38 страницах, цепочка до 4 уровней",
+        "FAQPage на товарных, категорийных, применениях, городских и /about/",
+        "Product на всех 13 товарах с sku, mpn, brand, manufacturer, category, additionalProperty (фракция, белизна, CaCO₃, упаковка), image",
+        "Article на всех 5 статьях с author.Person + jobTitle + worksFor, publisher, datePublished, dateModified, image 1200×630",
+        "ItemList на /catalog/ и трёх подкатегориях",
+        "LocalBusiness с geo и openingHoursSpecification"
+      ],
+      "findings": [
+        {
+          "title": "У Product нет offers",
+          "severity": "High",
+          "description": "Проверено на /product/mramornyj-shheben-10-20/, структурно одинаково на всех 13 товарах. Без offers Google не выдаёт товарный rich result, Яндекс не строит товарную карточку.",
+          "recommendation": "Цена по запросу оформляется валидно: offers: {\"@type\":\"AggregateOffer\",\"priceCurrency\":\"RUB\",\"availability\":\"https://schema.org/InStock\",\"url\":\"<страница>\",\"seller\":{\"@id\":\"https://amp-minerals.ru/#organization\"}}."
+        },
+        {
+          "title": "LocalBusiness дублируется на 6 URL с одинаковым geo",
+          "severity": "Medium",
+          "description": "/contacts/ и 5 городских страниц несут LocalBusiness с идентичными address (Екатеринбург, Савкова 29), telephone и geo 56.790945/60.487171. На /moskva/ это физический адрес в Екатеринбурге с areaServed City Москва. Шесть одинаковых сущностей без @id — шесть претендентов на одну организацию.",
+          "recommendation": "LocalBusiness оставить только на /contacts/ с @id; на городских использовать Service с areaServed City и provider ссылкой на тот же @id."
+        },
+        {
+          "title": "Нет @id — сущности не связаны в граф",
+          "severity": "Medium",
+          "description": "Ни Organization, ни WebSite, ни LocalBusiness не имеют @id. Поисковик видит 40 несвязанных объявлений организации вместо одной сущности.",
+          "recommendation": "Ввести https://amp-minerals.ru/#organization и #website, ссылаться из publisher, manufacturer, seller, WebSite.publisher."
+        },
+        {
+          "title": "Нет отзывов и рейтинга",
+          "severity": "Medium",
+          "description": "Product.aggregateRating и review отсутствуют. При этом карточка в Яндекс.Картах живая (sameAs отдаёт 200).",
+          "recommendation": "Перенести отзывы из Яндекс.Карт и разметить Review + aggregateRating на Organization."
+        },
+        {
+          "title": "Нет ИНН/ОГРН",
+          "severity": "Low",
+          "description": "Ни в HTML, ни в разметке (проверено на /about/, /contacts/, /moskva/) нет ИНН, ОГРН или КПП. Для ЗАО это базовый сигнал легитимности.",
+          "recommendation": "Добавить в футер и в Organization.taxID / vatID."
+        },
+        {
+          "title": "Organization.brand строкой, нет SearchAction и speakable",
+          "severity": "Low",
+          "description": "\"brand\": \"АМП\" вместо объекта Brand (в Product сделано правильно). WebSite без potentialAction SearchAction — поиска по сайту нет вообще при каталоге из 13 позиций с фракциями. speakable не размечен.",
+          "recommendation": "Привести brand к объекту; рассмотреть поиск по сайту; добавить speakable на FAQ."
+        }
+      ]
+    },
+    {
+      "name": "Performance (CWV)",
+      "score": 62,
+      "weight": 0.1,
+      "what_works": [
+        "Desktop 95-100 на всех четырёх проверенных страницах",
+        "CLS = 0 на всех 8 замерах — разметка идеальна",
+        "TBT 0-20 мс, bootup 0,2 с, main-thread 0,7 с — INP проблемой не будет",
+        "Картинки 65 КБ на 5 запросов, WebP, fetchPriority + preload на LCP, корректные sizes",
+        "Сервер: root document 30 мс, TTFB 67-116 мс, x-nextjs-cache HIT",
+        "Третьих сторон — ноль запросов",
+        "Кеширование иммутабельной статики max-age=31536000"
+      ],
+      "findings": [
+        {
+          "title": "Статика отдаётся без сжатия — мобильный LCP 5,0-8,5 с",
+          "severity": "Critical",
+          "description": "JS 818 КБ (22 запроса) и CSS 55 КБ отдаются без Content-Encoding при запросе с Accept-Encoding: br, gzip, deflate. HTML при этом gzip. Итог: вес страницы 1211 КБ, мобильный LCP 8,5 с на /catalog/kroshka/ и /product/*, 6,5 с на главной, 5,0 с на /moskva/ — категория «плохо» (порог 4 с). TBT при этом 12 мс, то есть главный поток свободен и дело в канале, а не в процессоре.",
+          "recommendation": "Включить gzip/brotli для application/javascript и text/css в конфиге nginx, лучше через gzip_static/brotli_static с предсжатыми файлами. Ожидаемый эффект: 818+55 КБ → 200-250 КБ, LCP до ~3-4 с."
+        },
+        {
+          "title": "Конфиг развёртывания в репозитории не описывает продакшен",
+          "severity": "High",
+          "description": "docker-compose.yml поднимает Caddy на 80/443 с encode gzip zstd, а живой сервер отвечает Server: nginx/1.28.3 (Ubuntu) и статику не сжимает. Конфига nginx в репозитории нет. Любая правка Caddyfile на продакшен не влияет.",
+          "recommendation": "Найти рабочий конфиг nginx, привести репозиторий в соответствие. Все серверные задачи (сжатие, 301 с www, security-заголовки) делать там."
+        },
+        {
+          "title": "225 КБ неиспользуемого JavaScript",
+          "severity": "Medium",
+          "description": "Lighthouse: экономия ~1200 мс. Чанк 293 используется на 12% (50 КБ из 57 лишние), 320 — 68 КБ лишних из 115, cfeffc86 — 50 КБ из 168. В next.config.js optimizePackageImports для framer-motion — основной подозреваемый на cfeffc86. Плюс 91 КБ legacy-полифилов всем посетителям.",
+          "recommendation": "dynamic() для чанка 293, разбор cfeffc86 анализатором, отказ от framer-motion на статичных страницах, проверить browserslist. Делать после включения сжатия — возможно, не понадобится."
+        },
+        {
+          "title": "Шрифты 212 КБ, не сабсетнуты, preload не у всех",
+          "severity": "Medium",
+          "description": "4 файла, 18% веса страницы. Один woff2 весит 95 КБ — признак отсутствия сабсета. Два файла обнаруживаются поздно (555 и 699 мс), в head только два rel=preload as=font.",
+          "recommendation": "Сабсетить под кириллицу через next/font subsets (обычно 20-35 КБ вместо 95), сократить число начертаний, добавить preload критическим."
+        },
+        {
+          "title": "Полевых Core Web Vitals нет",
+          "severity": "Info",
+          "description": "CrUX по домену отдаёт пустой loadingExperience — трафика недостаточно для формирования выборки (49 показов за 90 дней). Chrome UX Report API в проекте Google при этом ещё и не включён. PageSpeed Insights API работает.",
+          "recommendation": "Переснять после роста трафика (фаза A). Включить Chrome UX Report API в проекте Google."
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 74,
+      "weight": 0.1,
+      "what_works": [
+        "robots.txt явно пускает OAI-SearchBot, ChatGPT-User, GPTBot, ClaudeBot, PerplexityBot",
+        "llms.txt существует (7.7 КБ), структурирован по разделам, с описанием каждой ссылки",
+        "Контент цитируем: числа с единицами и нормативами (72 Бк/кг при норме 370, CaCO₃ ≥98%, F300, I класс радиоактивности, М200–М500)",
+        "FAQPage на 20+ страницах — прямой источник для AI-ответов",
+        "Article.author персональный с должностью и организацией",
+        "Полный SSR: весь текст в HTML, JS для рендера не нужен"
+      ],
+      "findings": [
+        {
+          "title": "llms.txt саботирует доверие к сайту",
+          "severity": "High",
+          "description": "Дословно: «Фото объектов, офиса и интерьеров пока не предоставлены. На страницах используются подписанные слоты, поэтому по ним нельзя делать визуальные выводы.» Внутренняя заметка в файле, который читают AI-системы: она сообщает модели, что визуал сайта — заглушки. И она правдива — 7 таких слотов действительно отдаются в HTML.",
+          "recommendation": "Сначала поставить реальные фото (см. Content Quality), затем удалить абзац."
+        },
+        {
+          "title": "Числа в llms.txt расходятся с сайтом",
+          "severity": "High",
+          "description": "llms.txt: «Каталог включает 12 позиций» и «Семь фракций от 0–1 до 5–10 мм». Сайт: /catalog/ — «13 позиций», /catalog/kroshka/ H1 — «8 фракций», причём в самом llms.txt перечислено 8 крошек.",
+          "recommendation": "Генерировать llms.txt из lib/data вместо ручного ведения."
+        },
+        {
+          "title": "Нет внешних подтверждений существования компании",
+          "severity": "Medium",
+          "description": "sameAs содержит только Telegram и Яндекс.Карты. Нет ЕГРЮЛ-агрегаторов (Rusprofile, List-org), нет отраслевых каталогов, нет Дзен и VC, хотя офсайт-контент там есть.",
+          "recommendation": "Расширить sameAs; AI-системы подтверждают компанию перекрёстными упоминаниями."
+        },
+        {
+          "title": "Нет визуальной даты обновления на страницах",
+          "severity": "Low",
+          "description": "dateModified есть только у статей и равен datePublished. Товарные и категорийные страницы не показывают свежесть.",
+          "recommendation": "Выводить дату актуализации на товарных и категорийных страницах."
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 90,
+      "weight": 0.05,
+      "what_works": [
+        "175 img на 40 страницах, ни одного без alt",
+        "Alt осмысленные и товарные: «Белая мраморная крошка 5-10 мм в биг-бэге», «Мраморный карьер - вид на добычу»",
+        "Все через next/image: WebP, ресайз под sizes, lazy ниже фолда",
+        "og:image 1200×630 с og:image:alt на всех страницах"
+      ],
+      "findings": [
+        {
+          "title": "og:image главной — фото товара, не производства",
+          "severity": "Low",
+          "description": "og:image главной — /images/products/kroshka-5-10.jpg. Для позиционирования «производитель с собственным карьером» сильнее работало бы изображение карьера или отгрузки.",
+          "recommendation": "Заменить после появления реальных фото карьера."
+        },
+        {
+          "title": "logo.png 111 КБ",
+          "severity": "Low",
+          "description": "См. Performance.",
+          "recommendation": "Пережать в SVG/WebP."
+        }
+      ]
+    }
+  ],
+  "topvisor": {
+    "project_id": 32272062,
+    "searchers": [
+      {
+        "name": "Yandex",
+        "region": "Россия (225)",
+        "region_index": 5,
+        "depth": "top-100",
+        "enabled": true
+      },
+      {
+        "name": "Google",
+        "region": "Россия (225)",
+        "region_index": 7,
+        "depth": "top-100",
+        "enabled": true
+      }
+    ],
+    "check_dates": [
+      "2026-08-25"
+    ],
+    "keywords_tracked": 33,
+    "groups": [
+      "Новая группа"
+    ],
+    "yandex_ranked": [
+      {
+        "keyword": "амп минералс",
+        "position": 1,
+        "url": "https://amp-minerals.ru/"
+      },
+      {
+        "keyword": "amp-minerals",
+        "position": 1,
+        "url": "https://amp-minerals.ru/moskva/"
+      },
+      {
+        "keyword": "мраморная мука купить",
+        "position": 69,
+        "url": "https://amp-minerals.ru/catalog/muka/"
+      },
+      {
+        "keyword": "производитель мраморного щебня",
+        "position": 91,
+        "url": "https://amp-minerals.ru/"
+      }
+    ],
+    "yandex_not_in_top100": 29,
+    "google_ranked": [],
+    "google_note": "Ноль позиций по всем 33 запросам, включая брендовые — требует проверки в GSC и повторного съёма",
+    "measurement_issues": [
+      "Один съём за всё время (2026-08-25) — нет динамики",
+      "Отслеживается только регион «Россия»; 5 городских лендингов без региональных замеров",
+      "33 запроса на 13 товаров × 5 городов × 6 применений — ядро не покрывает структуру сайта",
+      "Все запросы в одной группе — видимость по кластерам не считается"
+    ],
+    "recommended_regions": [
+      {
+        "city": "Екатеринбург",
+        "yandex_key": 54
+      },
+      {
+        "city": "Челябинск",
+        "yandex_key": 56
+      },
+      {
+        "city": "Тюмень",
+        "yandex_key": 55
+      },
+      {
+        "city": "Пермь",
+        "yandex_key": 50
+      },
+      {
+        "city": "Москва",
+        "yandex_key": 213
+      }
+    ]
+  },
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Фаза 0: Баги и блокеры",
+        "timeframe": "1 день",
+        "items": [
+          "H1 на /delivery/ (app/delivery/page.tsx) и /contacts/ (app/contacts/page.tsx)",
+          "301 с www на apex в Caddyfile",
+          "Убрать maximum-scale=1, user-scalable=no из viewport",
+          "Исправить несклоняемые топонимы в components/sections/city-landing-page.tsx",
+          "Проверить индексацию в Google Search Console (Coverage + Performance за 3 мес.)",
+          "Перезапустить съём позиций в TopVisor по обоим поисковикам"
+        ]
+      },
+      {
+        "name": "Фаза 1: Фото и контент",
+        "timeframe": "1–2 недели",
+        "items": [
+          "Закрыть 7 пустых фото-слотов реальными снимками карьера, офиса и отгрузок",
+          "Убрать из llms.txt абзац про «фото не предоставлены» (после появления фото)",
+          "Синхронизировать числа в llms.txt с каталогом",
+          "/delivery/ расширить до 600+ слов",
+          "/documents/ расширить до 400+ слов",
+          "Довыложить паспорта качества на 7 позиций из 13",
+          "Уникализировать 5 городских лендингов",
+          "Удалить ссылку на pasport-2-0-3-0.pdf (фракции нет в каталоге)"
+        ]
+      },
+      {
+        "name": "Фаза 2: On-Page SEO",
+        "timeframe": "1 неделя",
+        "items": [
+          "Переписать 20 длинных title, убрав суффикс бренда, до 50–60 символов",
+          "Title и H1 главной под позиционирование «производитель / собственный карьер»",
+          "Развести каннибализацию «мраморная мука» между категорией и товаром",
+          "Убрать дубли H2 «Применение» на 9 товарных страницах",
+          "Построить контекстную перелинковку вместо плоской меню+футер",
+          "Убрать meta keywords, исправить og:type"
+        ]
+      },
+      {
+        "name": "Фаза 3: Schema и AI-видимость",
+        "timeframe": "1 неделя",
+        "items": [
+          "Добавить offers в Product на 13 страницах",
+          "Ввести @id и связать Organization / WebSite / LocalBusiness в граф",
+          "Переделать LocalBusiness на городских страницах в Service + areaServed",
+          "Добавить ИНН/ОГРН в футер и Organization.taxID",
+          "Расширить sameAs: Rusprofile, List-org, Дзен, VC",
+          "Перенести отзывы из Яндекс.Карт в Review + aggregateRating",
+          "Добавить speakable на FAQ, brand привести к объекту"
+        ]
+      },
+      {
+        "name": "Фаза 4: Мониторинг и семантика",
+        "timeframe": "Постоянно",
+        "items": [
+          "Пересобрать проект TopVisor: добавить регионы 54/56/55/50/213",
+          "Расширить ядро до 150–200 запросов из lib/data/semantic-core.ts",
+          "Разбить ядро на группы по кластерам",
+          "Включить недельный съём позиций",
+          "Настроить security-заголовки и poweredByHeader: false",
+          "Почистить JS-бандл и legacy-полифилы",
+          "lastmod привязать к правке контента, а не к билду",
+          "Развивать блог: статьи 1200–2000 слов, обновление dateModified"
+        ]
+      }
+    ]
+  },
+  "out_of_scope": {
+    "note": "После добора 12.09.2026 закрыто: ссылочный профиль, индексация, ИКС, реальные запросы (Yandex Webmaster API). Остаётся:",
+    "items": [
+      "Индексация в Google — нужен GSC OAuth (client_secret.json)",
+      "Полевые CWV — нужен GOOGLE_API_KEY",
+      "DA/PA и спам-скор — нужен MOZ_API_KEY",
+      "Реальные частотности Wordstat — нужен YANDEX_DIRECT_TOKEN либо платный сбор в TopVisor",
+      "История домена — archive.org временно офлайн"
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": null,
+    "raw_onpage": "findings/raw-onpage-40-urls.txt",
+    "raw_topvisor": "findings/raw-topvisor-positions.txt",
+    "external_signals": "EXTERNAL-SIGNALS.md",
+    "keyword_plan": "KEYWORD-PLAN.md",
+    "keys_needed": "KEYS-NEEDED.md",
+    "yandex_webmaster": "YANDEX-WEBMASTER.md",
+    "performance": "PERFORMANCE.md"
+  },
+  "external_signals": {
+    "indexation": {
+      "yandex": {
+        "status": "indexed",
+        "evidence": "TopVisor 2026-08-25: 4 разных relevant_url определены (/, /moskva/, /catalog/muka/) — страницы в индексе",
+        "coverage": "неизвестно, нужен Яндекс.Вебмастер"
+      },
+      "bing": {
+        "status": "indexed",
+        "evidence": "DuckDuckGo site:amp-minerals.ru (индекс Bing) — 10 URL на первой странице: /, /about/, /catalog/, /catalog/shcheben/, /contacts/, /moskva/, /primenenie/, /product/mramornaya-kroshka-0-1/, /product/mramornaya-kroshka-0-5-1-0/, /product/mramornaya-muka-0-0-2/"
+      },
+      "google": {
+        "status": "unknown",
+        "evidence": "TopVisor 0 позиций по 33/33 включая брендовые; google.com site: → 302 антибот; GSC API без OAuth недоступен"
+      },
+      "blockers_found": "нет — noindex/nofollow отсутствуют во всём коде (grep по app/, lib/, components/ = 0 совпадений), meta robots index,follow на всех 40 страницах, robots.txt Allow, все 40 URL отдают 200, маршруты app/ полностью совпадают с sitemap",
+      "indexnow": "не настроен — ключа в public/ нет"
+    },
+    "backlinks": {
+      "status": "ИЗМЕРЕНО",
+      "source": "Yandex Webmaster API v4, links/external/history + links/external/samples, 2026-09-12",
+      "raw_file": "findings/yandex-links.json",
+      "total_external_links": 4,
+      "unique_real_donors": 2,
+      "history": {
+        "2026-05-01": 0,
+        "2026-05-24": 0,
+        "2026-06-05": 1,
+        "2026-07-14": 3,
+        "2026-09-06": 4
+      },
+      "all_links": [
+        {
+          "source": "https://yandex.ru/maps/org/amp_import_eksport/170350594774/",
+          "note": "карточка в Яндекс.Картах"
+        },
+        {
+          "source": "https://yandex.com.tr/maps/org/amp_import_eksport/170350594774/?lang=ru",
+          "note": "то же, турецкое зеркало Карт"
+        },
+        {
+          "source": "https://yandex.com/maps/org/amp_import_eksport/170350594774/",
+          "note": "то же, международное зеркало Карт"
+        },
+        {
+          "source": "https://shortenurls.eu/share/133587",
+          "note": "сокращатель ссылок, не упоминание компании"
+        }
+      ],
+      "verdict": "Ссылочного профиля нет. Три из четырёх ссылок — зеркала одной карточки в Картах, четвёртая — сокращатель. Это и есть причина 29 коммерческих запросов вне top-100 при 73/100 технического здоровья.",
+      "common_crawl_note": "Предыдущий вывод по Common Crawl снят как недостоверный (скрипт не завершается, ответ неотличим от недокачанного датасета). Данные Вебмастера его подтвердили, но опора теперь на них.",
+      "still_not_measured": "анкор-лист (Яндекс отдаёт только URL-пары), DA/PA/спам-скор (Moz), ссылочное конкурентов, ссылки по версии Google (GSC)"
+    },
+    "field_cwv": {
+      "status": "лабораторные получены, полевых нет",
+      "source": "PageSpeed Insights v5 / Lighthouse 12, 2026-09-12",
+      "crux_field_data": "отсутствует — недостаточно трафика для выборки; Chrome UX Report API в проекте Google не включён",
+      "lab_results": {
+        "/": {
+          "desktop": {
+            "score": 97,
+            "lcp_s": 1.3,
+            "cls": 0,
+            "tbt_ms": 10
+          },
+          "mobile": {
+            "score": 76,
+            "lcp_s": 6.5,
+            "cls": 0,
+            "tbt_ms": 20
+          }
+        },
+        "/catalog/kroshka/": {
+          "desktop": {
+            "score": 95,
+            "lcp_s": 1.5,
+            "cls": 0,
+            "tbt_ms": 10
+          },
+          "mobile": {
+            "score": 65,
+            "lcp_s": 8.5,
+            "cls": 0,
+            "tbt_ms": 10
+          }
+        },
+        "/product/mramornyj-shheben-10-20/": {
+          "desktop": {
+            "score": 97,
+            "lcp_s": 1.3,
+            "cls": 0,
+            "tbt_ms": 10
+          },
+          "mobile": {
+            "score": 65,
+            "lcp_s": 8.4,
+            "cls": 0,
+            "tbt_ms": 10
+          }
+        },
+        "/moskva/": {
+          "desktop": {
+            "score": 100,
+            "lcp_s": 0.7,
+            "cls": 0,
+            "tbt_ms": 0
+          },
+          "mobile": {
+            "score": 81,
+            "lcp_s": 5.0,
+            "cls": 0,
+            "tbt_ms": 0
+          }
+        }
+      },
+      "page_weight_kroshka_mobile": {
+        "total_kb": 1211,
+        "script_kb": 818,
+        "script_requests": 22,
+        "font_kb": 212,
+        "image_kb": 65,
+        "css_kb": 55,
+        "third_party": 0
+      },
+      "root_cause": "статика без Content-Encoding (JS и CSS), HTML при этом gzip",
+      "corrected_earlier_assumption": "Первоначальная гипотеза «826 КБ JS ударят по INP» неверна: TBT 0-20 мс, главный поток свободен. Проблема сетевая — LCP, не INP."
+    },
+    "yandex_webmaster": {
+      "source": "Yandex Webmaster API v4, 2026-09-12",
+      "raw_files": [
+        "findings/yandex-summary.json",
+        "findings/yandex-indexing.json",
+        "findings/yandex-queries.json",
+        "findings/yandex-links.json",
+        "findings/yandex-hosts.json"
+      ],
+      "sqi": 0,
+      "searchable_pages_count": 19,
+      "total_pages_in_sitemap": 40,
+      "excluded_pages_count": 0,
+      "site_problems": {},
+      "main_mirror": null,
+      "shows_90d": 49,
+      "clicks_90d": 6,
+      "queries_count": 38,
+      "pages_not_in_search": [
+        "/privacy/",
+        "/blog/",
+        "/blog/kak-vybrat-frakciyu-mramornoj-kroshki/",
+        "/blog/mramornyj-shcheben-vs-granitnyj/",
+        "/blog/radiacionnaya-bezopasnost-shchebnya-klass-1/",
+        "/blog/belizna-mikrokalsita-98-procentov/",
+        "/blog/mramornaya-muka-primenenie/",
+        "/primenenie/landshaft/",
+        "/primenenie/shtukaturka/",
+        "/primenenie/lkm/",
+        "/product/mramornyj-shheben-50-200/",
+        "/product/mramornyj-shheben-20-50/",
+        "/product/mramornyj-shheben-10-20/",
+        "/product/mramornaya-kroshka-0-5/",
+        "/product/mramornaya-kroshka-0-1/",
+        "/product/mramornaya-kroshka-0-2-0-5/",
+        "/product/mramornaya-kroshka-0-5-1-0/",
+        "/product/mramornaya-kroshka-1-5-2-0/",
+        "/product/mramornaya-kroshka-2-3/",
+        "/product/mramornaya-muka-0-0-2/",
+        "/product/mikrokaltsit-5-200-mkm/"
+      ],
+      "positioning_validated": {
+        "quarry_producer_intent_positions": "2-12 на 13 запросах",
+        "commercial_buy_intent_positions": "36-47 на 3 запросах",
+        "conclusion": "Принцип из CLAUDE.md («производитель с собственным карьером») подтверждён измерением. Лобовая борьба за «купить» против агрегаторов при ИКС 0 бессмысленна; рост — из кластера «карьер / производитель / завод»"
+      },
+      "uncovered_demand_visible_in_data": [
+        "«мраморный песок» — позиции 7-8, слова «песок» нет ни на одной из 40 страниц",
+        "паспорта качества — позиции 7-8, при этом /documents/ 107 слов и паспорта на 6 позиций из 13",
+        "мраморная мука в АПК — позиции 5-9, лучший кластер сайта",
+        "насыпная плотность по фракциям — позиция 3, сводной таблицы нет",
+        "дробление и фасовка на заказ — позиция 18, услуги на сайте нет"
+      ],
+      "caveat": "49 показов за 90 дней — очень малая выборка; средние позиции по запросам с 1-2 показами статистически шумные. Направление надёжно (13 запросов одного типа против 3 другого + совпадение с данными за июнь), точные цифры — нет."
+    }
+  },
+  "keyword_gap": {
+    "semantic_core_file": "lib/data/semantic-core.ts",
+    "semantic_core_queries": 71,
+    "semantic_core_frequency_source": "самодекларированные оценки, НЕ выгрузка Wordstat (указано в шапке файла)",
+    "topvisor_tracked": 33,
+    "overlap": 8,
+    "overlap_list": [
+      "мраморная крошка купить",
+      "мраморная крошка оптом",
+      "мраморный щебень купить",
+      "мраморный щебень оптом",
+      "мраморная мука купить",
+      "микрокальцит купить",
+      "микрокальцит оптом",
+      "мраморный щебень для бетона"
+    ],
+    "highest_estimated_not_tracked": [
+      "мраморный щебень (3000)",
+      "мраморная крошка (2500)",
+      "мраморная мука (1000)",
+      "микрокальцит (800)"
+    ],
+    "tracked_without_product": [
+      "мраморная крошка 10-20",
+      "мраморная крошка 20-50"
+    ],
+    "tracked_without_content": [
+      "коллоидный микрокальцит",
+      "галтованный мраморный щебень"
+    ],
+    "uncovered_commercial_clusters": [
+      "памятники и места захоронения — «могил» упоминается на 2 страницах, «памятник» на 0, отдельной страницы нет",
+      "мраморный отсев — 0 упоминаний",
+      "мраморный песок — 0 упоминаний",
+      "мраморная крошка для кровли — 0 упоминаний",
+      "белый щебень без слова «мраморный» — 2 упоминания"
+    ],
+    "schema_text_mismatch": "Product.additionalProperty «Упаковка» = «Навалом, Биг-бэги 1т, Биг-бэги 500кг», при этом мешки 25/50 кг упоминаются в тексте 19 страниц",
+    "wordstat_status": "TopVisor volume:0:225:1 / :2 / :3 и volume:1:225:1 = null по всем 33 запросам — частотность в проекте никогда не собиралась"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "robots": {
+    "status": 200,
+    "body": "User-Agent: OAI-SearchBot\nUser-Agent: ChatGPT-User\nUser-Agent: GPTBot\nUser-Agent: ClaudeBot\nUser-Agent: PerplexityBot\nUser-Agent: Googlebot\nUser-Agent: bingbot\nUser-Agent: YandexBot\nUser-Agent: YandexAdditional\nAllow: /\nDisallow: /api/\n\nUser-Agent: *\nAllow: /\nDisallow: /api/\n\nHost: https://amp-minerals.ru\nSitemap: https://amp-minerals.ru/sitemap.xml\n"
+  },
+  "sitemaps": [
+    "https://amp-minerals.ru/sitemap.xml"
+  ],
+  "redirects": {
+    "http": [
+      {
+        "url": "http://amp-minerals.ru/",
+        "status": 301
+      },
+      {
+        "url": "https://amp-minerals.ru/",
+        "status": 200
+      }
+    ],
+    "www": [
+      {
+        "url": "https://www.amp-minerals.ru/",
+        "status": 301
+      },
+      {
+        "url": "https://amp-minerals.ru/",
+        "status": 200
+      }
+    ]
+  },
+  "not_found": 308,
+  "sitemap_errors": [],
+  "sitemap_count": 48,
+  "static_compression": [
+    {
+      "url": "https://amp-minerals.ru/_next/static/chunks/webpack-c47be02978fdef57.js",
+      "status": 200,
+      "encoding": "br",
+      "cache": "max-age=31536000"
+    },
+    {
+      "url": "https://amp-minerals.ru/_next/static/css/29fd9f89353dfded.css",
+      "status": 200,
+      "encoding": "br",
+      "cache": "max-age=31536000"
+    },
+    {
+      "url": "https://amp-minerals.ru/_next/static/chunks/cfeffc86-78be86841cc89ca1.js",
+      "status": 200,
+      "encoding": "br",
+      "cache": "max-age=31536000"
+    },
+    {
+      "url": "https://amp-minerals.ru/_next/static/chunks/main-app-01cfb59c443f99e4.js",
+      "status": 200,
+      "encoding": "br",
+      "cache": "max-age=31536000"
+    },
+    {
+      "url": "https://amp-minerals.ru/_next/static/chunks/452-9fb5b6d7da0c4d0d.js",
+      "status": 200,
+      "encoding": "br",
+      "cache": "max-age=31536000"
+    },
+    {
+      "url": "https://amp-minerals.ru/_next/static/chunks/827-69720aa31548f2cb.js",
+      "status": 200,
+      "encoding": "br",
+      "cache": "max-age=31536000"
+    }
+  ],
+  "issues": {
+    "non_200": [],
+    "noindex": [],
+    "canonical_elsewhere": [],
+    "no_canonical": [],
+    "no_title": [],
+    "no_description": [],
+    "h1_not_one": [],
+    "duplicate_titles": [],
+    "duplicate_descriptions": [],
+    "thin_under_300_words": [
+      {
+        "url": "https://amp-minerals.ru/delivery/",
+        "words": 131
+      },
+      {
+        "url": "https://amp-minerals.ru/contacts/",
+        "words": 87
+      },
+      {
+        "url": "https://amp-minerals.ru/documents/",
+        "words": 62
+      },
+      {
+        "url": "https://amp-minerals.ru/blog/",
+        "words": 218
+      },
+      {
+        "url": "https://amp-minerals.ru/primenenie/",
+        "words": 152
+      }
+    ],
+    "images_without_alt": [],
+    "orphans": [],
+    "linked_but_not_in_sitemap": [
+      "https://amp-minerals.ru/documents/pasport-0-0-2.pdf",
+      "https://amp-minerals.ru/documents/pasport-0-2-0-5.pdf",
+      "https://amp-minerals.ru/documents/pasport-0-5-1-0.pdf",
+      "https://amp-minerals.ru/documents/pasport-1-0-1-5.pdf",
+      "https://amp-minerals.ru/documents/pasport-1-5-2-0.pdf",
+      "https://amp-minerals.ru/documents/pasport-2-0-3-0.pdf"
+    ],
+    "no_jsonld": []
+  }
+}
